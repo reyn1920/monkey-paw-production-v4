@@ -1,0 +1,69 @@
+{
+  "linly_talker": {
+    "url": "http://localhost:7860",
+    "models": {
+      "llm": "gpt-3.5-turbo",
+      "tts": "edge-tts",
+      "avatar": "sadtalker"
+    },
+    "settings": {
+      "quality": "high",
+      "fps": 24,
+      "resolution": "1920x1080"
+    }
+  },
+  "blender": {
+    "executable_path": "blender",
+    "render_settings": {
+      "resolution_x": 1920,
+      "resolution_y": 1080,
+      "fps": 24,
+      "samples": 128,
+      "engine": "CYCLES"
+    },
+    "environments": {
+      "studio": {
+        "lighting": "three_point",
+        "backdrop": "neutral_gray"
+      },
+      "outdoor": {
+        "lighting": "hdri",
+        "environment": "natural"
+      }
+    }
+  },
+  "resolve": {
+    "project_settings": {
+      "timeline_resolution": "1920x1080",
+      "timeline_framerate": "24",
+      "color_space": "Rec.709"
+    },
+    "render_settings": {
+      "format": "H.264",
+      "quality": "high",
+      "bitrate": "10000"
+    },
+    "ai_features": {
+      "voice_convert": false,
+      "auto_subtitles": true,
+      "scene_detection": true
+    }
+  },
+  "output": {
+    "temp_directory": "/tmp/ai_pipeline",
+    "final_directory": "/Users/thomasbrianreynolds/online production/output",
+    "cleanup_temp": true,
+    "backup_intermediates": false
+  },
+  "performance": {
+    "max_workers": 4,
+    "gpu_acceleration": true,
+    "memory_limit_gb": 16,
+    "timeout_seconds": 600
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "/tmp/ai_pipeline.log",
+    "console": true
+  }
+}

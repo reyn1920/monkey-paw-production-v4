@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Monkey Paw: Launch All",
+      "type": "shell",
+      "command": "zsh ./launch_all.zsh",
+      "group": { "kind": "build", "isDefault": true },
+      "options": { "cwd": "${workspaceFolder}" }
+    },
+    {
+      "label": "Monkey Paw: Diagnostics",
+      "type": "shell",
+      "command": "zsh ./tools/project-doctor/scripts/diagnose_all.zsh .",
+      "options": { "cwd": "${workspaceFolder}" }
+    },
+    {
+      "label": "Monkey Paw: Build Comparison",
+      "type": "shell",
+      "command": "python3 ./tools/project-doctor/scripts/build_comparison.py",
+      "options": { "cwd": "${workspaceFolder}" }
+    },
+    {
+      "label": "Monkey Paw: Two-Pass Audit",
+      "type": "shell",
+      "command": "zsh ./tools/nocode_coder_stack/scripts/run_two_pass_audit.zsh .",
+      "options": { "cwd": "${workspaceFolder}" }
+    },
+    {
+      "label": "Monkey Paw: Go-Live Robust",
+      "type": "shell",
+      "command": "zsh ./tools/nocode_coder_stack/scripts/go_live_local.zsh",
+      "options": { "cwd": "${workspaceFolder}" }
+    },
+    {
+      "label": "Monkey Paw: Run All",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Monkey Paw: Launch All",
+        "Monkey Paw: Diagnostics",
+        "Monkey Paw: Build Comparison",
+        "Monkey Paw: Two-Pass Audit",
+        "Monkey Paw: Go-Live Robust"
+      ]
+    }
+  ]
+}

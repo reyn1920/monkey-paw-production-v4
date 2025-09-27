@@ -1,0 +1,91 @@
+{
+  "timezone": "America/New_York",
+  "upload_lead_minutes": 20,
+  "publish_retry": { "retries": 3, "backoff_sec": 60 },
+  "channels": [
+    {
+      "id": "UC_fz1kiUOIDz5-VtVtKn7OQ",
+      "handle": "@therightperspective7777",
+      "name": "The Right Perspective",
+      "slot_local": "18:00",
+      "defaults": {
+        "categoryId": "25",
+        "language": "en",
+        "madeForKids": false,
+        "license": "youtube",
+        "default_visibility": "private",
+        "allow_comments": true,
+        "allow_embedding": true,
+        "tags": ["politics", "news", "conservative", "analysis"],
+        "title_pattern": "Tonight: {topic} — {hook}",
+        "description_footer": "\n—\nOpinions are my own. Sources: Fox News & public records.\n"
+      },
+      "thumb_template": "assets/thumbs/politics/default.psd",
+      "cards_rules": { "after_seconds": 90, "link": "latest" },
+      "endscreen_rules": { "best_for_viewer": true, "latest_upload": true }
+    },
+    {
+      "id": "UC8pIkBnof0r5Fh6h5nxPh7g",
+      "handle": "@NextGenTechToday",
+      "name": "Next Gen Tech Today",
+      "slot_local": "20:00",
+      "defaults": {
+        "categoryId": "28",
+        "language": "en",
+        "madeForKids": false,
+        "license": "youtube",
+        "default_visibility": "private",
+        "allow_comments": true,
+        "allow_embedding": true,
+        "tags": ["tech", "gadgets", "reviews"],
+        "title_pattern": "{product} Review — {value_claim}",
+        "description_footer": "\n—\nSome links may be affiliates. Prices subject to change.\n"
+      },
+      "thumb_template": "assets/thumbs/tech/default.psd",
+      "cards_rules": { "after_seconds": 75, "link": "playlist:Reviews" },
+      "endscreen_rules": { "two_recent": true }
+    },
+    {
+      "id": "UC_p_3vPbe6gpM8VK2uF2B6Q",
+      "handle": "@EcoWellLiving",
+      "name": "EcoWell Living",
+      "slot_local": "16:00",
+      "defaults": {
+        "categoryId": "22",
+        "language": "en",
+        "madeForKids": false,
+        "license": "youtube",
+        "default_visibility": "private",
+        "allow_comments": true,
+        "allow_embedding": true,
+        "tags": ["wellness", "nutrition", "eco", "sustainable"],
+        "title_pattern": "Daily EcoWell: {benefit} in {mins} mins",
+        "description_footer": "\n—\nNot medical advice. For education only. Affiliate links may appear.\n"
+      },
+      "thumb_template": "assets/thumbs/eco/default.psd",
+      "cards_rules": { "after_seconds": 60, "link": "playlist:Guides" },
+      "endscreen_rules": { "best_for_viewer": true }
+    },
+    {
+      "id": "UC4wNMA9Xi0aJ_9kvJy6KBTQ",
+      "handle": "@AITrendReports",
+      "name": "AI Trend Reports",
+      "slot_local": "19:00",
+      "defaults": {
+        "categoryId": "27",
+        "language": "en",
+        "madeForKids": false,
+        "license": "youtube",
+        "default_visibility": "private",
+        "allow_comments": true,
+        "allow_embedding": true,
+        "tags": ["AI", "machine learning", "research", "education"],
+        "title_pattern": "AI Briefing: {topic} — {why_now}",
+        "description_footer": "\n—\nEducation only. Some tools may be affiliates.\n"
+      },
+      "thumb_template": "assets/thumbs/ai/default.psd",
+      "cards_rules": { "after_seconds": 120, "link": "playlist:Deep Dives" },
+      "endscreen_rules": { "latest_upload": true, "playlist": "Deep Dives" }
+    }
+  ]
+}

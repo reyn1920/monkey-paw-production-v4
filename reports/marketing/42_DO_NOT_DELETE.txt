@@ -1,0 +1,51 @@
+# DO NOT DELETE - Critical Directory Marker
+
+This file serves as a critical marker for the tools/dnd (Do Not Delete) directory.
+
+## Purpose
+This directory and its contents are protected by the Trae AI project's persistence guard system and should NEVER be deleted or modified without proper authorization.
+
+## Protection Level: CRITICAL
+- This file is monitored by the persistence guard system
+- Any modification or deletion will trigger security alerts
+- Automated backups are maintained for this directory
+- File integrity is verified through checksums
+
+## Contents Protection
+The following items in this directory are under critical protection:
+- Configuration files
+- Security markers
+- System integrity files
+- Deployment artifacts
+
+## Warning
+⚠️  CRITICAL WARNING ⚠️
+Deleting or modifying files in this directory may:
+- Break the project's security system
+- Cause deployment failures
+- Trigger integrity violations
+- Result in system instability
+
+## Emergency Recovery
+If files in this directory are accidentally modified or deleted:
+1. Stop all running processes immediately
+2. Run: ./tools/audits/persist_guard.sh --restore
+3. Verify integrity: ./tools/audits/persist_guard.sh --check
+4. Contact the system administrator
+
+## Maintenance
+This file is automatically maintained by:
+- Persistence Guard System (tools/audits/persist_guard.sh)
+- Pre-commit hooks (tools/hooks/precommit_guard.sh)
+- Pre-push hooks (tools/hooks/prepush_guard.sh)
+- Rules checking system (run_rules_check.sh)
+
+## Last Updated
+Generated: 2025-01-28
+System: Trae AI Project Rules Framework
+Version: 1.0.0
+
+---
+
+**REMEMBER: This directory and its contents are CRITICAL to system operation.**
+**Always use proper procedures when working with protected files.**

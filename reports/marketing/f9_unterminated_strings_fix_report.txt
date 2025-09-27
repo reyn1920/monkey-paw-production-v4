@@ -1,0 +1,338 @@
+Unterminated String Literals Fix Report
+==================================================
+
+Total files processed: 29999
+Files fixed: 277
+Total issues fixed: 1266
+
+Fixed Files:
+  ✅ fix_unterminated_strings.py - Fixed 18 issues
+  ✅ ultimate_syntax_fixer.py - Fixed 18 issues
+  ✅ final_verification.py - Fixed 4 issues
+  ✅ nuclear_syntax_fixer.py - Fixed 35 issues
+  ✅ production_debug_cleaner.py - Fixed 14 issues
+  ✅ production_readiness_validator.py - Fixed 15 issues
+  ✅ verify_project.py - Fixed 2 issues
+  ✅ backup_20250916_010932/verify_project.py - Fixed 2 issues
+  ✅ venv_creative/lib/python3.13/site-packages/pip/_internal/operations/build/wheel_editable.py - Fixed 3 issues
+  ✅ venv_creative/lib/python3.13/site-packages/pip/_internal/operations/build/wheel.py - Fixed 3 issues
+  ✅ venv_creative/lib/python3.13/site-packages/pip/_internal/operations/build/build_tracker.py - Fixed 6 issues
+  ✅ venv_creative/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/imageio_ffmpeg/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/selenium/webdriver/common/actions/input_device.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/oauthlib/openid/__init__.py - Fixed 8 issues
+  ✅ venv_stable/lib/python3.11/site-packages/mpmath/functions/factorials.py - Fixed 8 issues
+  ✅ venv_stable/lib/python3.11/site-packages/redis/commands/search/document.py - Fixed 8 issues
+  ✅ venv_stable/lib/python3.11/site-packages/IPython/lib/__init__.py - Fixed 8 issues
+  ✅ venv_stable/lib/python3.11/site-packages/executing/_pytest_utils.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/waitress/receiver.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/numpy/distutils/line_endings.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/numpy/distutils/command/build_scripts.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/numpy/core/tests/test_scalarinherit.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/numpy/lib/tests/test__version.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/numpy/matrixlib/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/paypalrestsdk/exceptions.py - Fixed 44 issues
+  ✅ venv_stable/lib/python3.11/site-packages/PIL/_tkinter_finder.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/pip/_internal/operations/build/wheel_editable.py - Fixed 3 issues
+  ✅ venv_stable/lib/python3.11/site-packages/pip/_internal/operations/build/wheel.py - Fixed 3 issues
+  ✅ venv_stable/lib/python3.11/site-packages/pip/_internal/operations/build/build_tracker.py - Fixed 6 issues
+  ✅ venv_stable/lib/python3.11/site-packages/sklearn/experimental/tests/test_enable_hist_gradient_boosting.py - Fixed 8 issues
+  ✅ venv_stable/lib/python3.11/site-packages/sklearn/externals/__init__.py - Fixed 8 issues
+  ✅ venv_stable/lib/python3.11/site-packages/joblib/test/test_func_inspect_special_encoding.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/fastapi/openapi/constants.py - Fixed 2 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/python/checkpoint/checkpoint_context.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/python/saved_model/saved_model.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/python/layers/convolutional.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/python/layers/pooling.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/python/distribute/cluster_resolver/tpu_cluster_resolver.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/python/ops/sdca_ops.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/autograph/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/autograph/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/xla/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/xla/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/experimental/dtensor/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/experimental/dlpack/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/experimental/numpy/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/experimental/numpy/random/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/experimental/extension_type/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/experimental/tensorrt/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/strings/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v1/compat/v2/compat/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/autograph/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/autograph/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/xla/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/xla/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/experimental/dtensor/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/experimental/dlpack/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/experimental/numpy/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/experimental/numpy/random/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/experimental/extension_type/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/experimental/tensorrt/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/strings/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/compat/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/compat/v2/compat/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/autograph/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/tf2/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/types/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/types/data/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/saved_model/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/saved_model/load/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/test/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/test/combinations/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/decorator/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/dispatch/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/feature_column/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/graph_util/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/mixed_precision/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/function/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/distribute/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/distribute/combinations/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/distribute/multi_process_runner/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/distribute/interim/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/eager_context/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/train/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/tracking/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/ops/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/monitoring/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/smart_cond/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__internal__/nest/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/types/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/types/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/types/experimental/distributed/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/saved_model/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/saved_model/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/linalg/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/linalg/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/nn/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/nn/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/ragged/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/test/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/test/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/autodiff/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/config/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/config/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/config/optimizer/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/config/threading/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/lite/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/lite/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/lite/experimental/authoring/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/feature_column/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/debugging/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/debugging/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/io/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/io/gfile/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/raw_ops/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/graph_util/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/lookup/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/lookup/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__operators__/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/math/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/math/special/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/image/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/dtypes/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/dtypes/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/quantization/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/quantization/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/mlir/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/mlir/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/distribute/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/distribute/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/distribute/experimental/partitioners/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/distribute/experimental/coordinator/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/distribute/experimental/rpc/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/distribute/coordinator/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/distribute/cluster_resolver/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/audio/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/version/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/sets/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/sysconfig/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/train/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/train/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/queue/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/profiler/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/profiler/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/profiler/experimental/server/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/profiler/experimental/client/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/sparse/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/tpu/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/tpu/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/tpu/experimental/embedding/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/errors/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/bitwise/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/random/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/random/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/data/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/data/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/data/experimental/service/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/signal/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/nest/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/summary/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/summary/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/autograph/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/tf2/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/types/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/types/data/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/saved_model/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/saved_model/load/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/test/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/test/combinations/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/decorator/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/dispatch/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/feature_column/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/graph_util/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/mixed_precision/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/function/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/distribute/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/distribute/combinations/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/distribute/multi_process_runner/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/distribute/interim/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/eager_context/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/train/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/tracking/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/ops/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/monitoring/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/smart_cond/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__internal__/nest/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/types/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/types/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/types/experimental/distributed/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/saved_model/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/saved_model/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/linalg/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/linalg/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/nn/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/nn/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/ragged/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/test/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/test/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/autodiff/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/config/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/config/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/config/optimizer/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/config/threading/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/lite/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/lite/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/lite/experimental/authoring/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/feature_column/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/debugging/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/debugging/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/io/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/io/gfile/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/raw_ops/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/graph_util/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/lookup/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/lookup/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/__operators__/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/math/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/math/special/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/image/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/dtypes/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/dtypes/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/quantization/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/quantization/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/mlir/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/mlir/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/distribute/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/distribute/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/distribute/experimental/partitioners/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/distribute/experimental/coordinator/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/distribute/experimental/rpc/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/distribute/coordinator/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/distribute/cluster_resolver/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/audio/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/version/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/sets/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/sysconfig/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/train/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/train/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/queue/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/profiler/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/profiler/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/profiler/experimental/server/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/profiler/experimental/client/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/sparse/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/tpu/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/tpu/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/tpu/experimental/embedding/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/errors/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/bitwise/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/random/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/random/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/data/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/data/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/data/experimental/service/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/signal/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/nest/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/summary/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/tensorflow/_api/v2/summary/experimental/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/spacy/lang/eu/lex_attrs.py - Fixed 8 issues
+  ✅ venv_stable/lib/python3.11/site-packages/reportlab/pdfbase/__init__.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/lxml/html/ElementSoup.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/scipy/version.py - Fixed 8 issues
+  ✅ venv_stable/lib/python3.11/site-packages/scipy/linalg/tests/test_solve_toeplitz.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/scipy/io/matlab/tests/test_miobase.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/scipy/_lib/pyprima/common/present.py - Fixed 8 issues
+  ✅ venv_stable/lib/python3.11/site-packages/scipy/special/tests/test_pcf.py - Fixed 4 issues
+  ✅ venv_stable/lib/python3.11/site-packages/stevedore/tests/test_cache.py - Fixed 12 issues
+  ✅ venv311/lib/python3.11/site-packages/pip/_internal/operations/build/wheel_editable.py - Fixed 3 issues
+  ✅ venv311/lib/python3.11/site-packages/pip/_internal/operations/build/wheel.py - Fixed 3 issues
+  ✅ venv311/lib/python3.11/site-packages/pip/_internal/operations/build/build_tracker.py - Fixed 6 issues
+  ✅ venv311/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/__init__.py - Fixed 4 issues
+
+Files Still With Issues:
+  ❌ fix_unterminated_strings.py
+  ❌ ultimate_syntax_fixer.py
+  ❌ final_verification.py
+  ❌ nuclear_syntax_fixer.py
+  ❌ production_debug_cleaner.py
+  ❌ production_readiness_validator.py
+  ❌ venv_creative/lib/python3.13/site-packages/pip/_internal/operations/build/wheel_editable.py
+  ❌ venv_creative/lib/python3.13/site-packages/pip/_internal/operations/build/wheel.py
+  ❌ venv_creative/lib/python3.13/site-packages/pip/_internal/operations/build/build_tracker.py
+  ❌ venv_creative/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/__init__.py
+  ❌ venv_stable/lib/python3.11/site-packages/imageio_ffmpeg/__init__.py
+  ❌ venv_stable/lib/python3.11/site-packages/selenium/webdriver/common/actions/input_device.py
+  ❌ venv_stable/lib/python3.11/site-packages/oauthlib/openid/__init__.py
+  ❌ venv_stable/lib/python3.11/site-packages/mpmath/functions/factorials.py
+  ❌ venv_stable/lib/python3.11/site-packages/redis/commands/search/document.py
+  ❌ venv_stable/lib/python3.11/site-packages/IPython/lib/__init__.py
+  ❌ venv_stable/lib/python3.11/site-packages/executing/_pytest_utils.py
+  ❌ venv_stable/lib/python3.11/site-packages/waitress/receiver.py
+  ❌ venv_stable/lib/python3.11/site-packages/numpy/distutils/line_endings.py
+  ❌ venv_stable/lib/python3.11/site-packages/numpy/distutils/command/build_scripts.py
+  ❌ venv_stable/lib/python3.11/site-packages/numpy/core/tests/test_scalarinherit.py
+  ❌ venv_stable/lib/python3.11/site-packages/numpy/lib/tests/test__version.py
+  ❌ venv_stable/lib/python3.11/site-packages/numpy/matrixlib/__init__.py
+  ❌ venv_stable/lib/python3.11/site-packages/paypalrestsdk/exceptions.py
+  ❌ venv_stable/lib/python3.11/site-packages/PIL/_tkinter_finder.py
+  ❌ venv_stable/lib/python3.11/site-packages/pip/_internal/operations/build/wheel_editable.py
+  ❌ venv_stable/lib/python3.11/site-packages/pip/_internal/operations/build/wheel.py
+  ❌ venv_stable/lib/python3.11/site-packages/pip/_internal/operations/build/build_tracker.py
+  ❌ venv_stable/lib/python3.11/site-packages/sklearn/experimental/tests/test_enable_hist_gradient_boosting.py
+  ❌ venv_stable/lib/python3.11/site-packages/sklearn/externals/__init__.py
+  ❌ venv_stable/lib/python3.11/site-packages/joblib/test/test_func_inspect_special_encoding.py
+  ❌ venv_stable/lib/python3.11/site-packages/fastapi/openapi/constants.py
+  ❌ venv_stable/lib/python3.11/site-packages/tensorflow/python/checkpoint/checkpoint_context.py
+  ❌ venv_stable/lib/python3.11/site-packages/tensorflow/python/saved_model/saved_model.py
+  ❌ venv_stable/lib/python3.11/site-packages/tensorflow/python/layers/convolutional.py
+  ❌ venv_stable/lib/python3.11/site-packages/tensorflow/python/layers/pooling.py
+  ❌ venv_stable/lib/python3.11/site-packages/tensorflow/python/distribute/cluster_resolver/tpu_cluster_resolver.py
+  ❌ venv_stable/lib/python3.11/site-packages/tensorflow/python/ops/sdca_ops.py
+  ❌ venv_stable/lib/python3.11/site-packages/spacy/lang/eu/lex_attrs.py
+  ❌ venv_stable/lib/python3.11/site-packages/reportlab/pdfbase/__init__.py
+  ❌ venv_stable/lib/python3.11/site-packages/lxml/html/ElementSoup.py
+  ❌ venv_stable/lib/python3.11/site-packages/scipy/version.py
+  ❌ venv_stable/lib/python3.11/site-packages/scipy/linalg/tests/test_solve_toeplitz.py
+  ❌ venv_stable/lib/python3.11/site-packages/scipy/io/matlab/tests/test_miobase.py
+  ❌ venv_stable/lib/python3.11/site-packages/scipy/_lib/pyprima/common/present.py
+  ❌ venv_stable/lib/python3.11/site-packages/scipy/special/tests/test_pcf.py
+  ❌ venv_stable/lib/python3.11/site-packages/stevedore/tests/test_cache.py
+  ❌ venv311/lib/python3.11/site-packages/pip/_internal/operations/build/wheel_editable.py
+  ❌ venv311/lib/python3.11/site-packages/pip/_internal/operations/build/wheel.py
+  ❌ venv311/lib/python3.11/site-packages/pip/_internal/operations/build/build_tracker.py
+  ❌ venv311/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/__init__.py

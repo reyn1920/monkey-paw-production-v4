@@ -1,0 +1,30 @@
+ONE-PASTE — MONKEY PAW PRODUCTIONS V4 (EVERYTHING LIVE, ONE ZIP)
+
+1) Unzip and open a terminal in ./monkey-paw-productions-v4
+2) Start live API (installs free deps if needed):
+   zsh ./scripts/run_local.zsh
+3) In a new terminal, run live check:
+   zsh ./scripts/live_check.zsh
+4) Approve real publishing AFTER live check passes:
+   zsh ./scripts/approve_publish.zsh
+
+Use built-in tools from repo root (same folder):
+- Diagnostics (read-only):      zsh ./tools/project-doctor/scripts/diagnose_all.zsh
+- Build comparison doc:         python3 ./tools/project-doctor/scripts/build_comparison.py
+- Two-pass verify & go-live:    zsh ./tools/nocode_coder_stack/scripts/run_all.zsh
+
+Key endpoints:
+- POST /api/research              {topic, source, content}
+- POST /api/research/rss          {url, limit}
+- POST /api/draft                 {research_id, content, avatar?}
+- POST /api/repurpose             {draft_id, variants}
+- POST /api/repurpose/render      {draft_id, template}
+- POST /api/repurpose/site        {markdown}
+- POST /api/qa/score              {draft_id}
+- POST /api/pipeline/run          {research_id}
+- POST /api/pipeline/publish
+- POST /api/admin/approve_publish/{true|false}
+- POST /api/admin/scheduler/{true|false}
+- GET  /api/health, /api/status
+
+Everything is add-only and zero-cost. Nothing gets published until approval is on.

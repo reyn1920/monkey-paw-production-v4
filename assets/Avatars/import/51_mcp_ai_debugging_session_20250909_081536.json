@@ -1,0 +1,411 @@
+{
+  "session_metadata": {
+    "export_timestamp": 1757420136.237962,
+    "total_sessions": 3,
+    "services_configured": [
+      "abacus",
+      "gemini",
+      "chatgpt"
+    ],
+    "browser_config": {
+      "headless": false,
+      "args": [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-blink-features=AutomationControlled",
+        "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+      ]
+    }
+  },
+  "ai_services": {
+    "abacus": {
+      "name": "Abacus AI",
+      "url": "https://apps.abacus.ai/",
+      "selectors": {
+        "input": "textarea, input[type=\"text\"], .chat-input, [contenteditable=\"true\"]",
+        "submit": "button[type=\"submit\"], .send-button, .submit-btn",
+        "response": ".response, .message, .chat-message, .output"
+      },
+      "wait_times": {
+        "navigation": 5,
+        "input_fill": 2,
+        "response_wait": 10
+      }
+    },
+    "gemini": {
+      "name": "Google Gemini",
+      "url": "https://gemini.google.com/app",
+      "selectors": {
+        "input": "div[contenteditable=\"true\"], .ProseMirror, rich-textarea",
+        "submit": "button[aria-label*=\"Send\"], button[data-testid=\"send-button\"]",
+        "response": "[data-message-author-role=\"assistant\"], .model-response"
+      },
+      "wait_times": {
+        "navigation": 6,
+        "input_fill": 2,
+        "response_wait": 12
+      }
+    },
+    "chatgpt": {
+      "name": "ChatGPT",
+      "url": "https://chatgpt.com/",
+      "selectors": {
+        "input": "#prompt-textarea, .ProseMirror",
+        "submit": "button[data-testid=\"send-button\"]",
+        "response": "[data-message-author-role=\"assistant\"] .markdown"
+      },
+      "wait_times": {
+        "navigation": 4,
+        "input_fill": 1,
+        "response_wait": 8
+      }
+    }
+  },
+  "sessions": [
+    {
+      "service": "chatgpt",
+      "service_name": "ChatGPT",
+      "url": "https://chatgpt.com/",
+      "query": "I need help debugging this error:\n\n**Error Message:**\nsqlite3.OperationalError: no such column: search_keywords\n\n**Code Context:**\n\n# Database query that failed:\ncursor.execute(\n    \"SELECT task_id, search_keywords FROM api_discovery_tasks WHERE search_keywords LIKE ?\",\n    ('%python%',)\n)\n\n# Full error traceback:\n# File \"research_tools.py\", line 245, in search_tasks\n#   cursor.execute(query, params)\n# sqlite3.OperationalError: no such column: search_keywords\n\n# Table schema (current):\n# CREATE TABLE api_discovery_tasks (\n#     task_id INTEGER PRIMARY KEY,\n#     task_name TEXT NOT NULL,\n#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n# );\n    \n\n**What I need:**\n1. Root cause analysis of the error\n2. Step-by-step solution with code examples\n3. Prevention strategies to avoid similar issues\n4. Best practices for handling this type of error\n\nPlease provide a comprehensive analysis and solution.",
+      "final_response": "I can help fix this SQLite error. The 'search_keywords' column doesn't exist. Quick fix: ALTER TABLE api_discovery_tasks ADD COLUMN search_keywords TEXT; For long-term, implement a migration system with proper error handling.",
+      "screenshots": [
+        "chatgpt_initial_1757420116",
+        "chatgpt_response_1757420127"
+      ],
+      "timestamp": 1757420110.426362,
+      "success": true,
+      "total_duration": 18.808605909347534,
+      "error": null,
+      "mcp_calls": [
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_navigate",
+          "args": {
+            "url": "https://chatgpt.com/",
+            "launchOptions": {
+              "headless": false,
+              "args": [
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-blink-features=AutomationControlled",
+                "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+              ]
+            },
+            "allowDangerous": true
+          },
+          "timestamp": 1757420110.4263859,
+          "success": true,
+          "result": {
+            "status": "navigated",
+            "url": "https://chatgpt.com/"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_screenshot",
+          "args": {
+            "name": "chatgpt_initial_1757420116",
+            "width": 1400,
+            "height": 900
+          },
+          "timestamp": 1757420116.428877,
+          "success": true,
+          "result": {
+            "screenshot_path": "chatgpt_initial_1757420116.png"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_fill",
+          "args": {
+            "selector": "#prompt-textarea, .ProseMirror",
+            "value": "I need help debugging this error:\n\n**Error Message:**\nsqlite3.OperationalError: no such column: search_keywords\n\n**Code Context:**\n\n# Database query that failed:\ncursor.execute(\n    \"SELECT task_id, search_keywords FROM api_discovery_tasks WHERE search_keywords LIKE ?\",\n    ('%python%',)\n)\n\n# Full error traceback:\n# File \"research_tools.py\", line 245, in search_tasks\n#   cursor.execute(query, params)\n# sqlite3.OperationalError: no such column: search_keywords\n\n# Table schema (current):\n# CREATE TABLE api_discovery_tasks (\n#     task_id INTEGER PRIMARY KEY,\n#     task_name TEXT NOT NULL,\n#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n# );\n    \n\n**What I need:**\n1. Root cause analysis of the error\n2. Step-by-step solution with code examples\n3. Prevention strategies to avoid similar issues\n4. Best practices for handling this type of error\n\nPlease provide a comprehensive analysis and solution."
+          },
+          "timestamp": 1757420117.429204,
+          "success": true,
+          "result": {
+            "filled": true,
+            "selector": "#prompt-textarea, .ProseMirror"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_click",
+          "args": {
+            "selector": "button[data-testid=\"send-button\"]"
+          },
+          "timestamp": 1757420118.930912,
+          "success": true,
+          "result": {
+            "clicked": true,
+            "selector": "button[data-testid=\"send-button\"]"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_screenshot",
+          "args": {
+            "name": "chatgpt_response_1757420127",
+            "width": 1400,
+            "height": 900
+          },
+          "timestamp": 1757420127.2330182,
+          "success": true,
+          "result": {
+            "screenshot_path": "chatgpt_response_1757420127.png"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_evaluate",
+          "args": {
+            "script": "\n                    // Extract AI response using multiple selectors\n                    const selectors = [\n                        \"[data-message-author-role=\"assistant\"] .markdown\",\n                        \".message\", \".response\", \".chat-message\",\n                        \"[data-message-author-role='assistant']\",\n                        \".markdown\", \".model-response\", \".answer\"\n                    ];\n                    \n                    let responseText = \"\";\n                    for (const selector of selectors) {\n                        const elements = document.querySelectorAll(selector);\n                        if (elements.length > 0) {\n                            // Get the most recent response\n                            const lastElement = elements[elements.length - 1];\n                            responseText = lastElement.innerText || lastElement.textContent;\n                            if (responseText && responseText.trim().length > 10) {\n                                break;\n                            }\n                        }\n                    }\n                    \n                    return responseText || \"No response extracted\";\n                    ",
+            "context": {
+              "service": "chatgpt",
+              "query": "I need help debugging this error:\n\n**Error Message:**\nsqlite3.OperationalError: no such column: search_keywords\n\n**Code Context:**\n\n# Database query that failed:\ncursor.execute(\n    \"SELECT task_id, search_keywords FROM api_discovery_tasks WHERE search_keywords LIKE ?\",\n    ('%python%',)\n)\n\n# Full error traceback:\n# File \"research_tools.py\", line 245, in search_tasks\n#   cursor.execute(query, params)\n# sqlite3.OperationalError: no such column: search_keywords\n\n# Table schema (current):\n# CREATE TABLE api_discovery_tasks (\n#     task_id INTEGER PRIMARY KEY,\n#     task_name TEXT NOT NULL,\n#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n# );\n    \n\n**What I need:**\n1. Root cause analysis of the error\n2. Step-by-step solution with code examples\n3. Prevention strategies to avoid similar issues\n4. Best practices for handling this type of error\n\nPlease provide a comprehensive analysis and solution."
+            }
+          },
+          "timestamp": 1757420128.233631,
+          "success": true,
+          "result": "I can help fix this SQLite error. The 'search_keywords' column doesn't exist. Quick fix: ALTER TABLE api_discovery_tasks ADD COLUMN search_keywords TEXT; For long-term, implement a migration system with proper error handling.",
+          "error": null
+        }
+      ]
+    },
+    {
+      "service": "abacus",
+      "service_name": "Abacus AI",
+      "url": "https://apps.abacus.ai/",
+      "query": "I need help debugging this error:\n\n**Error Message:**\nsqlite3.OperationalError: no such column: search_keywords\n\n**Code Context:**\n\n# Database query that failed:\ncursor.execute(\n    \"SELECT task_id, search_keywords FROM api_discovery_tasks WHERE search_keywords LIKE ?\",\n    ('%python%',)\n)\n\n# Full error traceback:\n# File \"research_tools.py\", line 245, in search_tasks\n#   cursor.execute(query, params)\n# sqlite3.OperationalError: no such column: search_keywords\n\n# Table schema (current):\n# CREATE TABLE api_discovery_tasks (\n#     task_id INTEGER PRIMARY KEY,\n#     task_name TEXT NOT NULL,\n#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n# );\n    \n\n**What I need:**\n1. Root cause analysis of the error\n2. Step-by-step solution with code examples\n3. Prevention strategies to avoid similar issues\n4. Best practices for handling this type of error\n\nPlease provide a comprehensive analysis and solution.",
+      "final_response": "I've analyzed your SQLite error. The column 'search_keywords' doesn't exist in your table schema. Here's the fix: ALTER TABLE api_discovery_tasks ADD COLUMN search_keywords TEXT; Use database migrations for schema changes and add proper error handling.",
+      "screenshots": [
+        "abacus_initial_1757420117",
+        "abacus_response_1757420131"
+      ],
+      "timestamp": 1757420110.426187,
+      "success": true,
+      "total_duration": 22.81094980239868,
+      "error": null,
+      "mcp_calls": [
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_navigate",
+          "args": {
+            "url": "https://apps.abacus.ai/",
+            "launchOptions": {
+              "headless": false,
+              "args": [
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-blink-features=AutomationControlled",
+                "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+              ]
+            },
+            "allowDangerous": true
+          },
+          "timestamp": 1757420110.4262452,
+          "success": true,
+          "result": {
+            "status": "navigated",
+            "url": "https://apps.abacus.ai/"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_screenshot",
+          "args": {
+            "name": "abacus_initial_1757420117",
+            "width": 1400,
+            "height": 900
+          },
+          "timestamp": 1757420117.428926,
+          "success": true,
+          "result": {
+            "screenshot_path": "abacus_initial_1757420117.png"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_fill",
+          "args": {
+            "selector": "textarea, input[type=\"text\"], .chat-input, [contenteditable=\"true\"]",
+            "value": "I need help debugging this error:\n\n**Error Message:**\nsqlite3.OperationalError: no such column: search_keywords\n\n**Code Context:**\n\n# Database query that failed:\ncursor.execute(\n    \"SELECT task_id, search_keywords FROM api_discovery_tasks WHERE search_keywords LIKE ?\",\n    ('%python%',)\n)\n\n# Full error traceback:\n# File \"research_tools.py\", line 245, in search_tasks\n#   cursor.execute(query, params)\n# sqlite3.OperationalError: no such column: search_keywords\n\n# Table schema (current):\n# CREATE TABLE api_discovery_tasks (\n#     task_id INTEGER PRIMARY KEY,\n#     task_name TEXT NOT NULL,\n#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n# );\n    \n\n**What I need:**\n1. Root cause analysis of the error\n2. Step-by-step solution with code examples\n3. Prevention strategies to avoid similar issues\n4. Best practices for handling this type of error\n\nPlease provide a comprehensive analysis and solution."
+          },
+          "timestamp": 1757420118.4294121,
+          "success": true,
+          "result": {
+            "filled": true,
+            "selector": "textarea, input[type=\"text\"], .chat-input, [contenteditable=\"true\"]"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_click",
+          "args": {
+            "selector": "button[type=\"submit\"], .send-button, .submit-btn"
+          },
+          "timestamp": 1757420120.931797,
+          "success": true,
+          "result": {
+            "clicked": true,
+            "selector": "button[type=\"submit\"], .send-button, .submit-btn"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_screenshot",
+          "args": {
+            "name": "abacus_response_1757420131",
+            "width": 1400,
+            "height": 900
+          },
+          "timestamp": 1757420131.2342458,
+          "success": true,
+          "result": {
+            "screenshot_path": "abacus_response_1757420131.png"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_evaluate",
+          "args": {
+            "script": "\n                    // Extract AI response using multiple selectors\n                    const selectors = [\n                        \".response, .message, .chat-message, .output\",\n                        \".message\", \".response\", \".chat-message\",\n                        \"[data-message-author-role='assistant']\",\n                        \".markdown\", \".model-response\", \".answer\"\n                    ];\n                    \n                    let responseText = \"\";\n                    for (const selector of selectors) {\n                        const elements = document.querySelectorAll(selector);\n                        if (elements.length > 0) {\n                            // Get the most recent response\n                            const lastElement = elements[elements.length - 1];\n                            responseText = lastElement.innerText || lastElement.textContent;\n                            if (responseText && responseText.trim().length > 10) {\n                                break;\n                            }\n                        }\n                    }\n                    \n                    return responseText || \"No response extracted\";\n                    ",
+            "context": {
+              "service": "abacus",
+              "query": "I need help debugging this error:\n\n**Error Message:**\nsqlite3.OperationalError: no such column: search_keywords\n\n**Code Context:**\n\n# Database query that failed:\ncursor.execute(\n    \"SELECT task_id, search_keywords FROM api_discovery_tasks WHERE search_keywords LIKE ?\",\n    ('%python%',)\n)\n\n# Full error traceback:\n# File \"research_tools.py\", line 245, in search_tasks\n#   cursor.execute(query, params)\n# sqlite3.OperationalError: no such column: search_keywords\n\n# Table schema (current):\n# CREATE TABLE api_discovery_tasks (\n#     task_id INTEGER PRIMARY KEY,\n#     task_name TEXT NOT NULL,\n#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n# );\n    \n\n**What I need:**\n1. Root cause analysis of the error\n2. Step-by-step solution with code examples\n3. Prevention strategies to avoid similar issues\n4. Best practices for handling this type of error\n\nPlease provide a comprehensive analysis and solution."
+            }
+          },
+          "timestamp": 1757420132.235706,
+          "success": true,
+          "result": "I've analyzed your SQLite error. The column 'search_keywords' doesn't exist in your table schema. Here's the fix: ALTER TABLE api_discovery_tasks ADD COLUMN search_keywords TEXT; Use database migrations for schema changes and add proper error handling.",
+          "error": null
+        }
+      ]
+    },
+    {
+      "service": "gemini",
+      "service_name": "Google Gemini",
+      "url": "https://gemini.google.com/app",
+      "query": "I need help debugging this error:\n\n**Error Message:**\nsqlite3.OperationalError: no such column: search_keywords\n\n**Code Context:**\n\n# Database query that failed:\ncursor.execute(\n    \"SELECT task_id, search_keywords FROM api_discovery_tasks WHERE search_keywords LIKE ?\",\n    ('%python%',)\n)\n\n# Full error traceback:\n# File \"research_tools.py\", line 245, in search_tasks\n#   cursor.execute(query, params)\n# sqlite3.OperationalError: no such column: search_keywords\n\n# Table schema (current):\n# CREATE TABLE api_discovery_tasks (\n#     task_id INTEGER PRIMARY KEY,\n#     task_name TEXT NOT NULL,\n#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n# );\n    \n\n**What I need:**\n1. Root cause analysis of the error\n2. Step-by-step solution with code examples\n3. Prevention strategies to avoid similar issues\n4. Best practices for handling this type of error\n\nPlease provide a comprehensive analysis and solution.",
+      "final_response": "This SQLite error occurs when database schema and application code are out of sync. Add the missing column with: ALTER TABLE api_discovery_tasks ADD COLUMN search_keywords TEXT DEFAULT '[]'; Then implement proper database migrations.",
+      "screenshots": [
+        "gemini_initial_1757420118",
+        "gemini_response_1757420134"
+      ],
+      "timestamp": 1757420110.4262981,
+      "success": true,
+      "total_duration": 25.811357975006104,
+      "error": null,
+      "mcp_calls": [
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_navigate",
+          "args": {
+            "url": "https://gemini.google.com/app",
+            "launchOptions": {
+              "headless": false,
+              "args": [
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-blink-features=AutomationControlled",
+                "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+              ]
+            },
+            "allowDangerous": true
+          },
+          "timestamp": 1757420110.4263282,
+          "success": true,
+          "result": {
+            "status": "navigated",
+            "url": "https://gemini.google.com/app"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_screenshot",
+          "args": {
+            "name": "gemini_initial_1757420118",
+            "width": 1400,
+            "height": 900
+          },
+          "timestamp": 1757420118.4289658,
+          "success": true,
+          "result": {
+            "screenshot_path": "gemini_initial_1757420118.png"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_fill",
+          "args": {
+            "selector": "div[contenteditable=\"true\"], .ProseMirror, rich-textarea",
+            "value": "I need help debugging this error:\n\n**Error Message:**\nsqlite3.OperationalError: no such column: search_keywords\n\n**Code Context:**\n\n# Database query that failed:\ncursor.execute(\n    \"SELECT task_id, search_keywords FROM api_discovery_tasks WHERE search_keywords LIKE ?\",\n    ('%python%',)\n)\n\n# Full error traceback:\n# File \"research_tools.py\", line 245, in search_tasks\n#   cursor.execute(query, params)\n# sqlite3.OperationalError: no such column: search_keywords\n\n# Table schema (current):\n# CREATE TABLE api_discovery_tasks (\n#     task_id INTEGER PRIMARY KEY,\n#     task_name TEXT NOT NULL,\n#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n# );\n    \n\n**What I need:**\n1. Root cause analysis of the error\n2. Step-by-step solution with code examples\n3. Prevention strategies to avoid similar issues\n4. Best practices for handling this type of error\n\nPlease provide a comprehensive analysis and solution."
+          },
+          "timestamp": 1757420119.430042,
+          "success": true,
+          "result": {
+            "filled": true,
+            "selector": "div[contenteditable=\"true\"], .ProseMirror, rich-textarea"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_click",
+          "args": {
+            "selector": "button[aria-label*=\"Send\"], button[data-testid=\"send-button\"]"
+          },
+          "timestamp": 1757420121.9325812,
+          "success": true,
+          "result": {
+            "clicked": true,
+            "selector": "button[aria-label*=\"Send\"], button[data-testid=\"send-button\"]"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_screenshot",
+          "args": {
+            "name": "gemini_response_1757420134",
+            "width": 1400,
+            "height": 900
+          },
+          "timestamp": 1757420134.2349281,
+          "success": true,
+          "result": {
+            "screenshot_path": "gemini_response_1757420134.png"
+          },
+          "error": null
+        },
+        {
+          "server_name": "mcp.config.usrlocalmcp.Puppeteer",
+          "tool_name": "puppeteer_evaluate",
+          "args": {
+            "script": "\n                    // Extract AI response using multiple selectors\n                    const selectors = [\n                        \"[data-message-author-role=\"assistant\"], .model-response\",\n                        \".message\", \".response\", \".chat-message\",\n                        \"[data-message-author-role='assistant']\",\n                        \".markdown\", \".model-response\", \".answer\"\n                    ];\n                    \n                    let responseText = \"\";\n                    for (const selector of selectors) {\n                        const elements = document.querySelectorAll(selector);\n                        if (elements.length > 0) {\n                            // Get the most recent response\n                            const lastElement = elements[elements.length - 1];\n                            responseText = lastElement.innerText || lastElement.textContent;\n                            if (responseText && responseText.trim().length > 10) {\n                                break;\n                            }\n                        }\n                    }\n                    \n                    return responseText || \"No response extracted\";\n                    ",
+            "context": {
+              "service": "gemini",
+              "query": "I need help debugging this error:\n\n**Error Message:**\nsqlite3.OperationalError: no such column: search_keywords\n\n**Code Context:**\n\n# Database query that failed:\ncursor.execute(\n    \"SELECT task_id, search_keywords FROM api_discovery_tasks WHERE search_keywords LIKE ?\",\n    ('%python%',)\n)\n\n# Full error traceback:\n# File \"research_tools.py\", line 245, in search_tasks\n#   cursor.execute(query, params)\n# sqlite3.OperationalError: no such column: search_keywords\n\n# Table schema (current):\n# CREATE TABLE api_discovery_tasks (\n#     task_id INTEGER PRIMARY KEY,\n#     task_name TEXT NOT NULL,\n#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n# );\n    \n\n**What I need:**\n1. Root cause analysis of the error\n2. Step-by-step solution with code examples\n3. Prevention strategies to avoid similar issues\n4. Best practices for handling this type of error\n\nPlease provide a comprehensive analysis and solution."
+            }
+          },
+          "timestamp": 1757420135.236324,
+          "success": true,
+          "result": "This SQLite error occurs when database schema and application code are out of sync. Add the missing column with: ALTER TABLE api_discovery_tasks ADD COLUMN search_keywords TEXT DEFAULT '[]'; Then implement proper database migrations.",
+          "error": null
+        }
+      ]
+    }
+  ]
+}

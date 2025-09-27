@@ -1,0 +1,11 @@
+agents
+api_integrations
+app
+backend
+copy_of_code
+monetization
+scripts
+tasks
+tests
+trae_ai
+utils

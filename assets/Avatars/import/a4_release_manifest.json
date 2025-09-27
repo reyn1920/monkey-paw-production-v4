@@ -1,0 +1,54 @@
+{
+  "version": "v20250907_175226",
+  "created_at": "2025-09-07T17:52:26.249892",
+  "bundles_count": 1,
+  "total_size": 568,
+  "bundles": [
+    {
+      "success": true,
+      "name": "test_bundle_001",
+      "size": 568,
+      "checksum": "bbfa90733e6483382f9f33fe6476aad304a0db211a6201b3b2f992d31837c5d0",
+      "metadata": {
+        "original_path": "/Users/thomasbrianreynolds/online production/assets/incoming/bundles/test_bundle_001",
+        "release_path": "/Users/thomasbrianreynolds/online production/assets/releases/v20250907_175226/bundles/test_bundle_001.tar.gz",
+        "name": "test_bundle_001",
+        "type": "directory",
+        "size": 568,
+        "original_checksum": "091413bf6d84d3cb208c10d9cdd8cc6c6bfb92e92ffc330ef604a7cebcca1ded",
+        "release_checksum": "bbfa90733e6483382f9f33fe6476aad304a0db211a6201b3b2f992d31837c5d0",
+        "processed_at": "2025-09-07T17:52:26.249883",
+        "contents_count": 1,
+        "metadata": {
+          "bundle_id": "test_bundle_001",
+          "title": "Test Content Bundle",
+          "description": "A test bundle for system verification",
+          "version": "1.0.0",
+          "created_at": "2024-01-01T00:00:00Z",
+          "metadata": {
+            "channel": "test_channel",
+            "category": "educational",
+            "target_audience": "general",
+            "duration_minutes": 5,
+            "language": "en"
+          },
+          "assets": {
+            "script": "../media/test_script.txt",
+            "thumbnail": "../media/test_thumbnail.svg",
+            "audio": null,
+            "video": null
+          },
+          "processing_status": "ready",
+          "tags": ["test", "verification", "sample"]
+        }
+      }
+    }
+  ],
+  "checksum": "2afde9ca7f87e47bff11667ce3fffa34afd16b454f9aad62cb3e3b03d5e90bcd",
+  "metadata": {
+    "synthesizer_version": "3.0",
+    "source_bundles": 1,
+    "processed_bundles": 1,
+    "creation_timestamp": 1757281946.249895
+  }
+}

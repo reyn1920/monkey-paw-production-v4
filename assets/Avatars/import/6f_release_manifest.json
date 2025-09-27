@@ -1,0 +1,53 @@
+{
+  "version": "v20250907_174937",
+  "created_at": "2025-09-07T17:49:37.687286",
+  "bundles_count": 1,
+  "total_size": 552,
+  "bundles": [
+    {
+      "success": true,
+      "name": "test_bundle_001",
+      "size": 552,
+      "checksum": "6896899d0e5a1c948e2470feafc8e043b102a8a5efc6947d1bd5a9533b607263",
+      "metadata": {
+        "original_path": "/Users/thomasbrianreynolds/online production/assets/incoming/bundles/test_bundle_001",
+        "release_path": "/Users/thomasbrianreynolds/online production/assets/releases/v20250907_174937/bundles/test_bundle_001.tar.gz",
+        "name": "test_bundle_001",
+        "type": "directory",
+        "size": 552,
+        "original_checksum": "24e4437b6dacebee31269c4c0f1edbe3212f1b663d696a6d7a5b9b10592c43f0",
+        "release_checksum": "6896899d0e5a1c948e2470feafc8e043b102a8a5efc6947d1bd5a9533b607263",
+        "processed_at": "2025-09-07T17:49:37.687279",
+        "contents_count": 1,
+        "metadata": {
+          "id": "test_bundle_001",
+          "title": "Test Content Bundle",
+          "description": "A test bundle for verification purposes",
+          "type": "video_content",
+          "status": "ready",
+          "created_at": "2025-01-07T12:00:00Z",
+          "metadata": {
+            "duration": 300,
+            "format": "mp4",
+            "resolution": "1920x1080",
+            "audio_channels": 2
+          },
+          "assets": {
+            "script": "assets/incoming/media/test_script.txt",
+            "audio": "assets/incoming/media/test_audio.wav",
+            "thumbnail": "assets/incoming/media/test_thumbnail.svg"
+          },
+          "channel": "test_channel",
+          "tags": ["test", "verification", "sample"]
+        }
+      }
+    }
+  ],
+  "checksum": "70b0c7d10eafe26f9cf05835866c3d99d7d70bad02a9425e4e1dfe1092220850",
+  "metadata": {
+    "synthesizer_version": "3.0",
+    "source_bundles": 1,
+    "processed_bundles": 1,
+    "creation_timestamp": 1757281777.687289
+  }
+}

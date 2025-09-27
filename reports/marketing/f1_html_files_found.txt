@@ -1,0 +1,10 @@
+./trae_ai_base44/frontend/index.html
+./trae_ai_base44/nocode_editor/public/index.html
+./base44_installer_v6/frontend/index.html
+./base44_installer_v6/frontend/dist/index.html
+./canvas_prototype.html
+./tools/cleanup/cleanup_report_20250908_024917.html
+./src_quarantined/frontend/index.html
+./dashboard_demo.html
+./index.html
+./app/static/affiliate-demo.html

@@ -1,0 +1,19 @@
+{
+  "bundle_id": "test_bundle_001",
+  "title": "Test Bundle for Verification",
+  "description": "A test bundle created for system verification",
+  "version": "1.0.0",
+  "created_at": "2024-01-01T00:00:00Z",
+  "metadata": {
+    "category": "test",
+    "tags": ["verification", "test"],
+    "priority": "high",
+    "type": "standard"
+  },
+  "assets": {
+    "script": "../media/test_script.txt",
+    "thumbnail": "../media/test_thumbnail.svg"
+  },
+  "processing_status": "ready",
+  "bundle_type": "standard"
+}

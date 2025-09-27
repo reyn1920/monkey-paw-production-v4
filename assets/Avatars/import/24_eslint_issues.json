@@ -1,0 +1,16 @@
+
+Oops! Something went wrong! :(
+
+ESLint: 8.57.1
+
+Error: Invalid package config /Users/thomasbrianreynolds/Library/CloudStorage/GoogleDrive-brianinpty@gmail.com/My Drive/online production/package.json.
+    at getPackageScopeConfig (node:internal/modules/package_json_reader:160:33)
+    at Object.getFileProtocolModuleFormat [as file:] (node:internal/modules/esm/get_format:118:72)
+    at defaultGetFormatWithoutErrors (node:internal/modules/esm/get_format:198:36)
+    at defaultResolve (node:internal/modules/esm/resolve:1014:13)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:768:20)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:745:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:318:38)
+    at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:696:36)
+    at TracingChannel.tracePromise (node:diagnostics_channel:344:14)
+    at ModuleLoader.import (node:internal/modules/esm/loader:695:21)

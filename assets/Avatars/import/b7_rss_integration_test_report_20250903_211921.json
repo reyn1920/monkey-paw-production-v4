@@ -1,0 +1,127 @@
+{
+  "test_summary": {
+    "total_tests": 19,
+    "passed_tests": 14,
+    "failed_tests": 5,
+    "success_rate": 73.68421052631578,
+    "duration_seconds": 0.085079,
+    "start_time": "2025-09-03T21:19:21.535119",
+    "end_time": "2025-09-03T21:19:21.620198"
+  },
+  "test_results": [
+    {
+      "test_name": "BreakingNewsWatcher Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-03T21:19:21.536455"
+    },
+    {
+      "test_name": "Intelligence Database Initialization",
+      "success": true,
+      "details": "Database tables created",
+      "timestamp": "2025-09-03T21:19:21.536618"
+    },
+    {
+      "test_name": "BreakingNewsWatcher Test",
+      "success": false,
+      "details": "Error: 'BreakingNewsWatcher' object has no attribute 'rss_feeds'",
+      "timestamp": "2025-09-03T21:19:21.536626"
+    },
+    {
+      "test_name": "HypocrisyDatabaseManager Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-03T21:19:21.536896"
+    },
+    {
+      "test_name": "Hypocrisy Database Schema",
+      "success": true,
+      "details": "Database schema created",
+      "timestamp": "2025-09-03T21:19:21.537282"
+    },
+    {
+      "test_name": "Store Hypocrisy Finding",
+      "success": false,
+      "details": "Stored finding with ID: None",
+      "timestamp": "2025-09-03T21:19:21.537978"
+    },
+    {
+      "test_name": "Retrieve Content Opportunities",
+      "success": false,
+      "details": "Retrieved 0 opportunities",
+      "timestamp": "2025-09-03T21:19:21.538518"
+    },
+    {
+      "test_name": "Database Statistics",
+      "success": true,
+      "details": "Stats: {'total_findings': 0, 'by_verification_status': {}, 'by_subject_type': {}, 'content_used': 0, 'content_unused': 0, 'recent_findings_7_days': 0}",
+      "timestamp": "2025-09-03T21:19:21.538958"
+    },
+    {
+      "test_name": "PlannerAgent Initialization",
+      "success": true,
+      "details": "Successfully initialized with RSS intelligence",
+      "timestamp": "2025-09-03T21:19:21.581372"
+    },
+    {
+      "test_name": "RSS Intelligence Retrieval",
+      "success": true,
+      "details": "Retrieved intelligence: ['trending_topics', 'topic_momentum', 'content_opportunities', 'intelligence_briefing']",
+      "timestamp": "2025-09-03T21:19:21.582026"
+    },
+    {
+      "test_name": "Trending Topics Integration",
+      "success": true,
+      "details": "Found 3 trending topics",
+      "timestamp": "2025-09-03T21:19:21.582038"
+    },
+    {
+      "test_name": "Content Opportunities",
+      "success": true,
+      "details": "Identified 0 opportunities",
+      "timestamp": "2025-09-03T21:19:21.582043"
+    },
+    {
+      "test_name": "Topic Momentum Calculation",
+      "success": true,
+      "details": "Calculated momentum for 0 topics",
+      "timestamp": "2025-09-03T21:19:21.582047"
+    },
+    {
+      "test_name": "ResearchAgent Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-03T21:19:21.613662"
+    },
+    {
+      "test_name": "Research-Hypocrisy Integration",
+      "success": false,
+      "details": "Breaking news watcher not found in research agent",
+      "timestamp": "2025-09-03T21:19:21.613670"
+    },
+    {
+      "test_name": "TaskQueueManager Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-03T21:19:21.615842"
+    },
+    {
+      "test_name": "RSS-Driven Task Creation",
+      "success": true,
+      "details": "Created task with ID: bf4a4c7d-600c-46d7-937c-34ce60905641",
+      "timestamp": "2025-09-03T21:19:21.619078"
+    },
+    {
+      "test_name": "Task Queue Retrieval",
+      "success": true,
+      "details": "Retrieved 6 pending tasks",
+      "timestamp": "2025-09-03T21:19:21.620168"
+    },
+    {
+      "test_name": "End-to-End Workflow",
+      "success": false,
+      "details": "Component initialization failed",
+      "timestamp": "2025-09-03T21:19:21.620182"
+    }
+  ]
+}

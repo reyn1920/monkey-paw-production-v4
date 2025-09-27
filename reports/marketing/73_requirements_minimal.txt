@@ -1,0 +1,18 @@
+# Minimal requirements for TRAE.AI startup system
+# Essential dependencies only to avoid compilation issues
+
+# Web framework for dashboard
+fastapi>=0.104.0,<1.0.0
+uvicorn[standard]>=0.24.0,<1.0.0
+
+# System monitoring
+psutil>=5.9.0,<6.0.0
+
+# HTTP requests
+requests>=2.31.0,<3.0.0
+
+# Environment variables
+python-dotenv>=1.0.0,<2.0.0
+
+# JSON handling (built-in)
+# os, subprocess, time, logging (all built-in)

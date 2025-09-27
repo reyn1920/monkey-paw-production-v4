@@ -1,0 +1,95 @@
+{
+  "timestamp": "20250907_120723",
+  "success_rate": 57.14285714285714,
+  "results": {
+    "service_imports": {
+      "SecretStore": {
+        "status": "success",
+        "module": "backend.secret_store"
+      },
+      "TaskQueueManager": {
+        "status": "success",
+        "module": "backend.orchestrator"
+      },
+      "ContentAgent": {
+        "status": "failed",
+        "error": "No module named 'TTS'",
+        "traceback": "Traceback (most recent call last):\n  File \"/Users/thomasbrianreynolds/online production/tests/test_final_verification.py\", line 88, in test_service_imports\n    module = __import__(module_path, fromlist=[class_name or ''])\n  File \"/Users/thomasbrianreynolds/online production/content_agent/main.py\", line 23, in <module>\n    from TTS.api import TTS\nModuleNotFoundError: No module named 'TTS'\n"
+      },
+      "MarketingAgent": {
+        "status": "success",
+        "module": "marketing_agent.main"
+      },
+      "MonetizationBundle": {
+        "status": "success",
+        "module": "monetization_bundle.main"
+      },
+      "AnalyticsDashboard": {
+        "status": "failed",
+        "error": "No module named 'analytics_dashboard'",
+        "traceback": "Traceback (most recent call last):\n  File \"/Users/thomasbrianreynolds/online production/tests/test_final_verification.py\", line 88, in test_service_imports\n    module = __import__(module_path, fromlist=[class_name or ''])\nModuleNotFoundError: No module named 'analytics_dashboard'\n"
+      },
+      "MainDashboard": {
+        "status": "success",
+        "module": "app.dashboard"
+      }
+    },
+    "video_generation": {
+      "status": "modules_available",
+      "available_modules": ["content-agent.VideoGenerator"],
+      "message": "Video generation modules found in content-agent"
+    },
+    "pdf_generation": {
+      "status": "success",
+      "pdf_path": "/Users/thomasbrianreynolds/online production/test_output/test_ebook.pdf",
+      "file_size": 1641,
+      "library_used": "reportlab"
+    },
+    "content_automation": {
+      "status": "basic_test_passed",
+      "task_manager_available": true,
+      "message": "Task queue manager initialized successfully"
+    },
+    "database_connections": {
+      "status": "success",
+      "databases_tested": ["content_agent.db", "analytics_dashboard.db"],
+      "message": "SQLite databases accessible"
+    },
+    "file_outputs": {
+      "status": "success",
+      "files_found": 4,
+      "generated_files": [
+        {
+          "name": "master_workflow_result.json",
+          "path": "/Users/thomasbrianreynolds/online production/test_output/master_workflow_result.json",
+          "size": 345,
+          "type": ".json"
+        },
+        {
+          "name": "test_ebook.pdf",
+          "path": "/Users/thomasbrianreynolds/online production/test_output/test_ebook.pdf",
+          "size": 1641,
+          "type": ".pdf"
+        },
+        {
+          "name": "pytest_artifacts.json",
+          "path": "/Users/thomasbrianreynolds/online production/test_output/pytest_artifacts.json",
+          "size": 6484,
+          "type": ".json"
+        },
+        {
+          "name": "speech_A_New_Era_for_Artificial_Intelligence.wav",
+          "path": "/Users/thomasbrianreynolds/online production/assets/generated/speech_A_New_Era_for_Artificial_Intelligence.wav",
+          "size": 2511192,
+          "type": ".wav"
+        }
+      ],
+      "message": "Found 4 generated files"
+    },
+    "monetization_strategy": {
+      "status": "error",
+      "error": "'dict' object has no attribute 'database_url'",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/thomasbrianreynolds/online production/tests/test_final_verification.py\", line 459, in test_monetization_strategy\n    monetization = MonetizationBundle(config)\n  File \"/Users/thomasbrianreynolds/online production/monetization_bundle/main.py\", line 757, in __init__\n    self.engine = create_engine(config.database_url)\n                                ^^^^^^^^^^^^^^^^^^^\nAttributeError: 'dict' object has no attribute 'database_url'\n"
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "content_creation": {
+    "facts": [],
+    "patterns": [],
+    "insights": [],
+    "last_updated": "2025-09-17T20:50:48.458659"
+  },
+  "ai_integration": {
+    "facts": [],
+    "patterns": [],
+    "insights": [],
+    "last_updated": "2025-09-17T20:50:48.458664"
+  },
+  "business_strategy": {
+    "facts": [],
+    "patterns": [],
+    "insights": [],
+    "last_updated": "2025-09-17T20:50:48.458665"
+  },
+  "technical_systems": {
+    "facts": [
+      {
+        "content": {
+          "source": "system_startup",
+          "content": "Knowledge core service initialized successfully",
+          "confidence": 0.9
+        },
+        "timestamp": "2025-09-17T20:50:48.458722",
+        "source": "system_startup",
+        "confidence": 0.9
+      },
+      {
+        "content": {
+          "source": "system_startup",
+          "content": "Knowledge core service initialized successfully",
+          "confidence": 0.9
+        },
+        "timestamp": "2025-09-17T20:51:33.558349",
+        "source": "system_startup",
+        "confidence": 0.9
+      }
+    ],
+    "patterns": [],
+    "insights": [],
+    "last_updated": "2025-09-17T20:50:48.458667"
+  },
+  "market_research": {
+    "facts": [],
+    "patterns": [],
+    "insights": [],
+    "last_updated": "2025-09-17T20:50:48.458668"
+  },
+  "user_behavior": {
+    "facts": [],
+    "patterns": [],
+    "insights": [],
+    "last_updated": "2025-09-17T20:50:48.458669"
+  },
+  "performance_metrics": {
+    "facts": [],
+    "patterns": [],
+    "insights": [],
+    "last_updated": "2025-09-17T20:50:48.458670"
+  },
+  "automation_workflows": {
+    "facts": [],
+    "patterns": [],
+    "insights": [],
+    "last_updated": "2025-09-17T20:50:48.458672"
+  }
+}

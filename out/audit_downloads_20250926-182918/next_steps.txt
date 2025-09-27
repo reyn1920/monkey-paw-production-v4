@@ -1,0 +1,15 @@
+Download Audit Complete (read-only).
+Inventory: /Users/thomasbrianreynolds/monkey paw production v4/MonkeyPawV4_TotalApp_new/out/audit_downloads_20250926-182918/downloads_inventory.json
+Planned import targets (add-only, do-not-delete):
+- avatars -> assets/Avatars/import/
+- tts_voices -> assets/Voices/import/
+- resolve -> assets/Templates/Resolve/
+- blender -> assets/Templates/Blender/
+- luts -> assets/LUTs/
+- overlays -> assets/Overlays/
+- fonts -> assets/Fonts/
+- sfx -> assets/SFX/
+- music -> assets/Music/
+- broll -> assets/Broll/
+- scripts_configs -> tools/imported/
+- marketing -> reports/marketing/

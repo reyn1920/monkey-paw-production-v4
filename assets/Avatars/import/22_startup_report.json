@@ -1,0 +1,116 @@
+{
+  "timestamp": 1758448400.648493,
+  "mode": "production",
+  "system_requirements": {
+    "python_version": true,
+    "working_directory": true,
+    "log_directory": true,
+    "ollama_service": true
+  },
+  "ollama_status": {
+    "timestamp": 1758448400.615113,
+    "installation": {
+      "installed": true,
+      "path": "/usr/local/bin/ollama",
+      "version": "ollama version is 0.12.0",
+      "status": "available"
+    },
+    "service": {
+      "running": true,
+      "accessible": true,
+      "endpoint": "http://localhost:11434",
+      "models_count": 13,
+      "models": [
+        "llama2:13b",
+        "llama2:7b",
+        "mistral:7b",
+        "codellama:latest",
+        "llama3.2:latest",
+        "llama3:8b",
+        "llama3.1:latest",
+        "gemma2:latest",
+        "llama3:latest",
+        "gemma3:latest",
+        "llama2:latest",
+        "llama3.1:8b",
+        "llama3-chatqa:8b"
+      ],
+      "status": "healthy"
+    },
+    "production_ready": true
+  },
+  "startup_log": [
+    {
+      "timestamp": 1758448400.555999,
+      "event": "system_requirements_check",
+      "status": "completed",
+      "mode": "production",
+      "details": {
+        "python_version": true,
+        "working_directory": true,
+        "log_directory": true,
+        "ollama_service": true
+      }
+    },
+    {
+      "timestamp": 1758448400.587574,
+      "event": "ollama_service",
+      "status": "ready",
+      "mode": "production",
+      "details": {
+        "timestamp": 1758448400.587405,
+        "installation": {
+          "installed": true,
+          "path": "/usr/local/bin/ollama",
+          "version": "ollama version is 0.12.0",
+          "status": "available"
+        },
+        "service": {
+          "running": true,
+          "accessible": true,
+          "endpoint": "http://localhost:11434",
+          "models_count": 13,
+          "models": [
+            "llama2:7b",
+            "mistral:7b",
+            "llama2:13b",
+            "codellama:latest",
+            "llama3.2:latest",
+            "llama3:8b",
+            "llama3.1:latest",
+            "gemma2:latest",
+            "llama3:latest",
+            "gemma3:latest",
+            "llama2:latest",
+            "llama3.1:8b",
+            "llama3-chatqa:8b"
+          ],
+          "status": "healthy"
+        },
+        "production_ready": true
+      }
+    },
+    {
+      "timestamp": 1758448400.5876448,
+      "event": "main_application",
+      "status": "ready",
+      "mode": "production",
+      "details": {
+        "file": "main.py"
+      }
+    },
+    {
+      "timestamp": 1758448400.648324,
+      "event": "system_requirements_check",
+      "status": "completed",
+      "mode": "production",
+      "details": {
+        "python_version": true,
+        "working_directory": true,
+        "log_directory": true,
+        "ollama_service": true
+      }
+    }
+  ],
+  "production_ready": true
+}

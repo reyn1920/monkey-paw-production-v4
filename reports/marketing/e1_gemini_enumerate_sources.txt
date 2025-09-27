@@ -1,0 +1,22 @@
+TASK
+Research this topic: AI loop prevention patterns and circuit breaker implementations in modern web applications.
+While researching, keep a running register of EVERY web source consulted (opened, loaded, read, referenced, cited, discarded). At the end, output the full register.
+
+OUTPUT FORMAT
+1) Executive Summary — ≤100 words.
+2) COMPLETE SOURCE REGISTER — Markdown table (one row per source). Columns:
+# | Page Title | Canonical Domain | Full URL | Publisher/Author | Content Type | First Seen (UTC) | Last Modified | Date Accessed (UTC) | Why Consulted | Relevance (0–5) | Credibility Notes | Redirect/Duplicate Of | Status
+
+STRICT REQUIREMENTS
+- Include ALL consulted sources, even if not quoted or later discarded.
+- Expand grouped citations; one source per row; include failed loads with Status.
+- Normalize URLs (strip UTM), but keep the actual Full URL you hit.
+- If near length limits, continue responses until the register is complete.
+
+VERIFICATION FOOTER
+- Total sources consulted: <N>
+- Counts by Content Type
+- Gaps/limitations (e.g., paywalls)
+- Browsing time window (UTC start → end)
+
+BEGIN on: AI loop prevention patterns and circuit breaker implementations in modern web applications.

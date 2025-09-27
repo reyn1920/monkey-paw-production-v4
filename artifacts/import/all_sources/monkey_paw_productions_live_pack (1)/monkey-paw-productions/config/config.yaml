@@ -1,0 +1,7 @@
+# Monkey Paw Productions — runtime config
+# Auto-publish remains OFF until:
+#  1) self-test passes AND
+#  2) you enable approve_publish=true
+approve_publish: false
+nocode_stack_enabled: true
+project_name: "Monkey Paw Productions"

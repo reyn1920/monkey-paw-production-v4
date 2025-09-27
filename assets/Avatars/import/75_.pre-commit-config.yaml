@@ -1,0 +1,40 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.8
+    hooks:
+      - id: ruff
+        args: ["--fix", "--exit-non-zero-on-fix"]
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: basedpyright
+        name: basedpyright
+        entry: basedpyright
+        language: node
+        types: [python]
+        require_serial: true
+        additional_dependencies: []
+
+  - repo: https://github.com/returntocorp/semgrep
+    rev: v1.93.0
+    hooks:
+      - id: semgrep
+        args: ["--config", "tools/ai_debug/semgrep.yml", "--error", "--strict"]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+        args: ["detect", "--no-git", "--redact", "--config", "tools/ai_debug/gitleaks.toml"]
+        pass_filenames: false

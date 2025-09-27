@@ -1,0 +1,130 @@
+{
+  "// Cursor AI Settings": "Optimized for Cursor AI development",
+  "cursor.chat.enabled": true,
+  "cursor.autocomplete.enabled": true,
+  "cursor.composer.enabled": true,
+  "cursor.chat.maxTokens": 4000,
+  "cursor.autocomplete.maxSuggestions": 3,
+  "cursor.autocomplete.delay": 100,
+
+  "// GitHub Copilot (if available)": "Settings for GitHub Copilot",
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": true,
+    "markdown": true
+  },
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.chat.enabled": true,
+
+  "// Continue Extension": "Local AI assistant settings",
+  "continue.telemetryEnabled": false,
+  "continue.enableTabAutocomplete": true,
+  "continue.modelTitle": "Ollama",
+  "continue.models": [
+    {
+      "title": "DeepSeek Coder",
+      "provider": "ollama",
+      "model": "deepseek-coder:6.7b"
+    },
+    {
+      "title": "CodeLlama",
+      "provider": "ollama",
+      "model": "codellama:7b"
+    },
+    {
+      "title": "Qwen Coder",
+      "provider": "ollama",
+      "model": "qwen2.5-coder:7b"
+    },
+    {
+      "title": "Llama 3.2 3B",
+      "provider": "ollama",
+      "model": "llama3.2:3b"
+    },
+    {
+      "title": "Phi3 3.8B",
+      "provider": "ollama",
+      "model": "phi3:3.8b"
+    }
+  ],
+
+  "// Windsurf (Codeium) Extension": "Free AI autocomplete",
+  "codeium.enableCodeLens": true,
+  "codeium.enableSearch": true,
+  "codeium.enableConfig": true,
+
+  "// Supermaven": "Fast free AI autocomplete",
+  "supermaven.enableAutoComplete": true,
+  "supermaven.enableInlineCompletion": true,
+
+  "// Sourcegraph Cody": "Free AI assistant with codebase context",
+  "cody.enabled": true,
+  "cody.autocomplete.enabled": true,
+  "cody.chat.enabled": true,
+
+  "// BLACKBOX AI": "Free coding copilot",
+  "blackbox.enabled": true,
+
+  "// Python Development": "Python-specific settings",
+  "python.defaultInterpreterPath": "./venv/bin/python",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoSearchPaths": true,
+
+  "// Jupyter Notebooks": "Notebook-specific settings",
+  "jupyter.askForKernelRestart": false,
+  "jupyter.enableCellCodeLens": true,
+  "jupyter.interactiveWindow.textEditor.executeSelection": true,
+
+  "// TabNine AI": "TabNine autocomplete settings",
+  "tabnine.experimentalAutoImports": true,
+  "tabnine.receiveBetaChannelUpdates": true,
+
+  "// Editor AI Optimizations": "Core editor settings for AI",
+  "editor.suggestSelection": "first",
+  "editor.tabCompletion": "on",
+  "editor.wordBasedSuggestions": "off",
+  "editor.inlineSuggest.enabled": true,
+  "editor.inlineSuggest.showToolbar": "onHover",
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "strings": "on",
+    "other": "on"
+  },
+  "editor.acceptSuggestionOnCommitCharacter": true,
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.parameterHints.enabled": true,
+
+  "// Code Quality": "Formatting and organization",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit"
+  },
+
+  "// File Management": "Auto-save and file handling",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/.pytest_cache": true
+  },
+
+  "// Workbench": "UI optimizations for AI development",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.commandPalette.experimental.suggestCommands": true,
+
+  "// Terminal": "Integrated terminal settings",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.fontFamily": "Monaco, 'Courier New', monospace"
+}

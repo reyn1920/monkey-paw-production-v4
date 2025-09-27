@@ -1,0 +1,9 @@
+# Live Google Sheets config (public view-only)
+# Provide CSV export links for each tab.
+# For Google Sheets, use the "Export CSV" endpoint per sheet/tab.
+# Example format:
+# https://docs.google.com/spreadsheets/d/<SHEET_ID>/gviz/tq?tqx=out:csv&sheet=<TAB_NAME>
+
+revenue_csv_url: ""
+content_kpis_csv_url: ""
+poll_seconds: 60

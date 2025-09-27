@@ -1,0 +1,11 @@
+name: Local-Green
+on: [workflow_dispatch]
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: pip install ruff flake8 mypy pytest
+      - run: zsh ./tools/nocode_coder_stack/scripts/run_two_pass_audit.zsh .

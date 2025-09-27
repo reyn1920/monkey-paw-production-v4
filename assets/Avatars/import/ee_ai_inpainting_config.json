@@ -1,0 +1,331 @@
+{
+  "ai_inpainting_config": {
+    "version": "1.0.0",
+    "description": "AI Inpainting configuration for avatar and image editing capabilities",
+    "last_updated": "2025-01-09",
+    "enabled": true,
+
+    "default_settings": {
+      "model": "stable_diffusion_inpaint",
+      "quality": "high",
+      "mask_mode": "smart_clothing",
+      "steps": 30,
+      "guidance_scale": 8.0,
+      "strength": 0.8,
+      "width": 512,
+      "height": 512,
+      "batch_size": 1,
+      "use_gpu": true,
+      "safety_checker": true,
+      "enable_caching": true,
+      "parallel_processing": true,
+      "max_workers": 4
+    },
+
+    "models": {
+      "stable_diffusion_inpaint": {
+        "name": "Stable Diffusion Inpainting",
+        "model_id": "runwayml/stable-diffusion-inpainting",
+        "enabled": true,
+        "priority": 1,
+        "model_type": "inpainting",
+        "resolution": "512x512",
+        "device": "cuda",
+        "precision": "fp16",
+        "scheduler": "DDIMScheduler",
+        "features": {
+          "inpainting": true,
+          "outpainting": true,
+          "clothing_change": true,
+          "background_removal": true,
+          "object_removal": true
+        }
+      },
+
+      "stable_diffusion_xl_inpaint": {
+        "name": "Stable Diffusion XL Inpainting",
+        "model_id": "diffusers/stable-diffusion-xl-1.0-inpainting-0.1",
+        "enabled": true,
+        "priority": 2,
+        "model_type": "inpainting",
+        "resolution": "1024x1024",
+        "device": "cuda",
+        "precision": "fp16",
+        "scheduler": "DPMSolverMultistepScheduler",
+        "features": {
+          "inpainting": true,
+          "outpainting": true,
+          "high_resolution": true,
+          "detail_preservation": true
+        }
+      },
+
+      "controlnet_inpaint": {
+        "name": "ControlNet Inpainting",
+        "model_id": "lllyasviel/control_v11p_sd15_inpaint",
+        "enabled": true,
+        "priority": 3,
+        "model_type": "controlnet_inpainting",
+        "resolution": "512x512",
+        "device": "cuda",
+        "precision": "fp16",
+        "features": {
+          "precise_control": true,
+          "edge_preservation": true,
+          "structure_guidance": true
+        }
+      }
+    },
+
+    "quality_presets": {
+      "draft": {
+        "steps": 10,
+        "guidance_scale": 5.0,
+        "strength": 0.6,
+        "resolution": "512x512",
+        "description": "Fast, lower quality for previews"
+      },
+      "standard": {
+        "steps": 20,
+        "guidance_scale": 7.5,
+        "strength": 0.7,
+        "resolution": "512x512",
+        "description": "Balanced quality and speed"
+      },
+      "high": {
+        "steps": 30,
+        "guidance_scale": 8.0,
+        "strength": 0.8,
+        "resolution": "1024x1024",
+        "description": "High quality, slower generation"
+      },
+      "ultra": {
+        "steps": 50,
+        "guidance_scale": 9.0,
+        "strength": 0.9,
+        "resolution": "1024x1024",
+        "description": "Maximum quality, very slow"
+      }
+    },
+
+    "mask_generation": {
+      "modes": {
+        "manual": {
+          "description": "User-provided mask",
+          "enabled": true,
+          "requires_input": true
+        },
+        "auto_clothing": {
+          "description": "Automatic clothing detection",
+          "enabled": true,
+          "model": "segmentation",
+          "confidence_threshold": 0.7
+        },
+        "auto_background": {
+          "description": "Automatic background detection",
+          "enabled": true,
+          "model": "background_removal",
+          "edge_refinement": true
+        },
+        "auto_face": {
+          "description": "Automatic face detection",
+          "enabled": true,
+          "model": "face_detection",
+          "include_hair": true
+        },
+        "smart_clothing": {
+          "description": "AI-powered clothing detection",
+          "enabled": true,
+          "model": "semantic_segmentation",
+          "clothing_types": ["shirt", "pants", "dress", "jacket", "shoes", "hat"],
+          "preserve_skin": true
+        },
+        "semantic_segmentation": {
+          "description": "Full semantic segmentation",
+          "enabled": true,
+          "model": "deeplabv3",
+          "classes": ["person", "clothing", "background", "accessories"]
+        },
+        "edge_detection": {
+          "description": "Edge-based mask generation",
+          "enabled": true,
+          "algorithm": "canny",
+          "low_threshold": 50,
+          "high_threshold": 150
+        }
+      },
+
+      "post_processing": {
+        "mask_blur": 5,
+        "mask_expand": 10,
+        "edge_smoothing": true,
+        "hole_filling": true,
+        "noise_reduction": true
+      }
+    },
+
+    "clothing_types": {
+      "shirt": {
+        "description": "Shirts, blouses, tops",
+        "mask_strategy": "upper_body",
+        "preserve_areas": ["face", "hands", "neck"]
+      },
+      "pants": {
+        "description": "Pants, trousers, jeans",
+        "mask_strategy": "lower_body",
+        "preserve_areas": ["shoes", "belt"]
+      },
+      "dress": {
+        "description": "Dresses, gowns",
+        "mask_strategy": "full_body_clothing",
+        "preserve_areas": ["face", "hands", "feet"]
+      },
+      "jacket": {
+        "description": "Jackets, coats, blazers",
+        "mask_strategy": "outer_layer",
+        "preserve_areas": ["face", "hands", "inner_clothing"]
+      },
+      "shoes": {
+        "description": "Footwear",
+        "mask_strategy": "feet_area",
+        "preserve_areas": ["socks", "pants_hem"]
+      },
+      "hat": {
+        "description": "Hats, caps, headwear",
+        "mask_strategy": "head_area",
+        "preserve_areas": ["face", "hair_visible"]
+      },
+      "accessories": {
+        "description": "Jewelry, bags, accessories",
+        "mask_strategy": "object_detection",
+        "preserve_areas": ["skin", "clothing"]
+      },
+      "full_outfit": {
+        "description": "Complete outfit change",
+        "mask_strategy": "everything_except_person",
+        "preserve_areas": ["face", "hands", "skin"]
+      }
+    },
+
+    "enhancement_features": {
+      "preserve_face": {
+        "enabled": true,
+        "face_detection_model": "mtcnn",
+        "face_area_expansion": 1.2,
+        "blend_edges": true
+      },
+      "preserve_hands": {
+        "enabled": true,
+        "hand_detection_model": "mediapipe",
+        "hand_area_expansion": 1.1,
+        "blend_edges": true
+      },
+      "color_matching": {
+        "enabled": true,
+        "algorithm": "histogram_matching",
+        "blend_factor": 0.3
+      },
+      "lighting_consistency": {
+        "enabled": true,
+        "algorithm": "retinex",
+        "preserve_shadows": true
+      },
+      "texture_preservation": {
+        "enabled": true,
+        "preservation_factor": 0.3,
+        "detail_enhancement": true
+      },
+      "detail_enhancement": {
+        "enabled": true,
+        "sharpening_factor": 0.2,
+        "noise_reduction": true
+      }
+    },
+
+    "performance_optimization": {
+      "caching": {
+        "enabled": true,
+        "cache_dir": "./cache/inpainting",
+        "max_cache_size": 1000,
+        "cache_duration": 3600
+      },
+      "parallel_processing": {
+        "enabled": true,
+        "max_workers": 4,
+        "batch_processing": true,
+        "queue_management": true
+      },
+      "memory_optimization": {
+        "enable_attention_slicing": true,
+        "enable_vae_slicing": true,
+        "cpu_offload": false,
+        "sequential_cpu_offload": false
+      }
+    },
+
+    "quality_control": {
+      "quality_analyzer": {
+        "enabled": true,
+        "metrics": ["ssim", "color_consistency", "edge_preservation", "texture_quality"],
+        "quality_threshold": 0.7
+      },
+      "auto_retry": {
+        "enabled": true,
+        "max_retries": 3,
+        "retry_conditions": ["low_quality", "generation_error", "safety_filter_triggered"]
+      },
+      "progressive_enhancement": {
+        "enabled": true,
+        "enhancement_steps": ["base_generation", "detail_refinement", "color_correction"]
+      }
+    },
+
+    "safety_and_compliance": {
+      "content_filtering": {
+        "enabled": true,
+        "nsfw_filter": true,
+        "violence_filter": true,
+        "inappropriate_content_filter": true
+      },
+      "privacy_protection": {
+        "face_anonymization": false,
+        "metadata_removal": true,
+        "watermark_removal_detection": true
+      }
+    },
+
+    "api_settings": {
+      "max_concurrent_requests": 3,
+      "request_timeout": 300,
+      "retry_attempts": 3,
+      "retry_delay": 5,
+      "queue_size": 10,
+      "rate_limiting": {
+        "requests_per_minute": 30,
+        "requests_per_hour": 500
+      }
+    },
+
+    "output_settings": {
+      "default_format": "png",
+      "supported_formats": ["png", "jpeg", "webp"],
+      "compression_quality": 95,
+      "preserve_metadata": false,
+      "output_directory": "./output/inpainting",
+      "temp_directory": "./temp/inpainting"
+    },
+
+    "logging_and_monitoring": {
+      "log_level": "INFO",
+      "log_file": "./logs/inpainting.log",
+      "track_performance": true,
+      "track_quality_scores": true,
+      "track_user_satisfaction": true,
+      "error_reporting": {
+        "enabled": true,
+        "include_stack_trace": true,
+        "notify_on_critical_errors": true
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+# ONE-PASTE — Monkey Paw — Live (Full + VSCode + Curl)
+
+# 1) Unzip into Desktop
+cd ~/Desktop
+unzip -o ~/Downloads/monkey_paw_everything_live_plus.zip -d monkey-paw-live-pack
+cd monkey-paw-live-pack
+
+# 2) (Optional) install VS Code tasks/hotkeys (already included here)
+# Open this folder in VS Code/Cursor; tasks are ready.
+
+# 3) Run the full sequence
+zsh ./launch_all.zsh
+
+# 4) Check health
+curl -s http://127.0.0.1:8000/api/health | python3 -m json.tool
+
+# 5) Drive the pipeline (see scripts/curl)
+zsh ./scripts/curl/01_research.sh "topic here"
+zsh ./scripts/curl/02_draft.sh 1 "draft content"
+zsh ./scripts/curl/03_repurpose.sh 1
+zsh ./scripts/curl/04_publish.sh  # flips approval and publishes

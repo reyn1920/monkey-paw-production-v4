@@ -1,0 +1,293 @@
+name: Production CI/CD Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+        - staging
+        - production
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: "18"
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  # Security and Quality Checks
+  security-scan:
+    name: Security & Quality Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python, javascript
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: security-scan
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black bandit isort
+        pip install -r requirements-minimal.txt
+    
+    - name: Lint with flake8
+      run: |
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Check code formatting with black
+      run: black --check .
+    
+    - name: Check import sorting with isort
+      run: isort --check-only .
+    
+    - name: Security scan with bandit
+      run: bandit -r . -f json -o bandit-report.json || true
+    
+    - name: Upload security report
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-report
+        path: bandit-report.json
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-cov
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
+    - name: Run tests
+      run: |
+        pytest --cov=. --cov-report=xml --cov-report=html
+    
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: htmlcov/
+
+  security-scan:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run Gitleaks
+      uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Run CodeQL Analysis
+      uses: github/codeql-action/init@v2
+      with:
+        languages: python
+    
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: [lint, test, security-scan]
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to Netlify (Staging)
+      uses: nwtgck/actions-netlify@v2.1
+      with:
+        publish-dir: './public'
+        production-branch: main
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Deploy from GitHub Actions - Staging"
+        enable-pull-request-comment: true
+        enable-commit-comment: true
+        overwrites-pull-request-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: [lint, test, security-scan]
+    if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
+    environment: production
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
+    - name: Build application
+      run: |
+        python -m compileall .
+        
+    - name: Deploy to Netlify (Production)
+      uses: nwtgck/actions-netlify@v2.1
+      with:
+        publish-dir: './public'
+        production-deploy: true
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Production Deploy from GitHub Actions"
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        API_KEY: ${{ secrets.API_KEY }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+  # Phase 4: Production Deployment
+  deploy-production:
+    name: "Deploy to ${{ needs.validate.outputs.environment }}"
+    runs-on: ubuntu-latest
+    needs: [validate, security_scan, test]
+    if: github.event_name == 'workflow_dispatch' && (success() || github.event.inputs.skip_tests == 'true')
+    environment:
+      name: ${{ needs.validate.outputs.environment }}
+      url: ${{ needs.validate.outputs.deploy_url }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "frontend/package-lock.json"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Build application
+        env:
+          NODE_ENV: production
+          VITE_API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          # Pet Care APIs (optional)
+          VITE_EBIRD_API_TOKEN: ${{ secrets.EBIRD_API_TOKEN }}
+          VITE_DOG_API_KEY: ${{ secrets.DOG_API_KEY }}
+          VITE_CAT_API_KEY: ${{ secrets.CAT_API_KEY }}
+          VITE_PETFINDER_KEY: ${{ secrets.PETFINDER_KEY }}
+          # Tele-vet APIs (optional)
+          VITE_VETSTER_API_KEY: ${{ secrets.VETSTER_API_KEY }}
+          VITE_PAWP_API_KEY: ${{ secrets.PAWP_API_KEY }}
+          VITE_AIRVET_API_KEY: ${{ secrets.AIRVET_API_KEY }}
+          VITE_CALENDLY_TOKEN: ${{ secrets.CALENDLY_TOKEN }}
+        run: |
+          echo "🏗️ Building application for ${{ needs.validate.outputs.environment }}..."
+          cd frontend
+          npm run build
+          echo "✅ Build completed"
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: "./frontend/dist"
+          production-deploy: ${{ needs.validate.outputs.environment == 'production' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "🚀 ${{ needs.validate.outputs.environment }} deployment from ${{ github.sha }}"
+          alias: ${{ needs.validate.outputs.environment == 'staging' && 'staging' || '' }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Post-deployment verification
+        run: |
+          echo "🔍 Verifying deployment..."
+
+          # Wait for deployment to be ready
+          sleep 30
+
+          # Basic health check
+          DEPLOY_URL="${{ needs.validate.outputs.deploy_url }}"
+          echo "Testing deployment at: $DEPLOY_URL"
+
+          # Check if site is accessible
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$DEPLOY_URL" || echo "000")
+
+          if [[ "$HTTP_STATUS" == "200" ]]; then
+            echo "✅ Deployment verification successful"
+            echo "🌐 Site is live at: $DEPLOY_URL"
+          else
+            echo "❌ Deployment verification failed (HTTP $HTTP_STATUS)"
+            echo "🔧 Please check the deployment logs"
+            exit 1
+          fi
+
+      - name: Notify deployment success
+        if: success()
+        run: |
+          echo "🎉 Deployment to ${{ needs.validate.outputs.environment }} completed successfully!"
+          echo "📍 URL: ${{ needs.validate.outputs.deploy_url }}"
+          echo "🔧 Environment: ${{ needs.validate.outputs.environment }}"
+          echo "📝 Commit: ${{ github.sha }}"
+
+          if [[ "${{ needs.validate.outputs.environment }}" == "production" ]]; then
+            echo "🚨 PRODUCTION DEPLOYMENT COMPLETE"
+            echo "🔍 Monitor application performance and error rates"
+            echo "📊 Check analytics and user feedback"
+          fi

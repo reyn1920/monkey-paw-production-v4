@@ -1,0 +1,185 @@
+{
+  "timestamp": "2025-09-06T12:55:20.268495",
+  "tests": {
+    "File System Integrity": {
+      "status": "PASS",
+      "details": {
+        "existing_paths": 4,
+        "missing_paths": [],
+        "integrity_score": "4/4"
+      },
+      "timestamp": "2025-09-06T12:55:20.296857"
+    },
+    "Database Connectivity": {
+      "status": "PASS",
+      "details": {
+        "tables_found": 98,
+        "database_accessible": true
+      },
+      "timestamp": "2025-09-06T12:55:21.301769"
+    },
+    "System Components": {
+      "status": "PASS",
+      "details": {
+        "available_components": 4,
+        "total_components": 4,
+        "component_status": {
+          "Dashboard": "AVAILABLE",
+          "Agents": "AVAILABLE",
+          "Task Queue": "AVAILABLE",
+          "Secret Store": "AVAILABLE"
+        }
+      },
+      "timestamp": "2025-09-06T12:55:22.304355"
+    },
+    "Dashboard Accessibility": {
+      "status": "FAIL",
+      "details": {
+        "status_code": 404,
+        "response_time": "OK",
+        "dashboard_accessible": false
+      },
+      "timestamp": "2025-09-06T12:55:23.313857"
+    },
+    "API Endpoints": {
+      "status": "PASS",
+      "details": {
+        "endpoints_tested": 3,
+        "working_endpoints": 3,
+        "api_results": {
+          "/api/health": 200,
+          "/api/marketing/campaigns": 200,
+          "/api/affiliates": 200
+        }
+      },
+      "timestamp": "2025-09-06T12:55:24.324555"
+    },
+    "Content Generation blog_post": {
+      "status": "PASS",
+      "details": "Generated content successfully",
+      "timestamp": "2025-09-06T12:55:25.340044"
+    },
+    "Content Generation social_media": {
+      "status": "PASS",
+      "details": "Generated content successfully",
+      "timestamp": "2025-09-06T12:55:25.340948"
+    },
+    "Content Generation video_script": {
+      "status": "PASS",
+      "details": "Generated content successfully",
+      "timestamp": "2025-09-06T12:55:25.342229"
+    },
+    "Content Generation newsletter": {
+      "status": "PASS",
+      "details": "Generated content successfully",
+      "timestamp": "2025-09-06T12:55:25.343403"
+    },
+    "Marketing Campaign Creation": {
+      "status": "PASS",
+      "details": "Campaign ID: campaign_1757177725",
+      "timestamp": "2025-09-06T12:55:25.345383"
+    },
+    "Marketing Campaign Retrieval": {
+      "status": "PASS",
+      "details": "Retrieved campaign: Test Campaign - AI Content Marketing",
+      "timestamp": "2025-09-06T12:55:25.346263"
+    },
+    "Campaign Analytics": {
+      "status": "PASS",
+      "details": "All metrics available",
+      "timestamp": "2025-09-06T12:55:25.346970"
+    },
+    "Campaign Content social_post": {
+      "status": "PASS",
+      "details": "Generated 152 chars",
+      "timestamp": "2025-09-06T12:55:25.347764"
+    },
+    "Campaign Content email_subject": {
+      "status": "PASS",
+      "details": "Generated 67 chars",
+      "timestamp": "2025-09-06T12:55:25.348574"
+    },
+    "Campaign Content ad_copy": {
+      "status": "PASS",
+      "details": "Generated 109 chars",
+      "timestamp": "2025-09-06T12:55:25.349378"
+    },
+    "Monetization subscription_revenue": {
+      "status": "PASS",
+      "details": "All metrics available for monthly period",
+      "timestamp": "2025-09-06T12:55:25.350173"
+    },
+    "Monetization advertising_revenue": {
+      "status": "PASS",
+      "details": "All metrics available for daily period",
+      "timestamp": "2025-09-06T12:55:25.351185"
+    },
+    "Monetization affiliate_commissions": {
+      "status": "PASS",
+      "details": "All metrics available for weekly period",
+      "timestamp": "2025-09-06T12:55:25.351937"
+    },
+    "Video Generation news_video": {
+      "status": "PASS",
+      "details": "Task created: task_20250906_125525_news_video, Status: completed",
+      "timestamp": "2025-09-06T12:55:25.353285"
+    },
+    "Video Validation task_20250906_125525_news_video": {
+      "status": "PASS",
+      "details": "Passed 4/4 validations",
+      "timestamp": "2025-09-06T12:55:25.353960"
+    },
+    "Video Generation tutorial_video": {
+      "status": "PASS",
+      "details": "Task created: task_20250906_125525_tutorial_video, Status: completed",
+      "timestamp": "2025-09-06T12:55:25.355252"
+    },
+    "Video Validation task_20250906_125525_tutorial_video": {
+      "status": "FAIL",
+      "details": "Failed validations: ['duration_match']",
+      "timestamp": "2025-09-06T12:55:25.355940"
+    },
+    "Video Generation promotional_video": {
+      "status": "PASS",
+      "details": "Task created: task_20250906_125525_promotional_video, Status: completed",
+      "timestamp": "2025-09-06T12:55:25.357178"
+    },
+    "Video Validation task_20250906_125525_promotional_video": {
+      "status": "FAIL",
+      "details": "Failed validations: ['duration_match']",
+      "timestamp": "2025-09-06T12:55:25.357808"
+    },
+    "Integration: Content to Marketing Pipeline": {
+      "status": "FAIL",
+      "details": "Step failed: [200, 422]",
+      "timestamp": "2025-09-06T12:55:25.359155"
+    },
+    "Integration: Marketing to Analytics Pipeline": {
+      "status": "PASS",
+      "details": "All steps successful: [200, 200]",
+      "timestamp": "2025-09-06T12:55:25.360439"
+    },
+    "Integration: Content to Monetization Pipeline": {
+      "status": "PASS",
+      "details": "All steps successful: [200, 200]",
+      "timestamp": "2025-09-06T12:55:25.361891"
+    },
+    "Performance: Content Generation Load": {
+      "status": "PASS",
+      "details": "5/5 requests in 0.00s",
+      "timestamp": "2025-09-06T12:55:25.365675"
+    },
+    "Performance: Analytics Query Load": {
+      "status": "PASS",
+      "details": "10/10 requests in 0.01s",
+      "timestamp": "2025-09-06T12:55:25.372322"
+    },
+    "Master Workflow": {
+      "status": "PASS",
+      "details": "Completed 5/5 steps successfully",
+      "timestamp": "2025-09-06T12:55:25.376386"
+    }
+  },
+  "overall_status": "MOSTLY_FUNCTIONAL",
+  "errors": []
+}

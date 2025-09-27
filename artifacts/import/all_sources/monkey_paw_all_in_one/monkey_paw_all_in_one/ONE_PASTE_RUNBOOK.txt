@@ -1,0 +1,31 @@
+MONKEY PAW — ALL-IN-ONE (Live Ready)
+Generated: 2025-09-26T10:57:00.519579
+
+1) Unzip & Launch
+   unzip -oq monkey_paw_all_in_one.zip -d ~/Desktop/monkey-paw
+   cd ~/Desktop/monkey-paw
+   zsh scripts/run_server.zsh
+   # Open: http://127.0.0.1:8000/
+
+2) Safe Controls
+   python3 tools/guard/do_not_delete_guard.py
+   zsh tools/snapshots/backup_now.zsh
+   zsh tools/watchdog/health_loop.zsh &
+   # Panic switch
+   zsh scripts/panic_on.zsh   # block publish
+   zsh scripts/panic_off.zsh  # allow publish
+
+3) Pipeline (manual buttons on dashboard) or via curl (scripts/curl/*)
+
+4) Exporters (Terminal or VS Code Tasks)
+   zsh tools/automation/youtube/yt_prepare_and_upload.zsh artifacts/staging/draft_youtube.txt
+   zsh tools/exporters/book_epub/build_epub.zsh 'artifacts/staging/*.txt' artifacts/published/book.epub
+   zsh tools/exporters/digital_kit/build_kit.zsh
+
+5) Approve & Publish
+   curl -s http://127.0.0.1:8000/api/admin/approve_publish/true | python3 -m json.tool
+   curl -s -X POST http://127.0.0.1:8000/api/publish | python3 -m json.tool
+
+Two clean passes recommended:
+   zsh tools/audit/run_two_pass_audit.zsh
+   zsh scripts/first_run/fill_missing_info.zsh

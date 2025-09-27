@@ -1,0 +1,109 @@
+{
+  "test_summary": {
+    "total_tests": 16,
+    "passed_tests": 11,
+    "failed_tests": 5,
+    "success_rate": 68.75,
+    "duration_seconds": 0.097935,
+    "start_time": "2025-09-04T02:55:39.290370",
+    "end_time": "2025-09-04T02:55:39.388305"
+  },
+  "test_results": [
+    {
+      "test_name": "BreakingNewsWatcher Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-04T02:55:39.291823"
+    },
+    {
+      "test_name": "Intelligence Database Initialization",
+      "success": true,
+      "details": "Database tables created",
+      "timestamp": "2025-09-04T02:55:39.292039"
+    },
+    {
+      "test_name": "RSS Feeds Configuration",
+      "success": true,
+      "details": "Configured 13 RSS feeds",
+      "timestamp": "2025-09-04T02:55:39.292047"
+    },
+    {
+      "test_name": "Trending Topics Retrieval",
+      "success": true,
+      "details": "Retrieved 0 topics",
+      "timestamp": "2025-09-04T02:55:39.292186"
+    },
+    {
+      "test_name": "Intelligence Briefing",
+      "success": true,
+      "details": "Generated intelligence briefing",
+      "timestamp": "2025-09-04T02:55:39.292317"
+    },
+    {
+      "test_name": "HypocrisyDatabaseManager Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-04T02:55:39.293241"
+    },
+    {
+      "test_name": "Hypocrisy Database Schema",
+      "success": true,
+      "details": "Database schema created",
+      "timestamp": "2025-09-04T02:55:39.297634"
+    },
+    {
+      "test_name": "Store Hypocrisy Finding",
+      "success": false,
+      "details": "Stored finding with ID: None",
+      "timestamp": "2025-09-04T02:55:39.298644"
+    },
+    {
+      "test_name": "Retrieve Content Opportunities",
+      "success": false,
+      "details": "Retrieved 0 opportunities",
+      "timestamp": "2025-09-04T02:55:39.299088"
+    },
+    {
+      "test_name": "Database Statistics",
+      "success": true,
+      "details": "Stats: {'total_findings': 0, 'by_verification_status': {}, 'by_subject_type': {}, 'content_used': 0, 'content_unused': 0, 'recent_findings_7_days': 0}",
+      "timestamp": "2025-09-04T02:55:39.299952"
+    },
+    {
+      "test_name": "PlannerAgent RSS Integration",
+      "success": false,
+      "details": "Error: TRAE_MASTER_KEY environment variable is required",
+      "timestamp": "2025-09-04T02:55:39.299972"
+    },
+    {
+      "test_name": "ResearchAgent Integration",
+      "success": false,
+      "details": "Error: TRAE_MASTER_KEY environment variable is required",
+      "timestamp": "2025-09-04T02:55:39.299979"
+    },
+    {
+      "test_name": "TaskQueueManager Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-04T02:55:39.302820"
+    },
+    {
+      "test_name": "RSS-Driven Task Creation",
+      "success": true,
+      "details": "Created task with ID: 1bac412b-460b-46b4-a8b2-d097eeadbd8d",
+      "timestamp": "2025-09-04T02:55:39.350581"
+    },
+    {
+      "test_name": "Task Queue Retrieval",
+      "success": true,
+      "details": "Retrieved 10 pending tasks",
+      "timestamp": "2025-09-04T02:55:39.388256"
+    },
+    {
+      "test_name": "End-to-End Workflow",
+      "success": false,
+      "details": "Component initialization failed",
+      "timestamp": "2025-09-04T02:55:39.388293"
+    }
+  ]
+}

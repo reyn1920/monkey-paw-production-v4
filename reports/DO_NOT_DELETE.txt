@@ -1,0 +1,57 @@
+# DO NOT DELETE — Protected Paths and Artifacts
+# This list is enforced by policy and operational procedures.
+# Nothing here may be deleted or overwritten without explicit owner approval.
+
+# Core application and configuration
+app/
+config/
+config/policy.yaml
+config/avatars.yaml
+config/sheets_multi.json
+
+# Database and migrations
+db/
+
+# Assets (master catalogs and imported)
+assets/
+assets/Avatars/
+assets/Voices/
+assets/Templates/
+assets/LUTs/
+assets/Overlays/
+assets/Fonts/
+assets/SFX/
+assets/Music/
+assets/Broll/
+
+# Artifacts and exports
+artifacts/
+artifacts/staging/
+artifacts/published/
+artifacts/backup_pre_overwrite/
+
+# Reports, logs, plans
+reports/
+reports/PANIC_SWITCH.true
+reports/DO_NOT_DELETE.txt
+
+# Tools and scripts
+tools/
+scripts/
+
+# Outputs and audits
+out/
+
+# Imported assets from audits (prefix-hashed filenames)
+assets/Avatars/import/
+assets/Voices/import/
+assets/Templates/Resolve/
+assets/Templates/Blender/
+assets/LUTs/
+assets/Overlays/
+assets/Fonts/
+assets/SFX/
+assets/Music/
+assets/Broll/
+
+# Note: Additional items will be appended automatically by importers as they run.

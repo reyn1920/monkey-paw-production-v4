@@ -1,0 +1,45 @@
+ONE-PASTE RUNBOOK — Monkey Paw Productions — Live Pack
+Generated: 2025-09-26T10:02:01.696756
+
+PRINCIPLES
+- Add-only, zero-cost. No paid services or trials.
+- Rule‑1 vocabulary ban respected in new code/comments.
+- Approval gate: nothing moves to published without explicit approval.
+
+SETUP
+1) Unzip anywhere (e.g., ~/monkey-paw)
+2) In Terminal:
+   cd ~/monkey-paw
+   python3 -m pip install -r requirements.txt
+
+LAUNCH EVERYTHING
+zsh ./launch_all.zsh
+
+HEALTH
+curl -s http://127.0.0.1:8000/api/health | python3 -m json.tool
+
+DRIVE THE PIPELINE
+zsh ./scripts/curl/01_research.sh "your topic"
+zsh ./scripts/curl/02_draft.sh 1 "Write a clear outline and a 500-word script."
+zsh ./scripts/curl/03_repurpose.sh 1
+
+APPROVE & PUBLISH (gated)
+curl -s http://127.0.0.1:8000/api/admin/approve_publish/true | python3 -m json.tool
+zsh ./scripts/curl/04_publish.sh
+
+EXPORTERS
+zsh ./tools/exporters/book_epub/build_epub.zsh 'artifacts/staging/*.txt' artifacts/published/book.epub
+zsh ./tools/exporters/digital_kit/build_kit.zsh
+
+YOUTUBE (dry-run unless creds later)
+zsh ./tools/automation/youtube/yt_prepare_and_upload.zsh artifacts/staging/draft_youtube.txt
+
+VS CODE
+- Open folder → Run task “Launch All” or “Audit: Two Pass” etc. in .vscode/tasks.json
+
+REPORTS
+- ./reports/DIAGNOSIS.txt
+- ./reports/COMPARISON.md
+
+SAFE STOP
+- killall uvicorn  # if needed

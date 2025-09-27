@@ -1,0 +1,135 @@
+
+================================================================================
+TRAE.AI DATABASE SCHEMA VALIDATION REPORT
+================================================================================
+Timestamp: 2025-09-11T10:03:24.762512
+Database: databases/master.db
+Status: COMPLETED
+
+📊 SCHEMA SUMMARY
+----------------------------------------
+Total Tables: 107
+Total Indexes: 220
+Total Triggers: 10
+
+📁 TABLES BY CATEGORY
+----------------------------------------
+Core System: 5 tables
+  • audit_log
+  • component_health
+  • repair_log
+  • system_config
+  • task_queue
+
+Content Management: 10 tables
+  • author_personas
+  • content_adaptations
+  • content_features
+  • content_performance
+  • content_trends
+  ... and 5 more
+
+Analytics & Performance: 13 tables
+  • application_metrics
+  • channel_metrics
+  • channels
+  • financial_metrics_history
+  • growth_metrics
+  ... and 8 more
+
+Monetization: 9 tables
+  • affiliate_dashboards
+  • affiliate_payouts
+  • affiliate_programs
+  • affiliate_suggestions
+  • affiliate_transactions
+  ... and 4 more
+
+User Management: 4 tables
+  • audience_segments
+  • contacts
+  • segment_memberships
+  • workflow_executions
+
+API Integration: 9 tables
+  • api_discovery_tasks
+  • api_orchestration_log
+  • api_registry
+  • api_request_logs
+  • api_suggestions
+  ... and 4 more
+
+Research & Evidence: 4 tables
+  • evidence
+  • evidence_citations
+  • intelligence_briefings
+  • news_articles
+
+Automation: 6 tables
+  • automation_sessions
+  • automation_workflows
+  • email_campaigns
+  • outreach_campaigns
+  • promotion_campaigns
+  ... and 1 more
+
+Financial Management: 2 tables
+  • allocation_history
+  • resource_allocations
+
+Social Media: 7 tables
+  • comments
+  • engagement_history
+  • engagement_opportunities
+  • engagement_results
+  • topic_engagement
+  ... and 2 more
+
+System Monitoring: 4 tables
+  • alert_history
+  • error_events
+  • error_patterns
+  • platform_monitoring_log
+
+Compliance & Security: 6 tables
+  • compliance_scans
+  • detection_events
+  • enforcement_actions
+  • enforcement_history
+  • scan_results
+  ... and 1 more
+
+Other: 28 tables
+  • avatar_usage_log
+  • avatars
+  • channel_financials
+  • collaboration_opportunities
+  • contact_events
+  ... and 23 more
+
+🔍 SCHEMA INTEGRITY
+----------------------------------------
+Foreign Key Issues: 0
+Missing Recommended Indexes: 187
+Tables with JSON Columns: 61
+Tables with Foreign Keys: 20
+Average Columns per Table: 10.5
+
+💡 RECOMMENDATIONS
+----------------------------------------
+1. Consider database partitioning - 107 tables detected
+2. Consider adding 187 recommended indexes for better performance
+3. Table 'affiliate_programs' has 31 columns - consider normalization
+4. Table 'affiliate_transactions' has 23 columns - consider normalization
+5. Table 'api_registry' has 33 columns - consider normalization
+6. Table 'avatars' has 31 columns - consider normalization
+7. Table 'channels' has 28 columns - consider normalization
+8. Table 'cloud_software' has 37 columns - consider normalization
+9. Table 'email_campaigns' has 25 columns - consider normalization
+10. Table 'evidence' has 37 columns - consider normalization
+11. Table 'hypocrisy_tracker' has 29 columns - consider normalization
+12. Table 'video_performance' has 34 columns - consider normalization
+13. Monitor JSON column performance in: affiliate_dashboards (scraping_config), affiliate_programs (payment_methods, product_categories, geographic_restrictions, contact_info), alert_history (alert_data, recipients)...
+
+✅ DATABASE SCHEMA VALIDATION COMPLETED SUCCESSFULLY
+================================================================================

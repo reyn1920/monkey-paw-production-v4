@@ -1,0 +1,7 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.8.0
+ebooklib>=0.18
+jinja2>=3.1.4
+requests>=2.32.0
+# pillow is optional; thumbnail step skips gracefully if missing

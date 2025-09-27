@@ -1,0 +1,18 @@
+# ONE-PASTE — Monkey Paw — Live (Full Pack)
+
+# 1) Unzip into Desktop
+cd ~/Desktop
+unzip -o ~/Downloads/monkey_paw_everything_live_full_pack.zip -d monkey-paw-live-pack
+cd monkey-paw-live-pack
+
+# 2) Launch all (server + health wait + diagnostics + comparison + two-pass verify)
+zsh ./launch_all.zsh
+
+# 3) Verify health manually
+curl http://127.0.0.1:8000/api/health
+
+# 4) Approve publish (after GREEN)
+zsh ./apps/monkey_paw_live/scripts/approve_publish.zsh
+
+# 5) Optional: separate no-code coders from any repo
+zsh ./tools/project-doctor/scripts/separate_projects.zsh

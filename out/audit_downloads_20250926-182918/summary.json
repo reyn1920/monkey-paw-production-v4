@@ -1,0 +1,38 @@
+{
+  "other": {
+    "count": 65794,
+    "bytes": 13775803164
+  },
+  "avatars": {
+    "count": 4329,
+    "bytes": 139720680
+  },
+  "blender": {
+    "count": 25906,
+    "bytes": 108295770
+  },
+  "scripts_configs": {
+    "count": 231,
+    "bytes": 1228771
+  },
+  "marketing": {
+    "count": 3838,
+    "bytes": 29556161
+  },
+  "overlays": {
+    "count": 161,
+    "bytes": 1919776
+  },
+  "tts_voices": {
+    "count": 134,
+    "bytes": 7942603
+  },
+  "resolve": {
+    "count": 6,
+    "bytes": 548917
+  },
+  "fonts": {
+    "count": 88,
+    "bytes": 1720004
+  }
+}

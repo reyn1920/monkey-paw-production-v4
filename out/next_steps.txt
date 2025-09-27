@@ -1,0 +1,149 @@
+MONKEY PAW V4 — NEXT STEPS (Live Data, Multi-Source Sheets, Ops)
+===============================================================
+
+1) Public App & Health
+----------------------
+• Public URL (Cloudflare Quick Tunnel): see your terminal output from scripts/run_public.zsh
+• Local: http://127.0.0.1:8000/
+• Health: GET /api/health
+
+2) Live Data (Dashboard: Revenue + KPIs)
+----------------------------------------
+Files: config/sheets.yaml, app/main.py, app/templates/dashboard.html
+
+• Provide TWO public CSV URLs (no auth):
+  - Revenue (tab must have columns: day, goal, actual)
+  - Content KPIs (tab must have columns: metric, value)
+
+• CSV URL format per tab (Google Sheets):
+  https://docs.google.com/spreadsheets/d/SHEET_ID/gviz/tq?tqx=out:csv&sheet=TAB_NAME
+
+• Set via UI (recommended):
+  - Open /
+  - Click "Set Sheets URLs", paste both URLs
+  - Click "Refresh Data"
+
+• Or set via API:
+  curl -sS -X POST "http://127.0.0.1:8000/api/admin/update_sheets" \
+       -H 'Content-Type: application/json' \
+       -d '{
+             "revenue_csv_url": "https://docs.google.com/spreadsheets/d/<ID>/gviz/tq?tqx=out:csv&sheet=revenue_daily",
+             "content_kpis_csv_url": "https://docs.google.com/spreadsheets/d/<ID>/gviz/tq?tqx=out:csv&sheet=content_kpis",
+             "poll_seconds": 60
+           }'
+
+  curl -sS -X POST "http://127.0.0.1:8000/api/admin/refresh_data"
+
+• Dashboard timeframe selector (uses your computer time):
+  - Revenue chart calls GET /api/metrics/revenue?days=N (N=7|30|60)
+
+3) Multi-Source Sheets (Voices, Right Perspective, etc.)
+--------------------------------------------------------
+Files: config/sheets_multi.json, app/sheets_fetcher.py, app/routers/sheets_router.py
+
+• Edit config/sheets_multi.json and paste real Sheet URLs and exact tab names. Example:
+{
+  "sources": {
+    "default": {
+      "sheet_url": "https://docs.google.com/spreadsheets/d/DEFAULT_ID/edit#gid=0",
+      "tabs": {
+        "kpis":   { "tab_name": "KPIs",   "ttl_seconds": 300 },
+        "sales":  { "tab_name": "Sales",  "ttl_seconds": 300 }
+      }
+    },
+    "voices": {
+      "sheet_url": "https://docs.google.com/spreadsheets/d/VOICES_ID/edit#gid=0",
+      "tabs": {
+        "catalog":      { "tab_name": "VoicesCatalog", "ttl_seconds": 600 },
+        "assignments":  { "tab_name": "Assignments",   "ttl_seconds": 300 }
+      }
+    },
+    "right_perspective": {
+      "sheet_url": "https://docs.google.com/spreadsheets/d/RP_ID/edit#gid=0",
+      "tabs": {
+        "content_queue":  { "tab_name": "ContentQueue",  "ttl_seconds": 180 },
+        "performance":    { "tab_name": "Performance",   "ttl_seconds": 300 },
+        "revenue":        { "tab_name": "Revenue",       "ttl_seconds": 300 }
+      }
+    }
+  }
+}
+
+• Endpoints:
+  - List sources/keys: GET /api/sheets/config
+  - Fetch tab:        GET /api/sheets/{source}/{key}
+  - Legacy (default): GET /api/sheets/{key}
+
+• Verify (examples):
+  curl -sS http://127.0.0.1:8000/api/sheets/config | jq
+  curl -sS http://127.0.0.1:8000/api/sheets/voices/catalog | jq
+  curl -sS http://127.0.0.1:8000/api/sheets/right_perspective/performance | jq
+
+4) DB Schema (SQLite: db/monkey_paw.db)
+---------------------------------------
+Tables used by APIs and dashboard:
+  - revenue_daily(day TEXT PRIMARY KEY, goal REAL, actual REAL)
+  - content_kpis(metric TEXT PRIMARY KEY, value INTEGER)
+
+Health queries:
+  sqlite3 db/monkey_paw.db "SELECT COUNT(*), MIN(day), MAX(day) FROM revenue_daily;"
+  sqlite3 db/monkey_paw.db "SELECT metric, value FROM content_kpis;"
+
+5) Run, Logs, Watchdog
+----------------------
+• Public run (free tunnel):
+  zsh scripts/run_public.zsh
+  - App logs:      /tmp/monkey_paw_v4_uvicorn.log
+  - Cloudflared:   /tmp/cloudflared_monkeypaw.log
+
+• Watchdog (keeps both alive):
+  zsh scripts/watchdog.zsh
+  - Watchdog log:  /tmp/monkeypaw_watchdog.log
+
+6) Pipeline Buttons (UI)
+------------------------
+Buttons on /:
+  research  -> POST /api/research?topic=default
+  draft     -> POST /api/draft
+  repurpose -> POST /api/repurpose
+  approve   -> GET  /api/admin/approve_publish/true
+  publish   -> POST /api/publish   (blocked if Panic ON or not approved)
+
+7) Panic Switch (manual)
+------------------------
+• If file reports/PANIC_SWITCH.true exists, /api/publish returns error.
+• Toggle manually (shell):
+  touch reports/PANIC_SWITCH.true      # ON
+  rm -f reports/PANIC_SWITCH.true      # OFF
+
+8) Security & Free-Only Notes
+------------------------------
+• Use public Google Sheets (no secrets). If needed, mirror a public-safe copy.
+• Cloudflare Quick Tunnel is free for dev; rotate URLs if you share publicly.
+• No API keys stored server-side for Sheets CSV export.
+
+9) Troubleshooting
+------------------
+• 403 Upstream fetch error → Publish the Sheet/tab to web, or set sharing to "Anyone with link can view".
+• 404 Unknown source/tab → Fix names in config/sheets_multi.json.
+• Empty chart → Ensure CSV headers match required columns and at least one data row exists.
+• Numbers as strings → Cast in chart code if needed (TinyChart draws arrays of numbers).
+• Slow tabs → Increase ttl_seconds to cache longer on /api/sheets.
+
+10) What To Send Me So I Can Finalize
+-------------------------------------
+• For dashboard live data (sheets.yaml):
+  - revenue_daily CSV URL (day, goal, actual)
+  - content_kpis CSV URL (metric, value)
+
+• For multi-source (sheets_multi.json):
+  - Voices Sheet URL + tab names
+  - Right Perspective Sheet URL + tab names
+  - Any other channels (name + URL + tabs)
+
+After I have these, I will:
+  - Update configs
+  - Trigger a refresh
+  - Verify dashboard charts and /api/sheets endpoints live
+
+— End —

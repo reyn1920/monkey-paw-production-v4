@@ -1,0 +1,225 @@
+{
+  "test_summary": {
+    "total_tests": 16,
+    "passed": 6,
+    "failed": 6,
+    "skipped": 4,
+    "success_rate": 37.5,
+    "total_duration": 0.158238,
+    "overall_status": "CRITICAL - System requires immediate intervention"
+  },
+  "category_summaries": {
+    "Core Infrastructure": {
+      "total_tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "success_rate": 100.0
+    },
+    "Agent Functionality": {
+      "total_tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "success_rate": 0.0
+    },
+    "Task Queue & Coordination": {
+      "total_tests": 2,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 1,
+      "success_rate": 0.0
+    },
+    "Dashboard & Monitoring": {
+      "total_tests": 2,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "success_rate": 50.0
+    },
+    "Integration & API": {
+      "total_tests": 2,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 1,
+      "success_rate": 0.0
+    },
+    "Resilience & Self-Healing": {
+      "total_tests": 2,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 1,
+      "success_rate": 50.0
+    },
+    "Performance & Load": {
+      "total_tests": 2,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 1,
+      "success_rate": 50.0
+    },
+    "Security & Secrets": {
+      "total_tests": 2,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "success_rate": 0.0
+    }
+  },
+  "detailed_results": [
+    {
+      "test_name": "Database Connectivity & Schema",
+      "category": "Core Infrastructure",
+      "status": "PASS",
+      "duration": 0.009793996810913086,
+      "details": "Database initialized with required tables: ['tasks', 'agents', 'system_metrics', 'insights']",
+      "timestamp": "2025-09-05T19:36:06.055604",
+      "error": null
+    },
+    {
+      "test_name": "File System Permissions",
+      "category": "Core Infrastructure",
+      "status": "PASS",
+      "duration": 0.00045013427734375,
+      "details": "Directory structure validated: 7/7 directories",
+      "timestamp": "2025-09-05T19:36:06.056170",
+      "error": null
+    },
+    {
+      "test_name": "Python Dependencies",
+      "category": "Core Infrastructure",
+      "status": "PASS",
+      "duration": 1.5735626220703125e-05,
+      "details": "All required Python packages available: 9",
+      "timestamp": "2025-09-05T19:36:06.056241",
+      "error": null
+    },
+    {
+      "test_name": "Agent Functionality - Critical Error",
+      "category": "Agent Functionality",
+      "status": "FAIL",
+      "duration": 0.0,
+      "details": "Critical error prevented test execution: name 'PlannerAgent' is not defined",
+      "timestamp": "2025-09-05T19:36:06.056352",
+      "error": "name 'PlannerAgent' is not defined"
+    },
+    {
+      "test_name": "Task Queue Initialization",
+      "category": "Task Queue & Coordination",
+      "status": "FAIL",
+      "duration": 0.003917217254638672,
+      "details": "Task queue initialization failed: no such column: scheduled_at",
+      "timestamp": "2025-09-05T19:36:06.060316",
+      "error": null
+    },
+    {
+      "test_name": "Task Priority Scheduling",
+      "category": "Task Queue & Coordination",
+      "status": "SKIP",
+      "duration": 9.5367431640625e-07,
+      "details": "Task queue not available for priority testing",
+      "timestamp": "2025-09-05T19:36:06.060431",
+      "error": null
+    },
+    {
+      "test_name": "Dashboard Initialization",
+      "category": "Dashboard & Monitoring",
+      "status": "FAIL",
+      "duration": 2.1457672119140625e-06,
+      "details": "Dashboard initialization failed: name 'TotalAccessDashboard' is not defined",
+      "timestamp": "2025-09-05T19:36:06.060489",
+      "error": null
+    },
+    {
+      "test_name": "System Metrics Collection",
+      "category": "Dashboard & Monitoring",
+      "status": "PASS",
+      "duration": 0.12611007690429688,
+      "details": "System metrics collected: CPU 66.3%, Memory 73.9%, Disk 8.1%",
+      "timestamp": "2025-09-05T19:36:06.186622",
+      "error": null
+    },
+    {
+      "test_name": "Network Connectivity",
+      "category": "Integration & API",
+      "status": "FAIL",
+      "duration": 0.00775909423828125,
+      "details": "Network connectivity test failed: Could not find a suitable TLS CA certificate bundle, invalid path:/Users/thomasbrianreynolds/online production/venv/lib/python3.13/site-packages/certifi/cacert.pem",
+      "timestamp": "2025-09-05T19:36:06.194519",
+      "error": null
+    },
+    {
+      "test_name": "Local API Endpoints",
+      "category": "Integration & API",
+      "status": "SKIP",
+      "duration": 0.0030128955841064453,
+      "details": "No local API endpoints currently running",
+      "timestamp": "2025-09-05T19:36:06.197630",
+      "error": null
+    },
+    {
+      "test_name": "Error Handling & Recovery",
+      "category": "Resilience & Self-Healing",
+      "status": "SKIP",
+      "duration": 9.5367431640625e-07,
+      "details": "Task queue not available for resilience testing",
+      "timestamp": "2025-09-05T19:36:06.197720",
+      "error": null
+    },
+    {
+      "test_name": "Resource Cleanup",
+      "category": "Resilience & Self-Healing",
+      "status": "PASS",
+      "duration": 0.0007343292236328125,
+      "details": "Resource cleanup successful: 5/5 files cleaned",
+      "timestamp": "2025-09-05T19:36:06.198479",
+      "error": null
+    },
+    {
+      "test_name": "Database Performance",
+      "category": "Performance & Load",
+      "status": "SKIP",
+      "duration": 0.0,
+      "details": "Task queue not available for performance testing",
+      "timestamp": "2025-09-05T19:36:06.198532",
+      "error": null
+    },
+    {
+      "test_name": "Memory Usage",
+      "category": "Performance & Load",
+      "status": "PASS",
+      "duration": 0.004952192306518555,
+      "details": "Memory usage: +0.2MB peak, -0.0MB recovered",
+      "timestamp": "2025-09-05T19:36:06.203505",
+      "error": null
+    },
+    {
+      "test_name": "Secret Store Functionality",
+      "category": "Security & Secrets",
+      "status": "FAIL",
+      "duration": 4.0531158447265625e-06,
+      "details": "Secret store test failed: name 'SecretStore' is not defined",
+      "timestamp": "2025-09-05T19:36:06.203640",
+      "error": null
+    },
+    {
+      "test_name": "File Security",
+      "category": "Security & Secrets",
+      "status": "FAIL",
+      "duration": 0.0001571178436279297,
+      "details": "File security test failed: 'utf-8' codec can't decode byte 0x8a in position 98: invalid start byte",
+      "timestamp": "2025-09-05T19:36:06.203822",
+      "error": null
+    }
+  ],
+  "recommendations": [
+    "Address 6 failed tests before production deployment",
+    "Focus on Agent Functionality issues: 1 failures detected",
+    "Focus on Task Queue & Coordination issues: 1 failures detected",
+    "Focus on Dashboard & Monitoring issues: 1 failures detected",
+    "Focus on Integration & API issues: 1 failures detected",
+    "Focus on Security & Secrets issues: 2 failures detected",
+    "CRITICAL: Address security issues immediately"
+  ],
+  "generated_at": "2025-09-05T19:36:06.203944"
+}

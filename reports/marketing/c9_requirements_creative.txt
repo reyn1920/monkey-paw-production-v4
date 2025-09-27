@@ -1,0 +1,30 @@
+# Essential packages for creative toolchain
+# Core dependencies for Linly-Talker, Blender integration, and AI models
+
+# Core scientific computing
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Image processing
+Pillow>=10.0.0
+opencv-python>=4.8.0
+
+# Audio processing
+librosa>=0.10.0
+soundfile>=0.12.0
+
+# Video processing
+ffmpeg-python>=0.2.0
+imageio>=2.30.0
+
+# Machine learning (start with CPU versions)
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Utilities
+requests>=2.31.0
+PyYAML>=6.0.0
+tqdm>=4.65.0
+click>=8.1.0
+colorama>=0.4.6

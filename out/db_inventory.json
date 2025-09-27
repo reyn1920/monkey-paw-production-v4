@@ -1,0 +1,72 @@
+[
+  {
+    "engine": "sqlite",
+    "value": "sqlite:///path/to.db",
+    "file": "tools/dbsheet_scan.py"
+  },
+  {
+    "engine": "sqlite",
+    "value": "sqlite:///([^\\s\\\"']+\\.db",
+    "file": "tools/dbsheet_scan.py"
+  },
+  {
+    "engine": "bigquery",
+    "value": "bigquery://[^\\s\\",
+    "file": "tools/dbsheet_scan.py"
+  },
+  {
+    "engine": "firestore",
+    "value": "FIREBASE_",
+    "file": "tools/dbsheet_scan.py"
+  },
+  {
+    "engine": "firestore",
+    "value": "GOOGLE_APPLICATION_CREDENTIALS",
+    "file": "tools/dbsheet_scan.py"
+  },
+  {
+    "engine": "firestore",
+    "value": "FIRESTORE_",
+    "file": "tools/dbsheet_scan.py"
+  },
+  {
+    "engine": "sqlite",
+    "value": "sqlite:///path/to.db",
+    "file": "tools/dbsheet_scan.py"
+  },
+  {
+    "engine": "postgres",
+    "value": "postgres://user:pass@localhost:5432/foobar",
+    "file": ".venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py"
+  },
+  {
+    "engine": "postgres",
+    "value": "postgres://user:pass@localhost:5432/foobar",
+    "file": ".venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py"
+  },
+  {
+    "engine": "postgres",
+    "value": "postgres://user:pass@localhost:5432",
+    "file": ".venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py"
+  },
+  {
+    "engine": "postgres",
+    "value": "postgres://user:pass@localhost:5432",
+    "file": ".venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py"
+  },
+  {
+    "engine": "postgres",
+    "value": "postgres://user:pass@localhost:5432",
+    "file": ".venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py"
+  },
+  {
+    "engine": "mongo",
+    "value": "mongodb://mongodb0.example.com:27017`).",
+    "file": ".venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py"
+  },
+  {
+    "engine": "sqlite",
+    "value": "sqlite:///db/monkey_paw.db",
+    "file": "db/monkey_paw.db"
+  }
+]

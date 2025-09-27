@@ -1,0 +1,115 @@
+# TRAE.AI Production Grafana Dashboards Configuration
+# Automatically provisions dashboards for comprehensive monitoring
+
+apiVersion: 1
+
+providers:
+  # System Infrastructure Dashboards
+  - name: "system-dashboards"
+    orgId: 1
+    folder: "System Infrastructure"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/system
+
+  # Application Performance Dashboards
+  - name: "application-dashboards"
+    orgId: 1
+    folder: "Application Performance"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/application
+
+  # Business Metrics Dashboards
+  - name: "business-dashboards"
+    orgId: 1
+    folder: "Business Metrics"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/business
+
+  # Content Creation Dashboards
+  - name: "content-dashboards"
+    orgId: 1
+    folder: "Content Analytics"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/content
+
+  # Marketing Performance Dashboards
+  - name: "marketing-dashboards"
+    orgId: 1
+    folder: "Marketing Analytics"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/marketing
+
+  # Revenue & Monetization Dashboards
+  - name: "revenue-dashboards"
+    orgId: 1
+    folder: "Revenue Analytics"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/revenue
+
+  # Security & Compliance Dashboards
+  - name: "security-dashboards"
+    orgId: 1
+    folder: "Security & Compliance"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/security
+
+  # External Services Dashboards
+  - name: "external-dashboards"
+    orgId: 1
+    folder: "External Services"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/external
+
+  # Executive Summary Dashboards
+  - name: "executive-dashboards"
+    orgId: 1
+    folder: "Executive Summary"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/executive
+
+  # Development & DevOps Dashboards
+  - name: "devops-dashboards"
+    orgId: 1
+    folder: "DevOps & Development"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/devops

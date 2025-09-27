@@ -1,0 +1,24 @@
+{
+  "providers": [
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "category": "ai",
+      "docs_url": "https://platform.openai.com/docs",
+      "signup_url": "https://platform.openai.com/signup",
+      "key_env": "OPENAI_API_KEY",
+      "requires_key": true,
+      "enabled": true
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "category": "ai",
+      "docs_url": "https://docs.anthropic.com",
+      "signup_url": "https://console.anthropic.com",
+      "key_env": "ANTHROPIC_API_KEY",
+      "requires_key": true,
+      "enabled": true
+    }
+  ]
+}

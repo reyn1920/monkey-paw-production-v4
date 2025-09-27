@@ -1,0 +1,22 @@
+# Self-Correcting Debug Agent Dependencies
+# Core LangGraph and LangChain packages
+langgraph>=0.0.40
+langchain-core>=0.1.0
+langchain-openai>=0.1.0
+langchain>=0.1.0
+
+# Observability with Langfuse
+langfuse>=2.0.0
+
+# Environment management
+python-dotenv>=1.0.0
+
+# Testing framework
+pytest>=7.0.0
+
+# Standard library enhancements
+typing-extensions>=4.0.0
+
+# Optional: For enhanced debugging capabilities
+rich>=13.0.0
+colorama>=0.4.6

@@ -1,0 +1,216 @@
+{
+  "image_generation": {
+    "version": "1.0.0",
+    "description": "Comprehensive image generation configuration for all AI image services",
+    "last_updated": "2025-01-09",
+    "enabled": true,
+
+    "default_settings": {
+      "quality": "ultra_high",
+      "resolution": "1024x1024",
+      "format": "png",
+      "safety_filter": true,
+      "content_policy": "strict",
+      "timeout": 120,
+      "retry_attempts": 3,
+      "cache_enabled": true,
+      "cache_duration": 3600
+    },
+
+    "providers": {
+      "openai_dalle": {
+        "enabled": true,
+        "priority": 1,
+        "api_version": "v1",
+        "base_url": "https://api.openai.com/v1/images",
+        "model": "dall-e-3",
+        "max_requests_per_minute": 50,
+        "supported_sizes": ["1024x1024", "1792x1024", "1024x1792"],
+        "supported_quality": ["standard", "hd"],
+        "supported_styles": ["vivid", "natural"],
+        "max_prompt_length": 4000,
+        "features": {
+          "text_to_image": true,
+          "image_editing": true,
+          "image_variations": true,
+          "inpainting": false,
+          "outpainting": false
+        }
+      },
+
+      "stability_ai": {
+        "enabled": true,
+        "priority": 2,
+        "api_version": "v1",
+        "base_url": "https://api.stability.ai/v1",
+        "model": "stable-diffusion-xl-1024-v1-0",
+        "max_requests_per_minute": 150,
+        "supported_engines": [
+          "stable-diffusion-xl-1024-v1-0",
+          "stable-diffusion-v1-6",
+          "stable-diffusion-512-v2-1"
+        ],
+        "supported_sizes": ["512x512", "768x768", "1024x1024", "1536x1536"],
+        "features": {
+          "text_to_image": true,
+          "image_to_image": true,
+          "inpainting": true,
+          "outpainting": true,
+          "upscaling": true,
+          "style_transfer": true
+        }
+      },
+
+      "local_stable_diffusion": {
+        "enabled": true,
+        "priority": 3,
+        "model_path": "./models/stable-diffusion",
+        "device": "cuda",
+        "precision": "fp16",
+        "supported_models": [
+          "runwayml/stable-diffusion-v1-5",
+          "stabilityai/stable-diffusion-xl-base-1.0",
+          "stabilityai/stable-diffusion-2-1"
+        ],
+        "features": {
+          "text_to_image": true,
+          "image_to_image": true,
+          "inpainting": true,
+          "controlnet": true,
+          "lora": true
+        }
+      }
+    },
+
+    "generation_presets": {
+      "avatar_generation": {
+        "prompt_template": "professional headshot of {description}, high quality, studio lighting, clean background",
+        "negative_prompt": "blurry, low quality, distorted, deformed, extra limbs, bad anatomy",
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "size": "1024x1024",
+        "style": "natural"
+      },
+
+      "content_illustration": {
+        "prompt_template": "illustration of {description}, digital art, high quality, detailed",
+        "negative_prompt": "blurry, low quality, text, watermark",
+        "steps": 25,
+        "guidance_scale": 8.0,
+        "size": "1792x1024",
+        "style": "vivid"
+      },
+
+      "product_mockup": {
+        "prompt_template": "product mockup of {description}, professional photography, white background, high resolution",
+        "negative_prompt": "blurry, low quality, cluttered background",
+        "steps": 35,
+        "guidance_scale": 7.0,
+        "size": "1024x1024",
+        "style": "natural"
+      },
+
+      "social_media_post": {
+        "prompt_template": "social media graphic for {description}, modern design, eye-catching, professional",
+        "negative_prompt": "blurry, low quality, cluttered, unprofessional",
+        "steps": 20,
+        "guidance_scale": 6.5,
+        "size": "1024x1024",
+        "style": "vivid"
+      }
+    },
+
+    "quality_settings": {
+      "draft": {
+        "steps": 10,
+        "guidance_scale": 5.0,
+        "resolution": "512x512",
+        "quality": "standard"
+      },
+      "standard": {
+        "steps": 20,
+        "guidance_scale": 7.5,
+        "resolution": "1024x1024",
+        "quality": "standard"
+      },
+      "high": {
+        "steps": 30,
+        "guidance_scale": 8.0,
+        "resolution": "1024x1024",
+        "quality": "hd"
+      },
+      "ultra_high": {
+        "steps": 50,
+        "guidance_scale": 9.0,
+        "resolution": "1536x1536",
+        "quality": "hd"
+      }
+    },
+
+    "safety_and_compliance": {
+      "content_filtering": {
+        "enabled": true,
+        "strict_mode": true,
+        "blocked_categories": [
+          "violence",
+          "adult_content",
+          "hate_speech",
+          "illegal_activities",
+          "copyrighted_material"
+        ]
+      },
+      "prompt_validation": {
+        "enabled": true,
+        "max_length": 4000,
+        "forbidden_words": [],
+        "require_moderation": true
+      },
+      "output_validation": {
+        "enabled": true,
+        "scan_for_inappropriate_content": true,
+        "watermark_detection": true,
+        "face_detection_privacy": true
+      }
+    },
+
+    "performance_optimization": {
+      "caching": {
+        "enabled": true,
+        "cache_duration": 3600,
+        "max_cache_size": "1GB",
+        "cache_location": "./cache/images"
+      },
+      "batch_processing": {
+        "enabled": true,
+        "max_batch_size": 10,
+        "parallel_requests": 3
+      },
+      "load_balancing": {
+        "enabled": true,
+        "strategy": "round_robin",
+        "fallback_enabled": true
+      }
+    },
+
+    "monitoring_and_analytics": {
+      "usage_tracking": {
+        "enabled": true,
+        "track_costs": true,
+        "track_performance": true,
+        "track_quality_scores": true
+      },
+      "error_handling": {
+        "log_errors": true,
+        "retry_on_failure": true,
+        "fallback_to_alternative_provider": true,
+        "notify_on_repeated_failures": true
+      },
+      "rate_limiting": {
+        "enabled": true,
+        "requests_per_minute": 100,
+        "requests_per_hour": 1000,
+        "requests_per_day": 10000
+      }
+    }
+  }
+}

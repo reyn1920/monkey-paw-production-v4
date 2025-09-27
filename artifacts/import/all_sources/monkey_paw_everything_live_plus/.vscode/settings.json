@@ -1,0 +1,6 @@
+{
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true
+}

@@ -1,0 +1,1290 @@
+{
+  "timestamp": "2025-09-11T10:03:24.762512",
+  "database_path": "databases/master.db",
+  "validation_status": "completed",
+  "total_tables": 107,
+  "total_indexes": 220,
+  "total_triggers": 10,
+  "tables_by_category": {
+    "Core System": [
+      "audit_log",
+      "component_health",
+      "repair_log",
+      "system_config",
+      "task_queue"
+    ],
+    "Content Management": [
+      "author_personas",
+      "content_adaptations",
+      "content_features",
+      "content_performance",
+      "content_trends",
+      "evolution_experiments",
+      "evolution_metrics",
+      "format_performance",
+      "format_trends",
+      "hypocrisy_tracker"
+    ],
+    "Analytics & Performance": [
+      "application_metrics",
+      "channel_metrics",
+      "channels",
+      "financial_metrics_history",
+      "growth_metrics",
+      "outreach_metrics",
+      "performance_alerts",
+      "performance_insights",
+      "performance_metrics",
+      "strategic_metrics",
+      "system_metrics",
+      "video_performance",
+      "video_performance_history"
+    ],
+    "Monetization": [
+      "affiliate_dashboards",
+      "affiliate_payouts",
+      "affiliate_programs",
+      "affiliate_suggestions",
+      "affiliate_transactions",
+      "budget_tracking",
+      "financial_alerts",
+      "financial_forecasts",
+      "payout_records"
+    ],
+    "User Management": [
+      "audience_segments",
+      "contacts",
+      "segment_memberships",
+      "workflow_executions"
+    ],
+    "API Integration": [
+      "api_discovery_tasks",
+      "api_orchestration_log",
+      "api_registry",
+      "api_request_logs",
+      "api_suggestions",
+      "api_usage_tracking",
+      "cloud_software",
+      "software_integration_status",
+      "software_usage_logs"
+    ],
+    "Research & Evidence": [
+      "evidence",
+      "evidence_citations",
+      "intelligence_briefings",
+      "news_articles"
+    ],
+    "Automation": [
+      "automation_sessions",
+      "automation_workflows",
+      "email_campaigns",
+      "outreach_campaigns",
+      "promotion_campaigns",
+      "stealth_profiles"
+    ],
+    "Financial Management": [
+      "allocation_history",
+      "resource_allocations"
+    ],
+    "Social Media": [
+      "comments",
+      "engagement_history",
+      "engagement_opportunities",
+      "engagement_results",
+      "topic_engagement",
+      "topic_profiles",
+      "user_interactions"
+    ],
+    "System Monitoring": [
+      "alert_history",
+      "error_events",
+      "error_patterns",
+      "platform_monitoring_log"
+    ],
+    "Compliance & Security": [
+      "compliance_scans",
+      "detection_events",
+      "enforcement_actions",
+      "enforcement_history",
+      "scan_results",
+      "violations"
+    ],
+    "Other": [
+      "avatar_usage_log",
+      "avatars",
+      "channel_financials",
+      "collaboration_opportunities",
+      "contact_events",
+      "conversation_cache",
+      "creator_profiles",
+      "environment_snapshots",
+      "expansion_plans",
+      "generated_reports",
+      "growth_history",
+      "hashtag_performance",
+      "market_opportunities",
+      "model_usage",
+      "niche_expansions",
+      "niche_opportunities",
+      "predictions",
+      "quarterly_briefs",
+      "response_cache",
+      "rollback_history",
+      "rollback_log",
+      "schema_metadata",
+      "secrets",
+      "strategic_insights",
+      "strategic_recommendations",
+      "tool_generation_plans",
+      "trend_analysis",
+      "video_promotions"
+    ]
+  },
+  "schema_integrity": {
+    "foreign_key_issues": 0,
+    "missing_recommended_indexes": 187,
+    "tables_with_json_columns": 61,
+    "tables_with_foreign_keys": 20,
+    "average_columns_per_table": 10.457943925233645
+  },
+  "foreign_key_constraints": [],
+  "missing_indexes": [
+    {
+      "table": "affiliate_dashboards",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_affiliate_dashboards_created_at"
+    },
+    {
+      "table": "affiliate_payouts",
+      "column": "affiliate_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_affiliate_payouts_affiliate_id"
+    },
+    {
+      "table": "affiliate_payouts",
+      "column": "status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_affiliate_payouts_status"
+    },
+    {
+      "table": "affiliate_payouts",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_affiliate_payouts_created_at"
+    },
+    {
+      "table": "affiliate_programs",
+      "column": "affiliate_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_affiliate_programs_affiliate_id"
+    },
+    {
+      "table": "affiliate_programs",
+      "column": "commission_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_affiliate_programs_commission_type"
+    },
+    {
+      "table": "affiliate_programs",
+      "column": "last_health_status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_affiliate_programs_last_health_status"
+    },
+    {
+      "table": "affiliate_programs",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_affiliate_programs_created_at"
+    },
+    {
+      "table": "affiliate_programs",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_affiliate_programs_updated_at"
+    },
+    {
+      "table": "affiliate_suggestions",
+      "column": "commission_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_affiliate_suggestions_commission_type"
+    },
+    {
+      "table": "affiliate_transactions",
+      "column": "program_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_affiliate_transactions_program_id"
+    },
+    {
+      "table": "affiliate_transactions",
+      "column": "transaction_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_affiliate_transactions_transaction_id"
+    },
+    {
+      "table": "affiliate_transactions",
+      "column": "click_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_affiliate_transactions_click_id"
+    },
+    {
+      "table": "affiliate_transactions",
+      "column": "customer_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_affiliate_transactions_customer_id"
+    },
+    {
+      "table": "affiliate_transactions",
+      "column": "order_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_affiliate_transactions_order_id"
+    },
+    {
+      "table": "affiliate_transactions",
+      "column": "product_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_affiliate_transactions_product_id"
+    },
+    {
+      "table": "affiliate_transactions",
+      "column": "device_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_affiliate_transactions_device_type"
+    },
+    {
+      "table": "affiliate_transactions",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_affiliate_transactions_created_at"
+    },
+    {
+      "table": "affiliate_transactions",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_affiliate_transactions_updated_at"
+    },
+    {
+      "table": "alert_history",
+      "column": "alert_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_alert_history_alert_type"
+    },
+    {
+      "table": "alert_history",
+      "column": "delivery_status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_alert_history_delivery_status"
+    },
+    {
+      "table": "allocation_history",
+      "column": "channel_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_allocation_history_channel_id"
+    },
+    {
+      "table": "allocation_history",
+      "column": "allocation_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_allocation_history_allocation_type"
+    },
+    {
+      "table": "allocation_history",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_allocation_history_created_at"
+    },
+    {
+      "table": "api_discovery_tasks",
+      "column": "task_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_api_discovery_tasks_task_type"
+    },
+    {
+      "table": "api_discovery_tasks",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_api_discovery_tasks_created_at"
+    },
+    {
+      "table": "api_discovery_tasks",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_api_discovery_tasks_updated_at"
+    },
+    {
+      "table": "api_orchestration_log",
+      "column": "orchestration_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_api_orchestration_log_orchestration_id"
+    },
+    {
+      "table": "api_registry",
+      "column": "authentication_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_api_registry_authentication_type"
+    },
+    {
+      "table": "api_registry",
+      "column": "last_health_status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_api_registry_last_health_status"
+    },
+    {
+      "table": "api_registry",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_api_registry_created_at"
+    },
+    {
+      "table": "api_registry",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_api_registry_updated_at"
+    },
+    {
+      "table": "api_request_logs",
+      "column": "request_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_api_request_logs_request_id"
+    },
+    {
+      "table": "api_request_logs",
+      "column": "response_status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_api_request_logs_response_status"
+    },
+    {
+      "table": "api_usage_tracking",
+      "column": "api_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_api_usage_tracking_api_id"
+    },
+    {
+      "table": "application_metrics",
+      "column": "metric_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_application_metrics_metric_type"
+    },
+    {
+      "table": "audience_segments",
+      "column": "segment_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_audience_segments_segment_type"
+    },
+    {
+      "table": "audience_segments",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_audience_segments_created_at"
+    },
+    {
+      "table": "audience_segments",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_audience_segments_updated_at"
+    },
+    {
+      "table": "audit_log",
+      "column": "record_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_audit_log_record_id"
+    },
+    {
+      "table": "audit_log",
+      "column": "user_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_audit_log_user_id"
+    },
+    {
+      "table": "audit_log",
+      "column": "session_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_audit_log_session_id"
+    },
+    {
+      "table": "author_personas",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_author_personas_created_at"
+    },
+    {
+      "table": "author_personas",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_author_personas_updated_at"
+    },
+    {
+      "table": "author_personas",
+      "column": "parent_persona_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_author_personas_parent_persona_id"
+    },
+    {
+      "table": "automation_sessions",
+      "column": "session_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_automation_sessions_session_type"
+    },
+    {
+      "table": "automation_sessions",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_automation_sessions_created_at"
+    },
+    {
+      "table": "automation_workflows",
+      "column": "workflow_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_automation_workflows_workflow_id"
+    },
+    {
+      "table": "automation_workflows",
+      "column": "trigger_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_automation_workflows_trigger_type"
+    },
+    {
+      "table": "automation_workflows",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_automation_workflows_created_at"
+    },
+    {
+      "table": "automation_workflows",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_automation_workflows_updated_at"
+    },
+    {
+      "table": "avatar_usage_log",
+      "column": "avatar_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_avatar_usage_log_avatar_id"
+    },
+    {
+      "table": "avatar_usage_log",
+      "column": "content_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_avatar_usage_log_content_id"
+    },
+    {
+      "table": "avatars",
+      "column": "avatar_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_avatars_avatar_type"
+    },
+    {
+      "table": "avatars",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_avatars_created_at"
+    },
+    {
+      "table": "avatars",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_avatars_updated_at"
+    },
+    {
+      "table": "budget_tracking",
+      "column": "channel_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_budget_tracking_channel_id"
+    },
+    {
+      "table": "budget_tracking",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_budget_tracking_created_at"
+    },
+    {
+      "table": "channel_financials",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_channel_financials_created_at"
+    },
+    {
+      "table": "channel_financials",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_channel_financials_updated_at"
+    },
+    {
+      "table": "channels",
+      "column": "channel_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_channels_channel_id"
+    },
+    {
+      "table": "channels",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_channels_created_at"
+    },
+    {
+      "table": "channels",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_channels_updated_at"
+    },
+    {
+      "table": "cloud_software",
+      "column": "installation_status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_cloud_software_installation_status"
+    },
+    {
+      "table": "cloud_software",
+      "column": "license_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_cloud_software_license_type"
+    },
+    {
+      "table": "cloud_software",
+      "column": "subscription_status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_cloud_software_subscription_status"
+    },
+    {
+      "table": "cloud_software",
+      "column": "health_status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_cloud_software_health_status"
+    },
+    {
+      "table": "cloud_software",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_cloud_software_created_at"
+    },
+    {
+      "table": "cloud_software",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_cloud_software_updated_at"
+    },
+    {
+      "table": "collaboration_opportunities",
+      "column": "opportunity_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_collaboration_opportunities_opportunity_type"
+    },
+    {
+      "table": "collaboration_opportunities",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_collaboration_opportunities_created_at"
+    },
+    {
+      "table": "comments",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_comments_created_at"
+    },
+    {
+      "table": "component_health",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_component_health_created_at"
+    },
+    {
+      "table": "component_health",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_component_health_updated_at"
+    },
+    {
+      "table": "contact_events",
+      "column": "event_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_contact_events_event_type"
+    },
+    {
+      "table": "contact_events",
+      "column": "email_campaign_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_contact_events_email_campaign_id"
+    },
+    {
+      "table": "contact_events",
+      "column": "email_campaign_id",
+      "reason": "Email columns should be indexed",
+      "suggested_index": "idx_contact_events_email_campaign_id"
+    },
+    {
+      "table": "contact_events",
+      "column": "session_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_contact_events_session_id"
+    },
+    {
+      "table": "contacts",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_contacts_created_at"
+    },
+    {
+      "table": "contacts",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_contacts_updated_at"
+    },
+    {
+      "table": "content_adaptations",
+      "column": "original_content_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_content_adaptations_original_content_id"
+    },
+    {
+      "table": "content_adaptations",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_content_adaptations_created_at"
+    },
+    {
+      "table": "creator_profiles",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_creator_profiles_created_at"
+    },
+    {
+      "table": "detection_events",
+      "column": "detection_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_detection_events_detection_type"
+    },
+    {
+      "table": "email_campaigns",
+      "column": "campaign_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_email_campaigns_campaign_id"
+    },
+    {
+      "table": "email_campaigns",
+      "column": "sender_email",
+      "reason": "Email columns should be indexed",
+      "suggested_index": "idx_email_campaigns_sender_email"
+    },
+    {
+      "table": "email_campaigns",
+      "column": "campaign_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_email_campaigns_campaign_type"
+    },
+    {
+      "table": "email_campaigns",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_email_campaigns_created_at"
+    },
+    {
+      "table": "email_campaigns",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_email_campaigns_updated_at"
+    },
+    {
+      "table": "enforcement_actions",
+      "column": "violation_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_enforcement_actions_violation_id"
+    },
+    {
+      "table": "enforcement_actions",
+      "column": "action_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_enforcement_actions_action_type"
+    },
+    {
+      "table": "engagement_history",
+      "column": "video_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_engagement_history_video_id"
+    },
+    {
+      "table": "engagement_history",
+      "column": "engagement_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_engagement_history_engagement_type"
+    },
+    {
+      "table": "engagement_opportunities",
+      "column": "comment_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_engagement_opportunities_comment_id"
+    },
+    {
+      "table": "engagement_opportunities",
+      "column": "opportunity_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_engagement_opportunities_opportunity_type"
+    },
+    {
+      "table": "engagement_opportunities",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_engagement_opportunities_created_at"
+    },
+    {
+      "table": "engagement_results",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_engagement_results_created_at"
+    },
+    {
+      "table": "environment_snapshots",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_environment_snapshots_created_at"
+    },
+    {
+      "table": "error_events",
+      "column": "error_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_error_events_error_type"
+    },
+    {
+      "table": "evidence",
+      "column": "verification_status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_evidence_verification_status"
+    },
+    {
+      "table": "evidence",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_evidence_created_at"
+    },
+    {
+      "table": "evidence",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_evidence_updated_at"
+    },
+    {
+      "table": "evidence_citations",
+      "column": "evidence_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_evidence_citations_evidence_id"
+    },
+    {
+      "table": "evidence_citations",
+      "column": "citing_content_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_evidence_citations_citing_content_type"
+    },
+    {
+      "table": "evidence_citations",
+      "column": "citing_content_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_evidence_citations_citing_content_id"
+    },
+    {
+      "table": "evolution_experiments",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_evolution_experiments_created_at"
+    },
+    {
+      "table": "expansion_plans",
+      "column": "expansion_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_expansion_plans_expansion_type"
+    },
+    {
+      "table": "expansion_plans",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_expansion_plans_created_at"
+    },
+    {
+      "table": "financial_alerts",
+      "column": "alert_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_financial_alerts_alert_type"
+    },
+    {
+      "table": "financial_alerts",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_financial_alerts_created_at"
+    },
+    {
+      "table": "financial_forecasts",
+      "column": "channel_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_financial_forecasts_channel_id"
+    },
+    {
+      "table": "financial_forecasts",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_financial_forecasts_created_at"
+    },
+    {
+      "table": "financial_metrics_history",
+      "column": "channel_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_financial_metrics_history_channel_id"
+    },
+    {
+      "table": "format_performance",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_format_performance_created_at"
+    },
+    {
+      "table": "format_trends",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_format_trends_created_at"
+    },
+    {
+      "table": "generated_reports",
+      "column": "report_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_generated_reports_report_type"
+    },
+    {
+      "table": "growth_history",
+      "column": "channel_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_growth_history_channel_id"
+    },
+    {
+      "table": "growth_history",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_growth_history_created_at"
+    },
+    {
+      "table": "growth_metrics",
+      "column": "metric_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_growth_metrics_metric_type"
+    },
+    {
+      "table": "growth_metrics",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_growth_metrics_created_at"
+    },
+    {
+      "table": "hashtag_performance",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_hashtag_performance_created_at"
+    },
+    {
+      "table": "hypocrisy_tracker",
+      "column": "subject_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_hypocrisy_tracker_subject_type"
+    },
+    {
+      "table": "hypocrisy_tracker",
+      "column": "contradiction_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_hypocrisy_tracker_contradiction_type"
+    },
+    {
+      "table": "hypocrisy_tracker",
+      "column": "verification_status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_hypocrisy_tracker_verification_status"
+    },
+    {
+      "table": "hypocrisy_tracker",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_hypocrisy_tracker_created_at"
+    },
+    {
+      "table": "hypocrisy_tracker",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_hypocrisy_tracker_updated_at"
+    },
+    {
+      "table": "intelligence_briefings",
+      "column": "briefing_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_intelligence_briefings_briefing_type"
+    },
+    {
+      "table": "intelligence_briefings",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_intelligence_briefings_created_at"
+    },
+    {
+      "table": "market_opportunities",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_market_opportunities_created_at"
+    },
+    {
+      "table": "news_articles",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_news_articles_created_at"
+    },
+    {
+      "table": "niche_expansions",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_niche_expansions_created_at"
+    },
+    {
+      "table": "niche_opportunities",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_niche_opportunities_created_at"
+    },
+    {
+      "table": "outreach_campaigns",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_outreach_campaigns_created_at"
+    },
+    {
+      "table": "outreach_metrics",
+      "column": "campaign_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_outreach_metrics_campaign_id"
+    },
+    {
+      "table": "payout_records",
+      "column": "dashboard_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_payout_records_dashboard_id"
+    },
+    {
+      "table": "payout_records",
+      "column": "transaction_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_payout_records_transaction_id"
+    },
+    {
+      "table": "payout_records",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_payout_records_created_at"
+    },
+    {
+      "table": "performance_alerts",
+      "column": "alert_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_performance_alerts_alert_type"
+    },
+    {
+      "table": "performance_alerts",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_performance_alerts_created_at"
+    },
+    {
+      "table": "performance_insights",
+      "column": "insight_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_performance_insights_insight_type"
+    },
+    {
+      "table": "performance_metrics",
+      "column": "metric_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_performance_metrics_metric_type"
+    },
+    {
+      "table": "performance_metrics",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_performance_metrics_created_at"
+    },
+    {
+      "table": "platform_monitoring_log",
+      "column": "status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_platform_monitoring_log_status"
+    },
+    {
+      "table": "predictions",
+      "column": "prediction_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_predictions_prediction_type"
+    },
+    {
+      "table": "promotion_campaigns",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_promotion_campaigns_created_at"
+    },
+    {
+      "table": "quarterly_briefs",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_quarterly_briefs_created_at"
+    },
+    {
+      "table": "repair_log",
+      "column": "error_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_repair_log_error_type"
+    },
+    {
+      "table": "repair_log",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_repair_log_created_at"
+    },
+    {
+      "table": "resource_allocations",
+      "column": "resource_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_resource_allocations_resource_type"
+    },
+    {
+      "table": "resource_allocations",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_resource_allocations_created_at"
+    },
+    {
+      "table": "response_cache",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_response_cache_created_at"
+    },
+    {
+      "table": "scan_results",
+      "column": "scan_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_scan_results_scan_type"
+    },
+    {
+      "table": "secrets",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_secrets_created_at"
+    },
+    {
+      "table": "secrets",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_secrets_updated_at"
+    },
+    {
+      "table": "segment_memberships",
+      "column": "segment_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_segment_memberships_segment_id"
+    },
+    {
+      "table": "segment_memberships",
+      "column": "contact_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_segment_memberships_contact_id"
+    },
+    {
+      "table": "software_integration_status",
+      "column": "check_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_software_integration_status_check_type"
+    },
+    {
+      "table": "software_usage_logs",
+      "column": "user_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_software_usage_logs_user_id"
+    },
+    {
+      "table": "software_usage_logs",
+      "column": "session_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_software_usage_logs_session_id"
+    },
+    {
+      "table": "stealth_profiles",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_stealth_profiles_created_at"
+    },
+    {
+      "table": "strategic_insights",
+      "column": "insight_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_strategic_insights_insight_type"
+    },
+    {
+      "table": "strategic_insights",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_strategic_insights_created_at"
+    },
+    {
+      "table": "strategic_recommendations",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_strategic_recommendations_created_at"
+    },
+    {
+      "table": "system_config",
+      "column": "config_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_system_config_config_type"
+    },
+    {
+      "table": "system_config",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_system_config_created_at"
+    },
+    {
+      "table": "system_config",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_system_config_updated_at"
+    },
+    {
+      "table": "task_queue",
+      "column": "task_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_task_queue_task_id"
+    },
+    {
+      "table": "task_queue",
+      "column": "task_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_task_queue_task_type"
+    },
+    {
+      "table": "task_queue",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_task_queue_created_at"
+    },
+    {
+      "table": "task_queue",
+      "column": "updated_at",
+      "reason": "Update timestamp columns should be indexed",
+      "suggested_index": "idx_task_queue_updated_at"
+    },
+    {
+      "table": "tool_generation_plans",
+      "column": "status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_tool_generation_plans_status"
+    },
+    {
+      "table": "tool_generation_plans",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_tool_generation_plans_created_at"
+    },
+    {
+      "table": "topic_engagement",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_topic_engagement_created_at"
+    },
+    {
+      "table": "topic_profiles",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_topic_profiles_created_at"
+    },
+    {
+      "table": "user_interactions",
+      "column": "interaction_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_user_interactions_interaction_type"
+    },
+    {
+      "table": "user_interactions",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_user_interactions_created_at"
+    },
+    {
+      "table": "video_performance",
+      "column": "channel_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_video_performance_channel_id"
+    },
+    {
+      "table": "video_performance",
+      "column": "video_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_video_performance_video_id"
+    },
+    {
+      "table": "video_performance",
+      "column": "monetization_status",
+      "reason": "Status columns should be indexed",
+      "suggested_index": "idx_video_performance_monetization_status"
+    },
+    {
+      "table": "video_performance",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_video_performance_created_at"
+    },
+    {
+      "table": "video_performance_history",
+      "column": "video_performance_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_video_performance_history_video_performance_id"
+    },
+    {
+      "table": "video_performance_history",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_video_performance_history_created_at"
+    },
+    {
+      "table": "video_promotions",
+      "column": "created_at",
+      "reason": "Timestamp columns should be indexed",
+      "suggested_index": "idx_video_promotions_created_at"
+    },
+    {
+      "table": "violations",
+      "column": "violation_type",
+      "reason": "Type columns should be indexed",
+      "suggested_index": "idx_violations_violation_type"
+    },
+    {
+      "table": "workflow_executions",
+      "column": "execution_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_workflow_executions_execution_id"
+    },
+    {
+      "table": "workflow_executions",
+      "column": "workflow_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_workflow_executions_workflow_id"
+    },
+    {
+      "table": "workflow_executions",
+      "column": "contact_id",
+      "reason": "ID columns should be indexed",
+      "suggested_index": "idx_workflow_executions_contact_id"
+    }
+  ],
+  "recommendations": [
+    "Consider database partitioning - 107 tables detected",
+    "Consider adding 187 recommended indexes for better performance",
+    "Table 'affiliate_programs' has 31 columns - consider normalization",
+    "Table 'affiliate_transactions' has 23 columns - consider normalization",
+    "Table 'api_registry' has 33 columns - consider normalization",
+    "Table 'avatars' has 31 columns - consider normalization",
+    "Table 'channels' has 28 columns - consider normalization",
+    "Table 'cloud_software' has 37 columns - consider normalization",
+    "Table 'email_campaigns' has 25 columns - consider normalization",
+    "Table 'evidence' has 37 columns - consider normalization",
+    "Table 'hypocrisy_tracker' has 29 columns - consider normalization",
+    "Table 'video_performance' has 34 columns - consider normalization",
+    "Monitor JSON column performance in: affiliate_dashboards (scraping_config), affiliate_programs (payment_methods, product_categories, geographic_restrictions, contact_info), alert_history (alert_data, recipients)..."
+  ]
+}

@@ -1,0 +1,24 @@
+# Tooling (modern to avoid pkgutil.ImpImporter issue)
+pip>=25.2
+setuptools>=75.0
+wheel>=0.44
+
+# Core HTTP stack (compatible with selenium/yfinance/linkedin-api)
+requests>=2.32.3
+urllib3>=2.2.2
+certifi>=2025.7.1
+charset-normalizer>=3.3.2
+idna>=3.7
+
+# Utilities expected by safety/dateparser/etc.
+filelock>=3.16.1
+packaging>=24.1
+tqdm>=4.66.5
+pytz>=2024.2
+
+# Known dependents from your logs
+dateparser>=1.2.2
+selenium>=4.21.0
+yfinance>=0.2.40
+linkedin-api>=2.3.1
+psutil>=6.1.0

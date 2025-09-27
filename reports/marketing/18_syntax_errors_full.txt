@@ -1,0 +1,11 @@
+SyntaxError: annotated name '_builtin_table' can't be global
+SyntaxError: unterminated string literal (detected at line 19)
+SyntaxError: unterminated string literal (detected at line 19)
+SyntaxError: unterminated string literal (detected at line 60)
+SyntaxError: invalid syntax
+SyntaxError: invalid syntax
+SyntaxError: invalid syntax
+SyntaxError: invalid syntax
+SyntaxError: invalid syntax
+SyntaxError: invalid syntax
+SyntaxError: invalid syntax

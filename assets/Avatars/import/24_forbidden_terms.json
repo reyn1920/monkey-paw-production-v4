@@ -1,0 +1,58 @@
+{
+  "hate_speech": {
+    "category": "hate_speech",
+    "severity": "high",
+    "patterns": [
+      "\\b(hate|hatred)\\s+(speech|content)\\b",
+      "\\b(racist|racism)\\b",
+      "\\b(sexist|sexism)\\b",
+      "\\b(homophobic|homophobia)\\b"
+    ],
+    "replacement": "[CONTENT_REMOVED]",
+    "description": "Hate speech and discriminatory content"
+  },
+  "violence": {
+    "category": "violence",
+    "severity": "high",
+    "patterns": [
+      "\\b(kill|murder|assassinate)\\s+(someone|people|person)\\b",
+      "\\b(bomb|explosion|terrorist)\\s+(attack|threat)\\b",
+      "\\b(violence|violent)\\s+(content|imagery)\\b"
+    ],
+    "replacement": "[VIOLENT_CONTENT_REMOVED]",
+    "description": "Violent content and threats"
+  },
+  "misinformation": {
+    "category": "misinformation",
+    "severity": "medium",
+    "patterns": [
+      "\\b(fake|false)\\s+(news|information)\\b",
+      "\\b(conspiracy|hoax)\\s+(theory|theories)\\b",
+      "\\b(misinformation|disinformation)\\b"
+    ],
+    "replacement": "[UNVERIFIED_CLAIM]",
+    "description": "Misinformation and false claims"
+  },
+  "spam": {
+    "category": "spam",
+    "severity": "low",
+    "patterns": [
+      "\\b(click\\s+here|buy\\s+now)\\b",
+      "\\b(limited\\s+time|act\\s+now)\\b",
+      "\\b(free\\s+money|get\\s+rich)\\b"
+    ],
+    "replacement": "[PROMOTIONAL_CONTENT]",
+    "description": "Spam and promotional content"
+  },
+  "personal_info": {
+    "category": "privacy",
+    "severity": "high",
+    "patterns": [
+      "\\b\\d{3}-\\d{2}-\\d{4}\\b",
+      "\\b\\d{4}\\s?\\d{4}\\s?\\d{4}\\s?\\d{4}\\b",
+      "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b"
+    ],
+    "replacement": "[PERSONAL_INFO_REDACTED]",
+    "description": "Personal information and sensitive data"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "avatar_generation": {
+    "fallback_mode": true,
+    "use_basic_models": true,
+    "skip_heavy_processing": true,
+    "enable_caching": true
+  },
+  "model_paths": {
+    "wav2lip": "checkpoints/wav2lip_gan.pth",
+    "sadtalker": "checkpoints/SadTalker_V0.0.2_256.safetensors",
+    "mapping": "checkpoints/mapping_00109-model.pth.tar"
+  },
+  "performance": {
+    "max_video_length": 30,
+    "reduce_quality_if_needed": true,
+    "timeout_seconds": 120
+  }
+}

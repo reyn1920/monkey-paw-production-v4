@@ -1,0 +1,289 @@
+# TRAE.AI Production Grafana Datasources Configuration
+# Automatically provisions datasources for comprehensive monitoring
+
+apiVersion: 1
+
+datasources:
+  # Prometheus - Primary metrics datasource
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+    jsonData:
+      timeInterval: 5s
+      queryTimeout: 60s
+      httpMethod: POST
+      manageAlerts: true
+      prometheusType: Prometheus
+      prometheusVersion: 2.40.0
+      cacheLevel: "High"
+      disableMetricsLookup: false
+      customQueryParameters: ""
+      exemplarTraceIdDestinations:
+        - name: trace_id
+          datasourceUid: jaeger
+    secureJsonData: {}
+
+  # PostgreSQL - Database metrics and logs
+  - name: PostgreSQL
+    type: postgres
+    access: proxy
+    url: postgres:5432
+    database: trae_ai_production
+    user: trae_ai_user
+    editable: false
+    jsonData:
+      sslmode: disable
+      maxOpenConns: 100
+      maxIdleConns: 100
+      maxIdleConnsAuto: true
+      connMaxLifetime: 14400
+      postgresVersion: 1500
+      timescaledb: false
+    secureJsonData:
+      password: ${POSTGRES_PASSWORD}
+
+  # Redis - Cache and session metrics
+  - name: Redis
+    type: redis-datasource
+    access: proxy
+    url: redis://redis:6379
+    editable: false
+    jsonData:
+      client: standalone
+      poolSize: 5
+      timeout: 10
+      pingInterval: 0
+      pipelineWindow: 0
+    secureJsonData:
+      password: ${REDIS_PASSWORD}
+
+  # Loki - Log aggregation (if implemented)
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://loki:3100
+    editable: false
+    jsonData:
+      maxLines: 1000
+      derivedFields:
+        - datasourceUid: jaeger
+          matcherRegex: "trace_id=(\\w+)"
+          name: TraceID
+          url: "$${__value.raw}"
+
+  # Jaeger - Distributed tracing (if implemented)
+  - name: Jaeger
+    type: jaeger
+    access: proxy
+    url: http://jaeger:16686
+    uid: jaeger
+    editable: false
+    jsonData:
+      tracesToLogs:
+        datasourceUid: loki
+        tags: ["job", "instance", "pod", "namespace"]
+        mappedTags: [{ key: "service.name", value: "service" }]
+        mapTagNamesEnabled: false
+        spanStartTimeShift: "1h"
+        spanEndTimeShift: "1h"
+        filterByTraceID: false
+        filterBySpanID: false
+      tracesToMetrics:
+        datasourceUid: prometheus
+        tags: [{ key: "service.name", value: "service" }, { key: "job" }]
+        queries:
+          - name: "Sample query"
+            query: "sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))"
+      serviceMap:
+        datasourceUid: prometheus
+      nodeGraph:
+        enabled: true
+      search:
+        hide: false
+      spanBar:
+        type: "Tag"
+        tag: "http.path"
+
+  # TestData - For testing and development
+  - name: TestData
+    type: testdata
+    access: proxy
+    editable: false
+    jsonData: {}
+
+  # InfluxDB - Time series data (if needed)
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    database: trae_ai_metrics
+    user: trae_ai_user
+    editable: false
+    jsonData:
+      version: Flux
+      organization: trae-ai
+      defaultBucket: metrics
+      tlsSkipVerify: true
+    secureJsonData:
+      token: ${INFLUXDB_TOKEN}
+
+  # Elasticsearch - Log search and analytics (if implemented)
+  - name: Elasticsearch
+    type: elasticsearch
+    access: proxy
+    url: http://elasticsearch:9200
+    database: "[logs-]YYYY.MM.DD"
+    editable: false
+    jsonData:
+      interval: Daily
+      timeField: "@timestamp"
+      esVersion: "7.10.0"
+      maxConcurrentShardRequests: 5
+      logMessageField: message
+      logLevelField: level
+    secureJsonData:
+      basicAuthPassword: ${ELASTICSEARCH_PASSWORD}
+
+  # CloudWatch - AWS metrics (if using AWS)
+  - name: CloudWatch
+    type: cloudwatch
+    access: proxy
+    editable: false
+    jsonData:
+      authType: keys
+      defaultRegion: us-east-1
+      customMetricsNamespaces: "TRAE/AI,AWS/ApplicationELB,AWS/Lambda"
+    secureJsonData:
+      accessKey: ${AWS_ACCESS_KEY_ID}
+      secretKey: ${AWS_SECRET_ACCESS_KEY}
+
+  # Google Cloud Monitoring (if using GCP)
+  - name: Google Cloud Monitoring
+    type: stackdriver
+    access: proxy
+    editable: false
+    jsonData:
+      authenticationType: jwt
+      defaultProject: ${GCP_PROJECT_ID}
+      clientEmail: ${GCP_CLIENT_EMAIL}
+    secureJsonData:
+      privateKey: ${GCP_PRIVATE_KEY}
+
+  # Azure Monitor (if using Azure)
+  - name: Azure Monitor
+    type: grafana-azure-monitor-datasource
+    access: proxy
+    editable: false
+    jsonData:
+      azureAuthType: msi
+      subscriptionId: ${AZURE_SUBSCRIPTION_ID}
+      tenantId: ${AZURE_TENANT_ID}
+      clientId: ${AZURE_CLIENT_ID}
+    secureJsonData:
+      clientSecret: ${AZURE_CLIENT_SECRET}
+
+  # Custom API datasource for TRAE.AI metrics
+  - name: TRAE.AI API
+    type: marcusolsson-json-datasource
+    access: proxy
+    url: http://orchestrator:8000/api/metrics
+    editable: false
+    jsonData:
+      cacheDurationSeconds: 300
+      timeout: 60
+    secureJsonData:
+      apiKey: ${TRAE_AI_API_KEY}
+
+  # YouTube Analytics API
+  - name: YouTube Analytics
+    type: marcusolsson-json-datasource
+    access: proxy
+    url: https://youtubeanalytics.googleapis.com/v2
+    editable: false
+    jsonData:
+      cacheDurationSeconds: 3600
+      timeout: 30
+    secureJsonData:
+      apiKey: ${YOUTUBE_API_KEY}
+
+  # Gumroad API for sales metrics
+  - name: Gumroad Sales
+    type: marcusolsson-json-datasource
+    access: proxy
+    url: https://api.gumroad.com/v2
+    editable: false
+    jsonData:
+      cacheDurationSeconds: 1800
+      timeout: 30
+    secureJsonData:
+      apiKey: ${GUMROAD_API_KEY}
+
+  # Mailchimp API for email metrics
+  - name: Mailchimp Analytics
+    type: marcusolsson-json-datasource
+    access: proxy
+    url: https://us1.api.mailchimp.com/3.0
+    editable: false
+    jsonData:
+      cacheDurationSeconds: 1800
+      timeout: 30
+    secureJsonData:
+      apiKey: ${MAILCHIMP_API_KEY}
+
+  # Social Media Analytics (aggregated)
+  - name: Social Media Analytics
+    type: marcusolsson-json-datasource
+    access: proxy
+    url: http://marketing-agent:8002/api/social/analytics
+    editable: false
+    jsonData:
+      cacheDurationSeconds: 900
+      timeout: 45
+    secureJsonData:
+      apiKey: ${SOCIAL_MEDIA_API_KEY}
+
+  # Content Performance Metrics
+  - name: Content Analytics
+    type: marcusolsson-json-datasource
+    access: proxy
+    url: http://content-agent:8001/api/analytics
+    editable: false
+    jsonData:
+      cacheDurationSeconds: 600
+      timeout: 30
+    secureJsonData:
+      apiKey: ${CONTENT_API_KEY}
+
+  # Revenue Tracking Metrics
+  - name: Revenue Analytics
+    type: marcusolsson-json-datasource
+    access: proxy
+    url: http://revenue-tracker:8004/api/analytics
+    editable: false
+    jsonData:
+      cacheDurationSeconds: 300
+      timeout: 30
+    secureJsonData:
+      apiKey: ${REVENUE_API_KEY}
+
+  # Monetization Bundle Metrics
+  - name: Monetization Analytics
+    type: marcusolsson-json-datasource
+    access: proxy
+    url: http://monetization-bundle:8003/api/analytics
+    editable: false
+    jsonData:
+      cacheDurationSeconds: 600
+      timeout: 30
+    secureJsonData:
+      apiKey: ${MONETIZATION_API_KEY}
+
+# Delete datasources that are not in this list
+deleteDatasources:
+  - name: old-prometheus
+    orgId: 1
+  - name: old-influxdb
+    orgId: 1

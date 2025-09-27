@@ -1,0 +1,441 @@
+# Prometheus Alert Rules for TRAE AI Application
+# Comprehensive alerting rules for performance monitoring, scaling events, and system health
+
+groups:
+  # System Resource Alerts
+  - name: system_resources
+    interval: 30s
+    rules:
+      # High CPU Usage
+      - alert: HighCPUUsage
+        expr: system_cpu_usage_percent > 80
+        for: 2m
+        labels:
+          severity: warning
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High CPU usage detected on {{ $labels.service }}"
+          description: "CPU usage is {{ $value }}% on service {{ $labels.service }}, which is above the 80% threshold for 2 minutes."
+          runbook_url: "https://runbooks.trae.ai/high-cpu-usage"
+          dashboard_url: "https://grafana.trae.ai/d/system-overview"
+
+      # Critical CPU Usage
+      - alert: CriticalCPUUsage
+        expr: system_cpu_usage_percent > 95
+        for: 1m
+        labels:
+          severity: critical
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Critical CPU usage on {{ $labels.service }}"
+          description: "CPU usage is {{ $value }}% on service {{ $labels.service }}, which is critically high and may cause service degradation."
+          runbook_url: "https://runbooks.trae.ai/critical-cpu-usage"
+          dashboard_url: "https://grafana.trae.ai/d/system-overview"
+
+      # High Memory Usage
+      - alert: HighMemoryUsage
+        expr: system_memory_usage_percent > 85
+        for: 3m
+        labels:
+          severity: warning
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High memory usage on {{ $labels.service }}"
+          description: "Memory usage is {{ $value }}% on service {{ $labels.service }}, approaching critical levels."
+          runbook_url: "https://runbooks.trae.ai/high-memory-usage"
+
+      # Critical Memory Usage
+      - alert: CriticalMemoryUsage
+        expr: system_memory_usage_percent > 95
+        for: 1m
+        labels:
+          severity: critical
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Critical memory usage on {{ $labels.service }}"
+          description: "Memory usage is {{ $value }}% on service {{ $labels.service }}, service may become unresponsive."
+          runbook_url: "https://runbooks.trae.ai/critical-memory-usage"
+
+      # High Disk Usage
+      - alert: HighDiskUsage
+        expr: system_disk_usage_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          category: infrastructure
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High disk usage on {{ $labels.service }}"
+          description: "Disk usage is {{ $value }}% on service {{ $labels.service }}, consider cleanup or expansion."
+          runbook_url: "https://runbooks.trae.ai/high-disk-usage"
+
+      # Critical Disk Usage
+      - alert: CriticalDiskUsage
+        expr: system_disk_usage_percent > 95
+        for: 2m
+        labels:
+          severity: critical
+          category: infrastructure
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Critical disk usage on {{ $labels.service }}"
+          description: "Disk usage is {{ $value }}% on service {{ $labels.service }}, immediate action required."
+          runbook_url: "https://runbooks.trae.ai/critical-disk-usage"
+
+  # Application Performance Alerts
+  - name: application_performance
+    interval: 30s
+    rules:
+      # High Response Time
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 3m
+        labels:
+          severity: warning
+          category: performance
+          service: "{{ $labels.service }}"
+          metric_name: "response_time_p95"
+          metric_value: "{{ $value }}s"
+          threshold: "2s"
+        annotations:
+          summary: "High response time on {{ $labels.service }}"
+          description: "95th percentile response time is {{ $value }}s on service {{ $labels.service }}, users may experience slow performance."
+          runbook_url: "https://runbooks.trae.ai/high-response-time"
+
+      # Critical Response Time
+      - alert: CriticalResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 5
+        for: 1m
+        labels:
+          severity: critical
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Critical response time on {{ $labels.service }}"
+          description: "95th percentile response time is {{ $value }}s on service {{ $labels.service }}, service is severely degraded."
+          runbook_url: "https://runbooks.trae.ai/critical-response-time"
+
+      # High Error Rate
+      - alert: HighErrorRate
+        expr: (rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])) * 100 > 5
+        for: 2m
+        labels:
+          severity: warning
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High error rate on {{ $labels.service }}"
+          description: "Error rate is {{ $value }}% on service {{ $labels.service }}, investigate potential issues."
+          runbook_url: "https://runbooks.trae.ai/high-error-rate"
+
+      # Critical Error Rate
+      - alert: CriticalErrorRate
+        expr: (rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])) * 100 > 15
+        for: 1m
+        labels:
+          severity: critical
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Critical error rate on {{ $labels.service }}"
+          description: "Error rate is {{ $value }}% on service {{ $labels.service }}, service is failing for many users."
+          runbook_url: "https://runbooks.trae.ai/critical-error-rate"
+
+      # High Request Rate
+      - alert: HighRequestRate
+        expr: rate(http_requests_total[5m]) > 200
+        for: 5m
+        labels:
+          severity: warning
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High request rate on {{ $labels.service }}"
+          description: "Request rate is {{ $value }} req/s on service {{ $labels.service }}, consider scaling up."
+          runbook_url: "https://runbooks.trae.ai/high-request-rate"
+
+  # Service Health Alerts
+  - name: service_health
+    interval: 30s
+    rules:
+      # Service Down
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+          category: infrastructure
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Service {{ $labels.service }} is down"
+          description: "Service {{ $labels.service }} has been down for more than 1 minute."
+          runbook_url: "https://runbooks.trae.ai/service-down"
+
+      # Service Unhealthy
+      - alert: ServiceUnhealthy
+        expr: health_check_status == 0
+        for: 2m
+        labels:
+          severity: warning
+          category: infrastructure
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Service {{ $labels.service }} health check failing"
+          description: "Health check for service {{ $labels.service }} has been failing for 2 minutes."
+          runbook_url: "https://runbooks.trae.ai/service-unhealthy"
+
+      # Database Connection Issues
+      - alert: DatabaseConnectionHigh
+        expr: database_connections_active / database_connections_max * 100 > 80
+        for: 3m
+        labels:
+          severity: warning
+          category: infrastructure
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High database connection usage on {{ $labels.service }}"
+          description: "Database connection usage is {{ $value }}% on service {{ $labels.service }}."
+          runbook_url: "https://runbooks.trae.ai/high-db-connections"
+
+      # Cache Performance Issues
+      - alert: LowCacheHitRate
+        expr: (rate(cache_hits_total[5m]) / (rate(cache_hits_total[5m]) + rate(cache_misses_total[5m]))) * 100 < 70
+        for: 5m
+        labels:
+          severity: warning
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Low cache hit rate on {{ $labels.service }}"
+          description: "Cache hit rate is {{ $value }}% on service {{ $labels.service }}, performance may be degraded."
+          runbook_url: "https://runbooks.trae.ai/low-cache-hit-rate"
+
+  # Scaling Events and Queue Alerts
+  - name: scaling_and_queues
+    interval: 30s
+    rules:
+      # High Queue Size
+      - alert: HighQueueSize
+        expr: model_generation_queue_size > 20
+        for: 2m
+        labels:
+          severity: warning
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High queue size on {{ $labels.service }}"
+          description: "Queue size is {{ $value }} on service {{ $labels.service }}, consider scaling up."
+          runbook_url: "https://runbooks.trae.ai/high-queue-size"
+
+      # Critical Queue Size
+      - alert: CriticalQueueSize
+        expr: model_generation_queue_size > 50
+        for: 1m
+        labels:
+          severity: critical
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Critical queue size on {{ $labels.service }}"
+          description: "Queue size is {{ $value }} on service {{ $labels.service }}, immediate scaling required."
+          runbook_url: "https://runbooks.trae.ai/critical-queue-size"
+
+      # Scaling Event Notifications
+      - alert: ScalingEventUp
+        expr: increase(scaling_events_total{direction="up"}[1m]) > 0
+        for: 0s
+        labels:
+          severity: info
+          category: scaling
+          service: "{{ $labels.service }}"
+          scaling_direction: "up"
+          current_replicas: "{{ $labels.current_replicas }}"
+          target_replicas: "{{ $labels.target_replicas }}"
+          scaling_reason: "{{ $labels.reason }}"
+        annotations:
+          summary: "Service {{ $labels.service }} scaled up"
+          description: "Service {{ $labels.service }} scaled from {{ $labels.current_replicas }} to {{ $labels.target_replicas }} replicas. Reason: {{ $labels.reason }}"
+
+      - alert: ScalingEventDown
+        expr: increase(scaling_events_total{direction="down"}[1m]) > 0
+        for: 0s
+        labels:
+          severity: info
+          category: scaling
+          service: "{{ $labels.service }}"
+          scaling_direction: "down"
+          current_replicas: "{{ $labels.current_replicas }}"
+          target_replicas: "{{ $labels.target_replicas }}"
+          scaling_reason: "{{ $labels.reason }}"
+        annotations:
+          summary: "Service {{ $labels.service }} scaled down"
+          description: "Service {{ $labels.service }} scaled from {{ $labels.current_replicas }} to {{ $labels.target_replicas }} replicas. Reason: {{ $labels.reason }}"
+
+      # Emergency Scaling
+      - alert: EmergencyScaling
+        expr: increase(scaling_events_total{type="emergency"}[1m]) > 0
+        for: 0s
+        labels:
+          severity: critical
+          category: scaling
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Emergency scaling triggered for {{ $labels.service }}"
+          description: "Emergency scaling was triggered for service {{ $labels.service }} due to critical resource usage."
+          runbook_url: "https://runbooks.trae.ai/emergency-scaling"
+
+  # Security Alerts
+  - name: security
+    interval: 30s
+    rules:
+      # High Failed Login Attempts
+      - alert: HighFailedLogins
+        expr: rate(failed_login_attempts_total[5m]) > 10
+        for: 1m
+        labels:
+          severity: warning
+          category: security
+          security_type: "authentication"
+          source_ip: "{{ $labels.source_ip }}"
+        annotations:
+          summary: "High failed login attempts detected"
+          description: "{{ $value }} failed login attempts per second from IP {{ $labels.source_ip }}."
+          runbook_url: "https://runbooks.trae.ai/high-failed-logins"
+
+      # Suspicious API Usage
+      - alert: SuspiciousAPIUsage
+        expr: rate(http_requests_total{status="429"}[5m]) > 5
+        for: 2m
+        labels:
+          severity: warning
+          category: security
+          security_type: "rate_limiting"
+          source_ip: "{{ $labels.source_ip }}"
+        annotations:
+          summary: "Suspicious API usage pattern detected"
+          description: "High rate of 429 (Too Many Requests) responses from IP {{ $labels.source_ip }}."
+          runbook_url: "https://runbooks.trae.ai/suspicious-api-usage"
+
+      # Potential DDoS Attack
+      - alert: PotentialDDoSAttack
+        expr: rate(http_requests_total[1m]) > 1000
+        for: 30s
+        labels:
+          severity: critical
+          category: security
+          security_type: "ddos"
+          source_ip: "{{ $labels.source_ip }}"
+        annotations:
+          summary: "Potential DDoS attack detected"
+          description: "Extremely high request rate of {{ $value }} req/s detected, possible DDoS attack."
+          runbook_url: "https://runbooks.trae.ai/ddos-attack"
+
+  # Business Logic Alerts
+  - name: business_logic
+    interval: 60s
+    rules:
+      # High Model Generation Failures
+      - alert: HighModelGenerationFailures
+        expr: (rate(model_generation_failures_total[5m]) / rate(model_generation_requests_total[5m])) * 100 > 10
+        for: 3m
+        labels:
+          severity: warning
+          category: performance
+          service: "content-agent"
+        annotations:
+          summary: "High model generation failure rate"
+          description: "Model generation failure rate is {{ $value }}%, investigate model service health."
+          runbook_url: "https://runbooks.trae.ai/model-generation-failures"
+
+      # Revenue Impact Alert
+      - alert: RevenueImpactingError
+        expr: rate(payment_failures_total[5m]) > 0.1
+        for: 1m
+        labels:
+          severity: critical
+          category: business
+          service: "payment-service"
+        annotations:
+          summary: "Payment failures detected"
+          description: "Payment failure rate is {{ $value }} failures/s, potential revenue impact."
+          runbook_url: "https://runbooks.trae.ai/payment-failures"
+
+      # User Experience Degradation
+      - alert: UserExperienceDegradation
+        expr: (
+          (histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 3) or
+          ((rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])) * 100 > 5)
+        )
+        for: 5m
+        labels:
+          severity: warning
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "User experience degradation on {{ $labels.service }}"
+          description: "Service {{ $labels.service }} is experiencing performance issues that may impact user experience."
+          runbook_url: "https://runbooks.trae.ai/user-experience-degradation"
+
+  # Predictive Alerts
+  - name: predictive
+    interval: 60s
+    rules:
+      # Predicted Resource Exhaustion
+      - alert: PredictedResourceExhaustion
+        expr: predict_linear(system_memory_usage_percent[30m], 3600) > 95
+        for: 5m
+        labels:
+          severity: warning
+          category: performance
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Predicted resource exhaustion on {{ $labels.service }}"
+          description: "Based on current trends, service {{ $labels.service }} will exhaust memory resources within 1 hour."
+          runbook_url: "https://runbooks.trae.ai/predicted-resource-exhaustion"
+
+      # Predicted Scaling Need
+      - alert: PredictedScalingNeed
+        expr: predict_linear(rate(http_requests_total[5m])[30m], 1800) > 150
+        for: 10m
+        labels:
+          severity: info
+          category: scaling
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "Predicted scaling need for {{ $labels.service }}"
+          description: "Based on request rate trends, service {{ $labels.service }} may need scaling within 30 minutes."
+          runbook_url: "https://runbooks.trae.ai/predicted-scaling-need"
+
+  # Custom Application Metrics
+  - name: custom_metrics
+    interval: 60s
+    rules:
+      # AI Model Performance
+      - alert: AIModelPerformanceDegradation
+        expr: ai_model_inference_time_seconds > 10
+        for: 3m
+        labels:
+          severity: warning
+          category: performance
+          service: "ai-models"
+        annotations:
+          summary: "AI model performance degradation"
+          description: "AI model inference time is {{ $value }}s, significantly higher than normal."
+          runbook_url: "https://runbooks.trae.ai/ai-model-performance"
+
+      # Content Generation Backlog
+      - alert: ContentGenerationBacklog
+        expr: content_generation_backlog_size > 100
+        for: 5m
+        labels:
+          severity: warning
+          category: performance
+          service: "content-agent"
+        annotations:
+          summary: "Content generation backlog building up"
+          description: "Content generation backlog has {{ $value }} items, consider scaling content agents."
+          runbook_url: "https://runbooks.trae.ai/content-backlog"

@@ -1,0 +1,88 @@
+🐳 Docker Validation Report
+==================================
+
+📋 Dockerfile Linting Results:
+Dockerfile:12 DL3008 [1m[93mwarning[0m: Pin versions in apt get install. Instead of `apt-get install <package>` use `apt-get install <package>=<version>`
+Dockerfile:12 DL3015 [92minfo[0m: Avoid additional packages by specifying `--no-install-recommends`
+Dockerfile:22 DL3042 [1m[93mwarning[0m: Avoid use of cache directory with pip. Use `pip install --no-cache-dir <package>`
+Dockerfile:22 DL3013 [1m[93mwarning[0m: Pin versions in pip. Instead of `pip install <package>` use `pip install <package>==<version>` or `pip install --requirement <requirements file>`
+No issues found in main Dockerfile
+
+📋 Docker Compose Validation:
+  Validating: ./langfuse/docker-compose.yml
+    ✅ Valid
+  Validating: ./trae_production_ready/infra/docker-compose.yml
+time="2025-09-21T03:45:09-04:00" level=warning msg="/Users/thomasbrianreynolds/Library/CloudStorage/GoogleDrive-brianinpty@gmail.com/My Drive/online production/trae_production_ready/infra/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+    ✅ Valid
+  Validating: ./url_fix_backups/docker-compose.yml
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"FACEBOOK_APP_ID\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"FACEBOOK_APP_SECRET\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"FACEBOOK_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"INSTAGRAM_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TWITTER_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TWITTER_API_SECRET\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TWITTER_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TWITTER_ACCESS_TOKEN_SECRET\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"LINKEDIN_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TIKTOK_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"PINTEREST_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"MAILCHIMP_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"SENDGRID_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"HUBSPOT_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"SALESFORCE_CLIENT_ID\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"SALESFORCE_CLIENT_SECRET\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"GOOGLE_ANALYTICS_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"GOOGLE_ADS_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"FACEBOOK_ADS_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"STRIPE_SECRET_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"STRIPE_PUBLISHABLE_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"STRIPE_WEBHOOK_SECRET\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"PAYPAL_CLIENT_ID\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"PAYPAL_CLIENT_SECRET\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"GUMROAD_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"SHOPIFY_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"SHOPIFY_API_SECRET\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"AMAZON_ASSOCIATES_ACCESS_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"AMAZON_ASSOCIATES_SECRET_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"CLICKBANK_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"COMMISSION_JUNCTION_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"SHAREASALE_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"PRINTFUL_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TEESPRING_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TEACHABLE_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"THINKIFIC_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"PATREON_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"MEMBERFUL_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"OPENAI_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"ANTHROPIC_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"GOOGLE_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"ELEVENLABS_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"STABILITY_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"REPLICATE_API_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TWITTER_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TWITTER_API_SECRET\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TWITTER_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TWITTER_ACCESS_TOKEN_SECRET\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"FACEBOOK_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"INSTAGRAM_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"LINKEDIN_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TIKTOK_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"WORDPRESS_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"MEDIUM_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"GHOST_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"WEBFLOW_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"GOOGLE_ANALYTICS_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"GOOGLE_ANALYTICS_VIEW_ID\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"FACEBOOK_INSIGHTS_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"YOUTUBE_ANALYTICS_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"TWITTER_ANALYTICS_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"LINKEDIN_ANALYTICS_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"MAILCHIMP_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"STRIPE_SECRET_KEY\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"PAYPAL_CLIENT_ID\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="The \"GUMROAD_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2025-09-21T03:45:35-04:00" level=warning msg="/Users/thomasbrianreynolds/Library/CloudStorage/GoogleDrive-brianinpty@gmail.com/My Drive/online production/url_fix_backups/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+    ✅ Valid
+  Validating: ./docker-compose.yml
+time="2025-09-21T03:47:52-04:00" level=warning msg="/Users/thomasbrianreynolds/Library/CloudStorage/GoogleDrive-brianinpty@gmail.com/My Drive/online production/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+    ✅ Valid

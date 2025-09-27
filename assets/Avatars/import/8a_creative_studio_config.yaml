@@ -1,0 +1,362 @@
+# Creative Studio Configuration
+# Based on research findings and Apple Silicon optimization
+# Integrates Ollama, ComfyUI, Linly Talker, and cloud software tools
+
+# System Configuration
+system:
+  platform: "apple_silicon"
+  architecture: "arm64"
+  optimization:
+    use_mps: true  # Metal Performance Shaders for Apple Silicon
+    use_native_acceleration: true
+    memory_management: "unified"  # Apple Silicon unified memory
+
+# Ollama LLM Engine Configuration
+ollama:
+  enabled: true
+  base_url: "http://localhost:11434"
+  api_version: "v1"
+
+  # Recommended models for Apple Silicon (based on research)
+  models:
+    primary: "llama3.2:3b"  # Optimized for M1/M2 with 8GB+ RAM
+    fallback: "gemma2:2b"   # Lightweight option for lower memory
+    vision: "llava:7b"      # Multi-modal for image understanding
+    code: "codellama:7b"    # Code generation and analysis
+
+  # Performance settings optimized for Apple Silicon
+  performance:
+    temperature: 0.7
+    max_tokens: 2048
+    context_length: 4096
+    batch_size: 1
+    threads: 8  # Adjust based on CPU cores
+    use_gpu: true  # Use Metal GPU acceleration
+
+  # Installation and setup
+  installation:
+    method: "homebrew"  # brew install ollama
+    auto_start: true
+    service_management: "launchd"
+
+  # Model management
+  model_management:
+    auto_pull: true
+    storage_path: "~/.ollama/models"
+    cleanup_old_models: false
+    quantization: "q4_0"  # Balance between quality and performance
+
+# ComfyUI Visual Engine Configuration
+comfyui:
+  enabled: true
+  base_url: "http://localhost:8188"
+
+  # Apple Silicon specific settings
+  apple_silicon:
+    use_mps: true
+    pytorch_mps_high_watermark_ratio: 0.0
+    force_fp16: true  # Use half precision for memory efficiency
+
+  # Installation settings (based on research)
+  installation:
+    method: "git_clone"
+    repository: "https://github.com/comfyanonymous/ComfyUI.git"
+    python_version: "3.10+"
+    virtual_env: true
+
+    # Prerequisites for Apple Silicon
+    prerequisites:
+      - "python3"
+      - "git"
+      - "pytorch>=2.0.0"  # With MPS support
+      - "torchvision"
+      - "torchaudio"
+
+  # Model configuration
+  models:
+    base_path: "./models"
+    checkpoints:
+      - "sd_xl_base_1.0.safetensors"
+      - "sd_xl_refiner_1.0.safetensors"
+
+    # Recommended models for Apple Silicon
+    recommended:
+      stable_diffusion: "SDXL 1.0"  # Good balance for Apple Silicon
+      controlnet: "SDXL ControlNet"
+      upscaler: "RealESRGAN x4"
+
+  # Workflow settings
+  workflows:
+    default_path: "./workflows"
+    api_format: true
+    auto_save: true
+
+    # Common workflow templates
+    templates:
+      text_to_image: "basic_txt2img.json"
+      image_to_image: "basic_img2img.json"
+      controlnet: "controlnet_workflow.json"
+      upscaling: "upscale_workflow.json"
+
+  # Performance optimization
+  performance:
+    vram_management: "auto"
+    cpu_threads: 8
+    preview_method: "auto"
+    free_memory_after_generation: true
+
+# Linly Talker AI Avatar Configuration
+linly_talker:
+  enabled: true
+  base_url: "http://localhost:7860"
+
+  # Model configuration
+  models:
+    base_path: "./models/linly_talker"
+
+    # Core models for talking head synthesis
+    required_models:
+      llm: "Linly-AI/Chinese-LLaMA-2-7B-hf"
+      asr: "Whisper-large-v2"  # Automatic Speech Recognition
+      tts: "EdgeTTS"           # Text-to-Speech
+      avatar: "SadTalker"      # Talking head generation
+
+  # Features configuration
+  features:
+    voice_cloning: true
+    multi_modal: true
+    real_time_generation: false  # Set to true for live streaming
+    batch_processing: true
+
+  # Apple Silicon optimization
+  optimization:
+    use_mps: true
+    memory_efficient: true
+    fp16_inference: true
+
+  # Installation
+  installation:
+    method: "git_clone"
+    repository: "https://github.com/Kedreamix/Linly-Talker.git"
+    requirements_file: "requirements.txt"
+    model_download_script: "scripts/download_models.sh"
+
+# Cloud Software Integration
+cloud_software:
+  # Lingo Blaster - Video Translation (Research: YouTube API integration)
+  lingo_blaster:
+    enabled: false  # Set to true when API key available
+    api_endpoint: "https://api.lingoblaster.com/v1"
+    api_key: null  # Set via environment variable LINGO_BLASTER_API_KEY
+
+    features:
+      youtube_integration: true
+      auto_translation: true
+      supported_languages: 100+
+      three_click_workflow: true
+      auto_ranking: true
+
+    # Translation settings
+    translation:
+      default_languages: ["en", "es", "fr", "de", "zh", "ja", "ko"]
+      quality: "high"
+      preserve_timing: true
+
+  # Captionizer - AI Caption Generation (Research: Now part of Mirage/Captions.ai)
+  captionizer:
+    enabled: false  # Set to true when API key available
+    api_endpoint: "https://api.captions.ai/v1"  # Updated endpoint
+    api_key: null  # Set via environment variable CAPTIONIZER_API_KEY
+
+    features:
+      auto_captions: true
+      multi_language: true
+      style_customization: true
+      real_time_editing: true
+
+    # Caption settings
+    captions:
+      default_style: "modern"
+      font_family: "Arial"
+      positioning: "bottom_center"
+      animation: "fade_in"
+      accuracy_threshold: 0.95
+
+# Integration Workflows
+workflows:
+  # Complete media creation pipeline
+  complete_media_creation:
+    enabled: true
+    steps:
+      1: "llm_prompt_enhancement"    # Ollama enhances user prompt
+      2: "visual_generation"         # ComfyUI generates images/videos
+      3: "avatar_synthesis"          # Linly Talker creates talking avatar
+      4: "caption_generation"        # Captionizer adds captions
+      5: "multi_language_export"     # Lingo Blaster translates content
+
+  # AI Avatar workflow
+  ai_avatar_creation:
+    enabled: true
+    steps:
+      1: "script_generation"         # Ollama generates script
+      2: "voice_synthesis"           # Linly Talker TTS
+      3: "avatar_animation"          # Linly Talker talking head
+      4: "post_processing"           # ComfyUI enhancement
+
+  # Content localization workflow
+  content_localization:
+    enabled: true
+    steps:
+      1: "content_analysis"          # Ollama analyzes content
+      2: "translation_preparation"   # Prepare for Lingo Blaster
+      3: "multi_language_generation" # Generate localized versions
+      4: "quality_assurance"         # Automated QA checks
+
+# API Configuration
+api:
+  # Main creative studio API
+  creative_studio:
+    host: "localhost"
+    port: 8080
+    version: "v1"
+
+  # Component APIs
+  components:
+    ollama:
+      endpoint: "/api/ollama"
+      timeout: 60
+
+    comfyui:
+      endpoint: "/api/comfyui"
+      timeout: 300  # Longer timeout for image generation
+
+    linly_talker:
+      endpoint: "/api/avatar"
+      timeout: 120
+
+    cloud_software:
+      endpoint: "/api/cloud"
+      timeout: 300
+
+# Monitoring and Logging
+monitoring:
+  enabled: true
+
+  # Health checks
+  health_checks:
+    interval: 30  # seconds
+    timeout: 5
+    endpoints:
+      - "ollama/health"
+      - "comfyui/system_stats"
+      - "linly_talker/health"
+
+  # Performance monitoring
+  performance:
+    track_memory_usage: true
+    track_gpu_usage: true
+    track_generation_times: true
+
+  # Logging
+  logging:
+    level: "INFO"
+    format: "json"
+    file: "./logs/creative_studio.log"
+    rotation: "daily"
+    retention: "7d"
+
+# Security Configuration
+security:
+  # API security
+  api_security:
+    enable_cors: true
+    allowed_origins: ["http://localhost:3000", "http://localhost:8000"]
+    rate_limiting: true
+    max_requests_per_minute: 60
+
+  # Model security
+  model_security:
+    verify_checksums: true
+    scan_for_malware: false  # Set to true in production
+    quarantine_suspicious: false
+
+  # Data privacy
+  privacy:
+    log_user_inputs: false
+    encrypt_stored_data: true
+    data_retention_days: 30
+
+# Development and Testing
+development:
+  # Debug settings
+  debug:
+    enabled: true
+    verbose_logging: true
+    save_intermediate_results: true
+
+  # Testing
+  testing:
+    mock_cloud_apis: true  # Use mock responses when APIs not available
+    test_data_path: "./test_data"
+    automated_tests: true
+
+  # Hot reload
+  hot_reload:
+    enabled: true
+    watch_paths: ["./backend", "./config"]
+
+# Resource Management
+resources:
+  # Memory management for Apple Silicon
+  memory:
+    max_ram_usage: "80%"  # Leave 20% for system
+    swap_usage: "minimal"
+    garbage_collection: "aggressive"
+
+  # Storage management
+  storage:
+    temp_files_cleanup: true
+    max_temp_storage: "10GB"
+    model_cache_size: "50GB"
+    output_retention: "7d"
+
+  # CPU/GPU management
+  compute:
+    max_cpu_usage: "90%"
+    gpu_memory_fraction: 0.8
+    thermal_throttling: true
+
+# Backup and Recovery
+backup:
+  enabled: true
+
+  # What to backup
+  include:
+    - "config/"
+    - "workflows/"
+    - "custom_models/"
+    - "user_data/"
+
+  # Backup settings
+  settings:
+    frequency: "daily"
+    retention: "30d"
+    compression: true
+    encryption: true
+
+  # Recovery
+  recovery:
+    auto_restore: false
+    backup_verification: true
+    rollback_capability: true
+
+# Environment Variables (Reference)
+# Set these in your environment or .env file:
+# OLLAMA_HOST=http://localhost:11434
+# COMFYUI_HOST=http://localhost:8188
+# LINLY_TALKER_HOST=http://localhost:7860
+# LINGO_BLASTER_API_KEY=your_api_key_here
+# CAPTIONIZER_API_KEY=your_api_key_here
+# YOUTUBE_API_KEY=your_youtube_api_key
+# CREATIVE_STUDIO_SECRET_KEY=your_secret_key
+# ENVIRONMENT=development  # or production

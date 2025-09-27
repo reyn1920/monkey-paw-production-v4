@@ -1,0 +1,9 @@
+service_name: "monkey-paw-live"
+approve_publish: false
+paths:
+  base: "."
+  artifacts_staging: "artifacts/staging"
+  artifacts_published: "artifacts/published"
+  reports: "reports"
+flags:
+  nocode_stack_enabled: false

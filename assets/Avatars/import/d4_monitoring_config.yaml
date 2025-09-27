@@ -1,0 +1,401 @@
+# Zero-Cost Monitoring Stack Configuration
+# Comprehensive configuration for Prometheus + Grafana monitoring
+
+# Prometheus Configuration
+prometheus_port: 8000
+metrics_path: "/metrics"
+scrape_interval: 15  # seconds
+retention_days: 15
+enable_push_gateway: false
+push_gateway_url: null
+
+# System and Application Metrics
+enable_system_metrics: true
+enable_application_metrics: true
+log_level: "INFO"
+
+# Grafana Configuration
+grafana_config:
+  port: 3000
+  admin_user: "admin"
+  admin_password: "admin123"  # Change in production
+  data_source_url: "http://localhost:8000"
+  dashboard_refresh_interval: "5s"
+  default_time_range: "1h"
+  enable_anonymous_access: false
+  theme: "dark"
+  
+# Alert Rules Configuration
+alert_rules:
+  - name: "high_cpu_usage"
+    metric_name: "system_cpu_usage_percent"
+    condition: "> 80"
+    severity: "warning"
+    description: "CPU usage is above 80%"
+    duration: 300
+    labels:
+      team: "infrastructure"
+      priority: "medium"
+      
+  - name: "critical_cpu_usage"
+    metric_name: "system_cpu_usage_percent"
+    condition: "> 95"
+    severity: "critical"
+    description: "CPU usage is critically high"
+    duration: 60
+    labels:
+      team: "infrastructure"
+      priority: "high"
+      
+  - name: "high_memory_usage"
+    metric_name: "system_memory_usage_percent"
+    condition: "> 85"
+    severity: "warning"
+    description: "Memory usage is above 85%"
+    duration: 300
+    labels:
+      team: "infrastructure"
+      priority: "medium"
+      
+  - name: "disk_space_low"
+    metric_name: "system_disk_usage_percent"
+    condition: "> 90"
+    severity: "error"
+    description: "Disk space is running low"
+    duration: 600
+    labels:
+      team: "infrastructure"
+      priority: "high"
+      
+  - name: "high_error_rate"
+    metric_name: "errors_total"
+    condition: "> 10"
+    severity: "error"
+    description: "Application error rate is too high"
+    duration: 60
+    labels:
+      team: "development"
+      priority: "high"
+      
+  - name: "scraping_failures"
+    metric_name: "scraping_requests_total{status='error'}"
+    condition: "> 5"
+    severity: "warning"
+    description: "High number of scraping failures"
+    duration: 300
+    labels:
+      team: "development"
+      priority: "medium"
+      
+  - name: "low_cache_hit_rate"
+    metric_name: "cache_hit_rate"
+    condition: "< 50"
+    severity: "warning"
+    description: "Cache hit rate is below 50%"
+    duration: 600
+    labels:
+      team: "development"
+      priority: "low"
+      
+  - name: "api_discovery_failures"
+    metric_name: "api_discovery_total{status='failed'}"
+    condition: "> 3"
+    severity: "warning"
+    description: "Multiple API discovery failures detected"
+    duration: 180
+    labels:
+      team: "development"
+      priority: "medium"
+      
+  - name: "slow_api_validation"
+    metric_name: "api_validation_duration_seconds"
+    condition: "> 30"
+    severity: "warning"
+    description: "API validation is taking too long"
+    duration: 300
+    labels:
+      team: "development"
+      priority: "medium"
+      
+  - name: "queue_backlog"
+    metric_name: "queue_size"
+    condition: "> 1000"
+    severity: "warning"
+    description: "Processing queue has significant backlog"
+    duration: 600
+    labels:
+      team: "development"
+      priority: "medium"
+
+# Custom Business Metrics
+custom_metrics:
+  - name: "business_revenue_daily"
+    metric_type: "gauge"
+    description: "Daily revenue tracking"
+    labels: ["source", "currency", "region"]
+    unit: "currency"
+    
+  - name: "user_activity_events"
+    metric_type: "counter"
+    description: "User activity and engagement events"
+    labels: ["event_type", "user_segment", "source"]
+    
+  - name: "api_usage_by_client"
+    metric_type: "counter"
+    description: "API usage tracking by client"
+    labels: ["client_id", "endpoint", "method"]
+    
+  - name: "content_processing_time"
+    metric_type: "histogram"
+    description: "Time spent processing content"
+    labels: ["content_type", "source"]
+    buckets: [0.1, 0.5, 1.0, 2.5, 5.0, 10.0, 30.0, 60.0]
+    unit: "seconds"
+    
+  - name: "data_quality_score"
+    metric_type: "gauge"
+    description: "Data quality assessment score"
+    labels: ["dataset", "source", "validation_type"]
+    unit: "percentage"
+    
+  - name: "automation_success_rate"
+    metric_type: "gauge"
+    description: "Success rate of automation tasks"
+    labels: ["automation_type", "target"]
+    unit: "percentage"
+    
+  - name: "research_tasks_completed"
+    metric_type: "counter"
+    description: "Number of research tasks completed"
+    labels: ["task_type", "priority", "status"]
+    
+  - name: "web_scraping_efficiency"
+    metric_type: "histogram"
+    description: "Web scraping efficiency metrics"
+    labels: ["target_site", "method"]
+    buckets: [0.5, 1.0, 2.0, 5.0, 10.0, 30.0]
+    unit: "seconds"
+    
+  - name: "api_discovery_accuracy"
+    metric_type: "gauge"
+    description: "Accuracy of API discovery process"
+    labels: ["source", "category"]
+    unit: "percentage"
+    
+  - name: "system_health_score"
+    metric_type: "gauge"
+    description: "Overall system health composite score"
+    labels: ["component", "environment"]
+    unit: "score"
+
+# Notification Configuration
+notifications:
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    username: "your-email@gmail.com"
+    password: "your-app-password"  # Use app password for Gmail
+    from_address: "monitoring@yourcompany.com"
+    to_addresses: ["admin@yourcompany.com"]
+    
+  slack:
+    enabled: false
+    webhook_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+    channel: "#alerts"
+    username: "MonitoringBot"
+    
+  webhook:
+    enabled: false
+    url: "https://your-webhook-endpoint.com/alerts"
+    headers:
+      Authorization: "Bearer your-token"
+      Content-Type: "application/json"
+
+# Dashboard Configuration
+dashboards:
+  system:
+    title: "System Monitoring"
+    refresh: "5s"
+    time_range: "1h"
+    panels:
+      - type: "cpu_usage"
+        title: "CPU Usage"
+        position: {x: 0, y: 0, w: 12, h: 8}
+      - type: "memory_usage"
+        title: "Memory Usage"
+        position: {x: 12, y: 0, w: 12, h: 8}
+      - type: "disk_usage"
+        title: "Disk Usage"
+        position: {x: 0, y: 8, w: 24, h: 8}
+      - type: "network_io"
+        title: "Network I/O"
+        position: {x: 0, y: 16, w: 24, h: 8}
+        
+  application:
+    title: "Application Monitoring"
+    refresh: "5s"
+    time_range: "1h"
+    panels:
+      - type: "request_rate"
+        title: "Request Rate"
+        position: {x: 0, y: 0, w: 12, h: 8}
+      - type: "response_time"
+        title: "Response Time"
+        position: {x: 12, y: 0, w: 12, h: 8}
+      - type: "error_rate"
+        title: "Error Rate"
+        position: {x: 0, y: 8, w: 12, h: 8}
+      - type: "cache_performance"
+        title: "Cache Performance"
+        position: {x: 12, y: 8, w: 12, h: 8}
+        
+  business:
+    title: "Business Metrics"
+    refresh: "30s"
+    time_range: "24h"
+    panels:
+      - type: "revenue"
+        title: "Daily Revenue"
+        position: {x: 0, y: 0, w: 12, h: 8}
+      - type: "user_activity"
+        title: "User Activity"
+        position: {x: 12, y: 0, w: 12, h: 8}
+      - type: "api_usage"
+        title: "API Usage"
+        position: {x: 0, y: 8, w: 24, h: 8}
+
+# Data Retention and Storage
+data_retention:
+  metrics_retention: "15d"
+  logs_retention: "7d"
+  alerts_retention: "30d"
+  dashboards_backup: true
+  backup_interval: "24h"
+  backup_location: "./backups/monitoring"
+
+# Performance Tuning
+performance:
+  max_concurrent_scrapes: 10
+  metrics_buffer_size: 1000
+  batch_processing_size: 100
+  connection_pool_size: 20
+  timeout_seconds: 30
+  retry_attempts: 3
+  retry_delay: 5
+
+# Security Configuration
+security:
+  enable_authentication: true
+  enable_https: false
+  cert_file: "/path/to/cert.pem"
+  key_file: "/path/to/key.pem"
+  allowed_origins: ["localhost", "127.0.0.1"]
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 100
+    burst_size: 20
+
+# Integration Settings
+integrations:
+  prometheus:
+    config_file: "./prometheus.yml"
+    data_dir: "./prometheus_data"
+    web_listen_address: "0.0.0.0:9090"
+    
+  grafana:
+    config_file: "./grafana.ini"
+    data_dir: "./grafana_data"
+    plugins_dir: "./grafana_plugins"
+    provisioning_dir: "./grafana_provisioning"
+    
+  alertmanager:
+    config_file: "./alertmanager.yml"
+    data_dir: "./alertmanager_data"
+    web_listen_address: "0.0.0.0:9093"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "./logs/monitoring.log"
+  max_size: "100MB"
+  backup_count: 5
+  console_output: true
+
+# Health Check Configuration
+health_checks:
+  enabled: true
+  interval: 30  # seconds
+  timeout: 10   # seconds
+  endpoints:
+    - name: "prometheus"
+      url: "http://localhost:9090/-/healthy"
+    - name: "grafana"
+      url: "http://localhost:3000/api/health"
+    - name: "application"
+      url: "http://localhost:8000/health"
+
+# Feature Flags
+feature_flags:
+  enable_experimental_metrics: false
+  enable_machine_learning_alerts: false
+  enable_predictive_scaling: false
+  enable_cost_optimization: true
+  enable_automated_remediation: false
+
+# Environment-Specific Overrides
+environments:
+  development:
+    log_level: "DEBUG"
+    scrape_interval: 5
+    retention_days: 3
+    enable_debug_metrics: true
+    
+  staging:
+    log_level: "INFO"
+    scrape_interval: 10
+    retention_days: 7
+    enable_load_testing_metrics: true
+    
+  production:
+    log_level: "WARNING"
+    scrape_interval: 15
+    retention_days: 30
+    enable_security_metrics: true
+    enable_compliance_monitoring: true
+
+# Cost Optimization Settings
+cost_optimization:
+  enable_metric_sampling: false
+  sampling_rate: 0.1
+  compress_old_data: true
+  auto_cleanup_old_metrics: true
+  resource_usage_alerts: true
+  budget_threshold: 100  # USD per month
+
+# Backup and Recovery
+backup:
+  enabled: true
+  schedule: "0 2 * * *"  # Daily at 2 AM
+  retention: "30d"
+  compression: true
+  encryption: false
+  remote_storage:
+    enabled: false
+    provider: "s3"  # s3, gcs, azure
+    bucket: "monitoring-backups"
+    region: "us-west-2"
+
+# Maintenance Windows
+maintenance:
+  enabled: true
+  windows:
+    - name: "weekly_maintenance"
+      schedule: "0 3 * * 0"  # Sunday at 3 AM
+      duration: 120  # minutes
+      suppress_alerts: true
+    - name: "monthly_cleanup"
+      schedule: "0 4 1 * *"  # First day of month at 4 AM
+      duration: 60   # minutes
+      tasks: ["cleanup_old_data", "optimize_storage", "update_dashboards"]

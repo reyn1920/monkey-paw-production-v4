@@ -1,0 +1,212 @@
+# Horizontal Pod Autoscaler Configuration for TRAE AI Application
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: trae-ai-hpa
+  namespace: default
+  labels:
+    app: trae-ai
+    component: autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: trae-ai-backend
+  minReplicas: 2
+  maxReplicas: 20
+  metrics:
+  # CPU-based scaling
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  # Memory-based scaling
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  # Custom metrics for model generation queue
+  - type: Pods
+    pods:
+      metric:
+        name: model_generation_queue_size
+      target:
+        type: AverageValue
+        averageValue: "10"
+  # Request rate scaling
+  - type: Object
+    object:
+      metric:
+        name: http_requests_per_second
+      target:
+        type: Value
+        value: "100"
+      describedObject:
+        apiVersion: v1
+        kind: Service
+        name: trae-ai-backend-service
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 60
+      - type: Pods
+        value: 2
+        periodSeconds: 60
+      selectPolicy: Min
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+      - type: Pods
+        value: 4
+        periodSeconds: 60
+      selectPolicy: Max
+
+---
+# Vertical Pod Autoscaler for resource optimization
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: trae-ai-vpa
+  namespace: default
+  labels:
+    app: trae-ai
+    component: vpa
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: trae-ai-backend
+  updatePolicy:
+    updateMode: "Auto"
+  resourcePolicy:
+    containerPolicies:
+    - containerName: trae-ai-backend
+      minAllowed:
+        cpu: 100m
+        memory: 128Mi
+      maxAllowed:
+        cpu: 2
+        memory: 4Gi
+      controlledResources: ["cpu", "memory"]
+      controlledValues: RequestsAndLimits
+
+---
+# Custom Resource for Model Generation Autoscaling
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: autoscaling-config
+  namespace: default
+  labels:
+    app: trae-ai
+    component: config
+data:
+  scaling-rules.yaml: |
+    rules:
+      - name: "model-generation-queue-scaling"
+        metric: "model_generation_queue_size"
+        threshold: 15
+        action: "scale_up"
+        cooldown: 120
+        max_instances: 10
+      - name: "response-time-scaling"
+        metric: "http_request_duration_p95"
+        threshold: 2.0
+        action: "scale_up"
+        cooldown: 180
+        max_instances: 15
+      - name: "error-rate-scaling"
+        metric: "http_error_rate_percent"
+        threshold: 5.0
+        action: "scale_up"
+        cooldown: 60
+        max_instances: 8
+      - name: "low-utilization-scaling"
+        metric: "cpu_utilization_percent"
+        threshold: 20
+        action: "scale_down"
+        cooldown: 600
+        min_instances: 2
+  prometheus-rules.yaml: |
+    groups:
+    - name: trae-ai-autoscaling
+      rules:
+      - alert: HighModelGenerationQueue
+        expr: model_generation_queue_size > 20
+        for: 2m
+        labels:
+          severity: warning
+          component: autoscaler
+        annotations:
+          summary: "High model generation queue detected"
+          description: "Model generation queue size is {{ $value }}, consider scaling up"
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 3
+        for: 5m
+        labels:
+          severity: critical
+          component: performance
+        annotations:
+          summary: "High response time detected"
+          description: "95th percentile response time is {{ $value }}s"
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100 > 10
+        for: 3m
+        labels:
+          severity: critical
+          component: reliability
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }}%"
+
+---
+# Service Monitor for Prometheus to scrape metrics
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: trae-ai-metrics
+  namespace: default
+  labels:
+    app: trae-ai
+    component: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: trae-ai
+      component: backend
+  endpoints:
+  - port: metrics
+    interval: 30s
+    path: /metrics
+    honorLabels: true
+  - port: health
+    interval: 60s
+    path: /health
+    honorLabels: true
+
+---
+# Pod Disruption Budget to ensure availability during scaling
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: trae-ai-pdb
+  namespace: default
+  labels:
+    app: trae-ai
+    component: availability
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: trae-ai
+      component: backend

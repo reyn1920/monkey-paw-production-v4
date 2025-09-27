@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Launch All",
+      "type": "shell",
+      "command": "zsh ./launch_all.zsh",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Audit: Two Pass",
+      "type": "shell",
+      "command": "zsh ./tools/audit/run_two_pass_audit.zsh"
+    },
+    {
+      "label": "Missing Info Audit (Monkey Paw)",
+      "type": "shell",
+      "command": "zsh scripts/first_run/fill_missing_info.zsh"
+    },
+    {
+      "label": "YouTube Prep+Upload",
+      "type": "shell",
+      "command": "zsh tools/automation/youtube/yt_prepare_and_upload.zsh artifacts/staging/draft_youtube.txt"
+    },
+    {
+      "label": "Build EPUB",
+      "type": "shell",
+      "command": "zsh tools/exporters/book_epub/build_epub.zsh 'artifacts/staging/*.txt' artifacts/published/book.epub"
+    },
+    {
+      "label": "Build Digital Kit",
+      "type": "shell",
+      "command": "zsh tools/exporters/digital_kit/build_kit.zsh"
+    }
+  ]
+}

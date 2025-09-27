@@ -1,0 +1,487 @@
+# Prometheus Alert Rules for Zero-Cost Monitoring Stack
+# These rules define when alerts should be triggered based on metric thresholds
+
+groups:
+  # System-level alerts
+  - name: system.rules
+    interval: 30s
+    rules:
+      - alert: HighCPUUsage
+        expr: system_cpu_usage_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          team: infrastructure
+          component: system
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value }}% which is above the 80% threshold for more than 5 minutes."
+          runbook_url: "https://docs.company.com/runbooks/high-cpu"
+
+      - alert: CriticalCPUUsage
+        expr: system_cpu_usage_percent > 95
+        for: 1m
+        labels:
+          severity: critical
+          team: infrastructure
+          component: system
+        annotations:
+          summary: "Critical CPU usage detected"
+          description: "CPU usage is {{ $value }}% which is critically high for more than 1 minute."
+          runbook_url: "https://docs.company.com/runbooks/critical-cpu"
+
+      - alert: HighMemoryUsage
+        expr: (system_memory_usage_bytes{type="used"} / system_memory_usage_bytes{type="total"}) * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+          team: infrastructure
+          component: system
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is {{ $value }}% which is above the 85% threshold."
+          runbook_url: "https://docs.company.com/runbooks/high-memory"
+
+      - alert: CriticalMemoryUsage
+        expr: (system_memory_usage_bytes{type="used"} / system_memory_usage_bytes{type="total"}) * 100 > 95
+        for: 2m
+        labels:
+          severity: critical
+          team: infrastructure
+          component: system
+        annotations:
+          summary: "Critical memory usage detected"
+          description: "Memory usage is {{ $value }}% which is critically high."
+          runbook_url: "https://docs.company.com/runbooks/critical-memory"
+
+      - alert: DiskSpaceLow
+        expr: (system_disk_usage_bytes{type="used"} / system_disk_usage_bytes{type="total"}) * 100 > 90
+        for: 10m
+        labels:
+          severity: error
+          team: infrastructure
+          component: system
+        annotations:
+          summary: "Disk space running low"
+          description: "Disk usage on {{ $labels.device }} is {{ $value }}% which is above 90%."
+          runbook_url: "https://docs.company.com/runbooks/disk-space"
+
+      - alert: DiskSpaceCritical
+        expr: (system_disk_usage_bytes{type="used"} / system_disk_usage_bytes{type="total"}) * 100 > 95
+        for: 5m
+        labels:
+          severity: critical
+          team: infrastructure
+          component: system
+        annotations:
+          summary: "Critical disk space shortage"
+          description: "Disk usage on {{ $labels.device }} is {{ $value }}% which is critically high."
+          runbook_url: "https://docs.company.com/runbooks/critical-disk"
+
+      - alert: SystemDown
+        expr: up{job="trae-ai-application"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          team: infrastructure
+          component: application
+        annotations:
+          summary: "System is down"
+          description: "The main application has been down for more than 1 minute."
+          runbook_url: "https://docs.company.com/runbooks/system-down"
+
+  # Application-level alerts
+  - name: application.rules
+    interval: 30s
+    rules:
+      - alert: HighErrorRate
+        expr: rate(errors_total[5m]) > 10
+        for: 2m
+        labels:
+          severity: error
+          team: development
+          component: application
+        annotations:
+          summary: "High application error rate"
+          description: "Error rate is {{ $value }} errors per second, which is above the threshold of 10."
+          runbook_url: "https://docs.company.com/runbooks/high-errors"
+
+      - alert: CriticalErrorRate
+        expr: rate(errors_total[5m]) > 50
+        for: 1m
+        labels:
+          severity: critical
+          team: development
+          component: application
+        annotations:
+          summary: "Critical application error rate"
+          description: "Error rate is {{ $value }} errors per second, which is critically high."
+          runbook_url: "https://docs.company.com/runbooks/critical-errors"
+
+      - alert: SlowResponseTime
+        expr: histogram_quantile(0.95, rate(scraping_duration_seconds_bucket[5m])) > 30
+        for: 5m
+        labels:
+          severity: warning
+          team: development
+          component: scraping
+        annotations:
+          summary: "Slow scraping response time"
+          description: "95th percentile response time is {{ $value }}s, which is above 30s threshold."
+          runbook_url: "https://docs.company.com/runbooks/slow-response"
+
+      - alert: VerySlowResponseTime
+        expr: histogram_quantile(0.95, rate(scraping_duration_seconds_bucket[5m])) > 60
+        for: 2m
+        labels:
+          severity: error
+          team: development
+          component: scraping
+        annotations:
+          summary: "Very slow scraping response time"
+          description: "95th percentile response time is {{ $value }}s, which is above 60s threshold."
+          runbook_url: "https://docs.company.com/runbooks/very-slow-response"
+
+      - alert: LowCacheHitRate
+        expr: (rate(cache_operations_total{result="hit"}[10m]) / rate(cache_operations_total[10m])) * 100 < 50
+        for: 10m
+        labels:
+          severity: warning
+          team: development
+          component: cache
+        annotations:
+          summary: "Low cache hit rate"
+          description: "Cache hit rate is {{ $value }}%, which is below the 50% threshold."
+          runbook_url: "https://docs.company.com/runbooks/low-cache-hit"
+
+      - alert: VeryLowCacheHitRate
+        expr: (rate(cache_operations_total{result="hit"}[10m]) / rate(cache_operations_total[10m])) * 100 < 20
+        for: 5m
+        labels:
+          severity: error
+          team: development
+          component: cache
+        annotations:
+          summary: "Very low cache hit rate"
+          description: "Cache hit rate is {{ $value }}%, which is critically low."
+          runbook_url: "https://docs.company.com/runbooks/very-low-cache-hit"
+
+  # Web scraping specific alerts
+  - name: scraping.rules
+    interval: 60s
+    rules:
+      - alert: ScrapingFailures
+        expr: rate(scraping_requests_total{status="error"}[10m]) > 5
+        for: 5m
+        labels:
+          severity: warning
+          team: development
+          component: scraping
+        annotations:
+          summary: "High number of scraping failures"
+          description: "Scraping failure rate is {{ $value }} per second for {{ $labels.source }}."
+          runbook_url: "https://docs.company.com/runbooks/scraping-failures"
+
+      - alert: CriticalScrapingFailures
+        expr: rate(scraping_requests_total{status="error"}[5m]) > 20
+        for: 2m
+        labels:
+          severity: critical
+          team: development
+          component: scraping
+        annotations:
+          summary: "Critical scraping failure rate"
+          description: "Scraping failure rate is {{ $value }} per second for {{ $labels.source }}, which is critically high."
+          runbook_url: "https://docs.company.com/runbooks/critical-scraping-failures"
+
+      - alert: NoScrapingActivity
+        expr: rate(scraping_requests_total[30m]) == 0
+        for: 30m
+        labels:
+          severity: warning
+          team: development
+          component: scraping
+        annotations:
+          summary: "No scraping activity detected"
+          description: "No scraping requests have been made in the last 30 minutes."
+          runbook_url: "https://docs.company.com/runbooks/no-scraping-activity"
+
+      - alert: ScrapingTimeout
+        expr: histogram_quantile(0.95, rate(scraping_duration_seconds_bucket[10m])) > 120
+        for: 10m
+        labels:
+          severity: error
+          team: development
+          component: scraping
+        annotations:
+          summary: "Scraping timeouts detected"
+          description: "95th percentile scraping duration is {{ $value }}s, indicating potential timeouts."
+          runbook_url: "https://docs.company.com/runbooks/scraping-timeouts"
+
+  # API discovery alerts
+  - name: api_discovery.rules
+    interval: 60s
+    rules:
+      - alert: APIDiscoveryFailures
+        expr: rate(api_discovery_total{status="failed"}[15m]) > 3
+        for: 10m
+        labels:
+          severity: warning
+          team: development
+          component: api_discovery
+        annotations:
+          summary: "API discovery failures detected"
+          description: "API discovery failure rate is {{ $value }} per second for {{ $labels.source }}."
+          runbook_url: "https://docs.company.com/runbooks/api-discovery-failures"
+
+      - alert: SlowAPIValidation
+        expr: histogram_quantile(0.95, rate(api_validation_duration_seconds_bucket[10m])) > 30
+        for: 10m
+        labels:
+          severity: warning
+          team: development
+          component: api_discovery
+        annotations:
+          summary: "Slow API validation detected"
+          description: "95th percentile API validation time is {{ $value }}s for {{ $labels.source }}."
+          runbook_url: "https://docs.company.com/runbooks/slow-api-validation"
+
+      - alert: NoAPIDiscovery
+        expr: rate(api_discovery_total[1h]) == 0
+        for: 1h
+        labels:
+          severity: warning
+          team: development
+          component: api_discovery
+        annotations:
+          summary: "No API discovery activity"
+          description: "No APIs have been discovered in the last hour."
+          runbook_url: "https://docs.company.com/runbooks/no-api-discovery"
+
+      - alert: LowAPIDiscoverySuccess
+        expr: (rate(api_discovery_total{status="validated"}[30m]) / rate(api_discovery_total[30m])) * 100 < 30
+        for: 30m
+        labels:
+          severity: warning
+          team: development
+          component: api_discovery
+        annotations:
+          summary: "Low API discovery success rate"
+          description: "API discovery success rate is {{ $value }}%, which is below 30%."
+          runbook_url: "https://docs.company.com/runbooks/low-api-success"
+
+  # Queue and processing alerts
+  - name: processing.rules
+    interval: 30s
+    rules:
+      - alert: QueueBacklog
+        expr: queue_size > 1000
+        for: 10m
+        labels:
+          severity: warning
+          team: development
+          component: processing
+        annotations:
+          summary: "Processing queue backlog"
+          description: "Queue {{ $labels.queue_name }} has {{ $value }} items, which is above 1000."
+          runbook_url: "https://docs.company.com/runbooks/queue-backlog"
+
+      - alert: CriticalQueueBacklog
+        expr: queue_size > 5000
+        for: 5m
+        labels:
+          severity: critical
+          team: development
+          component: processing
+        annotations:
+          summary: "Critical processing queue backlog"
+          description: "Queue {{ $labels.queue_name }} has {{ $value }} items, which is critically high."
+          runbook_url: "https://docs.company.com/runbooks/critical-queue-backlog"
+
+      - alert: QueueStalled
+        expr: increase(queue_size[30m]) == 0 and queue_size > 0
+        for: 30m
+        labels:
+          severity: error
+          team: development
+          component: processing
+        annotations:
+          summary: "Processing queue appears stalled"
+          description: "Queue {{ $labels.queue_name }} has not processed any items in 30 minutes but has {{ $value }} items."
+          runbook_url: "https://docs.company.com/runbooks/queue-stalled"
+
+  # Connection and resource alerts
+  - name: resources.rules
+    interval: 30s
+    rules:
+      - alert: HighConnectionCount
+        expr: active_connections > 100
+        for: 10m
+        labels:
+          severity: warning
+          team: infrastructure
+          component: connections
+        annotations:
+          summary: "High connection count"
+          description: "{{ $labels.type }} connections count is {{ $value }}, which is above 100."
+          runbook_url: "https://docs.company.com/runbooks/high-connections"
+
+      - alert: CriticalConnectionCount
+        expr: active_connections > 500
+        for: 5m
+        labels:
+          severity: critical
+          team: infrastructure
+          component: connections
+        annotations:
+          summary: "Critical connection count"
+          description: "{{ $labels.type }} connections count is {{ $value }}, which is critically high."
+          runbook_url: "https://docs.company.com/runbooks/critical-connections"
+
+      - alert: ConnectionLeaks
+        expr: increase(active_connections[1h]) > 0 and rate(active_connections[10m]) == 0
+        for: 1h
+        labels:
+          severity: warning
+          team: development
+          component: connections
+        annotations:
+          summary: "Potential connection leaks detected"
+          description: "{{ $labels.type }} connections are increasing but not being released properly."
+          runbook_url: "https://docs.company.com/runbooks/connection-leaks"
+
+  # Business metric alerts
+  - name: business.rules
+    interval: 300s  # Check every 5 minutes
+    rules:
+      - alert: LowDailyRevenue
+        expr: business_revenue_daily < 100
+        for: 1h
+        labels:
+          severity: warning
+          team: business
+          component: revenue
+        annotations:
+          summary: "Low daily revenue detected"
+          description: "Daily revenue is {{ $value }} {{ $labels.currency }}, which is below expected threshold."
+          runbook_url: "https://docs.company.com/runbooks/low-revenue"
+
+      - alert: NoUserActivity
+        expr: rate(user_activity_events[1h]) == 0
+        for: 2h
+        labels:
+          severity: warning
+          team: product
+          component: user_engagement
+        annotations:
+          summary: "No user activity detected"
+          description: "No user activity events have been recorded in the last 2 hours."
+          runbook_url: "https://docs.company.com/runbooks/no-user-activity"
+
+      - alert: LowDataQuality
+        expr: data_quality_score < 70
+        for: 30m
+        labels:
+          severity: warning
+          team: data
+          component: quality
+        annotations:
+          summary: "Low data quality score"
+          description: "Data quality score for {{ $labels.dataset }} is {{ $value }}%, which is below 70%."
+          runbook_url: "https://docs.company.com/runbooks/low-data-quality"
+
+      - alert: AutomationFailures
+        expr: automation_success_rate < 80
+        for: 1h
+        labels:
+          severity: warning
+          team: automation
+          component: success_rate
+        annotations:
+          summary: "Low automation success rate"
+          description: "Automation success rate for {{ $labels.automation_type }} is {{ $value }}%, which is below 80%."
+          runbook_url: "https://docs.company.com/runbooks/automation-failures"
+
+  # Health check alerts
+  - name: health.rules
+    interval: 30s
+    rules:
+      - alert: ServiceHealthCheckFailed
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: infrastructure
+          component: health_check
+        annotations:
+          summary: "Service health check failed"
+          description: "Health check for {{ $labels.job }} has been failing for more than 2 minutes."
+          runbook_url: "https://docs.company.com/runbooks/health-check-failed"
+
+      - alert: ExternalServiceDown
+        expr: probe_success{job="blackbox"} == 0
+        for: 5m
+        labels:
+          severity: error
+          team: infrastructure
+          component: external_service
+        annotations:
+          summary: "External service is down"
+          description: "External service {{ $labels.instance }} has been down for more than 5 minutes."
+          runbook_url: "https://docs.company.com/runbooks/external-service-down"
+
+  # Composite health score alerts
+  - name: composite.rules
+    interval: 60s
+    rules:
+      - alert: LowSystemHealthScore
+        expr: system_health_score < 70
+        for: 15m
+        labels:
+          severity: warning
+          team: infrastructure
+          component: system_health
+        annotations:
+          summary: "Low system health score"
+          description: "System health score for {{ $labels.component }} is {{ $value }}, which is below 70."
+          runbook_url: "https://docs.company.com/runbooks/low-system-health"
+
+      - alert: CriticalSystemHealthScore
+        expr: system_health_score < 50
+        for: 5m
+        labels:
+          severity: critical
+          team: infrastructure
+          component: system_health
+        annotations:
+          summary: "Critical system health score"
+          description: "System health score for {{ $labels.component }} is {{ $value }}, which is critically low."
+          runbook_url: "https://docs.company.com/runbooks/critical-system-health"
+
+  # Predictive alerts (based on trends)
+  - name: predictive.rules
+    interval: 300s
+    rules:
+      - alert: DiskSpaceWillFillSoon
+        expr: predict_linear(system_disk_usage_bytes{type="used"}[6h], 24*3600) / system_disk_usage_bytes{type="total"} > 0.9
+        for: 1h
+        labels:
+          severity: warning
+          team: infrastructure
+          component: disk_prediction
+        annotations:
+          summary: "Disk space will fill soon"
+          description: "Based on current trends, disk {{ $labels.device }} will be 90% full within 24 hours."
+          runbook_url: "https://docs.company.com/runbooks/disk-prediction"
+
+      - alert: MemoryLeakDetected
+        expr: predict_linear(system_memory_usage_bytes{type="used"}[2h], 4*3600) > system_memory_usage_bytes{type="total"}
+        for: 30m
+        labels:
+          severity: error
+          team: development
+          component: memory_leak
+        annotations:
+          summary: "Potential memory leak detected"
+          description: "Memory usage is trending upward and may exhaust available memory within 4 hours."
+          runbook_url: "https://docs.company.com/runbooks/memory-leak"

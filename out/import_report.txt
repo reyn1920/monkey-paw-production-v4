@@ -1,0 +1,4 @@
+System Import 20250926-175015
+Imported from base dirs: /Users/thomasbrianreynolds/Downloads /Users/thomasbrianreynolds/Documents /Users/thomasbrianreynolds/Desktop /Users/thomasbrianreynolds/Movies /Users/thomasbrianreynolds/Music /Users/thomasbrianreynolds/Pictures /Users/thomasbrianreynolds/Library/CloudStorage
+Imported into: artifacts/import/system_scan_20250926-175015
+Synced into assets/, artifacts/staging/

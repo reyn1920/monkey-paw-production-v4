@@ -1,0 +1,55 @@
+{
+
+  "version": "1.0.0",
+  "project": "online-production",
+
+  "env": {
+    "HOST": "127.0.0.1",
+    "PORT": "8000"
+  },
+
+  "rules": {
+    "rule1Enforced": true,
+    "autoDeploy": false
+  },
+
+  "services": {
+    "paste": {
+      "enabled": true,
+      "host": "127.0.0.1",
+      "port": 8000
+    },
+    "dashboard": {
+      "enabled": true,
+      "host": "127.0.0.1",
+      "port": 8001
+    }
+  },
+
+  "tasks": [
+    {
+      "name": "start:paste",
+      "run": "PORT=8000 python3 paste_app.py",
+      "cwd": ".",
+      "timeoutSeconds": 0
+    },
+    {
+      "name": "start:dashboard",
+      "run": "PORT=8001 python3 live_dashboard.py",
+      "cwd": ".",
+      "timeoutSeconds": 0
+    }
+  ],
+
+  "deploy": {
+    "provider": "netlify",
+    "siteId": "",
+    "functionsDir": "netlify/functions",
+    "buildCommand": "npm run build",
+    "outputDir": "dist"
+  },
+
+  "logging": {
+    "level": "info"
+  }
+}

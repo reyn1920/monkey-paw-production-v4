@@ -1,0 +1,26 @@
+{
+  "root": "/Users/thomasbrianreynolds/online production",
+  "passes": [
+    {
+      "pass": "PASS-A",
+      "root": "/Users/thomasbrianreynolds/online production",
+      "forbidden_hits": [],
+      "node_lint": true,
+      "node_typecheck": null,
+      "node_build": true,
+      "py_lint": false,
+      "preview_ok": true
+    },
+    {
+      "pass": "PASS-B",
+      "root": "/Users/thomasbrianreynolds/online production",
+      "forbidden_hits": [],
+      "node_lint": true,
+      "node_typecheck": null,
+      "node_build": true,
+      "py_lint": false,
+      "preview_ok": true
+    }
+  ],
+  "status": "clean"
+}

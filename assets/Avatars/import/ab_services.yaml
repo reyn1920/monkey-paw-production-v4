@@ -1,0 +1,19 @@
+services:
+  monitoring_system:
+    cmd: "python monitoring_system.py"
+    cwd: "/Users/thomasbrianreynolds/online production"
+    env:
+      PYTHONUNBUFFERED: "1"
+    health:
+      type: "tcp"
+      host: "127.0.0.1"
+      port: 9350
+      initial_grace_seconds: 10
+    restart_policy:
+      mode: "always"            # was: on-failure/skipped-non-critical
+      backoff_seconds: 2
+      backoff_max_seconds: 60
+    critical: true              # flips from "non-critical" to "critical"
+    log:
+      level: "INFO"
+      rate_limit_per_minute: 6  # debounce to stop spam

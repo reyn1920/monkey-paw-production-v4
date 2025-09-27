@@ -1,0 +1,8 @@
+[
+  { "key": "shift+cmd+b", "command": "workbench.action.tasks.build" },
+  { "key": "cmd+alt+r", "command": "workbench.action.tasks.runTask", "args": "Monkey Paw: Run All" },
+  { "key": "cmd+alt+l", "command": "workbench.action.tasks.runTask", "args": "Monkey Paw: Launch All" },
+  { "key": "cmd+alt+d", "command": "workbench.action.tasks.runTask", "args": "Monkey Paw: Diagnostics" },
+  { "key": "cmd+alt+c", "command": "workbench.action.tasks.runTask", "args": "Monkey Paw: Build Comparison" },
+  { "key": "cmd+alt+g", "command": "workbench.action.tasks.runTask", "args": "Monkey Paw: Go-Live Robust" }
+]

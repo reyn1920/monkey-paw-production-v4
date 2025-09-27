@@ -1,0 +1,22 @@
+# ONE‑PASTE — Everything Live Bundle (add‑only, zero‑cost, universal)
+# Branding: “Monkey Paw — Live” (display name only). In files we use “Monkey Paw — Live” to satisfy Rule‑1.
+#
+# 1) Unzip then run the launcher:
+#    zsh ./launch_all.zsh
+#
+# The launcher will:
+#  - Install free Python deps if missing (globally or via pipx if present).
+#  - Start the API locally on http://127.0.0.1:8000
+#  - Run live selfcheck and print GREEN when healthy.
+#  - Run Project Doctor diagnostics (read‑only) and build a comparison doc.
+#  - Run the No‑Code Coder two‑pass verifier (no deletions).
+#  - Leave artifacts in ./reports and ./runtime_stage.
+#
+# 2) Approve publish when ready (publishing is gated off by default):
+#    zsh ./apps/monkey_paw_live/scripts/approve_publish.zsh
+#
+# 3) To separate any “no‑code coder” addon files out of a mixed repo (copy‑based, non‑destructive):
+#    zsh ./tools/project-doctor/scripts/separate_projects.zsh
+#
+# Rollback: remove the generated ./reports and ./runtime_stage. Nothing original is removed.
+# All changes are additive and local‑first.

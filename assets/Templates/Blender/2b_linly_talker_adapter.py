@@ -1,0 +1,2 @@
+def available():
+    return True

@@ -1,0 +1,66 @@
+{
+  "setup_completed": "2025-09-09T03:10:53.359947",
+  "channel_name": "The Right Perspective",
+  "channel_configuration": {
+    "channel_id": "UC_fz1kiUOIDz5-VtVtKn7OQ",
+    "handle": "@therightperspective7777",
+    "display_name": "The Right Perspective",
+    "description": "Unfiltered conservative political commentary using Fox News as primary source",
+    "category": "politics",
+    "target_audience": "conservative viewers",
+    "content_style": "Gutfeld/Jesse Watters inspired",
+    "posting_schedule": "daily at 6 PM EST",
+    "target_length": "12-15 minutes",
+    "platforms": [
+      "youtube"
+    ],
+    "email": "test@example.com",
+    "voice": "Matthew (Speechelo)",
+    "monetization": [
+      "high-value ads",
+      "merchandise",
+      "affiliate marketing"
+    ],
+    "is_primary": true
+  },
+  "pipeline_configuration": {
+    "channel_name": "The Right Perspective",
+    "channel_id": "UC_fz1kiUOIDz5-VtVtKn7OQ",
+    "content_type": "audio_only",
+    "voice_profile": "Matthew (Speechelo)",
+    "target_length": "12-15 minutes",
+    "posting_schedule": "daily at 6 PM EST",
+    "content_style": "Gutfeld/Jesse Watters inspired",
+    "category": "politics",
+    "target_audience": "conservative viewers",
+    "monetization": [
+      "high-value ads",
+      "merchandise",
+      "affiliate marketing"
+    ],
+    "platforms": [
+      "youtube"
+    ],
+    "setup_date": "2025-09-09T03:10:53.358732",
+    "status": "initialized"
+  },
+  "directories_created": [
+    "/Users/thomasbrianreynolds/online production/output/audio/the_right_perspective",
+    "/Users/thomasbrianreynolds/online production/output/graphics/the_right_perspective",
+    "/Users/thomasbrianreynolds/online production/output/thumbnails/the_right_perspective",
+    "/Users/thomasbrianreynolds/online production/content/scripts/the_right_perspective",
+    "/Users/thomasbrianreynolds/online production/content/templates/the_right_perspective"
+  ],
+  "templates_created": [
+    "script_template.md",
+    "production_checklist.md"
+  ],
+  "next_steps": [
+    "Create first content script using template",
+    "Generate audio content using voice profile",
+    "Create thumbnail graphics",
+    "Schedule first publication",
+    "Monitor analytics and engagement"
+  ],
+  "status": "READY_FOR_CONTENT_CREATION"
+}

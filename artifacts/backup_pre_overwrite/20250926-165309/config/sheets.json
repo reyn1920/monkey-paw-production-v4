@@ -1,0 +1,8 @@
+{
+  "sheet_url": "PASTE_YOUR_GOOGLE_SHEET_URL_HERE",
+  "tabs": {
+    "kpis":   {"tab_name": "KPIs",   "ttl_seconds": 300},
+    "sales":  {"tab_name": "Sales",  "ttl_seconds": 300},
+    "tasks":  {"tab_name": "Tasks",  "ttl_seconds": 300}
+  }
+}

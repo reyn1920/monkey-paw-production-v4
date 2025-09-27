@@ -1,0 +1,48 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#f8f9fa"/>
+  
+  <!-- Face base -->
+  <ellipse cx="256" cy="280" rx="120" ry="140" fill="#fdbcb4"/>
+  
+  <!-- Hair -->
+  <path d="M136 200 Q256 120 376 200 Q376 160 256 140 Q136 160 136 200" fill="#8b4513"/>
+  <path d="M140 200 Q180 180 220 190 Q240 185 260 190 Q280 185 300 190 Q340 180 380 200 L380 240 Q340 220 300 230 Q280 225 260 230 Q240 225 220 230 Q180 220 140 240 Z" fill="#8b4513"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="220" cy="260" rx="15" ry="20" fill="white"/>
+  <ellipse cx="292" cy="260" rx="15" ry="20" fill="white"/>
+  <circle cx="220" cy="260" r="8" fill="#4a90e2"/>
+  <circle cx="292" cy="260" r="8" fill="#4a90e2"/>
+  <circle cx="222" cy="258" r="3" fill="black"/>
+  <circle cx="294" cy="258" r="3" fill="black"/>
+  <circle cx="223" cy="256" r="1" fill="white"/>
+  <circle cx="295" cy="256" r="1" fill="white"/>
+  
+  <!-- Eyebrows -->
+  <path d="M205 240 Q220 235 235 240" stroke="#654321" stroke-width="3" fill="none"/>
+  <path d="M277 240 Q292 235 307 240" stroke="#654321" stroke-width="3" fill="none"/>
+  
+  <!-- Nose -->
+  <path d="M256 280 L250 300 L256 305 L262 300 Z" fill="#f4a688"/>
+  
+  <!-- Mouth -->
+  <path d="M240 330 Q256 340 272 330" stroke="#d63384" stroke-width="3" fill="none"/>
+  
+  <!-- Professional attire suggestion -->
+  <rect x="180" y="420" width="152" height="92" fill="#2c3e50" rx="10"/>
+  <rect x="190" y="430" width="132" height="72" fill="#34495e" rx="5"/>
+  
+  <!-- Glasses (professional look) -->
+  <circle cx="220" cy="260" r="25" fill="none" stroke="#2c3e50" stroke-width="2"/>
+  <circle cx="292" cy="260" r="25" fill="none" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="245" y1="260" x2="267" y2="260" stroke="#2c3e50" stroke-width="2"/>
+  
+  <!-- Professional expression lines -->
+  <path d="M200 290 Q210 285 220 290" stroke="#e8b4a6" stroke-width="1" fill="none"/>
+  <path d="M292 290 Q302 285 312 290" stroke="#e8b4a6" stroke-width="1" fill="none"/>
+  
+  <!-- Text label -->
+  <text x="256" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">Dr. Evelyn Reed</text>
+  <text x="256" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">AI & Quantum Computing Expert</text>
+</svg>

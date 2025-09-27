@@ -1,0 +1,29 @@
+{
+  "sources": {
+    "default": {
+      "sheet_url": "PASTE_DEFAULT_SHEET_URL",
+      "tabs": {
+        "kpis":   { "tab_name": "KPIs",        "ttl_seconds": 300 },
+        "sales":  { "tab_name": "Sales",       "ttl_seconds": 300 },
+        "tasks":  { "tab_name": "Tasks",       "ttl_seconds": 300 }
+      }
+    },
+    "voices": {
+      "sheet_url": "PASTE_VOICES_SHEET_URL",
+      "tabs": {
+        "catalog":      { "tab_name": "VoicesCatalog", "ttl_seconds": 600 },
+        "assignments":  { "tab_name": "Assignments",    "ttl_seconds": 300 },
+        "mixing":       { "tab_name": "Mixing",         "ttl_seconds": 600 }
+      }
+    },
+    "right_perspective": {
+      "sheet_url": "PASTE_RIGHT_PERSPECTIVE_SHEET_URL",
+      "tabs": {
+        "content_queue":  { "tab_name": "ContentQueue",  "ttl_seconds": 180 },
+        "performance":    { "tab_name": "Performance",   "ttl_seconds": 300 },
+        "revenue":        { "tab_name": "Revenue",       "ttl_seconds": 300 },
+        "ab_tests":       { "tab_name": "ABTests",       "ttl_seconds": 300 }
+      }
+    }
+  }
+}

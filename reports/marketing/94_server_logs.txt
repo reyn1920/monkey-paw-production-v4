@@ -1,0 +1,574 @@
+MAIN FUNCTION CALLED - DEBUG
+05:06:42 | INFO     | trae_ai.orchestrator | 🚀 TRAE.AI LIVE PRODUCTION LAUNCH INITIATED
+INFO:trae_ai.orchestrator:🚀 TRAE.AI LIVE PRODUCTION LAUNCH INITIATED
+05:06:42 | INFO     | trae_ai.orchestrator | ============================================================
+INFO:trae_ai.orchestrator:============================================================
+05:06:42 | INFO     | trae_ai.orchestrator | 🗄️ Running database migration...
+INFO:trae_ai.orchestrator:🗄️ Running database migration...
+[Migrations] DB paths -> {'rollup': './data/rollup.db', 'intelligence': './data/intelligence.db', 'core': './data/trae_ai.db'}
+[Migrations] rollup: OK @ ./data/rollup.db
+[Migrations] intelligence: OK @ ./data/intelligence.db
+[Migrations] core: OK @ ./data/trae_ai.db
+05:06:42 | INFO     | trae_ai.orchestrator | ✅ Database migration completed successfully
+INFO:trae_ai.orchestrator:✅ Database migration completed successfully
+05:06:42 | INFO     | trae_ai.orchestrator | ✅ Event loop started successfully in dedicated thread
+INFO:trae_ai.orchestrator:✅ Event loop started successfully in dedicated thread
+05:06:42 | INFO     | trae_ai.orchestrator | 📦 Importing dashboard and components...
+INFO:trae_ai.orchestrator:📦 Importing dashboard and components...
+05:06:42 | INFO     | trae_ai.orchestrator | Dashboard import result: <class 'app.dashboard.DashboardApp'>
+INFO:trae_ai.orchestrator:Dashboard import result: <class 'app.dashboard.DashboardApp'>
+05:06:42 | INFO     | trae_ai.orchestrator | ✅ Component imports complete
+INFO:trae_ai.orchestrator:✅ Component imports complete
+05:06:42 | INFO     | trae_ai.orchestrator | 🔍 Validating environment and dependencies...
+INFO:trae_ai.orchestrator:🔍 Validating environment and dependencies...
+05:06:42 | INFO     | trae_ai.orchestrator | ✅ Environment validation complete
+INFO:trae_ai.orchestrator:✅ Environment validation complete
+05:06:42 | INFO     | trae_ai.orchestrator | 🎯 Initializing Master Orchestrator...
+INFO:trae_ai.orchestrator:🎯 Initializing Master Orchestrator...
+05:06:42 | INFO     | trae_ai.orchestrator | 🚀 Initializing TRAE.AI Master Orchestrator...
+INFO:trae_ai.orchestrator:🚀 Initializing TRAE.AI Master Orchestrator...
+05:06:42 | INFO     | trae_ai.orchestrator | SecretStore initialized
+INFO:trae_ai.orchestrator:SecretStore initialized
+05:06:42 | INFO     | trae_ai.backend.task_queue_manager | TaskQueueManager initialized with database: data/trae_master.db
+INFO:trae_ai.backend.task_queue_manager:TaskQueueManager initialized with database: data/trae_master.db
+05:06:42 | INFO     | trae_ai.orchestrator | TaskQueueManager initialized
+INFO:trae_ai.orchestrator:TaskQueueManager initialized
+05:06:42 | INFO     | trae_ai.orchestrator | Initializing system components...
+INFO:trae_ai.orchestrator:Initializing system components...
+05:06:42 | INFO     | trae_ai.breaking_news_watcher | Intelligence database tables initialized
+INFO:trae_ai.breaking_news_watcher:Intelligence database tables initialized
+05:06:42 | INFO     | trae_ai.breaking_news_watcher | RSS Intelligence Engine initialized with 18 feeds
+INFO:trae_ai.breaking_news_watcher:RSS Intelligence Engine initialized with 18 feeds
+05:06:42 | INFO     | trae_ai.orchestrator | ✓ RSS Intelligence Engine initialized
+INFO:trae_ai.orchestrator:✓ RSS Intelligence Engine initialized
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.engines.hypocrisy_engine:Hypocrisy database manager initialized successfully
+INFO:backend.engines.hypocrisy_engine:NLP components initialized successfully
+05:06:42 | INFO     | trae_ai.orchestrator | ✓ Hypocrisy Engine initialized
+INFO:trae_ai.orchestrator:✓ Hypocrisy Engine initialized
+05:06:42 | INFO     | trae_ai.orchestrator | ✓ Ecommerce Marketing Layer initialized
+INFO:trae_ai.orchestrator:✓ Ecommerce Marketing Layer initialized
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.engines.hypocrisy_engine:Hypocrisy database manager initialized successfully
+INFO:backend.engines.hypocrisy_engine:NLP components initialized successfully
+INFO:backend.integrations.research_validation_service:Hypocrisy engine initialized successfully
+05:06:42 | INFO     | trae_ai.orchestrator | ✓ Research Validation Service initialized
+INFO:trae_ai.orchestrator:✓ Research Validation Service initialized
+05:06:42 | INFO     | trae_ai.orchestrator | Initializing agents...
+INFO:trae_ai.orchestrator:Initializing agents...
+05:06:42 | INFO     | trae_ai.agent.system management agent | Agent System Management Agent (system_agent) initialized
+INFO:trae_ai.agent.system management agent:Agent System Management Agent (system_agent) initialized
+05:06:42 | INFO     | trae_ai.agent.system management agent | Repair history loaded
+INFO:trae_ai.agent.system management agent:Repair history loaded
+05:06:42 | INFO     | trae_ai.agent.system management agent | Repair database initialized successfully
+INFO:trae_ai.agent.system management agent:Repair database initialized successfully
+05:06:42 | INFO     | trae_ai.agent.system management agent | Performance baselines loaded successfully
+INFO:trae_ai.agent.system management agent:Performance baselines loaded successfully
+05:06:42 | INFO     | trae_ai.agent.system management agent | Component health tracking initialized
+INFO:trae_ai.agent.system management agent:Component health tracking initialized
+05:06:42 | INFO     | trae_ai.agent.system management agent | Monitoring rules configured
+INFO:trae_ai.agent.system management agent:Monitoring rules configured
+05:06:42 | INFO     | trae_ai.agent.system management agent | ADR system initialized successfully
+INFO:trae_ai.agent.system management agent:ADR system initialized successfully
+05:06:42 | INFO     | trae_ai.agent.system management agent | Health monitor initialized successfully
+INFO:trae_ai.agent.system management agent:Health monitor initialized successfully
+05:06:42 | INFO     | trae_ai.agent.system management agent | Health monitoring thread started
+INFO:trae_ai.agent.system management agent:Health monitoring thread started
+05:06:42 | INFO     | trae_ai.agent.system management agent | Running scheduled health checks (async)...
+INFO:trae_ai.agent.system management agent:Running scheduled health checks (async)...
+05:06:42 | INFO     | trae_ai.agent.system management agent | Background monitoring initialized
+INFO:trae_ai.agent.system management agent:Background monitoring initialized
+05:06:42 | INFO     | trae_ai.orchestrator | ✅ SystemAgent initialized: System monitoring and management
+INFO:trae_ai.orchestrator:✅ SystemAgent initialized: System monitoring and management
+05:06:42 | INFO     | trae_ai.agent.research & intelligence agent | Agent Research & Intelligence Agent (research_agent) initialized
+INFO:trae_ai.agent.research & intelligence agent:Agent Research & Intelligence Agent (research_agent) initialized
+05:06:42 | INFO     | trae_ai.agent.research & intelligence agent | Opportunity discovery monitoring started
+INFO:trae_ai.agent.research & intelligence agent:Opportunity discovery monitoring started
+05:06:42 | INFO     | trae_ai.agent.research & intelligence agent | Opportunity discovery systems initialized successfully
+INFO:trae_ai.agent.research & intelligence agent:Opportunity discovery systems initialized successfully
+INFO:backend.agents.research_tools:Loaded 18 RSS feeds from configuration
+05:06:42 | ERROR    | trae_ai.agent.research & intelligence agent | API opportunity discovery failed: table api_discovery_tasks has no column named task_name
+ERROR:trae_ai.agent.research & intelligence agent:API opportunity discovery failed: table api_discovery_tasks has no column named task_name
+05:06:42 | INFO     | trae_ai.agent.research & intelligence agent | Searching for affiliate opportunities: free affiliate programs content creators 2024
+INFO:trae_ai.agent.research & intelligence agent:Searching for affiliate opportunities: free affiliate programs content creators 2024
+05:06:42 | INFO     | trae_ai.agent.research & intelligence agent | Searching for affiliate opportunities: zero cost affiliate marketing programs
+INFO:trae_ai.agent.research & intelligence agent:Searching for affiliate opportunities: zero cost affiliate marketing programs
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+05:06:42 | INFO     | trae_ai.agent.research & intelligence agent | Searching for affiliate opportunities: content creator affiliate opportunities
+INFO:trae_ai.agent.research & intelligence agent:Searching for affiliate opportunities: content creator affiliate opportunities
+05:06:42 | INFO     | trae_ai.agent.research & intelligence agent | Searching for affiliate opportunities: social media affiliate programs free signup
+INFO:trae_ai.agent.research & intelligence agent:Searching for affiliate opportunities: social media affiliate programs free signup
+INFO:backend.agents.research_tools:Hypocrisy database manager initialized successfully
+INFO:backend.agents.research_tools:Intelligence database initialized successfully
+05:06:42 | INFO     | trae_ai.agent.research & intelligence agent | Research tools initialized successfully
+INFO:trae_ai.agent.research & intelligence agent:Research tools initialized successfully
+INFO:backend.agents.research_tools:Loaded 18 RSS feeds from configuration
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.agents.research_tools:Hypocrisy database manager initialized successfully
+INFO:backend.agents.research_tools:Intelligence database initialized successfully
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.engines.hypocrisy_engine:Hypocrisy database manager initialized successfully
+INFO:backend.engines.hypocrisy_engine:NLP components initialized successfully
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.engines.hypocrisy_engine:Hypocrisy database manager initialized successfully
+INFO:backend.engines.hypocrisy_engine:NLP components initialized successfully
+INFO:backend.integrations.research_validation_service:Hypocrisy engine initialized successfully
+05:06:42 | INFO     | trae_ai.agent.research & intelligence agent | Intelligence monitoring started
+INFO:trae_ai.agent.research & intelligence agent:Intelligence monitoring started
+05:06:42 | INFO     | trae_ai.agent.research & intelligence agent | Intelligence systems initialized successfully
+INFO:trae_ai.agent.research & intelligence agent:Intelligence systems initialized successfully
+05:06:42 | INFO     | trae_ai.orchestrator | ✅ ResearchAgent initialized: Research and intelligence gathering
+INFO:trae_ai.orchestrator:✅ ResearchAgent initialized: Research and intelligence gathering
+05:06:42 | ERROR    | trae_ai.orchestrator | ❌ Failed to initialize ContentAgent: Can't instantiate abstract class ContentAgent without an implementation for abstract methods '_execute_with_monitoring', '_rephrase_task', '_validate_rephrase_accuracy'
+ERROR:trae_ai.orchestrator:❌ Failed to initialize ContentAgent: Can't instantiate abstract class ContentAgent without an implementation for abstract methods '_execute_with_monitoring', '_rephrase_task', '_validate_rephrase_accuracy'
+05:06:42 | INFO     | trae_ai.agent.marketing & promotion agent | Agent Marketing & Promotion Agent (marketing_agent) initialized
+INFO:trae_ai.agent.marketing & promotion agent:Agent Marketing & Promotion Agent (marketing_agent) initialized
+05:06:42 | ERROR    | trae_ai.agent.marketing & promotion agent | Failed to import EcommerceMarketingLayer: No module named 'ecommerce_marketing_layer'
+ERROR:trae_ai.agent.marketing & promotion agent:Failed to import EcommerceMarketingLayer: No module named 'ecommerce_marketing_layer'
+INFO:backend.database.hypocrisy_db_manager:Found 0 recent hypocrisy findings from last 24 hours
+05:06:42 | INFO     | trae_ai.backend.task_queue_manager | TaskQueueManager initialized with database: trae_ai.db
+INFO:trae_ai.backend.task_queue_manager:TaskQueueManager initialized with database: trae_ai.db
+05:06:42 | INFO     | trae_ai.app.bridge_to_system | TaskQueueManager initialized
+INFO:trae_ai.app.bridge_to_system:TaskQueueManager initialized
+05:06:42 | INFO     | trae_ai.agent.planneragent | Agent PlannerAgent (planner-001) initialized
+INFO:trae_ai.agent.planneragent:Agent PlannerAgent (planner-001) initialized
+INFO:backend.integrations.ollama_integration:Ollama service is healthy
+INFO:backend.integrations.ollama_integration:Discovered 12 available models
+INFO:backend.integrations.ollama_integration:Ollama database setup completed successfully
+INFO:backend.integrations.ollama_integration:Ollama integration initialized successfully
+INFO:backend.integrations.ollama_integration:Loaded 5 prompt templates
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+INFO:backend.integrations.ollama_integration:Background metrics collection started
+INFO:backend.integrations.ollama_integration:Performance monitoring setup completed
+05:06:42 | INFO     | trae_ai.agent.executoragent | Agent ExecutorAgent (executor-001) initialized
+INFO:trae_ai.agent.executoragent:Agent ExecutorAgent (executor-001) initialized
+WARNING:root:Engagement agent import failed: No module named 'youtube_engagement_agent'. Community features may be limited.
+INFO:backend.agents.research_tools:Loaded 18 RSS feeds from configuration
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.agents.research_tools:Hypocrisy database manager initialized successfully
+INFO:backend.agents.research_tools:Intelligence database initialized successfully
+INFO:backend.content.vidscript_pro:Research Agent initialized for live briefings
+INFO:backend.agents.research_tools:Loaded 18 RSS feeds from configuration
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.agents.research_tools:Hypocrisy database manager initialized successfully
+INFO:backend.agents.research_tools:Intelligence database initialized successfully
+05:06:42 | INFO     | trae_ai.AutomatedAuthor | Research Agent initialized for live briefings
+INFO:trae_ai.AutomatedAuthor:Research Agent initialized for live briefings
+05:06:42 | WARNING  | trae_ai.MaskGenerator | PyTorch not available, using fallback methods
+WARNING:trae_ai.MaskGenerator:PyTorch not available, using fallback methods
+05:06:42 | INFO     | trae_ai.BlenderCompositor | Blender found: 4.5.2
+INFO:trae_ai.BlenderCompositor:Blender found: 4.5.2
+05:06:42 | INFO     | trae_ai.FFmpegAudioProcessor | FFmpeg found: ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+INFO:trae_ai.FFmpegAudioProcessor:FFmpeg found: ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+INFO:backend.content.ai_video_editor:Script parser initialized with default cue patterns
+INFO:backend.content.ai_video_editor:Effect generator initialized with templates
+INFO:backend.content.ai_video_editor:Blender interface initialized: /Applications/Blender.app/Contents/MacOS/Blender
+INFO:backend.content.ai_video_editor:AI Video Editor system initialized successfully
+INFO:backend.agents.research_tools:Loaded 18 RSS feeds from configuration
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.agents.research_tools:Hypocrisy database manager initialized successfully
+INFO:backend.agents.research_tools:Intelligence database initialized successfully
+INFO:backend.agents.web_automation_tools:Web Automation Agent initialized with moderate stealth level
+05:06:43 | INFO     | trae_ai.agent.executoragent | Initialized 19 tools for ExecutorAgent
+INFO:trae_ai.agent.executoragent:Initialized 19 tools for ExecutorAgent
+05:06:43 | INFO     | trae_ai.agent.auditoragent | Agent AuditorAgent (auditor-001) initialized
+INFO:trae_ai.agent.auditoragent:Agent AuditorAgent (auditor-001) initialized
+05:06:43 | INFO     | trae_ai.agent.systemagent | Agent SystemAgent (system-001) initialized
+INFO:trae_ai.agent.systemagent:Agent SystemAgent (system-001) initialized
+05:06:43 | INFO     | trae_ai.agent.systemagent | Repair history loaded
+INFO:trae_ai.agent.systemagent:Repair history loaded
+05:06:43 | INFO     | trae_ai.agent.systemagent | Repair database initialized successfully
+INFO:trae_ai.agent.systemagent:Repair database initialized successfully
+05:06:43 | INFO     | trae_ai.agent.systemagent | Performance baselines loaded successfully
+INFO:trae_ai.agent.systemagent:Performance baselines loaded successfully
+05:06:43 | INFO     | trae_ai.agent.systemagent | Component health tracking initialized
+INFO:trae_ai.agent.systemagent:Component health tracking initialized
+05:06:43 | INFO     | trae_ai.agent.systemagent | Monitoring rules configured
+INFO:trae_ai.agent.systemagent:Monitoring rules configured
+05:06:43 | INFO     | trae_ai.agent.systemagent | ADR system initialized successfully
+INFO:trae_ai.agent.systemagent:ADR system initialized successfully
+05:06:43 | INFO     | trae_ai.agent.systemagent | Health monitor initialized successfully
+INFO:trae_ai.agent.systemagent:Health monitor initialized successfully
+05:06:43 | INFO     | trae_ai.agent.systemagent | Running scheduled health checks (sync)...
+INFO:trae_ai.agent.systemagent:Running scheduled health checks (sync)...
+05:06:43 | INFO     | trae_ai.agent.systemagent | Health monitoring thread started
+INFO:trae_ai.agent.systemagent:Health monitoring thread started
+05:06:43 | INFO     | trae_ai.agent.systemagent | Background monitoring initialized
+INFO:trae_ai.agent.systemagent:Background monitoring initialized
+05:06:43 | INFO     | trae_ai.agent.researchagent | Agent ResearchAgent (research-001) initialized
+INFO:trae_ai.agent.researchagent:Agent ResearchAgent (research-001) initialized
+05:06:43 | ERROR    | trae_ai.agent.systemagent | Error in scheduled health checks (sync): 'SystemAgent' object has no attribute '_health_summary'
+ERROR:trae_ai.agent.systemagent:Error in scheduled health checks (sync): 'SystemAgent' object has no attribute '_health_summary'
+05:06:43 | INFO     | trae_ai.agent.researchagent | Opportunity discovery monitoring started
+INFO:trae_ai.agent.researchagent:Opportunity discovery monitoring started
+05:06:43 | INFO     | trae_ai.agent.researchagent | Opportunity discovery systems initialized successfully
+INFO:trae_ai.agent.researchagent:Opportunity discovery systems initialized successfully
+INFO:backend.agents.research_tools:Loaded 18 RSS feeds from configuration
+05:06:43 | ERROR    | trae_ai.agent.researchagent | API opportunity discovery failed: table api_discovery_tasks has no column named task_name
+ERROR:trae_ai.agent.researchagent:API opportunity discovery failed: table api_discovery_tasks has no column named task_name
+05:06:43 | INFO     | trae_ai.agent.researchagent | Searching for affiliate opportunities: free affiliate programs content creators 2024
+INFO:trae_ai.agent.researchagent:Searching for affiliate opportunities: free affiliate programs content creators 2024
+05:06:43 | INFO     | trae_ai.agent.researchagent | Searching for affiliate opportunities: zero cost affiliate marketing programs
+INFO:trae_ai.agent.researchagent:Searching for affiliate opportunities: zero cost affiliate marketing programs
+05:06:43 | INFO     | trae_ai.agent.researchagent | Searching for affiliate opportunities: content creator affiliate opportunities
+INFO:trae_ai.agent.researchagent:Searching for affiliate opportunities: content creator affiliate opportunities
+05:06:43 | INFO     | trae_ai.agent.researchagent | Searching for affiliate opportunities: social media affiliate programs free signup
+INFO:trae_ai.agent.researchagent:Searching for affiliate opportunities: social media affiliate programs free signup
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.agents.research_tools:Hypocrisy database manager initialized successfully
+INFO:backend.agents.research_tools:Intelligence database initialized successfully
+05:06:43 | INFO     | trae_ai.agent.researchagent | Research tools initialized successfully
+INFO:trae_ai.agent.researchagent:Research tools initialized successfully
+INFO:backend.agents.research_tools:Loaded 18 RSS feeds from configuration
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.agents.research_tools:Hypocrisy database manager initialized successfully
+INFO:backend.agents.research_tools:Intelligence database initialized successfully
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.engines.hypocrisy_engine:Hypocrisy database manager initialized successfully
+INFO:backend.engines.hypocrisy_engine:NLP components initialized successfully
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.engines.hypocrisy_engine:Hypocrisy database manager initialized successfully
+INFO:backend.engines.hypocrisy_engine:NLP components initialized successfully
+INFO:backend.integrations.research_validation_service:Hypocrisy engine initialized successfully
+05:06:43 | INFO     | trae_ai.agent.researchagent | Intelligence monitoring started
+INFO:trae_ai.agent.researchagent:Intelligence monitoring started
+05:06:43 | INFO     | trae_ai.agent.researchagent | Intelligence systems initialized successfully
+INFO:trae_ai.agent.researchagent:Intelligence systems initialized successfully
+05:06:43 | ERROR    | trae_ai.app.bridge_to_system | Failed to initialize agents: Can't instantiate abstract class ContentAgent without an implementation for abstract methods '_execute_with_monitoring', '_rephrase_task', '_validate_rephrase_accuracy'
+ERROR:trae_ai.app.bridge_to_system:Failed to initialize agents: Can't instantiate abstract class ContentAgent without an implementation for abstract methods '_execute_with_monitoring', '_rephrase_task', '_validate_rephrase_accuracy'
+INFO:backend.database.hypocrisy_db_manager:Found 0 recent hypocrisy findings from last 24 hours
+05:06:43 | INFO     | trae_ai.app.bridge_to_system | Loaded 0 monetization settings from database
+INFO:trae_ai.app.bridge_to_system:Loaded 0 monetization settings from database
+05:06:43 | INFO     | trae_ai.app.bridge_to_system | Monetization settings loaded
+INFO:trae_ai.app.bridge_to_system:Monetization settings loaded
+05:06:43 | INFO     | trae_ai.app.bridge_to_system | SystemBridge initialized successfully
+INFO:trae_ai.app.bridge_to_system:SystemBridge initialized successfully
+05:06:43 | INFO     | trae_ai.agent.marketing & promotion agent | Bridge system functions initialized as secondary tools
+INFO:trae_ai.agent.marketing & promotion agent:Bridge system functions initialized as secondary tools
+INFO:backend.agents.web_automation_tools:Web Automation Agent initialized with moderate stealth level
+ERROR:backend.secret_store:Failed to retrieve secret TWITTER_API_KEY:
+05:06:43 | ERROR    | trae_ai.twitter_integration | Failed to load Twitter credentials: Failed to retrieve secret:
+ERROR:trae_ai.twitter_integration:Failed to load Twitter credentials: Failed to retrieve secret:
+05:06:43 | ERROR    | trae_ai.orchestrator | ❌ Failed to initialize MarketingAgent: Credential loading failed: Failed to retrieve secret:
+ERROR:trae_ai.orchestrator:❌ Failed to initialize MarketingAgent: Credential loading failed: Failed to retrieve secret:
+05:06:43 | INFO     | trae_ai.agent.financial management agent | Agent Financial Management Agent (financial_agent) initialized
+INFO:trae_ai.agent.financial management agent:Agent Financial Management Agent (financial_agent) initialized
+INFO:backend.agents.web_automation_tools:Web Automation Agent initialized with moderate stealth level
+INFO:backend.agents.financial_agent:Financial tools initialized successfully
+INFO:backend.agents.financial_agent:Financial database tables created successfully
+INFO:backend.agents.financial_agent:FinancialAgent initialized with profit_maximization strategy
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ FinancialAgent initialized: Financial analysis and trading automation
+INFO:trae_ai.orchestrator:✅ FinancialAgent initialized: Financial analysis and trading automation
+ERROR:backend.secret_store:Failed to retrieve secret YOUTUBE_CLIENT_ID:
+05:06:43 | ERROR    | trae_ai.youtube_integration | Failed to load YouTube credentials: Failed to retrieve secret:
+ERROR:trae_ai.youtube_integration:Failed to load YouTube credentials: Failed to retrieve secret:
+05:06:43 | WARNING  | trae_ai.youtube_integration | No access token available, service not initialized
+WARNING:trae_ai.youtube_integration:No access token available, service not initialized
+05:06:43 | INFO     | trae_ai.youtube_integration | YouTube integration initialized successfully
+INFO:trae_ai.youtube_integration:YouTube integration initialized successfully
+INFO:backend.integrations.ollama_integration:Ollama service is healthy
+INFO:backend.integrations.ollama_integration:Discovered 12 available models
+INFO:backend.integrations.ollama_integration:Ollama database setup completed successfully
+INFO:backend.integrations.ollama_integration:Ollama integration initialized successfully
+INFO:backend.integrations.ollama_integration:Loaded 5 prompt templates
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+INFO:backend.integrations.ollama_integration:Background metrics collection started
+INFO:backend.integrations.ollama_integration:Performance monitoring setup completed
+05:06:43 | INFO     | trae_ai.youtube_engagement | Database initialized successfully
+INFO:trae_ai.youtube_engagement:Database initialized successfully
+05:06:43 | INFO     | trae_ai.youtube_engagement | YouTube Engagement Agent initialized successfully
+INFO:trae_ai.youtube_engagement:YouTube Engagement Agent initialized successfully
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ YouTubeEngagementAgent initialized: YouTube content engagement and optimization
+INFO:trae_ai.orchestrator:✅ YouTubeEngagementAgent initialized: YouTube content engagement and optimization
+05:06:43 | INFO     | trae_ai.agent.progressiveselfrepairagent | Agent ProgressiveSelfRepairAgent (1d3756c0-8290-4929-86d4-41b612eb1188) initialized
+INFO:trae_ai.agent.progressiveselfrepairagent:Agent ProgressiveSelfRepairAgent (1d3756c0-8290-4929-86d4-41b612eb1188) initialized
+INFO:backend.integrations.ollama_integration:Ollama service is healthy
+INFO:backend.integrations.ollama_integration:Discovered 12 available models
+INFO:backend.integrations.ollama_integration:Ollama database setup completed successfully
+INFO:backend.integrations.ollama_integration:Ollama integration initialized successfully
+INFO:backend.integrations.ollama_integration:Loaded 5 prompt templates
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+INFO:backend.integrations.ollama_integration:Background metrics collection started
+INFO:backend.integrations.ollama_integration:Performance monitoring setup completed
+INFO:backend.agents.safe_mode_manager:Safe Mode Manager initialized successfully
+INFO:backend.agents.self_repair_agent:Progressive Self-Repair database initialized successfully
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ ProgressiveSelfRepairAgent initialized: System self-repair and optimization
+INFO:trae_ai.orchestrator:✅ ProgressiveSelfRepairAgent initialized: System self-repair and optimization
+05:06:43 | INFO     | trae_ai.agent.niche domination agent | Agent Niche Domination Agent (proactive_niche_domination_agent) initialized
+INFO:trae_ai.agent.niche domination agent:Agent Niche Domination Agent (proactive_niche_domination_agent) initialized
+INFO:backend.integrations.ollama_integration:Ollama service is healthy
+INFO:backend.integrations.ollama_integration:Discovered 12 available models
+INFO:backend.integrations.ollama_integration:Ollama database setup completed successfully
+INFO:backend.integrations.ollama_integration:Ollama integration initialized successfully
+INFO:backend.integrations.ollama_integration:Loaded 5 prompt templates
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+INFO:backend.integrations.ollama_integration:Background metrics collection started
+INFO:backend.integrations.ollama_integration:Performance monitoring setup completed
+05:06:43 | ERROR    | trae_ai.orchestrator | ❌ Failed to initialize ProactiveNicheDominationAgent: 'dict' object has no attribute 'rstrip'
+ERROR:trae_ai.orchestrator:❌ Failed to initialize ProactiveNicheDominationAgent: 'dict' object has no attribute 'rstrip'
+05:06:43 | INFO     | trae_ai.agent.evolution agent | Agent Evolution Agent (evolution_agent) initialized
+INFO:trae_ai.agent.evolution agent:Agent Evolution Agent (evolution_agent) initialized
+INFO:backend.agents.research_tools:Loaded 18 RSS feeds from configuration
+INFO:backend.database.hypocrisy_db_manager:Hypocrisy tracker database initialized successfully
+INFO:backend.agents.research_tools:Hypocrisy database manager initialized successfully
+INFO:backend.agents.research_tools:Intelligence database initialized successfully
+INFO:backend.agents.web_automation_tools:Web Automation Agent initialized with moderate stealth level
+INFO:backend.agents.evolution_agent:Evolution tools initialized successfully
+INFO:backend.agents.evolution_agent:Evolution database tables created successfully
+INFO:backend.agents.evolution_agent:EvolutionAgent initialized monitoring 8 platforms
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ EvolutionAgent initialized: Continuous system evolution and adaptation
+INFO:trae_ai.orchestrator:✅ EvolutionAgent initialized: Continuous system evolution and adaptation
+05:06:43 | INFO     | trae_ai.orchestrator | Initialized 6 available agent configurations
+INFO:trae_ai.orchestrator:Initialized 6 available agent configurations
+05:06:43 | INFO     | trae_ai.orchestrator | 📰 Initializing News Monitoring Service...
+INFO:trae_ai.orchestrator:📰 Initializing News Monitoring Service...
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ News Monitoring Service initialized: Political RSS feed monitoring for Right Perspective
+INFO:trae_ai.orchestrator:✅ News Monitoring Service initialized: Political RSS feed monitoring for Right Perspective
+05:06:43 | INFO     | trae_ai.orchestrator | 💓 Health monitor started
+INFO:trae_ai.orchestrator:💓 Health monitor started
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ Master Orchestrator initialization complete
+INFO:trae_ai.orchestrator:✅ Master Orchestrator initialization complete
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ Master Orchestrator initialized
+INFO:trae_ai.orchestrator:✅ Master Orchestrator initialized
+05:06:43 | INFO     | trae_ai.orchestrator | 🖥️  Starting unified dashboard...
+INFO:trae_ai.orchestrator:🖥️  Starting unified dashboard...
+05:06:43 | INFO     | trae_ai.orchestrator | [dashboard] attempting to bind to http://127.0.0.1:8083
+INFO:trae_ai.orchestrator:[dashboard] attempting to bind to http://127.0.0.1:8083
+Server initialized for threading.
+INFO:engineio.server:Server initialized for threading.
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering POST /api/action/clear_task_queue/Clear task queue
+INFO:trae_ai.app.dashboard:[actions] registering POST /api/action/clear_task_queue/Clear task queue
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering POST /api/action/clear_task_queue/Clear task queue
+INFO:trae_ai.app.dashboard:[actions] registering POST /api/action/clear_task_queue/Clear task queue
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] clear_task_queue: registered 2 actions
+INFO:trae_ai.app.dashboard:[actions] clear_task_queue: registered 2 actions
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering RETURNS CURRENT SYSTEM HEALTH AND STATISTICS /api/action/get_system_status/Get system status
+INFO:trae_ai.app.dashboard:[actions] registering RETURNS CURRENT SYSTEM HEALTH AND STATISTICS /api/action/get_system_status/Get system status
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering RETURNS CURRENT SYSTEM HEALTH AND STATISTICS /api/action/get_system_status/Get system status
+INFO:trae_ai.app.dashboard:[actions] registering RETURNS CURRENT SYSTEM HEALTH AND STATISTICS /api/action/get_system_status/Get system status
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] get_system_status: registered 2 actions
+INFO:trae_ai.app.dashboard:[actions] get_system_status: registered 2 actions
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering POST /api/action/reload_actions/reload_actions
+INFO:trae_ai.app.dashboard:[actions] registering POST /api/action/reload_actions/reload_actions
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering POST /api/action/reload_actions/reload_actions
+INFO:trae_ai.app.dashboard:[actions] registering POST /api/action/reload_actions/reload_actions
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] reload_actions: registered 2 actions
+INFO:trae_ai.app.dashboard:[actions] reload_actions: registered 2 actions
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering RESTARTS THE SYSTEM MONITORING THREAD /api/action/restart_monitoring/Restart monitoring
+INFO:trae_ai.app.dashboard:[actions] registering RESTARTS THE SYSTEM MONITORING THREAD /api/action/restart_monitoring/Restart monitoring
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering RESTARTS THE SYSTEM MONITORING THREAD /api/action/restart_monitoring/Restart monitoring
+INFO:trae_ai.app.dashboard:[actions] registering RESTARTS THE SYSTEM MONITORING THREAD /api/action/restart_monitoring/Restart monitoring
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] restart_monitoring: registered 2 actions
+INFO:trae_ai.app.dashboard:[actions] restart_monitoring: registered 2 actions
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering POST /api/action/dashboard/Clear task queue
+INFO:trae_ai.app.dashboard:[actions] registering POST /api/action/dashboard/Clear task queue
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering RETURNS CURRENT SYSTEM HEALTH AND STATISTICS /api/action/dashboard/Get system status
+INFO:trae_ai.app.dashboard:[actions] registering RETURNS CURRENT SYSTEM HEALTH AND STATISTICS /api/action/dashboard/Get system status
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering POST /api/action/dashboard/reload_actions
+INFO:trae_ai.app.dashboard:[actions] registering POST /api/action/dashboard/reload_actions
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] registering RESTARTS THE SYSTEM MONITORING THREAD /api/action/dashboard/Restart monitoring
+INFO:trae_ai.app.dashboard:[actions] registering RESTARTS THE SYSTEM MONITORING THREAD /api/action/dashboard/Restart monitoring
+05:06:43 | INFO     | trae_ai.app.dashboard | [actions] dashboard: registered 4 actions
+INFO:trae_ai.app.dashboard:[actions] dashboard: registered 4 actions
+05:06:43 | ERROR    | trae_ai.orchestrator | ❌ Failed to start dashboard: 'ActionRegistry' object has no attribute 'get_manifest'
+ERROR:trae_ai.orchestrator:❌ Failed to start dashboard: 'ActionRegistry' object has no attribute 'get_manifest'
+05:06:43 | ERROR    | trae_ai.orchestrator | Full traceback: Traceback (most recent call last):
+  File "/Users/thomasbrianreynolds/online production/launch_live.py", line 949, in main
+    dashboard_app = DashboardApp(orchestrator=orchestrator)
+  File "/Users/thomasbrianreynolds/online production/app/dashboard.py", line 317, in __init__
+    self.logger.info(f"[actions] manifest wired: {len(self.action_registry.get_manifest()['actions'])} actions")
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ActionRegistry' object has no attribute 'get_manifest'
+
+ERROR:trae_ai.orchestrator:Full traceback: Traceback (most recent call last):
+  File "/Users/thomasbrianreynolds/online production/launch_live.py", line 949, in main
+    dashboard_app = DashboardApp(orchestrator=orchestrator)
+  File "/Users/thomasbrianreynolds/online production/app/dashboard.py", line 317, in __init__
+    self.logger.info(f"[actions] manifest wired: {len(self.action_registry.get_manifest()['actions'])} actions")
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ActionRegistry' object has no attribute 'get_manifest'
+
+05:06:43 | INFO     | trae_ai.orchestrator | ⚠️  Continuing without dashboard...
+INFO:trae_ai.orchestrator:⚠️  Continuing without dashboard...
+05:06:43 | INFO     | trae_ai.orchestrator | 🤖 Starting all autonomous agents...
+INFO:trae_ai.orchestrator:🤖 Starting all autonomous agents...
+05:06:43 | INFO     | trae_ai.orchestrator | 🧵 Starting agent threads...
+INFO:trae_ai.orchestrator:🧵 Starting agent threads...
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ Started thread for SystemAgent
+INFO:trae_ai.orchestrator:✅ Started thread for SystemAgent
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ Started thread for ResearchAgent
+INFO:trae_ai.orchestrator:✅ Started thread for ResearchAgent
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ Started thread for FinancialAgent
+INFO:trae_ai.orchestrator:✅ Started thread for FinancialAgent
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ Started thread for YouTubeEngagementAgent
+INFO:trae_ai.orchestrator:✅ Started thread for YouTubeEngagementAgent
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ Started thread for ProgressiveSelfRepairAgent
+INFO:trae_ai.orchestrator:✅ Started thread for ProgressiveSelfRepairAgent
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ Started thread for EvolutionAgent
+INFO:trae_ai.orchestrator:✅ Started thread for EvolutionAgent
+05:06:43 | INFO     | trae_ai.orchestrator | 🎯 Started 6 agent threads
+INFO:trae_ai.orchestrator:🎯 Started 6 agent threads
+05:06:43 | INFO     | trae_ai.orchestrator | 📰 Starting News Monitoring Service...
+INFO:trae_ai.orchestrator:📰 Starting News Monitoring Service...
+05:06:43 | INFO     | trae_ai.orchestrator | ✅ News Monitoring Service started - monitoring political RSS feeds
+INFO:trae_ai.orchestrator:✅ News Monitoring Service started - monitoring political RSS feeds
+05:06:43 | INFO     | trae_ai.orchestrator | 📊 System Status:
+INFO:trae_ai.orchestrator:📊 System Status:
+05:06:43 | INFO     | trae_ai.start_news_monitoring | Starting News Monitoring Service...
+INFO:trae_ai.start_news_monitoring:Starting News Monitoring Service...
+05:06:43 | INFO     | trae_ai.breaking_news_watcher | Intelligence database tables initialized
+INFO:trae_ai.breaking_news_watcher:Intelligence database tables initialized
+05:06:43 | INFO     | trae_ai.breaking_news_watcher | RSS Intelligence Engine initialized with 18 feeds
+INFO:trae_ai.breaking_news_watcher:RSS Intelligence Engine initialized with 18 feeds
+05:06:43 | INFO     | trae_ai.news_driven_content_trigger | Content trigger database initialized
+INFO:trae_ai.news_driven_content_trigger:Content trigger database initialized
+05:06:43 | INFO     | trae_ai.news_driven_content_trigger | News-Driven Content Trigger Service initialized
+INFO:trae_ai.news_driven_content_trigger:News-Driven Content Trigger Service initialized
+05:06:43 | INFO     | trae_ai.start_news_monitoring | News Monitoring Service started successfully
+INFO:trae_ai.start_news_monitoring:News Monitoring Service started successfully
+05:06:43 | INFO     | trae_ai.start_news_monitoring | Monitoring political RSS feeds for content opportunities...
+INFO:trae_ai.start_news_monitoring:Monitoring political RSS feeds for content opportunities...
+05:06:43 | INFO     | trae_ai.news_driven_content_trigger | Starting continuous political news monitoring (interval: 15 minutes)
+INFO:trae_ai.news_driven_content_trigger:Starting continuous political news monitoring (interval: 15 minutes)
+05:06:43 | INFO     | trae_ai.news_driven_content_trigger | Monitoring political news feeds...
+INFO:trae_ai.news_driven_content_trigger:Monitoring political news feeds...
+05:06:43 | INFO     | trae_ai.breaking_news_watcher | Parsing feed: Fox News - Politics (http://feeds.foxnews.com/foxnews/politics)
+INFO:trae_ai.breaking_news_watcher:Parsing feed: Fox News - Politics (http://feeds.foxnews.com/foxnews/politics)
+05:06:43 | INFO     | trae_ai.breaking_news_watcher | Parsed 0 new articles from Fox News - Politics
+INFO:trae_ai.breaking_news_watcher:Parsed 0 new articles from Fox News - Politics
+05:06:43 | INFO     | trae_ai.breaking_news_watcher | Parsing feed: CNN - Politics (http://rss.cnn.com/rss/edition_politics.rss)
+INFO:trae_ai.breaking_news_watcher:Parsing feed: CNN - Politics (http://rss.cnn.com/rss/edition_politics.rss)
+05:06:43 | INFO     | trae_ai.breaking_news_watcher | Parsed 0 new articles from CNN - Politics
+INFO:trae_ai.breaking_news_watcher:Parsed 0 new articles from CNN - Politics
+05:06:43 | INFO     | trae_ai.breaking_news_watcher | Parsing feed: Politico (https://www.politico.com/rss/politicopicks.xml)
+INFO:trae_ai.breaking_news_watcher:Parsing feed: Politico (https://www.politico.com/rss/politicopicks.xml)
+05:06:44 | INFO     | trae_ai.breaking_news_watcher | Parsed 0 new articles from Politico
+INFO:trae_ai.breaking_news_watcher:Parsed 0 new articles from Politico
+05:06:44 | INFO     | trae_ai.breaking_news_watcher | Parsing feed: The Hill - News (https://thehill.com/news/feed/)
+INFO:trae_ai.breaking_news_watcher:Parsing feed: The Hill - News (https://thehill.com/news/feed/)
+05:06:44 | INFO     | trae_ai.breaking_news_watcher | Parsed 0 new articles from The Hill - News
+INFO:trae_ai.breaking_news_watcher:Parsed 0 new articles from The Hill - News
+05:06:44 | INFO     | trae_ai.breaking_news_watcher | Parsing feed: Reuters - Politics (https://feeds.reuters.com/reuters/politicsNews)
+INFO:trae_ai.breaking_news_watcher:Parsing feed: Reuters - Politics (https://feeds.reuters.com/reuters/politicsNews)
+05:06:44 | INFO     | trae_ai.breaking_news_watcher | Parsed 0 new articles from Reuters - Politics
+INFO:trae_ai.breaking_news_watcher:Parsed 0 new articles from Reuters - Politics
+05:06:44 | INFO     | trae_ai.breaking_news_watcher | Parsing feed: Associated Press - Politics (https://feeds.apnews.com/rss/apf-politics)
+INFO:trae_ai.breaking_news_watcher:Parsing feed: Associated Press - Politics (https://feeds.apnews.com/rss/apf-politics)
+05:06:44 | INFO     | trae_ai.breaking_news_watcher | Parsed 0 new articles from Associated Press - Politics
+INFO:trae_ai.breaking_news_watcher:Parsed 0 new articles from Associated Press - Politics
+05:06:44 | INFO     | trae_ai.breaking_news_watcher | Parsing feed: Washington Post - Politics (https://feeds.washingtonpost.com/rss/politics)
+INFO:trae_ai.breaking_news_watcher:Parsing feed: Washington Post - Politics (https://feeds.washingtonpost.com/rss/politics)
+05:06:44 | INFO     | trae_ai.agent.system management agent | Health check completed: No summary available
+INFO:trae_ai.agent.system management agent:Health check completed: No summary available
+05:06:44 | INFO     | trae_ai.orchestrator | 🔄 Starting agent loop: SystemAgent
+INFO:trae_ai.orchestrator:🔄 Starting agent loop: SystemAgent
+05:06:44 | INFO     | trae_ai.orchestrator |    • Active Agents: 6/6
+INFO:trae_ai.orchestrator:   • Active Agents: 6/6
+05:06:44 | INFO     | trae_ai.orchestrator |    • Memory Usage: 78.3%
+INFO:trae_ai.orchestrator:   • Memory Usage: 78.3%
+05:06:44 | INFO     | trae_ai.orchestrator |    • Database Health: ✅
+INFO:trae_ai.orchestrator:   • Database Health: ✅
+05:06:44 | INFO     | trae_ai.orchestrator |    • Task Queue Size: 0
+INFO:trae_ai.orchestrator:   • Task Queue Size: 0
+05:06:44 | INFO     | trae_ai.orchestrator | 🎉 TRAE.AI Master Orchestrator is now LIVE!
+INFO:trae_ai.orchestrator:🎉 TRAE.AI Master Orchestrator is now LIVE!
+05:06:44 | INFO     | trae_ai.orchestrator | ============================================================
+INFO:trae_ai.orchestrator:============================================================
+05:06:54 | INFO     | trae_ai.breaking_news_watcher | Parsed 0 new articles from Washington Post - Politics
+INFO:trae_ai.breaking_news_watcher:Parsed 0 new articles from Washington Post - Politics
+05:06:54 | INFO     | trae_ai.breaking_news_watcher | Parsing feed: NPR - Politics (https://feeds.npr.org/1014/rss.xml)
+INFO:trae_ai.breaking_news_watcher:Parsing feed: NPR - Politics (https://feeds.npr.org/1014/rss.xml)
+05:06:54 | INFO     | trae_ai.breaking_news_watcher | Parsed 0 new articles from NPR - Politics
+INFO:trae_ai.breaking_news_watcher:Parsed 0 new articles from NPR - Politics
+05:06:54 | INFO     | trae_ai.news_driven_content_trigger | No new political articles found
+INFO:trae_ai.news_driven_content_trigger:No new political articles found
+05:09:13 | WARNING  | trae_ai.orchestrator | ⚠️  ResearchAgent heartbeat timeout (150.0s)
+WARNING:trae_ai.orchestrator:⚠️  ResearchAgent heartbeat timeout (150.0s)
+05:09:13 | WARNING  | trae_ai.orchestrator | ⚠️  FinancialAgent heartbeat timeout (150.0s)
+WARNING:trae_ai.orchestrator:⚠️  FinancialAgent heartbeat timeout (150.0s)
+05:09:13 | WARNING  | trae_ai.orchestrator | ⚠️  YouTubeEngagementAgent heartbeat timeout (150.0s)
+WARNING:trae_ai.orchestrator:⚠️  YouTubeEngagementAgent heartbeat timeout (150.0s)
+05:09:13 | WARNING  | trae_ai.orchestrator | ⚠️  ProgressiveSelfRepairAgent heartbeat timeout (150.0s)
+WARNING:trae_ai.orchestrator:⚠️  ProgressiveSelfRepairAgent heartbeat timeout (150.0s)
+05:09:13 | WARNING  | trae_ai.orchestrator | ⚠️  EvolutionAgent heartbeat timeout (150.0s)
+WARNING:trae_ai.orchestrator:⚠️  EvolutionAgent heartbeat timeout (150.0s)
+05:11:13 | WARNING  | trae_ai.orchestrator | ⚠️  ResearchAgent heartbeat timeout (120.1s)
+WARNING:trae_ai.orchestrator:⚠️  ResearchAgent heartbeat timeout (120.1s)
+05:11:13 | WARNING  | trae_ai.orchestrator | ⚠️  FinancialAgent heartbeat timeout (120.1s)
+WARNING:trae_ai.orchestrator:⚠️  FinancialAgent heartbeat timeout (120.1s)
+05:11:13 | WARNING  | trae_ai.orchestrator | ⚠️  YouTubeEngagementAgent heartbeat timeout (120.1s)
+WARNING:trae_ai.orchestrator:⚠️  YouTubeEngagementAgent heartbeat timeout (120.1s)
+05:11:13 | WARNING  | trae_ai.orchestrator | ⚠️  ProgressiveSelfRepairAgent heartbeat timeout (120.1s)
+WARNING:trae_ai.orchestrator:⚠️  ProgressiveSelfRepairAgent heartbeat timeout (120.1s)
+05:11:13 | WARNING  | trae_ai.orchestrator | ⚠️  EvolutionAgent heartbeat timeout (120.1s)
+WARNING:trae_ai.orchestrator:⚠️  EvolutionAgent heartbeat timeout (120.1s)
+INFO:backend.database.hypocrisy_db_manager:Found 0 recent hypocrisy findings from last 24 hours
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+INFO:backend.database.hypocrisy_db_manager:Found 0 recent hypocrisy findings from last 24 hours
+05:11:43 | INFO     | trae_ai.agent.systemagent | Running scheduled health checks (sync)...
+INFO:trae_ai.agent.systemagent:Running scheduled health checks (sync)...
+05:11:43 | ERROR    | trae_ai.agent.systemagent | Error in scheduled health checks (sync): 'SystemAgent' object has no attribute '_health_summary'
+ERROR:trae_ai.agent.systemagent:Error in scheduled health checks (sync): 'SystemAgent' object has no attribute '_health_summary'
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+05:11:46 | INFO     | trae_ai.orchestrator | 💓 System heartbeat - Uptime: 0h 5m, Active Agents: 6
+INFO:trae_ai.orchestrator:💓 System heartbeat - Uptime: 0h 5m, Active Agents: 6
+05:12:14 | WARNING  | trae_ai.agent.system management agent | Async health check failed: , falling back to sync
+WARNING:trae_ai.agent.system management agent:Async health check failed: , falling back to sync
+05:12:14 | INFO     | trae_ai.agent.system management agent | Running scheduled health checks (sync)...
+INFO:trae_ai.agent.system management agent:Running scheduled health checks (sync)...
+05:12:14 | ERROR    | trae_ai.agent.system management agent | Error in scheduled health checks (sync): 'SystemAgent' object has no attribute '_health_summary'
+ERROR:trae_ai.agent.system management agent:Error in scheduled health checks (sync): 'SystemAgent' object has no attribute '_health_summary'
+05:13:13 | WARNING  | trae_ai.orchestrator | ⚠️  ResearchAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  ResearchAgent heartbeat timeout (120.0s)
+05:13:13 | WARNING  | trae_ai.orchestrator | ⚠️  FinancialAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  FinancialAgent heartbeat timeout (120.0s)
+05:13:13 | WARNING  | trae_ai.orchestrator | ⚠️  YouTubeEngagementAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  YouTubeEngagementAgent heartbeat timeout (120.0s)
+05:13:13 | WARNING  | trae_ai.orchestrator | ⚠️  ProgressiveSelfRepairAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  ProgressiveSelfRepairAgent heartbeat timeout (120.0s)
+05:13:13 | WARNING  | trae_ai.orchestrator | ⚠️  EvolutionAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  EvolutionAgent heartbeat timeout (120.0s)
+05:14:28 | WARNING  | trae_ai.BlenderCompositor | High CPU usage: 96.0%
+WARNING:trae_ai.BlenderCompositor:High CPU usage: 96.0%
+05:15:13 | WARNING  | trae_ai.orchestrator | ⚠️  ResearchAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  ResearchAgent heartbeat timeout (120.0s)
+05:15:13 | WARNING  | trae_ai.orchestrator | ⚠️  FinancialAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  FinancialAgent heartbeat timeout (120.0s)
+05:15:13 | WARNING  | trae_ai.orchestrator | ⚠️  YouTubeEngagementAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  YouTubeEngagementAgent heartbeat timeout (120.0s)
+05:15:13 | WARNING  | trae_ai.orchestrator | ⚠️  ProgressiveSelfRepairAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  ProgressiveSelfRepairAgent heartbeat timeout (120.0s)
+05:15:13 | WARNING  | trae_ai.orchestrator | ⚠️  EvolutionAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  EvolutionAgent heartbeat timeout (120.0s)
+INFO:backend.database.hypocrisy_db_manager:Found 0 recent hypocrisy findings from last 24 hours
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+INFO:backend.database.hypocrisy_db_manager:Found 0 recent hypocrisy findings from last 24 hours
+05:16:43 | INFO     | trae_ai.agent.systemagent | Running scheduled health checks (sync)...
+INFO:trae_ai.agent.systemagent:Running scheduled health checks (sync)...
+05:16:43 | ERROR    | trae_ai.agent.systemagent | Error in scheduled health checks (sync): 'SystemAgent' object has no attribute '_health_summary'
+ERROR:trae_ai.agent.systemagent:Error in scheduled health checks (sync): 'SystemAgent' object has no attribute '_health_summary'
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+INFO:backend.integrations.ollama_integration:OllamaIntegration initialized with endpoint: http://localhost:11434
+05:16:48 | INFO     | trae_ai.orchestrator | 💓 System heartbeat - Uptime: 0h 10m, Active Agents: 6
+INFO:trae_ai.orchestrator:💓 System heartbeat - Uptime: 0h 10m, Active Agents: 6
+05:17:13 | WARNING  | trae_ai.orchestrator | ⚠️  ResearchAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  ResearchAgent heartbeat timeout (120.0s)
+05:17:13 | WARNING  | trae_ai.orchestrator | ⚠️  FinancialAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  FinancialAgent heartbeat timeout (120.0s)
+05:17:13 | WARNING  | trae_ai.orchestrator | ⚠️  YouTubeEngagementAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  YouTubeEngagementAgent heartbeat timeout (120.0s)
+05:17:13 | WARNING  | trae_ai.orchestrator | ⚠️  ProgressiveSelfRepairAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  ProgressiveSelfRepairAgent heartbeat timeout (120.0s)
+05:17:13 | WARNING  | trae_ai.orchestrator | ⚠️  EvolutionAgent heartbeat timeout (120.0s)
+WARNING:trae_ai.orchestrator:⚠️  EvolutionAgent heartbeat timeout (120.0s)
+05:17:14 | WARNING  | trae_ai.agent.system management agent | Async health check failed: , falling back to sync
+WARNING:trae_ai.agent.system management agent:Async health check failed: , falling back to sync
+05:17:14 | INFO     | trae_ai.agent.system management agent | Running scheduled health checks (sync)...
+INFO:trae_ai.agent.system management agent:Running scheduled health checks (sync)...
+05:17:14 | ERROR    | trae_ai.agent.system management agent | Error in scheduled health checks (sync): 'SystemAgent' object has no attribute '_health_summary'
+ERROR:trae_ai.agent.system management agent:Error in scheduled health checks (sync): 'SystemAgent' object has no attribute '_health_summary'

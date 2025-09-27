@@ -1,0 +1,18 @@
+{
+  "generation_time": "2025-09-09T03:54:39.330724",
+  "total_samples": 30,
+  "successful_samples": 30,
+  "failed_samples": 30,
+  "samples": [],
+  "batch_samples": {
+    "count": 5,
+    "total_duration": 11.5,
+    "files": [
+      "/Users/thomasbrianreynolds/online production/output/audio_samples/batch_samples/batch_001.mp3",
+      "/Users/thomasbrianreynolds/online production/output/audio_samples/batch_samples/batch_002.mp3",
+      "/Users/thomasbrianreynolds/online production/output/audio_samples/batch_samples/batch_003.mp3",
+      "/Users/thomasbrianreynolds/online production/output/audio_samples/batch_samples/batch_004.mp3",
+      "/Users/thomasbrianreynolds/online production/output/audio_samples/batch_samples/batch_005.mp3"
+    ]
+  }
+}

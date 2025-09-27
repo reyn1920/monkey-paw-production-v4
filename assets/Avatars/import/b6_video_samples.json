@@ -1,0 +1,56 @@
+{
+  "avatar_videos": {
+    "professional_presentation": {
+      "duration": "60 seconds",
+      "resolution": "4K",
+      "framerate": "60fps",
+      "avatar_style": "photorealistic",
+      "background": "modern_office",
+      "script": "Our AI content generation system represents a breakthrough in automated media production. With cinema-grade quality and unlimited scalability, we're transforming how businesses create content.",
+      "features": [
+        "lip_sync",
+        "natural_gestures",
+        "eye_contact",
+        "professional_attire"
+      ]
+    },
+    "casual_demo": {
+      "duration": "45 seconds",
+      "resolution": "4K",
+      "framerate": "60fps",
+      "avatar_style": "friendly_realistic",
+      "background": "creative_studio",
+      "script": "Welcome to the future of content creation! Watch as our AI generates stunning visuals, perfect audio, and engaging videos - all in real-time.",
+      "features": [
+        "animated_expressions",
+        "hand_gestures",
+        "dynamic_poses"
+      ]
+    }
+  },
+  "promotional_videos": {
+    "product_showcase": {
+      "duration": "90 seconds",
+      "style": "cinematic",
+      "resolution": "4K HDR",
+      "color_grading": "cinematic",
+      "effects": [
+        "motion_graphics",
+        "particle_systems",
+        "dynamic_lighting"
+      ]
+    }
+  },
+  "educational_content": {
+    "tutorial_series": {
+      "episodes": 5,
+      "duration_per_episode": "5-10 minutes",
+      "style": "professional_educational",
+      "features": [
+        "screen_recordings",
+        "annotations",
+        "interactive_elements"
+      ]
+    }
+  }
+}

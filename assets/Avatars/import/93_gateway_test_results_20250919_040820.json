@@ -1,0 +1,112 @@
+{
+  "summary": {
+    "total_tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "success_rate": 100.0,
+    "duration": 2.011666
+  },
+  "detailed_results": [
+    {
+      "test_name": "Gateway Initialization",
+      "success": true,
+      "message": "Gateway initialized successfully",
+      "duration": 9.5367431640625e-07,
+      "timestamp": "2025-09-19T04:08:18.754703"
+    },
+    {
+      "test_name": "Mock Client Responses",
+      "success": true,
+      "message": "Tested 3 scenarios: \u2713 'Hello world' -> Got response: ChatGPT response to: Hello world......; \u2713 'Explain quantum computing' -> Got response: Gemini response to: Explain quantum computing......; \u2713 'What is machine learning?' -> Got response: ChatGPT response to: What is machine learning?......",
+      "duration": 1.0054500102996826,
+      "timestamp": "2025-09-19T04:08:19.760170"
+    },
+    {
+      "test_name": "Circuit Breaker Functionality",
+      "success": true,
+      "message": "Circuit breakers initialized: chatgpt:closed, gemini:closed, claude:closed. Status retrieved successfully.",
+      "duration": 9.393692016601562e-05,
+      "timestamp": "2025-09-19T04:08:19.760301"
+    },
+    {
+      "test_name": "Failover Scenarios",
+      "success": true,
+      "message": "Tested 5 scenarios, 5 successful responses",
+      "duration": 1.005683183670044,
+      "timestamp": "2025-09-19T04:08:20.766005"
+    },
+    {
+      "test_name": "Gateway Metrics",
+      "success": true,
+      "message": "Metrics collected: 13 total, 11 successful",
+      "duration": 0.00022077560424804688,
+      "timestamp": "2025-09-19T04:08:20.766259"
+    },
+    {
+      "test_name": "Backward Compatibility",
+      "success": true,
+      "message": "Backward compatibility method works: ChatGPT response to: Test backward compatibility.....",
+      "duration": 7.605552673339844e-05,
+      "timestamp": "2025-09-19T04:08:20.766349"
+    }
+  ],
+  "gateway_status": {
+    "gateway_info": {
+      "providers": [
+        "chatgpt",
+        "gemini",
+        "claude"
+      ],
+      "circuit_open_seconds": 300,
+      "failure_threshold": 3
+    },
+    "circuit_breakers": {
+      "chatgpt": {
+        "state": "closed",
+        "failure_count": 0,
+        "last_failure": null,
+        "next_attempt": null
+      },
+      "gemini": {
+        "state": "closed",
+        "failure_count": 0,
+        "last_failure": null,
+        "next_attempt": null
+      },
+      "claude": {
+        "state": "closed",
+        "failure_count": 0,
+        "last_failure": null,
+        "next_attempt": null
+      }
+    },
+    "metrics": {
+      "total_requests": 14,
+      "successful_requests": 12,
+      "failed_requests": 2,
+      "provider_stats": {
+        "chatgpt": {
+          "requests": 12,
+          "failures": 2,
+          "successes": 10
+        },
+        "gemini": {
+          "requests": 2,
+          "failures": 0,
+          "successes": 2
+        },
+        "claude": {
+          "requests": 0,
+          "failures": 0,
+          "successes": 0
+        }
+      },
+      "last_reset": "2025-09-19T04:08:18.754662"
+    },
+    "health_summary": {
+      "healthy_providers": 3,
+      "degraded_providers": 0,
+      "failed_providers": 0
+    }
+  }
+}

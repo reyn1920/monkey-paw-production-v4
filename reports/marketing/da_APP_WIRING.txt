@@ -1,0 +1,19 @@
+
+from fastapi import FastAPI
+from channel_presets_router import router as channel_presets_router
+from scheduler_router import router as scheduler_router
+from compliance_router import router as compliance_router
+from manifest_ingest_router import router as manifest_ingest_router
+from outro_router import router as outro_router
+from status_router import router as status_router
+from failsafes_router import router as failsafes_router
+from abtest_router import router as abtest_router
+from link_rotator_router import router as link_router
+from seo_router import router as seo_router
+from health import router as health_router
+from integrations_router import router as integrations_router
+from dupe_router import router as dupe_router
+from captions_router import router as captions_router
+app = FastAPI()
+for r in [channel_presets_router,scheduler_router,compliance_router,manifest_ingest_router,outro_router,status_router,failsafes_router,abtest_router,link_router,seo_router,health_router,integrations_router,dupe_router,captions_router]:
+    app.include_router(r, prefix="/api")

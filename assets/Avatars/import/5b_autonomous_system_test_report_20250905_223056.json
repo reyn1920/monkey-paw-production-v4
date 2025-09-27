@@ -1,0 +1,224 @@
+{
+  "test_summary": {
+    "total_tests": 16,
+    "passed": 8,
+    "failed": 5,
+    "skipped": 3,
+    "success_rate": 50.0,
+    "total_duration": 0.389999,
+    "overall_status": "WARNING - System has significant issues requiring attention"
+  },
+  "category_summaries": {
+    "Core Infrastructure": {
+      "total_tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "success_rate": 100.0
+    },
+    "Agent Functionality": {
+      "total_tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "success_rate": 0.0
+    },
+    "Task Queue & Coordination": {
+      "total_tests": 2,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 1,
+      "success_rate": 0.0
+    },
+    "Dashboard & Monitoring": {
+      "total_tests": 2,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "success_rate": 50.0
+    },
+    "Integration & API": {
+      "total_tests": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "success_rate": 100.0
+    },
+    "Resilience & Self-Healing": {
+      "total_tests": 2,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 1,
+      "success_rate": 50.0
+    },
+    "Performance & Load": {
+      "total_tests": 2,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 1,
+      "success_rate": 50.0
+    },
+    "Security & Secrets": {
+      "total_tests": 2,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "success_rate": 0.0
+    }
+  },
+  "detailed_results": [
+    {
+      "test_name": "Database Connectivity & Schema",
+      "category": "Core Infrastructure",
+      "status": "PASS",
+      "duration": 0.0012888908386230469,
+      "details": "Database schema validated. Tables found: 121",
+      "timestamp": "2025-09-05T22:30:56.382016",
+      "error": null
+    },
+    {
+      "test_name": "File System Permissions",
+      "category": "Core Infrastructure",
+      "status": "PASS",
+      "duration": 0.0002980232238769531,
+      "details": "Directory structure validated: 7/7 directories",
+      "timestamp": "2025-09-05T22:30:56.382352",
+      "error": null
+    },
+    {
+      "test_name": "Python Dependencies",
+      "category": "Core Infrastructure",
+      "status": "PASS",
+      "duration": 3.0994415283203125e-06,
+      "details": "All required Python packages available: 9",
+      "timestamp": "2025-09-05T22:30:56.382389",
+      "error": null
+    },
+    {
+      "test_name": "Agent Functionality - Critical Error",
+      "category": "Agent Functionality",
+      "status": "FAIL",
+      "duration": 0.0,
+      "details": "Critical error prevented test execution: name 'PlannerAgent' is not defined",
+      "timestamp": "2025-09-05T22:30:56.382456",
+      "error": "name 'PlannerAgent' is not defined"
+    },
+    {
+      "test_name": "Task Queue Initialization",
+      "category": "Task Queue & Coordination",
+      "status": "FAIL",
+      "duration": 0.0011172294616699219,
+      "details": "Task queue initialization failed: no such column: scheduled_at",
+      "timestamp": "2025-09-05T22:30:56.383610",
+      "error": null
+    },
+    {
+      "test_name": "Task Priority Scheduling",
+      "category": "Task Queue & Coordination",
+      "status": "SKIP",
+      "duration": 0.0,
+      "details": "Task queue not available for priority testing",
+      "timestamp": "2025-09-05T22:30:56.383638",
+      "error": null
+    },
+    {
+      "test_name": "Dashboard Initialization",
+      "category": "Dashboard & Monitoring",
+      "status": "FAIL",
+      "duration": 9.5367431640625e-07,
+      "details": "Dashboard initialization failed: name 'TotalAccessDashboard' is not defined",
+      "timestamp": "2025-09-05T22:30:56.383678",
+      "error": null
+    },
+    {
+      "test_name": "System Metrics Collection",
+      "category": "Dashboard & Monitoring",
+      "status": "PASS",
+      "duration": 0.10909891128540039,
+      "details": "System metrics collected: CPU 31.4%, Memory 77.1%, Disk 8.1%",
+      "timestamp": "2025-09-05T22:30:56.492799",
+      "error": null
+    },
+    {
+      "test_name": "Network Connectivity",
+      "category": "Integration & API",
+      "status": "PASS",
+      "duration": 0.25734925270080566,
+      "details": "Network connectivity verified",
+      "timestamp": "2025-09-05T22:30:56.750323",
+      "error": null
+    },
+    {
+      "test_name": "Local API Endpoints",
+      "category": "Integration & API",
+      "status": "PASS",
+      "duration": 0.0060689449310302734,
+      "details": "Local API endpoints available: 1",
+      "timestamp": "2025-09-05T22:30:56.756504",
+      "error": null
+    },
+    {
+      "test_name": "Error Handling & Recovery",
+      "category": "Resilience & Self-Healing",
+      "status": "SKIP",
+      "duration": 9.5367431640625e-07,
+      "details": "Task queue not available for resilience testing",
+      "timestamp": "2025-09-05T22:30:56.756677",
+      "error": null
+    },
+    {
+      "test_name": "Resource Cleanup",
+      "category": "Resilience & Self-Healing",
+      "status": "PASS",
+      "duration": 0.0007681846618652344,
+      "details": "Resource cleanup successful: 5/5 files cleaned",
+      "timestamp": "2025-09-05T22:30:56.757472",
+      "error": null
+    },
+    {
+      "test_name": "Database Performance",
+      "category": "Performance & Load",
+      "status": "SKIP",
+      "duration": 1.6689300537109375e-06,
+      "details": "Task queue not available for performance testing",
+      "timestamp": "2025-09-05T22:30:56.758303",
+      "error": null
+    },
+    {
+      "test_name": "Memory Usage",
+      "category": "Performance & Load",
+      "status": "PASS",
+      "duration": 0.011066198348999023,
+      "details": "Memory usage: +0.2MB peak, -0.0MB recovered",
+      "timestamp": "2025-09-05T22:30:56.770162",
+      "error": null
+    },
+    {
+      "test_name": "Secret Store Functionality",
+      "category": "Security & Secrets",
+      "status": "FAIL",
+      "duration": 3.0994415283203125e-06,
+      "details": "Secret store test failed: name 'SecretStore' is not defined",
+      "timestamp": "2025-09-05T22:30:56.770283",
+      "error": null
+    },
+    {
+      "test_name": "File Security",
+      "category": "Security & Secrets",
+      "status": "FAIL",
+      "duration": 0.00010275840759277344,
+      "details": "File security test failed: 'utf-8' codec can't decode byte 0x8a in position 98: invalid start byte",
+      "timestamp": "2025-09-05T22:30:56.770410",
+      "error": null
+    }
+  ],
+  "recommendations": [
+    "Address 5 failed tests before production deployment",
+    "Focus on Agent Functionality issues: 1 failures detected",
+    "Focus on Task Queue & Coordination issues: 1 failures detected",
+    "Focus on Dashboard & Monitoring issues: 1 failures detected",
+    "Focus on Security & Secrets issues: 2 failures detected",
+    "CRITICAL: Address security issues immediately"
+  ],
+  "generated_at": "2025-09-05T22:30:56.770484"
+}

@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlmodel
+apscheduler
+pyyaml
+httpx
+jinja2
+markdown
+feedparser

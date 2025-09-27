@@ -1,0 +1,1 @@
+from pathlib import Path;import json,sys;p=Path(sys.argv[1] if len(sys.argv)>1 else 'artifacts/staging/draft_youtube.meta.json');print('[DRY-RUN] Would upload with:',(p.read_text() if p.exists() else '{}'))

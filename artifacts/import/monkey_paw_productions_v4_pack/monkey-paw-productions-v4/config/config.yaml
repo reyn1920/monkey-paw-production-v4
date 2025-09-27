@@ -1,0 +1,5 @@
+project_name: "Monkey Paw Productions V4"
+approve_publish: false
+scheduler_enabled: false
+nocode_stack_enabled: true
+site_output_dir: "artifacts/published/site"

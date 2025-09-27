@@ -1,0 +1,133 @@
+{
+  "timestamp": "2025-09-09T09:57:13.233498",
+  "database_file": "right_perspective.db",
+  "total_required": 9,
+  "found_software": [
+    {
+      "software_name": "background_music",
+      "display_name": "Background Music",
+      "category": "background_music",
+      "status": "active",
+      "integration_type": "api",
+      "authentication_method": "api_key",
+      "capabilities": "[\"music_library\", \"royalty_free_music\", \"audio_mixing\"]",
+      "license_type": "subscription",
+      "notes": "Royalty-free background music library"
+    },
+    {
+      "software_name": "captionizer",
+      "display_name": "Captionizer",
+      "category": "video_editing",
+      "status": "active",
+      "integration_type": "api",
+      "authentication_method": "api_key",
+      "capabilities": "[\"subtitle_generation\", \"caption_creation\", \"video_processing\"]",
+      "license_type": "subscription",
+      "notes": "Automated caption and subtitle generation"
+    },
+    {
+      "software_name": "lingo_blaster",
+      "display_name": "Lingo Blaster",
+      "category": "automation",
+      "status": "active",
+      "integration_type": "rpa",
+      "authentication_method": "username_password",
+      "capabilities": "[\"language_processing\", \"content_translation\", \"multilingual_support\"]",
+      "license_type": "subscription",
+      "notes": "Language processing and translation tool"
+    },
+    {
+      "software_name": "scriptelo",
+      "display_name": "Scriptelo",
+      "category": "script_writing",
+      "status": "active",
+      "integration_type": "rpa",
+      "authentication_method": "username_password",
+      "capabilities": "[\"script_generation\", \"content_writing\", \"template_processing\"]",
+      "license_type": "subscription",
+      "notes": "Automated script writing and content generation"
+    },
+    {
+      "software_name": "speechelo",
+      "display_name": "Speechelo",
+      "category": "voice_generation",
+      "status": "active",
+      "integration_type": "rpa",
+      "authentication_method": "username_password",
+      "capabilities": "[\"text_to_speech\", \"voice_synthesis\", \"audio_generation\"]",
+      "license_type": "one_time",
+      "notes": "Text-to-speech voice generation software"
+    },
+    {
+      "software_name": "thumbnail_blaster",
+      "display_name": "Thumbnail Blaster",
+      "category": "thumbnail_creation",
+      "status": "active",
+      "integration_type": "rpa",
+      "authentication_method": "username_password",
+      "capabilities": "[\"thumbnail_creation\", \"image_editing\", \"template_processing\"]",
+      "license_type": "subscription",
+      "notes": "Automated thumbnail creation and editing"
+    },
+    {
+      "software_name": "training",
+      "display_name": "Training",
+      "category": "training",
+      "status": "active",
+      "integration_type": "manual",
+      "authentication_method": "none",
+      "capabilities": "[\"video_training\", \"tutorials\", \"skill_development\"]",
+      "license_type": "subscription",
+      "notes": "Comprehensive training modules and tutorials"
+    },
+    {
+      "software_name": "voice_generator",
+      "display_name": "Voice Generator",
+      "category": "voice_generation",
+      "status": "active",
+      "integration_type": "api",
+      "authentication_method": "api_key",
+      "capabilities": "[\"voice_synthesis\", \"custom_voices\", \"audio_processing\"]",
+      "license_type": "subscription",
+      "notes": "Advanced voice generation and synthesis"
+    },
+    {
+      "software_name": "voiceover_cash_machine",
+      "display_name": "Voiceover Cash Machine",
+      "category": "bonus_tools",
+      "status": "active",
+      "integration_type": "manual",
+      "authentication_method": "none",
+      "capabilities": "[\"voiceover_training\", \"business_strategies\", \"monetization\"]",
+      "license_type": "one_time",
+      "notes": "BONUS: Voiceover business training and strategies"
+    }
+  ],
+  "missing_software": [],
+  "database_tables": [
+    "cloud_software",
+    "software_integration_status",
+    "software_usage_logs"
+  ],
+  "integration_status": "SUCCESS",
+  "details": {
+    "status_distribution": {
+      "active": 9
+    },
+    "integration_types": {
+      "api": 3,
+      "manual": 2,
+      "rpa": 4
+    },
+    "categories": {
+      "automation": 1,
+      "background_music": 1,
+      "bonus_tools": 1,
+      "script_writing": 1,
+      "thumbnail_creation": 1,
+      "training": 1,
+      "video_editing": 1,
+      "voice_generation": 2
+    }
+  }
+}

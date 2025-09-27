@@ -1,0 +1,412 @@
+version: "3.8"
+
+services:
+  # Database Services
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: trae_ai_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - trae-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - trae-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Message Queue
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - trae-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Content Agent Service
+  content-agent:
+    build:
+      context: ./content-agent
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/trae_ai_db
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER=redis://redis:6379/1
+      - CELERY_BACKEND=redis://redis:6379/1
+      - RABBITMQ_URL=amqp://admin:admin123@rabbitmq:5672/
+      - ENVIRONMENT=production
+      - USE_MOCK=false
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - STABILITY_API_KEY=${STABILITY_API_KEY}
+      - REPLICATE_API_TOKEN=${REPLICATE_API_TOKEN}
+      - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
+      - TWITTER_API_KEY=${TWITTER_API_KEY}
+      - TWITTER_API_SECRET=${TWITTER_API_SECRET}
+      - TWITTER_ACCESS_TOKEN=${TWITTER_ACCESS_TOKEN}
+      - TWITTER_ACCESS_TOKEN_SECRET=${TWITTER_ACCESS_TOKEN_SECRET}
+      - FACEBOOK_ACCESS_TOKEN=${FACEBOOK_ACCESS_TOKEN}
+      - INSTAGRAM_ACCESS_TOKEN=${INSTAGRAM_ACCESS_TOKEN}
+      - LINKEDIN_ACCESS_TOKEN=${LINKEDIN_ACCESS_TOKEN}
+      - TIKTOK_ACCESS_TOKEN=${TIKTOK_ACCESS_TOKEN}
+      - WORDPRESS_API_KEY=${WORDPRESS_API_KEY}
+      - MEDIUM_API_KEY=${MEDIUM_API_KEY}
+      - GHOST_API_KEY=${GHOST_API_KEY}
+      - WEBFLOW_API_KEY=${WEBFLOW_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - trae-network
+    volumes:
+      - content_storage:/app/storage
+      - ./content-agent/templates:/app/templates
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Marketing Agent Service
+  marketing-agent:
+    build:
+      context: ./marketing-agent
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8002"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/trae_ai_db
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER=redis://redis:6379/1
+      - CELERY_BACKEND=redis://redis:6379/1
+      - RABBITMQ_URL=amqp://admin:admin123@rabbitmq:5672/
+      - ENVIRONMENT=production
+      - USE_MOCK=false
+      - CONTENT_AGENT_URL=http://content-agent:8001
+      - FACEBOOK_APP_ID=${FACEBOOK_APP_ID}
+      - FACEBOOK_APP_SECRET=${FACEBOOK_APP_SECRET}
+      - FACEBOOK_ACCESS_TOKEN=${FACEBOOK_ACCESS_TOKEN}
+      - INSTAGRAM_ACCESS_TOKEN=${INSTAGRAM_ACCESS_TOKEN}
+      - TWITTER_API_KEY=${TWITTER_API_KEY}
+      - TWITTER_API_SECRET=${TWITTER_API_SECRET}
+      - TWITTER_ACCESS_TOKEN=${TWITTER_ACCESS_TOKEN}
+      - TWITTER_ACCESS_TOKEN_SECRET=${TWITTER_ACCESS_TOKEN_SECRET}
+      - LINKEDIN_ACCESS_TOKEN=${LINKEDIN_ACCESS_TOKEN}
+      - TIKTOK_ACCESS_TOKEN=${TIKTOK_ACCESS_TOKEN}
+      - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
+      - PINTEREST_ACCESS_TOKEN=${PINTEREST_ACCESS_TOKEN}
+      - MAILCHIMP_API_KEY=${MAILCHIMP_API_KEY}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - HUBSPOT_API_KEY=${HUBSPOT_API_KEY}
+      - SALESFORCE_CLIENT_ID=${SALESFORCE_CLIENT_ID}
+      - SALESFORCE_CLIENT_SECRET=${SALESFORCE_CLIENT_SECRET}
+      - GOOGLE_ANALYTICS_KEY=${GOOGLE_ANALYTICS_KEY}
+      - GOOGLE_ADS_API_KEY=${GOOGLE_ADS_API_KEY}
+      - FACEBOOK_ADS_ACCESS_TOKEN=${FACEBOOK_ADS_ACCESS_TOKEN}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      content-agent:
+        condition: service_healthy
+    networks:
+      - trae-network
+    volumes:
+      - marketing_storage:/app/storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Monetization Bundle Service
+  monetization-bundle:
+    build:
+      context: ./monetization-bundle
+      dockerfile: Dockerfile
+    ports:
+      - "8003:8003"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/trae_ai_db
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER=redis://redis:6379/1
+      - CELERY_BACKEND=redis://redis:6379/1
+      - RABBITMQ_URL=amqp://admin:admin123@rabbitmq:5672/
+      - ENVIRONMENT=production
+      - USE_MOCK=false
+      - CONTENT_AGENT_URL=http://content-agent:8001
+      - MARKETING_AGENT_URL=http://marketing-agent:8002
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
+      - PAYPAL_CLIENT_SECRET=${PAYPAL_CLIENT_SECRET}
+      - GUMROAD_ACCESS_TOKEN=${GUMROAD_ACCESS_TOKEN}
+      - SHOPIFY_API_KEY=${SHOPIFY_API_KEY}
+      - SHOPIFY_API_SECRET=${SHOPIFY_API_SECRET}
+      - AMAZON_ASSOCIATES_ACCESS_KEY=${AMAZON_ASSOCIATES_ACCESS_KEY}
+      - AMAZON_ASSOCIATES_SECRET_KEY=${AMAZON_ASSOCIATES_SECRET_KEY}
+      - CLICKBANK_API_KEY=${CLICKBANK_API_KEY}
+      - COMMISSION_JUNCTION_API_KEY=${COMMISSION_JUNCTION_API_KEY}
+      - SHAREASALE_API_KEY=${SHAREASALE_API_KEY}
+      - PRINTFUL_API_KEY=${PRINTFUL_API_KEY}
+      - TEESPRING_API_KEY=${TEESPRING_API_KEY}
+      - TEACHABLE_API_KEY=${TEACHABLE_API_KEY}
+      - THINKIFIC_API_KEY=${THINKIFIC_API_KEY}
+      - PATREON_ACCESS_TOKEN=${PATREON_ACCESS_TOKEN}
+      - MEMBERFUL_API_KEY=${MEMBERFUL_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      content-agent:
+        condition: service_healthy
+      marketing-agent:
+        condition: service_healthy
+    networks:
+      - trae-network
+    volumes:
+      - monetization_storage:/app/storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Analytics Dashboard Service
+  analytics-dashboard:
+    build:
+      context: ./analytics-dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "8004:8004"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/trae_ai_db
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER=redis://redis:6379/1
+      - CELERY_BACKEND=redis://redis:6379/1
+      - RABBITMQ_URL=amqp://admin:admin123@rabbitmq:5672/
+      - ENVIRONMENT=production
+      - USE_MOCK=false
+      - CONTENT_AGENT_URL=http://content-agent:8001
+      - MARKETING_AGENT_URL=http://marketing-agent:8002
+      - MONETIZATION_AGENT_URL=http://monetization-bundle:8003
+      - GOOGLE_ANALYTICS_KEY=${GOOGLE_ANALYTICS_KEY}
+      - GOOGLE_ANALYTICS_VIEW_ID=${GOOGLE_ANALYTICS_VIEW_ID}
+      - FACEBOOK_INSIGHTS_ACCESS_TOKEN=${FACEBOOK_INSIGHTS_ACCESS_TOKEN}
+      - YOUTUBE_ANALYTICS_API_KEY=${YOUTUBE_ANALYTICS_API_KEY}
+      - TWITTER_ANALYTICS_API_KEY=${TWITTER_ANALYTICS_API_KEY}
+      - LINKEDIN_ANALYTICS_ACCESS_TOKEN=${LINKEDIN_ANALYTICS_ACCESS_TOKEN}
+      - MAILCHIMP_API_KEY=${MAILCHIMP_API_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
+      - GUMROAD_ACCESS_TOKEN=${GUMROAD_ACCESS_TOKEN}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      content-agent:
+        condition: service_healthy
+      marketing-agent:
+        condition: service_healthy
+      monetization-bundle:
+        condition: service_healthy
+    networks:
+      - trae-network
+    volumes:
+      - analytics_storage:/app/storage
+      - ./analytics-dashboard/templates:/app/templates
+      - ./analytics-dashboard/static:/app/static
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Backend API (Original)
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/trae_ai_db
+      - REDIS_URL=redis://redis:6379
+      - ENVIRONMENT=production
+      - CONTENT_AGENT_URL=http://content-agent:8001
+      - MARKETING_AGENT_URL=http://marketing-agent:8002
+      - MONETIZATION_AGENT_URL=http://monetization-bundle:8003
+      - ANALYTICS_AGENT_URL=http://analytics-dashboard:8004
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      content-agent:
+        condition: service_healthy
+      marketing-agent:
+        condition: service_healthy
+      monetization-bundle:
+        condition: service_healthy
+      analytics-dashboard:
+        condition: service_healthy
+    networks:
+      - trae-network
+    volumes:
+      - ./storage:/app/storage
+
+  # Frontend Dashboard (Original)
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+      - REACT_APP_ENVIRONMENT=production
+      - REACT_APP_CONTENT_AGENT_URL=http://localhost:8001
+      - REACT_APP_MARKETING_AGENT_URL=http://localhost:8002
+      - REACT_APP_MONETIZATION_AGENT_URL=http://localhost:8003
+      - REACT_APP_ANALYTICS_AGENT_URL=http://localhost:8004
+    depends_on:
+      - backend
+    networks:
+      - trae-network
+
+  # FastAPI Service
+  api:
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    working_dir: /code
+    networks:
+      - trae-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  # Paste App Service
+  paste:
+    build: .
+    command: python paste_app.py
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/code
+    working_dir: /code
+    networks:
+      - trae-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/simple-nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      api:
+        condition: service_healthy
+      paste:
+        condition: service_healthy
+    networks:
+      - trae-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  rabbitmq_data:
+    driver: local
+  content_storage:
+    driver: local
+  marketing_storage:
+    driver: local
+  monetization_storage:
+    driver: local
+  analytics_storage:
+    driver: local
+
+networks:
+  trae-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1

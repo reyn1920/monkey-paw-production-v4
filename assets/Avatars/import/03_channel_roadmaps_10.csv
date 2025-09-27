@@ -1,0 +1,6 @@
+channel,description,category,priority
+DEMO_CAPABILITY_REEL,Demonstration capability reel showcasing system features,demo,high
+TEST_CHANNEL,Test channel for development and validation,test,medium
+TUTORIAL_BASICS,Basic tutorial content for new users,tutorial,medium
+ADVANCED_FEATURES,Advanced feature demonstrations,demo,low
+QUICK_START,Quick start guide content,tutorial,high

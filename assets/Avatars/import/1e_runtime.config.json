@@ -1,0 +1,12 @@
+{
+  "mode": "local",
+  "guards": {
+    "rule1": true,
+    "upr": true
+  },
+  "paths": {
+    "db": "backend/db/master.db",
+    "logs": "logs",
+    "media": "backend/media"
+  }
+}

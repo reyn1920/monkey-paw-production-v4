@@ -1,0 +1,56 @@
+{
+  "go_live": false,
+  "master_automation": false,
+  "toggles": {
+    "channels": {
+      "next_gen_tech_today_enabled": true,
+      "ecowell_living_enabled": true,
+      "the_daily_takedown_enabled": true,
+      "the_right_perspective_enabled": true
+    },
+    "monetization": {
+      "affiliate_marketing_enabled": true,
+      "digital_product_sales_enabled": true,
+      "print_on_demand_enabled": false,
+      "course_creation_enabled": false,
+      "book_publishing_enabled": false,
+      "subscription_services_enabled": false
+    },
+    "syndication": {
+      "podcasting_enabled": true,
+      "blog_seo_content_enabled": true,
+      "newsletter_enabled": true,
+      "social_media_syndication_enabled": true
+    },
+    "autonomous_directives": {
+      "proactive_niche_domination_enabled": false,
+      "content_format_evolution_enabled": true,
+      "automated_self_repair_enabled": true,
+      "community_building_enabled": false,
+      "direct_monetization_services_enabled": false,
+      "predictive_analytics_enabled": false,
+      "collaboration_outreach_enabled": false
+    },
+    "content_generation": {
+      "auto_posting_enabled": false,
+      "content_optimization_enabled": true,
+      "seo_enhancement_enabled": true,
+      "paste_enabled": true
+    },
+    "system_settings": {
+      "debug_mode_enabled": false,
+      "performance_monitoring_enabled": true,
+      "auto_backup_enabled": true
+    },
+    "app_features": {
+      "girlfriend_boyfriend_app_sales_enabled": false,
+      "app_video_manager_host_enabled": true
+    }
+  },
+  "legacy_settings": {
+    "autonomous_mode": {
+      "enabled": false,
+      "description": "Master toggle for autonomous operation (deprecated - use master_automation)"
+    }
+  }
+}

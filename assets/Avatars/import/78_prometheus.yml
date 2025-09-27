@@ -1,0 +1,353 @@
+# TRAE.AI Production Prometheus Configuration
+# Comprehensive monitoring and metrics collection
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: "trae-ai-production"
+    environment: "production"
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+# Load rules once and periodically evaluate them
+rule_files:
+  - "alert_rules.yml"
+  - "recording_rules.yml"
+
+# Scrape configuration
+scrape_configs:
+  # Prometheus itself
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Node Exporter for system metrics
+  - job_name: "node-exporter"
+    static_configs:
+      - targets: ["node-exporter:9100"]
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # cAdvisor for container metrics
+  - job_name: "cadvisor"
+    static_configs:
+      - targets: ["cadvisor:8080"]
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Nginx metrics
+  - job_name: "nginx"
+    static_configs:
+      - targets: ["nginx:8080"]
+    scrape_interval: 30s
+    metrics_path: /nginx-status
+    params:
+      format: ["prometheus"]
+
+  # PostgreSQL metrics
+  - job_name: "postgres"
+    static_configs:
+      - targets: ["postgres-exporter:9187"]
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Redis metrics
+  - job_name: "redis"
+    static_configs:
+      - targets: ["redis-exporter:9121"]
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Orchestrator service
+  - job_name: "orchestrator"
+    static_configs:
+      - targets: ["orchestrator:8000"]
+    scrape_interval: 15s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+    honor_labels: true
+    params:
+      format: ["prometheus"]
+
+  # Content Agent service
+  - job_name: "content-agent"
+    static_configs:
+      - targets: ["content_agent:8001"]
+    scrape_interval: 15s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+    honor_labels: true
+    params:
+      format: ["prometheus"]
+
+  # Marketing Agent service
+  - job_name: "marketing-agent"
+    static_configs:
+      - targets: ["marketing_agent:8002"]
+    scrape_interval: 15s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+    honor_labels: true
+    params:
+      format: ["prometheus"]
+
+  # Monetization Bundle service
+  - job_name: "monetization-bundle"
+    static_configs:
+      - targets: ["monetization_bundle:8003"]
+    scrape_interval: 15s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+    honor_labels: true
+    params:
+      format: ["prometheus"]
+
+  # Revenue Tracker service
+  - job_name: "revenue-tracker"
+    static_configs:
+      - targets: ["revenue_tracker:8004"]
+    scrape_interval: 15s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+    honor_labels: true
+    params:
+      format: ["prometheus"]
+
+  # Health check endpoints
+  - job_name: "health-checks"
+    static_configs:
+      - targets:
+          - "orchestrator:8000"
+          - "content_agent:8001"
+          - "marketing_agent:8002"
+          - "monetization_bundle:8003"
+          - "revenue_tracker:8004"
+    scrape_interval: 30s
+    metrics_path: /health
+    scrape_timeout: 5s
+
+  # Custom business metrics
+  - job_name: "business-metrics"
+    static_configs:
+      - targets: ["orchestrator:8000"]
+    scrape_interval: 60s
+    metrics_path: /api/metrics/business
+    scrape_timeout: 30s
+
+  # API performance metrics
+  - job_name: "api-performance"
+    static_configs:
+      - targets:
+          - "orchestrator:8000"
+          - "content_agent:8001"
+          - "marketing_agent:8002"
+          - "monetization_bundle:8003"
+          - "revenue_tracker:8004"
+    scrape_interval: 30s
+    metrics_path: /api/metrics/performance
+    scrape_timeout: 15s
+
+  # Content generation metrics
+  - job_name: "content-metrics"
+    static_configs:
+      - targets: ["content_agent:8001"]
+    scrape_interval: 60s
+    metrics_path: /api/metrics/content
+    scrape_timeout: 30s
+
+  # Marketing campaign metrics
+  - job_name: "marketing-metrics"
+    static_configs:
+      - targets: ["marketing_agent:8002"]
+    scrape_interval: 60s
+    metrics_path: /api/metrics/campaigns
+    scrape_timeout: 30s
+
+  # Revenue and monetization metrics
+  - job_name: "revenue-metrics"
+    static_configs:
+      - targets:
+          - "monetization_bundle:8003"
+          - "revenue_tracker:8004"
+    scrape_interval: 300s # 5 minutes for revenue data
+    metrics_path: /api/metrics/revenue
+    scrape_timeout: 60s
+
+  # YouTube Analytics (via Revenue Tracker)
+  - job_name: "youtube-analytics"
+    static_configs:
+      - targets: ["revenue_tracker:8004"]
+    scrape_interval: 300s
+    metrics_path: /api/metrics/youtube
+    scrape_timeout: 60s
+
+  # Social Media Metrics (via Marketing Agent)
+  - job_name: "social-media-metrics"
+    static_configs:
+      - targets: ["marketing_agent:8002"]
+    scrape_interval: 300s
+    metrics_path: /api/metrics/social
+    scrape_timeout: 60s
+
+  # Email Marketing Metrics
+  - job_name: "email-metrics"
+    static_configs:
+      - targets: ["marketing_agent:8002"]
+    scrape_interval: 300s
+    metrics_path: /api/metrics/email
+    scrape_timeout: 60s
+
+  # SEO and Content Performance
+  - job_name: "seo-metrics"
+    static_configs:
+      - targets: ["marketing_agent:8002"]
+    scrape_interval: 600s # 10 minutes
+    metrics_path: /api/metrics/seo
+    scrape_timeout: 60s
+
+  # Affiliate Marketing Performance
+  - job_name: "affiliate-metrics"
+    static_configs:
+      - targets: ["marketing_agent:8002"]
+    scrape_interval: 300s
+    metrics_path: /api/metrics/affiliate
+    scrape_timeout: 60s
+
+  # E-book and Digital Product Sales
+  - job_name: "digital-product-metrics"
+    static_configs:
+      - targets: ["monetization_bundle:8003"]
+    scrape_interval: 300s
+    metrics_path: /api/metrics/products
+    scrape_timeout: 60s
+
+  # Newsletter Performance
+  - job_name: "newsletter-metrics"
+    static_configs:
+      - targets: ["monetization_bundle:8003"]
+    scrape_interval: 300s
+    metrics_path: /api/metrics/newsletter
+    scrape_timeout: 60s
+
+  # Print-on-Demand Metrics
+  - job_name: "pod-metrics"
+    static_configs:
+      - targets: ["monetization_bundle:8003"]
+    scrape_interval: 600s
+    metrics_path: /api/metrics/pod
+    scrape_timeout: 60s
+
+  # AI Model Performance
+  - job_name: "ai-model-metrics"
+    static_configs:
+      - targets:
+          - "content_agent:8001"
+          - "marketing_agent:8002"
+    scrape_interval: 60s
+    metrics_path: /api/metrics/ai
+    scrape_timeout: 30s
+
+  # Database Performance
+  - job_name: "database-metrics"
+    static_configs:
+      - targets: ["orchestrator:8000"]
+    scrape_interval: 60s
+    metrics_path: /api/metrics/database
+    scrape_timeout: 30s
+
+  # Cache Performance (Redis)
+  - job_name: "cache-metrics"
+    static_configs:
+      - targets: ["orchestrator:8000"]
+    scrape_interval: 60s
+    metrics_path: /api/metrics/cache
+    scrape_timeout: 30s
+
+  # Task Queue Metrics
+  - job_name: "queue-metrics"
+    static_configs:
+      - targets: ["orchestrator:8000"]
+    scrape_interval: 30s
+    metrics_path: /api/metrics/queue
+    scrape_timeout: 15s
+
+  # Error Rate and Alerting Metrics
+  - job_name: "error-metrics"
+    static_configs:
+      - targets:
+          - "orchestrator:8000"
+          - "content_agent:8001"
+          - "marketing_agent:8002"
+          - "monetization_bundle:8003"
+          - "revenue_tracker:8004"
+    scrape_interval: 30s
+    metrics_path: /api/metrics/errors
+    scrape_timeout: 15s
+
+  # Security Metrics
+  - job_name: "security-metrics"
+    static_configs:
+      - targets: ["orchestrator:8000"]
+    scrape_interval: 60s
+    metrics_path: /api/metrics/security
+    scrape_timeout: 30s
+
+  # Custom Application Metrics
+  - job_name: "custom-app-metrics"
+    static_configs:
+      - targets:
+          - "orchestrator:8000"
+          - "content_agent:8001"
+          - "marketing_agent:8002"
+          - "monetization_bundle:8003"
+          - "revenue_tracker:8004"
+    scrape_interval: 60s
+    metrics_path: /api/metrics/custom
+    scrape_timeout: 30s
+
+# Remote write configuration (for long-term storage)
+# remote_write:
+#   - url: "https://prometheus-remote-write-endpoint.com/api/v1/write"
+#     basic_auth:
+#       username: "your-username"
+#       password: "your-password"
+#     write_relabel_configs:
+#       - source_labels: [__name__]
+#         regex: 'go_.*'
+#         action: drop
+
+# Remote read configuration (for querying external data)
+# remote_read:
+#   - url: "https://prometheus-remote-read-endpoint.com/api/v1/read"
+#     basic_auth:
+#       username: "your-username"
+#       password: "your-password"
+
+# Storage configuration
+storage:
+  tsdb:
+    retention.time: 30d
+    retention.size: 10GB
+    wal-compression: true
+
+# Query configuration
+query:
+  max_concurrency: 20
+  timeout: 2m
+  max_samples: 50000000
+
+# Web configuration
+web:
+  console.templates: /etc/prometheus/consoles
+  console.libraries: /etc/prometheus/console_libraries
+  enable-lifecycle: true
+  enable-admin-api: true
+  max-connections: 512

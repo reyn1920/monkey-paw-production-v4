@@ -1,0 +1,143 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>Monkey Paw — V4</title>
+<link rel="stylesheet" href="/static/css/style.css"/></head><body>
+<header><h1>Monkey Paw — V4 Dashboard</h1><div class="grid">
+<div class="card"><h3>Status</h3><pre id="health">loading…</pre></div>
+<div class="card"><h3>Revenue (<span id="revTitleDays">30</span> days)</h3>
+<div style="display:flex;align-items:center;gap:8px;margin:6px 0 10px 0">
+  <label for="revDays">Timeframe:</label>
+  <select id="revDays">
+    <option value="7">7</option>
+    <option value="30" selected>30</option>
+    <option value="60">60</option>
+  </select>
+  <button id="revReload">Reload</button>
+  <small id="revHint" style="opacity:.7">Uses your computer's current date</small>
+  </div>
+<canvas id="revChart" width="720" height="260"></canvas></div>
+<div class="card"><h3>Content KPIs</h3><ul id="kpis"></ul></div>
+<div class="card"><h3>$5k Plan</h3><button id="viewPlan">Open</button>
+<a href="/static/FIRST_MONTH_5K_PLAN.pdf" target="_blank">Download PDF</a></div></div></header>
+<section class="grid"><div class="card"><h3>Pipeline</h3>
+<button id="doResearch">research</button><button id="doDraft">draft</button><button id="doRepurpose">repurpose</button>
+<button id="approve">approve</button><button id="publish">publish</button></div>
+<div class="card">
+  <h3>Live Data</h3>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button id="refreshData">Refresh Data</button>
+    <button id="setSheets">Set Sheets URLs</button>
+    <button id="setSheetFromUrl">Set From Sheet URL</button>
+  </div>
+  <small>Uses public Google Sheets CSV URLs configured in <code>config/sheets.yaml</code>.</small>
+  <pre id="refreshResult" style="max-height:160px;overflow:auto"></pre>
+  </div>
+  <div class="card">
+    <h3>Channels Explorer</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <label for="srcSel">Source:</label>
+      <select id="srcSel"></select>
+      <label for="keySel">Tab Key:</label>
+      <select id="keySel"></select>
+      <button id="fetchSheet">Fetch</button>
+    </div>
+    <small>Sources and keys come from <code>config/sheets_multi.json</code>. Use /api/sheets/{source}/{key}.</small>
+    <pre id="sheetOut" style="max-height:220px;overflow:auto"></pre>
+  </div>
+  <div class="card">
+    <h3>Admin</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <button id="panicOn">Panic ON</button>
+      <button id="panicOff">Panic OFF</button>
+      <button id="checkPanic">Check Panic</button>
+      <button id="checkLastRefresh">Last Refresh</button>
+    </div>
+    <div><small>Panic prevents publishing; toggles a file at <code>reports/PANIC_SWITCH.true</code>.</small></div>
+    <pre id="adminOut" style="max-height:160px;overflow:auto"></pre>
+  </div>
+</section>
+<script src="/static/js/tinychart.js"></script>
+<script>
+async function g(u){return (await fetch(u)).json()}
+async function p(u,b){return (await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b||{})})).json()}
+(async()=>{
+document.getElementById('health').textContent=JSON.stringify(await g('/api/health'),null,2);
+const k=await g('/api/metrics/content');
+const ul=document.getElementById('kpis'); Object.entries(k).forEach(([a,b])=>{const li=document.createElement('li'); li.textContent=a+': '+b; ul.appendChild(li)});
+const ctx=document.getElementById('revChart').getContext('2d');
+const revDaysSel=document.getElementById('revDays');
+const revTitleDays=document.getElementById('revTitleDays');
+const revReload=document.getElementById('revReload');
+async function loadRevenue(){
+  const days = parseInt(revDaysSel.value||'30',10);
+  const rev = await g(`/api/metrics/revenue?days=${days}`);
+  // Clear canvas
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  TinyChart.line(ctx,rev.map(x=>x.actual),{label:'Actual',color:'#22c55e'});
+  TinyChart.line(ctx,rev.map(x=>x.goal),{label:'Goal',color:'#3b82f6'});
+  revTitleDays.textContent = String(days);
+}
+revDaysSel.addEventListener('change', loadRevenue);
+revReload.addEventListener('click', loadRevenue);
+await loadRevenue();
+document.getElementById('viewPlan').onclick=async()=>{const d=await g('/api/plan/first_month'); const w=open('','_blank'); w.document.write('<pre style="white-space:pre-wrap">'+d.plan_markdown+'</pre>'); w.document.close();};
+document.getElementById('doResearch').onclick=()=>p('/api/research?topic=default',{}).then(()=>location.reload());
+document.getElementById('doDraft').onclick=()=>p('/api/draft',{"seed_id":1,"content":"Write 500 words"}).then(()=>location.reload());
+document.getElementById('doRepurpose').onclick=()=>p('/api/repurpose',{}).then(()=>location.reload());
+document.getElementById('approve').onclick=()=>g('/api/admin/approve_publish/true').then(()=>alert('Approved'));
+
+ // Live Data controls
+ const refreshBtn = document.getElementById('refreshData');
+ const setSheetsBtn = document.getElementById('setSheets');
+ const setSheetFromUrlBtn = document.getElementById('setSheetFromUrl');
+  const refreshOut = document.getElementById('refreshResult');
+  // Explorer elements
+  const srcSel = document.getElementById('srcSel');
+  const keySel = document.getElementById('keySel');
+  const fetchSheetBtn = document.getElementById('fetchSheet');
+  const sheetOut = document.getElementById('sheetOut');
+ if (refreshBtn) {
+   refreshBtn.onclick = async ()=>{
+     refreshOut.textContent = 'Refreshing…';
+     try{
+       const r = await p('/api/admin/refresh_data',{});
+       refreshOut.textContent = JSON.stringify(r,null,2);
+       setTimeout(()=>location.reload(), 1000);
+     }catch(e){
+       refreshOut.textContent='Error: '+e;
+     }
+   };
+ }
+
+ // Admin controls
+ const panicOn = document.getElementById('panicOn');
+ const panicOff = document.getElementById('panicOff');
+ const checkPanic = document.getElementById('checkPanic');
+ const checkLast = document.getElementById('checkLastRefresh');
+ const adminOut = document.getElementById('adminOut');
+ if (panicOn) panicOn.onclick = async ()=>{ adminOut.textContent='...'; adminOut.textContent=JSON.stringify(await p('/api/admin/panic/on',{}),null,2); };
+ if (panicOff) panicOff.onclick = async ()=>{ adminOut.textContent='...'; adminOut.textContent=JSON.stringify(await p('/api/admin/panic/off',{}),null,2); };
+ if (checkPanic) checkPanic.onclick = async ()=>{ adminOut.textContent='...'; adminOut.textContent=JSON.stringify(await g('/api/admin/panic_status'),null,2); };
+  if (checkLast) checkLast.onclick = async ()=>{ adminOut.textContent='...'; adminOut.textContent=JSON.stringify(await g('/api/admin/last_refresh'),null,2); };
+
+  // Populate Channels Explorer
+  try {
+    const cfg = await g('/api/sheets/config');
+    const sources = cfg.sources || {};
+    const names = Object.keys(sources).sort();
+    names.forEach(n=>{ const o=document.createElement('option'); o.value=o.textContent=n; srcSel.appendChild(o); });
+    function loadKeys(){
+      keySel.innerHTML='';
+      const sel = srcSel.value; const keys = (sources[sel]||[]).slice().sort();
+      keys.forEach(k=>{ const o=document.createElement('option'); o.value=o.textContent=k; keySel.appendChild(o); });
+    }
+    srcSel.onchange = loadKeys; loadKeys();
+  } catch(e){ /* no sources yet */ }
+  if (fetchSheetBtn) fetchSheetBtn.onclick = async ()=>{
+    sheetOut.textContent='Loading…';
+    try{
+      const src = srcSel.value; const key = keySel.value;
+      const r = await g(`/api/sheets/${encodeURIComponent(src)}/${encodeURIComponent(key)}`);
+      sheetOut.textContent = JSON.stringify(r,null,2);
+    }catch(e){ sheetOut.textContent='Error: '+e; }
+  };
+})();
+</script></body></html>

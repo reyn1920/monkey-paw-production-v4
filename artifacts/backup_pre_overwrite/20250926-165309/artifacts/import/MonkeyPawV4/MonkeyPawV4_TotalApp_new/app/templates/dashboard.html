@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>Monkey Paw — V4</title>
+<link rel="stylesheet" href="/static/css/style.css"/></head><body>
+<header><h1>Monkey Paw — V4 Dashboard</h1><div class="grid">
+<div class="card"><h3>Status</h3><pre id="health">loading…</pre></div>
+<div class="card"><h3>Revenue (30 days)</h3><canvas id="revChart" width="720" height="260"></canvas></div>
+<div class="card"><h3>Content KPIs</h3><ul id="kpis"></ul></div>
+<div class="card"><h3>$5k Plan</h3><button id="viewPlan">Open</button>
+<a href="/static/FIRST_MONTH_5K_PLAN.pdf" target="_blank">Download PDF</a></div></div></header>
+<section class="grid"><div class="card"><h3>Pipeline</h3>
+<button id="doResearch">research</button><button id="doDraft">draft</button><button id="doRepurpose">repurpose</button>
+<button id="approve">approve</button><button id="publish">publish</button></div></section>
+<script src="/static/js/tinychart.js"></script>
+<script>
+async function g(u){return (await fetch(u)).json()}
+async function p(u,b){return (await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b||{})})).json()}
+(async()=>{
+document.getElementById('health').textContent=JSON.stringify(await g('/api/health'),null,2);
+const rev=await g('/api/metrics/revenue'); const k=await g('/api/metrics/content');
+const ul=document.getElementById('kpis'); Object.entries(k).forEach(([a,b])=>{const li=document.createElement('li'); li.textContent=a+': '+b; ul.appendChild(li)});
+const ctx=document.getElementById('revChart').getContext('2d'); TinyChart.line(ctx,rev.map(x=>x.actual),{label:'Actual',color:'#22c55e'}); TinyChart.line(ctx,rev.map(x=>x.goal),{label:'Goal',color:'#3b82f6'});
+document.getElementById('viewPlan').onclick=async()=>{const d=await g('/api/plan/first_month'); const w=open('','_blank'); w.document.write('<pre style="white-space:pre-wrap">'+d.plan_markdown+'</pre>'); w.document.close();};
+document.getElementById('doResearch').onclick=()=>p('/api/research?topic=default',{}).then(()=>location.reload());
+document.getElementById('doDraft').onclick=()=>p('/api/draft',{"seed_id":1,"content":"Write 500 words"}).then(()=>location.reload());
+document.getElementById('doRepurpose').onclick=()=>p('/api/repurpose',{}).then(()=>location.reload());
+document.getElementById('approve').onclick=()=>g('/api/admin/approve_publish/true').then(()=>alert('Approved'));
+document.getElementById('publish').onclick=()=>p('/api/publish',{}).then(r=>alert(JSON.stringify(r)));
+})();
+</script></body></html>

@@ -1,0 +1,122 @@
+{
+  "version": "1.0.0",
+  "project": "online-production",
+
+  "env": {
+    "NODE_ENV": "production",
+    "HOST": "0.0.0.0",
+    "PORT": "8000",
+    "DATABASE_URL": "${DATABASE_URL}",
+    "SECRET_KEY": "${SECRET_KEY}",
+    "NETLIFY_SITE_ID": "${NETLIFY_SITE_ID}",
+    "NETLIFY_AUTH_TOKEN": "${NETLIFY_AUTH_TOKEN}"
+  },
+
+  "rules": {
+    "rule1Enforced": true,
+    "autoDeploy": false,
+    "securityScan": true,
+    "testRequired": true,
+    "lintRequired": true
+  },
+
+  "services": {
+    "paste": {
+      "enabled": true,
+      "host": "0.0.0.0",
+      "port": 8000,
+      "env": {
+        "PORT": "8000"
+      }
+    },
+    "dashboard": {
+      "enabled": true,
+      "host": "0.0.0.0",
+      "port": 8001,
+      "env": {
+        "PORT": "8001"
+      }
+    },
+    "backend": {
+      "enabled": true,
+      "host": "0.0.0.0",
+      "port": 5000,
+      "env": {
+        "FLASK_ENV": "production",
+        "DATABASE_URL": "${DATABASE_URL}"
+      }
+    }
+  },
+
+  "tasks": [
+    {
+      "name": "install",
+      "run": "pip install -r requirements.txt",
+      "cwd": "."
+    },
+    {
+      "name": "test",
+      "run": "python -m pytest tests/ -v",
+      "cwd": ".",
+      "dependsOn": ["install"]
+    },
+    {
+      "name": "lint",
+      "run": "python -m flake8 . --exclude=venv_creative,node_modules",
+      "cwd": ".",
+      "dependsOn": ["install"]
+    },
+    {
+      "name": "security-scan",
+      "run": "python -m bandit -r . -f json -o security-report.json",
+      "cwd": ".",
+      "dependsOn": ["install"]
+    },
+    {
+      "name": "build",
+      "run": "npm run build",
+      "cwd": ".",
+      "dependsOn": ["test", "lint", "security-scan"]
+    },
+    {
+      "name": "start:paste",
+      "run": "python3 paste_app.py",
+      "cwd": ".",
+      "timeoutSeconds": 0,
+      "env": {
+        "PORT": "8000"
+      }
+    },
+    {
+      "name": "start:dashboard",
+      "run": "python3 live_dashboard.py",
+      "cwd": ".",
+      "timeoutSeconds": 0,
+      "env": {
+        "PORT": "8001"
+      }
+    },
+    {
+      "name": "start:backend",
+      "run": "python3 backend/app.py",
+      "cwd": ".",
+      "timeoutSeconds": 0,
+      "env": {
+        "FLASK_ENV": "production"
+      }
+    }
+  ],
+
+  "deploy": {
+    "provider": "netlify",
+    "siteId": "${NETLIFY_SITE_ID}",
+    "functionsDir": "netlify/functions",
+    "buildCommand": "npm run build",
+    "outputDir": "dist"
+  },
+
+  "logging": {
+    "level": "info",
+    "file": "server_logs.txt"
+  }
+}

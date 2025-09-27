@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Launch All",
+      "type": "shell",
+      "command": "zsh ./launch_all.zsh",
+      "presentation": {"reveal": "always"}
+    },
+    {
+      "label": "Run All",
+      "type": "shell",
+      "command": "zsh ./launch_all.zsh",
+      "presentation": {"reveal": "always"}
+    },
+    {
+      "label": "Diagnostics",
+      "type": "shell",
+      "command": "zsh ./tools/doctor/diagnose_all.zsh"
+    },
+    {
+      "label": "Build Comparison",
+      "type": "shell",
+      "command": "python3 ./tools/doctor/build_comparison.py"
+    },
+    {
+      "label": "Audit: Two Pass",
+      "type": "shell",
+      "command": "zsh ./tools/audit/run_two_pass_audit.zsh"
+    },
+    {
+      "label": "Go-Live",
+      "type": "shell",
+      "command": "zsh ./scripts/curl/04_publish.sh"
+    },
+    {
+      "label": "Build EPUB",
+      "type": "shell",
+      "command": "zsh ./tools/exporters/book_epub/build_epub.zsh 'artifacts/staging/*.txt' artifacts/published/book.epub"
+    },
+    {
+      "label": "Build Digital Kit",
+      "type": "shell",
+      "command": "zsh ./tools/exporters/digital_kit/build_kit.zsh"
+    },
+    {
+      "label": "YouTube Prep+Upload",
+      "type": "shell",
+      "command": "zsh ./tools/automation/youtube/yt_prepare_and_upload.zsh artifacts/staging/draft_youtube.txt"
+    }
+  ]
+}

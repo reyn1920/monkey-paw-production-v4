@@ -1,0 +1,18 @@
+ONE-PASTE — MONKEY PAW PRODUCTIONS (Live, Add-Only, Zero-Cost)
+
+1) Unzip the pack and open a terminal in ./monkey-paw-productions
+2) Start the API locally:
+   zsh ./scripts/run_local.zsh
+3) In a new terminal, run the live test:
+   zsh ./scripts/live_test.zsh
+4) Nothing publishes until you approve. When ready:
+   zsh ./scripts/approve_publish.zsh
+
+API you get:
+- POST /api/research {topic, source, content} -> research_id
+- POST /api/draft {research_id, content} -> draft_id
+- POST /api/repurpose {draft_id, variants} -> staged files
+- POST /api/publish -> moves staged -> published (only after approval)
+- GET  /api/health, /api/status
+- POST /api/admin/selftest -> check integrities
+- POST /api/admin/approve_publish/{true|false}

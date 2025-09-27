@@ -1,0 +1,6 @@
+# Example config for dashboard live data (two CSV tabs only)
+# Paste your real CSV export URLs per tab (public, no auth).
+# CSV format: https://docs.google.com/spreadsheets/d/SHEET_ID/gviz/tq?tqx=out:csv&sheet=TAB_NAME
+revenue_csv_url: "https://docs.google.com/spreadsheets/d/DEFAULT_ID/gviz/tq?tqx=out:csv&sheet=revenue_daily"
+content_kpis_csv_url: "https://docs.google.com/spreadsheets/d/DEFAULT_ID/gviz/tq?tqx=out:csv&sheet=content_kpis"
+poll_seconds: 60

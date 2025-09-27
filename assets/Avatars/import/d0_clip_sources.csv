@@ -1,0 +1,8 @@
+name_or_path,source,src_url,attribution_text
+cnn_,tv_news,https://cnn.com,Source: CNN (clip)
+fox_,tv_news,https://foxnews.com,Source: Fox News (clip)
+msnbc_,tv_news,https://msnbc.com,Source: MSNBC (clip)
+tiktok_,social_clip,https://www.tiktok.com/@handle,Source: TikTok (@handle)
+x.com/,social_clip,https://x.com,Source: X/Twitter (clip)
+movie_,movie,,Source: Film excerpt
+vevo_,music_video,,Source: Music video

@@ -1,0 +1,4 @@
+- Add‑only; never remove or rename existing files.
+- Zero‑cost dependencies only.
+- Rule‑1 vocabulary ban applies across code/docs/strings.
+- Two consecutive clean passes are required before declaring GREEN.

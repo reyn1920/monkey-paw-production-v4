@@ -1,0 +1,160 @@
+{
+  "timestamp": "2025-09-06T12:46:56.978923",
+  "tests": {
+    "File System Integrity": {
+      "status": "PASS",
+      "details": {
+        "existing_paths": 4,
+        "missing_paths": [],
+        "integrity_score": "4/4"
+      },
+      "timestamp": "2025-09-06T12:46:57.080503"
+    },
+    "Database Connectivity": {
+      "status": "PASS",
+      "details": {
+        "tables_found": 98,
+        "database_accessible": true
+      },
+      "timestamp": "2025-09-06T12:46:58.098957"
+    },
+    "System Components": {
+      "status": "PASS",
+      "details": {
+        "available_components": 4,
+        "total_components": 4,
+        "component_status": {
+          "Dashboard": "AVAILABLE",
+          "Agents": "AVAILABLE",
+          "Task Queue": "AVAILABLE",
+          "Secret Store": "AVAILABLE"
+        }
+      },
+      "timestamp": "2025-09-06T12:46:59.109619"
+    },
+    "Dashboard Accessibility": {
+      "status": "FAIL",
+      "details": {
+        "status_code": 404,
+        "response_time": "OK",
+        "dashboard_accessible": false
+      },
+      "timestamp": "2025-09-06T12:47:00.119502"
+    },
+    "API Endpoints": {
+      "status": "PASS",
+      "details": {
+        "endpoints_tested": 3,
+        "working_endpoints": 3,
+        "api_results": {
+          "/api/health": 200,
+          "/api/marketing/campaigns": 200,
+          "/api/affiliates": 200
+        }
+      },
+      "timestamp": "2025-09-06T12:47:01.143988"
+    },
+    "Content Generation blog_post": {
+      "status": "PASS",
+      "details": "Generated content successfully",
+      "timestamp": "2025-09-06T12:47:02.171604"
+    },
+    "Content Generation social_media": {
+      "status": "PASS",
+      "details": "Generated content successfully",
+      "timestamp": "2025-09-06T12:47:02.173262"
+    },
+    "Content Generation video_script": {
+      "status": "PASS",
+      "details": "Generated content successfully",
+      "timestamp": "2025-09-06T12:47:02.175818"
+    },
+    "Content Generation newsletter": {
+      "status": "PASS",
+      "details": "Generated content successfully",
+      "timestamp": "2025-09-06T12:47:02.178313"
+    },
+    "Marketing Campaign Creation": {
+      "status": "FAIL",
+      "details": "Status: 422",
+      "timestamp": "2025-09-06T12:47:02.180863"
+    },
+    "Monetization subscription_revenue": {
+      "status": "PASS",
+      "details": "All metrics available for monthly period",
+      "timestamp": "2025-09-06T12:47:02.182293"
+    },
+    "Monetization advertising_revenue": {
+      "status": "PASS",
+      "details": "All metrics available for daily period",
+      "timestamp": "2025-09-06T12:47:02.183548"
+    },
+    "Monetization affiliate_commissions": {
+      "status": "PASS",
+      "details": "All metrics available for weekly period",
+      "timestamp": "2025-09-06T12:47:02.184709"
+    },
+    "Video Generation news_video": {
+      "status": "PASS",
+      "details": "Task created: task_20250906_124702_news_video, Status: completed",
+      "timestamp": "2025-09-06T12:47:02.187288"
+    },
+    "Video Validation task_20250906_124702_news_video": {
+      "status": "FAIL",
+      "details": "Could not retrieve video: 404",
+      "timestamp": "2025-09-06T12:47:02.188335"
+    },
+    "Video Generation tutorial_video": {
+      "status": "PASS",
+      "details": "Task created: task_20250906_124702_tutorial_video, Status: completed",
+      "timestamp": "2025-09-06T12:47:02.191360"
+    },
+    "Video Validation task_20250906_124702_tutorial_video": {
+      "status": "FAIL",
+      "details": "Could not retrieve video: 404",
+      "timestamp": "2025-09-06T12:47:02.192605"
+    },
+    "Video Generation promotional_video": {
+      "status": "PASS",
+      "details": "Task created: task_20250906_124702_promotional_video, Status: completed",
+      "timestamp": "2025-09-06T12:47:02.194790"
+    },
+    "Video Validation task_20250906_124702_promotional_video": {
+      "status": "FAIL",
+      "details": "Could not retrieve video: 404",
+      "timestamp": "2025-09-06T12:47:02.196097"
+    },
+    "Integration: Content to Marketing Pipeline": {
+      "status": "FAIL",
+      "details": "Step failed: [422]",
+      "timestamp": "2025-09-06T12:47:02.198550"
+    },
+    "Integration: Marketing to Analytics Pipeline": {
+      "status": "FAIL",
+      "details": "Step failed: [200, 404]",
+      "timestamp": "2025-09-06T12:47:02.200514"
+    },
+    "Integration: Content to Monetization Pipeline": {
+      "status": "FAIL",
+      "details": "Step failed: [422]",
+      "timestamp": "2025-09-06T12:47:02.201589"
+    },
+    "Performance: Content Generation Load": {
+      "status": "FAIL",
+      "details": "Only 0/5 successful in 0.01s",
+      "timestamp": "2025-09-06T12:47:02.206840"
+    },
+    "Performance: Analytics Query Load": {
+      "status": "PASS",
+      "details": "10/10 requests in 0.01s",
+      "timestamp": "2025-09-06T12:47:02.215301"
+    },
+    "Master Workflow": {
+      "status": "FAIL",
+      "details": "Content generation failed",
+      "timestamp": "2025-09-06T12:47:02.217204"
+    }
+  },
+  "overall_status": "NEEDS_ATTENTION",
+  "errors": []
+}

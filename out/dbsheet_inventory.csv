@@ -1,0 +1,15 @@
+type,engine_or_id,value_or_url,file_or_tabs
+db,sqlite,sqlite:///path/to.db,tools/dbsheet_scan.py
+db,sqlite,"sqlite:///([^\s\""']+\.db",tools/dbsheet_scan.py
+db,bigquery,bigquery://[^\s\,tools/dbsheet_scan.py
+db,firestore,FIREBASE_,tools/dbsheet_scan.py
+db,firestore,GOOGLE_APPLICATION_CREDENTIALS,tools/dbsheet_scan.py
+db,firestore,FIRESTORE_,tools/dbsheet_scan.py
+db,sqlite,sqlite:///path/to.db,tools/dbsheet_scan.py
+db,postgres,postgres://user:pass@localhost:5432/foobar,.venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py
+db,postgres,postgres://user:pass@localhost:5432/foobar,.venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py
+db,postgres,postgres://user:pass@localhost:5432,.venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py
+db,postgres,postgres://user:pass@localhost:5432,.venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py
+db,postgres,postgres://user:pass@localhost:5432,.venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py
+db,mongo,mongodb://mongodb0.example.com:27017`).,.venv_monkeypawv4/lib/python3.13/site-packages/pydantic/networks.py
+db,sqlite,sqlite:///db/monkey_paw.db,db/monkey_paw.db

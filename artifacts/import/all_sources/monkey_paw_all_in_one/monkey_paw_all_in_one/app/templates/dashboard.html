@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Monkey Paw — Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+  <header>
+    <h1>Monkey Paw — Control Panel</h1>
+    <div class="grid">
+      <div class="card"><h3>Status</h3><pre id="health">loading…</pre></div>
+      <div class="card"><h3>Revenue (First 30 Days)</h3><canvas id="revChart" width="720" height="260"></canvas></div>
+      <div class="card"><h3>Content KPIs</h3><ul id="kpis"></ul></div>
+      <div class="card">
+        <h3>$5k First-Month Plan</h3>
+        <button id="viewPlan">Open plan</button>
+        <a href="/static/FIRST_MONTH_5K_PLAN.pdf" target="_blank">Download PDF</a>
+      </div>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="card">
+      <h3>Pipeline (manual)</h3>
+      <button id="doResearch">/api/research</button>
+      <button id="doDraft">/api/draft</button>
+      <button id="doRepurpose">/api/repurpose</button>
+      <button id="approve">Approve Publish</button>
+      <button id="publish">Publish</button>
+    </div>
+    <div class="card">
+      <h3>Exporters</h3>
+      <p>Run from Terminal or VS Code tasks:</p>
+      <ul>
+        <li>YouTube: <code>zsh tools/automation/youtube/yt_prepare_and_upload.zsh artifacts/staging/draft_youtube.txt</code></li>
+        <li>Book (EPUB): <code>zsh tools/exporters/book_epub/build_epub.zsh 'artifacts/staging/*.txt' artifacts/published/book.epub</code></li>
+        <li>Digital Kit: <code>zsh tools/exporters/digital_kit/build_kit.zsh</code></li>
+      </ul>
+    </div>
+  </section>
+  <script src="/static/js/tinychart.js"></script>
+  <script>
+  async function j(u){ const r=await fetch(u,{method:'GET'}); return r.json(); }
+  async function post(u,b){ const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b||{})}); return r.json(); }
+  (async()=>{
+    const health=await j('/api/health'); document.getElementById('health').textContent=JSON.stringify(health,null,2);
+    const rev=await j('/api/metrics/revenue'); const kpis=await j('/api/metrics/content');
+    const list=document.getElementById('kpis'); Object.entries(kpis).forEach(([k,v])=>{const li=document.createElement('li'); li.textContent=k+': '+v; list.appendChild(li);});
+    const ctx=document.getElementById('revChart').getContext('2d');
+    TinyChart.line(ctx, rev.map(x=>x.actual), {label:'Actual', color:'#22c55e'});
+    TinyChart.line(ctx, rev.map(x=>x.goal), {label:'Goal', color:'#3b82f6'});
+    document.getElementById('viewPlan').onclick=async()=>{ const d=await j('/api/plan/first_month'); const w=open('','_blank'); w.document.write('<pre style="white-space:pre-wrap;font:14px/1.4 sans-serif">'+d.plan_markdown.replace(/[&<>]/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[s]))+'</pre>'); w.document.close(); };
+    document.getElementById('doResearch').onclick=()=>post('/api/research',{topic:'default topic'}).then(()=>location.reload());
+    document.getElementById('doDraft').onclick=()=>post('/api/draft',{seed_id:1,content:'Write a clear outline and a 500-word script.'}).then(()=>location.reload());
+    document.getElementById('doRepurpose').onclick=()=>post('/api/repurpose').then(()=>location.reload());
+    document.getElementById('approve').onclick=()=>j('/api/admin/approve_publish/true').then(()=>alert('Approved'));
+    document.getElementById('publish').onclick=()=>post('/api/publish').then(r=>alert(JSON.stringify(r)));
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+🔍 Scanning for Python files in: .
+📁 Found 1775 Python files to process
+🧪 DRY RUN MODE - No files will be modified
+
+📄 Processing: simple_api_discovery.py
+  🔧 Would fix 105 issues in simple_api_discovery.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 6) (<unknown>, line 6)
+
+📄 Processing: api_master_dashboard.py
+  🔧 Would fix 206 issues in api_master_dashboard.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 15) (<unknown>, line 15)
+
+📄 Processing: final_integration_report.py
+  🔧 Would fix 91 issues in final_integration_report.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 5) (<unknown>, line 5)
+
+📄 Processing: submit_paste.py
+  🔧 Would fix 16 issues in submit_paste.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 4) (<unknown>, line 4)
+
+📄 Processing: demo_integration.py
+  🔧 Would fix 104 issues in demo_integration.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 10) (<unknown>, line 10)
+
+📄 Processing: launch_live_integrated.py
+  🔧 Would fix 169 issues in launch_live_integrated.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 53) (<unknown>, line 53)
+
+📄 Processing: blender_api_integration_demo.py
+  🔧 Would fix 85 issues in blender_api_integration_demo.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 5) (<unknown>, line 5)
+
+📄 Processing: full_automation_pipeline.py
+  🔧 Would fix 305 issues in full_automation_pipeline.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 17) (<unknown>, line 17)
+
+📄 Processing: fix_all_linting_issues.py
+  🔧 Would fix 126 issues in fix_all_linting_issues.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 6) (<unknown>, line 6)
+
+📄 Processing: quick_lint_fix.py
+  🔧 Would fix 33 issues in quick_lint_fix.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 5) (<unknown>, line 5)
+
+📄 Processing: start_live_system.py
+  🔧 Would fix 37 issues in start_live_system.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 15) (<unknown>, line 15)
+
+📄 Processing: system_monitor.py
+  🔧 Would fix 256 issues in system_monitor.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 21) (<unknown>, line 21)
+
+📄 Processing: production_health_check.py
+  🔧 Would fix 65 issues in production_health_check.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 5) (<unknown>, line 5)
+
+📄 Processing: ai_debug_assistant.failed.py
+  🔧 Would fix 2 issues in ai_debug_assistant.failed.py
+    ⚠️  Syntax still invalid after fixes: unmatched ')' (<unknown>, line 1)
+
+📄 Processing: run_benchmark.py
+  🔧 Would fix 88 issues in run_benchmark.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 5) (<unknown>, line 5)
+
+📄 Processing: test_autonomous_system.py
+  🔧 Would fix 320 issues in test_autonomous_system.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 18) (<unknown>, line 18)
+
+📄 Processing: system_health_check.py
+  🔧 Would fix 53 issues in system_health_check.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 5) (<unknown>, line 5)
+
+📄 Processing: trae_ai_main.py
+  🔧 Would fix 111 issues in trae_ai_main.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 23) (<unknown>, line 23)
+
+📄 Processing: extract_files_from_paste.py
+  🔧 Would fix 45 issues in extract_files_from_paste.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 4) (<unknown>, line 4)
+
+📄 Processing: go_live_checklist.py
+  🔧 Would fix 215 issues in go_live_checklist.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 6) (<unknown>, line 6)
+
+📄 Processing: environment_config_manager.py
+  🔧 Would fix 320 issues in environment_config_manager.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 15) (<unknown>, line 15)
+
+📄 Processing: monitoring_dashboard.py
+  🔧 Would fix 469 issues in monitoring_dashboard.py
+    ⚠️  Syntax still invalid after fixes: unterminated string literal (detected at line 17) (<unknown>, line 17)
+
+📄 Processing: create_real_video_v2.py
+
+❌ Error: 'NoneType' object has no attribute 'replace'

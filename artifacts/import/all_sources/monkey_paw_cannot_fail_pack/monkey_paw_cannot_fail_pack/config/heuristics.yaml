@@ -1,0 +1,17 @@
+targets:
+  ctr_min_pct: 5
+  avd_min_pct: 35
+  publish_guard_enabled: true
+  max_daily_longform: 2
+  max_daily_shorts: 5
+titles:
+  max_len: 90
+  min_len: 28
+  forbid_words: []
+thumbnails:
+  max_text_words: 6
+  uppercase_ratio_max: 0.8
+routes:
+  enable_youtube_pack: true
+  enable_book_pack: true
+  enable_digital_kit: true

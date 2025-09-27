@@ -1,0 +1,10 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "NC: Run All",
+      "type": "shell",
+      "command": "zsh ./tools/nocode_coder_stack/scripts/run_all.zsh"
+    }
+  ]
+}

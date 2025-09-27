@@ -1,0 +1,130 @@
+{
+  "success": true,
+  "execution_time": 0.012871980667114258,
+  "apis_discovered": 15,
+  "apis_saved": 15,
+  "categories": [
+    "Development",
+    "Government",
+    "Weather",
+    "Animals",
+    "Entertainment",
+    "Science & Math",
+    "Text",
+    "Geocoding",
+    "Photography"
+  ],
+  "report": {
+    "total_apis": 15,
+    "by_category": [
+      {
+        "category": "Entertainment",
+        "count": 3,
+        "avg_score": 8.5
+      },
+      {
+        "category": "Development",
+        "count": 3,
+        "avg_score": 8.5
+      },
+      {
+        "category": "Geocoding",
+        "count": 2,
+        "avg_score": 8.5
+      },
+      {
+        "category": "Animals",
+        "count": 2,
+        "avg_score": 8.5
+      },
+      {
+        "category": "Weather",
+        "count": 1,
+        "avg_score": 8.5
+      },
+      {
+        "category": "Text",
+        "count": 1,
+        "avg_score": 8.5
+      },
+      {
+        "category": "Science & Math",
+        "count": 1,
+        "avg_score": 8.5
+      },
+      {
+        "category": "Photography",
+        "count": 1,
+        "avg_score": 8.5
+      },
+      {
+        "category": "Government",
+        "count": 1,
+        "avg_score": 8.5
+      }
+    ],
+    "recent_discoveries": [
+      {
+        "api_name": "JSONPlaceholder",
+        "category": "Development",
+        "potential_value": 8.5,
+        "discovered_at": "2025-09-11 14:21:18"
+      },
+      {
+        "api_name": "REST Countries",
+        "category": "Government",
+        "potential_value": 8.5,
+        "discovered_at": "2025-09-11 14:21:18"
+      },
+      {
+        "api_name": "OpenWeatherMap",
+        "category": "Weather",
+        "potential_value": 8.5,
+        "discovered_at": "2025-09-11 14:21:18"
+      },
+      {
+        "api_name": "Cat Facts",
+        "category": "Animals",
+        "potential_value": 8.5,
+        "discovered_at": "2025-09-11 14:21:18"
+      },
+      {
+        "api_name": "Dog API",
+        "category": "Animals",
+        "potential_value": 8.5,
+        "discovered_at": "2025-09-11 14:21:18"
+      },
+      {
+        "api_name": "Advice Slip",
+        "category": "Entertainment",
+        "potential_value": 8.5,
+        "discovered_at": "2025-09-11 14:21:18"
+      },
+      {
+        "api_name": "Bored API",
+        "category": "Entertainment",
+        "potential_value": 8.5,
+        "discovered_at": "2025-09-11 14:21:18"
+      },
+      {
+        "api_name": "Numbers API",
+        "category": "Science & Math",
+        "potential_value": 8.5,
+        "discovered_at": "2025-09-11 14:21:18"
+      },
+      {
+        "api_name": "JokeAPI",
+        "category": "Entertainment",
+        "potential_value": 8.5,
+        "discovered_at": "2025-09-11 14:21:18"
+      },
+      {
+        "api_name": "Quotable",
+        "category": "Text",
+        "potential_value": 8.5,
+        "discovered_at": "2025-09-11 14:21:18"
+      }
+    ]
+  },
+  "timestamp": "2025-09-11T10:21:19.002401"
+}

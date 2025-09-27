@@ -1,0 +1,15 @@
+fastapi[all]
+psutil
+chromadb
+sentence-transformers
+ollama
+pandas
+evidently
+great-expectations
+shap
+lime
+captum
+torch
+streamlit
+gradio
+typer[all]

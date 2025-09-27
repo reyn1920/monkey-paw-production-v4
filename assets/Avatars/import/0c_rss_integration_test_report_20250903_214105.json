@@ -1,0 +1,157 @@
+{
+  "test_summary": {
+    "total_tests": 24,
+    "passed_tests": 22,
+    "failed_tests": 2,
+    "success_rate": 91.66666666666666,
+    "duration_seconds": 0.08503,
+    "start_time": "2025-09-03T21:41:05.391058",
+    "end_time": "2025-09-03T21:41:05.476088"
+  },
+  "test_results": [
+    {
+      "test_name": "BreakingNewsWatcher Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-03T21:41:05.392647"
+    },
+    {
+      "test_name": "Intelligence Database Initialization",
+      "success": true,
+      "details": "Database tables created",
+      "timestamp": "2025-09-03T21:41:05.392801"
+    },
+    {
+      "test_name": "RSS Feeds Configuration",
+      "success": true,
+      "details": "Configured 13 RSS feeds",
+      "timestamp": "2025-09-03T21:41:05.392808"
+    },
+    {
+      "test_name": "Trending Topics Retrieval",
+      "success": true,
+      "details": "Retrieved 0 topics",
+      "timestamp": "2025-09-03T21:41:05.392921"
+    },
+    {
+      "test_name": "Intelligence Briefing",
+      "success": true,
+      "details": "Generated intelligence briefing",
+      "timestamp": "2025-09-03T21:41:05.393034"
+    },
+    {
+      "test_name": "HypocrisyDatabaseManager Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-03T21:41:05.393308"
+    },
+    {
+      "test_name": "Hypocrisy Database Schema",
+      "success": true,
+      "details": "Database schema created",
+      "timestamp": "2025-09-03T21:41:05.393534"
+    },
+    {
+      "test_name": "Store Hypocrisy Finding",
+      "success": false,
+      "details": "Stored finding with ID: None",
+      "timestamp": "2025-09-03T21:41:05.393812"
+    },
+    {
+      "test_name": "Retrieve Content Opportunities",
+      "success": false,
+      "details": "Retrieved 0 opportunities",
+      "timestamp": "2025-09-03T21:41:05.394228"
+    },
+    {
+      "test_name": "Database Statistics",
+      "success": true,
+      "details": "Stats: {'total_findings': 0, 'by_verification_status': {}, 'by_subject_type': {}, 'content_used': 0, 'content_unused': 0, 'recent_findings_7_days': 0}",
+      "timestamp": "2025-09-03T21:41:05.394794"
+    },
+    {
+      "test_name": "PlannerAgent Initialization",
+      "success": true,
+      "details": "Successfully initialized with RSS intelligence",
+      "timestamp": "2025-09-03T21:41:05.432086"
+    },
+    {
+      "test_name": "RSS Intelligence Retrieval",
+      "success": true,
+      "details": "Retrieved intelligence: ['trending_topics', 'topic_momentum', 'content_opportunities', 'last_intelligence_update', 'intelligence_refresh_interval', 'intelligence_briefing']",
+      "timestamp": "2025-09-03T21:41:05.432984"
+    },
+    {
+      "test_name": "Trending Topics Integration",
+      "success": true,
+      "details": "Found 0 trending topics",
+      "timestamp": "2025-09-03T21:41:05.432993"
+    },
+    {
+      "test_name": "Content Opportunities",
+      "success": true,
+      "details": "Identified 0 opportunities",
+      "timestamp": "2025-09-03T21:41:05.432997"
+    },
+    {
+      "test_name": "Topic Momentum Calculation",
+      "success": true,
+      "details": "Calculated momentum for 0 topics",
+      "timestamp": "2025-09-03T21:41:05.433001"
+    },
+    {
+      "test_name": "ResearchAgent Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-03T21:41:05.463267"
+    },
+    {
+      "test_name": "Research-Hypocrisy Integration",
+      "success": true,
+      "details": "Hypocrisy database integrated in research tools",
+      "timestamp": "2025-09-03T21:41:05.463276"
+    },
+    {
+      "test_name": "TaskQueueManager Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-03T21:41:05.465589"
+    },
+    {
+      "test_name": "RSS-Driven Task Creation",
+      "success": true,
+      "details": "Created task with ID: bd414ff2-d638-40be-8f6a-27b7c1a2986b",
+      "timestamp": "2025-09-03T21:41:05.468887"
+    },
+    {
+      "test_name": "Task Queue Retrieval",
+      "success": true,
+      "details": "Retrieved 10 pending tasks",
+      "timestamp": "2025-09-03T21:41:05.470281"
+    },
+    {
+      "test_name": "OODA Loop Integration",
+      "success": true,
+      "details": "RSS intelligence integrated in OODA loop",
+      "timestamp": "2025-09-03T21:41:05.475620"
+    },
+    {
+      "test_name": "Dynamic Content Scheduling",
+      "success": true,
+      "details": "Scheduling rules configured: ['high_momentum_boost', 'trending_topic_priority', 'min_trend_score']",
+      "timestamp": "2025-09-03T21:41:05.475672"
+    },
+    {
+      "test_name": "Hypocrisy Content Integration",
+      "success": true,
+      "details": "Retrieved 0 hypocrisy opportunities",
+      "timestamp": "2025-09-03T21:41:05.476050"
+    },
+    {
+      "test_name": "End-to-End Workflow",
+      "success": true,
+      "details": "Complete workflow tested successfully",
+      "timestamp": "2025-09-03T21:41:05.476058"
+    }
+  ]
+}

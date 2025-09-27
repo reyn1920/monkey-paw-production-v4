@@ -1,0 +1,23 @@
+BASE44 PACK — MONKEY PAW REALIGN (Paste as one block)
+
+PLAN
+- Purpose: get “monkey-paw” back to its core (automated research→draft→repurpose→publish) and split the separate “no‑code coders” stack into its own addon project.
+- Constraints: add‑only, backup‑first, zero‑cost, “runtime” vocabulary, keep existing repo untouched (copy‑based).
+- Result: two folders on disk — ~/Desktop/monkey-paw (core) and ~/Desktop/nocode-coder-stack (addon) — plus a features.yaml toggle in the core set to disable the addon by default.
+
+COMMANDS
+- Run the separator now (creates backups, copies addon‑like files by pattern, never deletes):
+  zsh ~/Desktop/monkey-paw/scripts/separate_projects.zsh
+
+- After it finishes, run quick checks:
+  zsh ~/Desktop/monkey-paw/scripts/verify.zsh
+
+VERIFY
+- Expect: 
+  • Backup folder created next to the project. 
+  • New ~/Desktop/nocode-coder-stack with copied “no‑code/low‑code/agent‑builder/coder‑stack” assets.
+  • ~/Desktop/monkey-paw/config/features.yaml with nocode_stack_enabled: false.
+  • Health endpoint responds at http://localhost:8000/api/health once your API is running.
+
+ROLLBACK
+- The script is copy‑based and non‑destructive. If you don’t like the result, delete the created ~/Desktop/nocode-coder-stack folder and keep your original project. Backups remain untouched.

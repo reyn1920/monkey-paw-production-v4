@@ -1,0 +1,472 @@
+# TRAE.AI Master Integration Configuration
+# This file defines the complete integration architecture for all system components
+# Following zero-cost and no-delete principles
+
+# System Information
+system:
+  name: "TRAE.AI Online Production System"
+  version: "1.0.0"
+  environment: "production"
+  deployment_mode: "integrated"
+
+# Database Configuration
+database:
+  master_db: "data/trae_master.db"
+  content_db: "data/content_management.db"
+  task_queue_db: "data/task_queue.db"
+  analytics_db: "data/analytics.db"
+  
+  # Schema integration mapping
+  schema_files:
+    - "schema.sql"
+    - "master_schema.sql"
+    - "init-db.sql"
+  
+  # Table relationships
+  table_relationships:
+    users:
+      - user_sessions
+      - user_preferences
+      - content_projects
+    
+    content_projects:
+      - content_generation_jobs
+      - content_schedule
+      - marketing_campaigns
+    
+    tasks:
+      - task_dependencies
+      - task_execution_log
+      - agent_workers
+
+# Server Configuration
+server:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  reload: false
+  
+  # Multiple server integration
+  services:
+    main_app:
+      port: 8000
+      module: "main:app"
+      type: "fastapi"
+    
+    paste_app:
+      port: 3001
+      module: "paste_app:app"
+      type: "flask"
+    
+    demo_avatar:
+      port: 3002
+      module: "demo_realistic_avatar:app"
+      type: "custom"
+    
+    static_server:
+      port: 3000
+      type: "http_server"
+      directory: "."
+
+# Component Integration
+components:
+  # Backend Components
+  backend:
+    enabled: true
+    modules:
+      - "backend.specialized_agents"
+      - "backend.content_agent"
+      - "backend.task_queue_manager"
+      - "backend.api_orchestrator"
+      - "backend.core.database"
+    
+    agents:
+      system_agent:
+        enabled: true
+        capabilities:
+          - "system_monitoring"
+          - "health_checks"
+          - "resource_management"
+      
+      research_agent:
+        enabled: true
+        capabilities:
+          - "web_research"
+          - "data_analysis"
+          - "content_research"
+      
+      content_agent:
+        enabled: true
+        capabilities:
+          - "content_generation"
+          - "script_writing"
+          - "social_media_posts"
+  
+  # Frontend Components
+  frontend:
+    enabled: true
+    modules:
+      - "app.dashboard"
+      - "app.auth"
+      - "app.websocket_manager"
+      - "static.js.chat"
+      - "static.js.paste_avatar_ui"
+      - "static.js.diagnostics_panel"
+    
+    ui_components:
+      dashboard:
+        template: "app/templates/dashboard.html"
+        static_files:
+          - "static/css/dashboard.css"
+          - "static/js/dashboard.js"
+      
+      chat_interface:
+        module: "static/js/chat.js"
+        websocket_endpoint: "/ws/chat"
+      
+      avatar_ui:
+        module: "static/js/paste_avatar_ui.js"
+        features:
+          - "real_time_preview"
+          - "template_suggestions"
+          - "batch_processing"
+      
+      diagnostics:
+        module: "static/js/diagnostics_panel.js"
+        auto_refresh: true
+        metrics_endpoint: "/api/diagnostics"
+  
+  # Content Management
+  content_management:
+    enabled: true
+    output_directories:
+      audio: "outputs/audio"
+      videos: "outputs/videos"
+      pdfs: "outputs/pdfs"
+      images: "outputs/images"
+    
+    templates:
+      directory: "content/templates"
+      script_template: "content/script_template.md"
+      production_checklist: "content/production_checklist.md"
+    
+    automated_studio:
+      voice_synthesis: true
+      avatar_creation: true
+      video_editing: true
+      batch_processing: true
+  
+  # Monitoring and Analytics
+  monitoring:
+    enabled: true
+    modules:
+      - "monitoring.performance_monitor"
+      - "monitoring.error_tracker"
+      - "monitoring.analytics"
+    
+    metrics:
+      performance_tracking: true
+      error_logging: true
+      user_analytics: true
+      system_health: true
+    
+    dashboards:
+      grafana:
+        enabled: false  # Zero-cost compliance
+        config_dir: "grafana"
+      
+      custom_dashboard:
+        enabled: true
+        endpoint: "/monitoring/dashboard"
+
+# API Integration
+api:
+  # Internal API endpoints
+  internal_endpoints:
+    health_check: "/health"
+    system_status: "/api/status"
+    task_queue: "/api/tasks"
+    content_generation: "/api/content"
+    user_management: "/api/users"
+    dashboard_data: "/api/dashboard"
+    websocket: "/ws"
+  
+  # External API integrations (zero-cost focus)
+  external_integrations:
+    ollama:
+      enabled: true
+      cost: "free"
+      endpoint: "http://localhost:11434"
+      models:
+        - "llama2"
+        - "codellama"
+    
+    local_models:
+      enabled: true
+      cost: "free"
+      directory: "models/"
+    
+    # Paid APIs (disabled by default for zero-cost)
+    openai:
+      enabled: false
+      cost: "paid"
+      note: "Enable only if budget allows"
+    
+    anthropic:
+      enabled: false
+      cost: "paid"
+      note: "Enable only if budget allows"
+
+# Task Queue Integration
+task_queue:
+  enabled: true
+  backend: "sqlite"
+  database: "data/task_queue.db"
+  
+  task_types:
+    - "CONTENT_GENERATION"
+    - "RESEARCH"
+    - "SYSTEM_MAINTENANCE"
+    - "USER_REQUEST"
+    - "ANALYTICS"
+  
+  priorities:
+    - "LOW"
+    - "MEDIUM"
+    - "HIGH"
+    - "URGENT"
+  
+  workers:
+    max_concurrent: 5
+    retry_attempts: 3
+    timeout_seconds: 300
+
+# Authentication and Security
+security:
+  authentication:
+    enabled: true
+    method: "session_based"
+    session_timeout: 3600
+  
+  authorization:
+    roles:
+      - "admin"
+      - "user"
+      - "guest"
+    
+    permissions:
+      admin:
+        - "system_management"
+        - "user_management"
+        - "content_management"
+        - "monitoring_access"
+      
+      user:
+        - "content_creation"
+        - "dashboard_access"
+        - "task_submission"
+      
+      guest:
+        - "limited_access"
+  
+  data_protection:
+    encrypt_sensitive_data: true
+    secure_sessions: true
+    input_validation: true
+    sql_injection_protection: true
+
+# Content Generation Pipeline
+content_pipeline:
+  enabled: true
+  
+  stages:
+    research:
+      agent: "research_agent"
+      timeout: 120
+      output_format: "json"
+    
+    script_generation:
+      agent: "content_agent"
+      timeout: 180
+      templates: "content/templates/"
+    
+    voice_synthesis:
+      service: "automated_studio"
+      output_dir: "outputs/audio"
+      formats: ["mp3", "wav"]
+    
+    avatar_creation:
+      service: "automated_studio"
+      output_dir: "outputs/videos"
+      formats: ["mp4", "webm"]
+    
+    final_assembly:
+      service: "automated_studio"
+      output_dir: "outputs/final"
+      quality: "high"
+
+# WebSocket Configuration
+websockets:
+  enabled: true
+  endpoints:
+    chat: "/ws/chat"
+    system_updates: "/ws/system"
+    task_updates: "/ws/tasks"
+    content_updates: "/ws/content"
+  
+  features:
+    real_time_messaging: true
+    system_notifications: true
+    task_progress_updates: true
+    multi_user_support: true
+
+# Data Storage Integration
+storage:
+  local_storage:
+    enabled: true
+    base_directory: "data/"
+    
+    directories:
+      user_data: "data/users/"
+      content_assets: "data/assets/"
+      generated_content: "outputs/"
+      system_logs: "logs/"
+      backups: "backups/"
+  
+  content_management:
+    forbidden_terms:
+      file: "data/forbidden_terms.json"
+      enabled: true
+    
+    monetization:
+      orders_file: "data/monetization/orders.json"
+      revenue_tracking: true
+  
+  backup_strategy:
+    enabled: true
+    frequency: "daily"
+    retention_days: 30
+    backup_directory: "backups/"
+
+# Integration Rules (Zero-Cost Compliance)
+integration_rules:
+  zero_cost_compliance:
+    use_local_models: true
+    avoid_paid_apis: true
+    prefer_open_source: true
+    minimize_external_dependencies: true
+  
+  no_delete_policy:
+    preserve_existing_files: true
+    backup_before_changes: true
+    version_control_integration: true
+  
+  performance_optimization:
+    lazy_loading: true
+    caching_enabled: true
+    connection_pooling: true
+    resource_monitoring: true
+
+# Deployment Configuration
+deployment:
+  mode: "integrated"
+  
+  startup_sequence:
+    1: "Initialize databases"
+    2: "Start task queue system"
+    3: "Initialize agents"
+    4: "Start web services"
+    5: "Enable monitoring"
+    6: "Activate WebSocket connections"
+  
+  health_checks:
+    database_connectivity: true
+    agent_responsiveness: true
+    api_endpoint_availability: true
+    websocket_functionality: true
+  
+  graceful_shutdown:
+    enabled: true
+    timeout_seconds: 30
+    cleanup_tasks: true
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  
+  handlers:
+    file:
+      enabled: true
+      filename: "logs/master_integration.log"
+      max_size: "10MB"
+      backup_count: 5
+    
+    console:
+      enabled: true
+      format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  loggers:
+    master_integration: "INFO"
+    task_queue: "INFO"
+    agents: "INFO"
+    content_generation: "INFO"
+    websockets: "DEBUG"
+    database: "WARNING"
+
+# Feature Flags
+feature_flags:
+  experimental_features: false
+  beta_content_generation: true
+  advanced_analytics: false
+  multi_tenant_support: false
+  real_time_collaboration: true
+  ai_model_switching: true
+
+# Performance Tuning
+performance:
+  database:
+    connection_pool_size: 10
+    query_timeout: 30
+    enable_wal_mode: true
+  
+  task_queue:
+    batch_size: 10
+    processing_interval: 1
+    max_retries: 3
+  
+  content_generation:
+    parallel_processing: true
+    max_concurrent_jobs: 3
+    cache_generated_content: true
+  
+  web_server:
+    worker_processes: 1
+    max_connections: 100
+    keepalive_timeout: 65
+
+# Monitoring Thresholds
+monitoring_thresholds:
+  cpu_usage_warning: 80
+  memory_usage_warning: 85
+  disk_usage_warning: 90
+  response_time_warning: 2000  # milliseconds
+  error_rate_warning: 5  # percentage
+  task_queue_backlog_warning: 100
+
+# Integration Testing
+testing:
+  enabled: true
+  
+  test_suites:
+    unit_tests: "tests/unit/"
+    integration_tests: "tests/integration/"
+    end_to_end_tests: "tests/e2e/"
+  
+  test_data:
+    fixtures: "tests/fixtures/"
+    mock_data: "tests/mock_data/"
+  
+  continuous_testing:
+    enabled: false  # Enable in development
+    test_on_file_change: false
+    coverage_threshold: 80

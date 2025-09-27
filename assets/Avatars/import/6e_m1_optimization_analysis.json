@@ -1,0 +1,119 @@
+{
+  "timestamp": "2025-09-14T00:30:48.774498",
+  "system_info": {
+    "platform": "macOS-15.6-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "architecture": "arm64",
+    "python_version": "3.13.7",
+    "total_memory_gb": 16.0,
+    "available_memory_gb": 4.16,
+    "memory_percent_used": 74.0,
+    "cpu_count": 8,
+    "cpu_count_logical": 8,
+    "disk_total_gb": 460.43,
+    "disk_free_gb": 46.55,
+    "disk_percent_used": 2.4
+  },
+  "is_m1_system": true,
+  "memory_analysis": {
+    "current_usage": {
+      "total_gb": 16.0,
+      "used_gb": 5.87,
+      "available_gb": 4.17,
+      "percent_used": 74.0,
+      "swap_used_gb": 4.47
+    },
+    "status": "warning",
+    "recommendations": [
+      "\ud83d\udfe1 WARNING: Memory usage is elevated (>70%)",
+      "Monitor memory-intensive processes",
+      "Consider closing unused applications",
+      "\u26a0\ufe0f High swap usage detected - consider adding more RAM or closing applications"
+    ]
+  },
+  "cpu_analysis": {
+    "current_usage": {
+      "cpu_percent": 15.7,
+      "cpu_count_physical": 8,
+      "cpu_count_logical": 8,
+      "frequency_mhz": 3204
+    },
+    "m1_specific": {
+      "performance_cores": 4,
+      "efficiency_cores": 4,
+      "total_cores": 8,
+      "architecture": "ARM64"
+    },
+    "recommendations": [
+      "\u2705 M1 chip detected - ARM64 optimizations available",
+      "Use ARM64 native packages when possible",
+      "Configure applications to use MPS (Metal Performance Shaders)",
+      "\u2705 CPU usage is normal"
+    ]
+  },
+  "thermal_analysis": {
+    "thermal_state": "normal",
+    "power_adapter": "connected",
+    "recommendations": [
+      "\u2705 Thermal state is normal",
+      "\ud83d\udd0c Power adapter connected - optimal performance available"
+    ]
+  },
+  "development_analysis": {
+    "python_environment": {
+      "version": "3.13.7",
+      "executable": "/Users/thomasbrianreynolds/online production/venv/bin/python",
+      "architecture": "64bit"
+    },
+    "node_environment": {
+      "version": "v22.17.1"
+    },
+    "docker_status": {
+      "version": "Docker version 28.3.2, build 578ccf6"
+    },
+    "recommendations": [
+      "\u2705 Running ARM64 native Python - optimal for M1",
+      "\u2705 Node.js detected - ensure ARM64 version for M1 optimization",
+      "\u2705 Docker detected",
+      "Use --platform=linux/arm64 for M1-optimized containers",
+      "Enable Docker Desktop's 'Use Rosetta for x86/amd64 emulation' if needed"
+    ]
+  },
+  "optimization_recommendations": [
+    "\ud83d\ude80 MacBook Air M1 (16GB) Optimization Recommendations:",
+    "",
+    "\ud83d\udcca SYSTEM CONFIGURATION:",
+    "\u2022 Enable 'Reduce motion' in System Preferences > Accessibility",
+    "\u2022 Set Energy Saver to 'Automatic graphics switching'",
+    "\u2022 Use Safari instead of Chrome when possible (more energy efficient)",
+    "",
+    "\ud83d\udcbe MEMORY OPTIMIZATION:",
+    "\u2022 Close unused browser tabs and applications",
+    "\u2022 Use Activity Monitor to identify memory-hungry processes",
+    "\u2022 Enable memory compression: sudo sysctl vm.compressor_mode=4",
+    "\u2022 Consider using lightweight alternatives for heavy applications",
+    "",
+    "\u26a1 DEVELOPMENT OPTIMIZATION:",
+    "\u2022 Use ARM64 native packages and dependencies",
+    "\u2022 Configure IDEs to use MPS acceleration when available",
+    "\u2022 Set PYTORCH_ENABLE_MPS_FALLBACK=1 for PyTorch",
+    "\u2022 Use Homebrew ARM64 packages: /opt/homebrew/bin/brew",
+    "",
+    "\ud83d\udd27 FASTAPI/UVICORN OPTIMIZATION:",
+    "\u2022 Use 2-4 workers for optimal M1 performance",
+    "\u2022 Enable uvloop: pip install uvloop",
+    "\u2022 Set worker_class='uvicorn.workers.UvicornWorker'",
+    "\u2022 Configure max_requests=1000 for memory management",
+    "",
+    "\ud83d\udc33 DOCKER OPTIMIZATION:",
+    "\u2022 Use ARM64 base images: FROM --platform=linux/arm64",
+    "\u2022 Enable BuildKit: export DOCKER_BUILDKIT=1",
+    "\u2022 Use multi-stage builds to reduce image size",
+    "",
+    "\ud83d\udd0b BATTERY OPTIMIZATION:",
+    "\u2022 Enable Low Power Mode when on battery",
+    "\u2022 Reduce screen brightness",
+    "\u2022 Close unnecessary background applications",
+    "\u2022 Use Terminal instead of resource-heavy terminals"
+  ]
+}

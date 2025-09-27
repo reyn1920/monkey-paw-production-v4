@@ -1,0 +1,48 @@
+# Minimal requirements for Docker deployment
+# Core web framework
+fastapi>=0.104.0,<1.0.0
+uvicorn[standard]>=0.24.0,<1.0.0
+
+# HTTP clients
+requests>=2.31.0
+httpx>=0.24.0,<3.0.0
+
+# Environment variables
+python-dotenv>=1.0.0,<2.0.0
+
+# File handling
+watchdog>=3.0.0,<4.0.0
+
+# Basic utilities
+tqdm>=4.66.0,<5.0.0
+
+# Flask for paste app
+Flask>=2.3.0,<3.0.0
+Flask-CORS>=4.0.0,<5.0.0
+
+# Basic data processing
+pandas>=2.1.0,<3.0.0
+numpy>=1.24.0,<2.0.0
+
+# Date/time handling
+python-dateutil>=2.8.0,<3.0.0
+
+# Basic validation
+pydantic>=2.4.0,<3.0.0
+
+# Database support
+psycopg2-binary>=2.9.0,<3.0.0
+redis>=4.5.0,<6.0.0
+aiosqlite>=0.19.0,<1.0.0
+
+# Authentication and security
+PyJWT>=2.8.0,<3.0.0
+cryptography>=41.0.0,<42.0.0
+bcrypt>=4.0.0,<5.0.0
+
+# Testing (for production health checks)
+pytest>=7.4.0,<8.0.0
+pytest-asyncio>=0.21.0,<1.0.0
+
+# Production server
+gunicorn>=21.2.0,<22.0.0

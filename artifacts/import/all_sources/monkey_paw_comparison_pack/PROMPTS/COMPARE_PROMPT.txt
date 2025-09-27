@@ -1,0 +1,16 @@
+🧮 MONKEY-PAW — COMPARISON PROMPT (Use with diagnostic outputs)
+
+TASK
+Create a side-by-side comparison of **Intended** vs. **Actual** using the latest `./reports/diagnostic_*/` JSON files. Do not modify code.
+
+INSTRUCTIONS
+1) Read: routes_static.json, routes_runtime.json, jobs.json, db.json, faiss.json, config.json, addon_matches.json.
+2) Fill in: Mission, Core Functions, Endpoints Map, Jobs & Schedules, Data Stores, Addon Entanglement, Notes & Drift.
+3) Keep it factual, concise, and aligned with the add-only, zero-cost policy.
+
+OUTPUT
+- A Markdown file that can replace placeholders in `templates/COMPARISON_BASELINE.md`.
+- If something is unknown, mark it “Unclear (insufficient signals)”.
+
+GOAL
+A single document the team can use to realign monkey-paw.

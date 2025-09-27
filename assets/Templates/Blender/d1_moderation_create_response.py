@@ -1,0 +1,18 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+
+from .._models import BaseModel
+from .moderation import Moderation
+
+__all__ = ["ModerationCreateResponse"]
+
+
+class ModerationCreateResponse(BaseModel):
+    id: str
+    """The unique identifier for the moderation request."""
+
+    model: str
+    """The model used to generate the moderation results."""
+
+    results: list[Moderation]
+    """A list of moderation objects."""

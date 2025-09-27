@@ -1,0 +1,13 @@
+{
+  "content_id": null,
+  "campaign_id": "campaign_1757177808",
+  "video_task_id": "task_20250906_125648_video",
+  "workflow_steps": {
+    "content_generation": true,
+    "campaign_creation": true,
+    "video_generation": true,
+    "monetization_tracking": true,
+    "analytics_available": true
+  },
+  "timestamp": "2025-09-06T12:56:48.680273"
+}

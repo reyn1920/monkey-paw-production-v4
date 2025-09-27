@@ -1,0 +1,51 @@
+{
+  "version": "v20250907_175539",
+  "created_at": "2025-09-07T17:55:39.889367",
+  "bundles_count": 1,
+  "total_size": 517,
+  "bundles": [
+    {
+      "success": true,
+      "name": "test_bundle_001",
+      "size": 517,
+      "checksum": "5d93016132adb54c7aea948ca4550deb1df7ef45c7726b7f60c39fceaae34ed4",
+      "metadata": {
+        "original_path": "/Users/thomasbrianreynolds/online production/assets/incoming/bundles/test_bundle_001",
+        "release_path": "/Users/thomasbrianreynolds/online production/assets/releases/v20250907_175539/bundles/test_bundle_001.tar.gz",
+        "name": "test_bundle_001",
+        "type": "directory",
+        "size": 517,
+        "original_checksum": "396596e1d54338e88ee5ef3dda8c977a4d29ee99a57b337761b1543dd2b46f22",
+        "release_checksum": "5d93016132adb54c7aea948ca4550deb1df7ef45c7726b7f60c39fceaae34ed4",
+        "processed_at": "2025-09-07T17:55:39.889358",
+        "contents_count": 1,
+        "metadata": {
+          "bundle_id": "test_bundle_001",
+          "title": "Test Bundle for Verification",
+          "description": "A test bundle created for system verification",
+          "version": "1.0.0",
+          "created_at": "2024-01-01T00:00:00Z",
+          "metadata": {
+            "category": "test",
+            "tags": ["verification", "test"],
+            "priority": "high",
+            "type": "standard"
+          },
+          "assets": {
+            "script": "../media/test_script.txt",
+            "thumbnail": "../media/test_thumbnail.svg"
+          },
+          "processing_status": "ready",
+          "bundle_type": "standard"
+        }
+      }
+    }
+  ],
+  "checksum": "be02451e5f1c790f6d7c6a8ea8b5b650c0adc5778218214fcd4bcbbe808b8efb",
+  "metadata": {
+    "synthesizer_version": "3.0",
+    "source_bundles": 1,
+    "processed_bundles": 1,
+    "creation_timestamp": 1757282139.88937
+  }
+}

@@ -1,0 +1,20 @@
+🔍 MONKEY-PAW — DIAGNOSTIC PROMPT (READ-ONLY)
+TASK
+You are my AI coding assistant. Your ONLY job now is to analyze and report what the current monkey-paw application actually does. Do NOT change code. Provide a factual snapshot.
+INSTRUCTIONS
+1) Scan the entire repo (all .py, .js, .html, .md, YAML/JSON/TOML, shell scripts).
+2) For each major area, report: Purpose, Actual behavior, Drift indicators.
+3) Identify: endpoints, jobs, DB (SQLite/SQLModel), FAISS, integrations, no-code modules, startup behavior.
+4) Summarize clearly: end-to-end, working/partial/broken/unused.
+OUTPUT FORMAT
+- Core Functions
+- No-Code Coders Functions
+- Endpoints Map
+- Pipelines Detected
+- Jobs & Schedules
+- Data Stores
+- Observations
+RESTRICTIONS
+- Add-only mindset. No deletions/renames/edits now. No paid tools.
+GOAL
+A precise “current state map” to compare with target behavior later.

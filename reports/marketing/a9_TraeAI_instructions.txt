@@ -1,0 +1,28 @@
+
+Run these steps exactly. Do not delete or rename anything. Add-only.
+
+1) Unpack the downloaded archive on my Mac.
+2) Run the installer:
+   bash "ONLINPRDUCTION_anti_loop_bundle_v1/bundle/scripts/install.sh"
+
+This will:
+- Create the canonical directory: ~/ONLINPRDUCTION (if missing)
+- Clone my public repo into ~/ONLINPRDUCTION/repo from: https://github.com/reyn1920/online-production.git
+- Install the Anti-Loop Kit files (loop_guard, guarded_runner, sitecustomize auto-wrapper)
+- Set APP_DIR and ANTI_LOOP_* knobs in .env without overwriting existing keys
+- Keep old path aliases working via symlinks
+- Make go_live_baremetal.sh honor APP_DIR by default
+
+3) Start the app:
+   cd ~/ONLINPRDUCTION/repo
+   export APP_DIR="$HOME/ONLINPRDUCTION"
+   bash ./go_live_baremetal.sh
+
+4) Verify:
+   - Open http://localhost:8000 (API/dashboard)
+   - Run ./scripts/anti_loop_watchdog.sh and confirm "all clear"
+
+Loop protection details:
+- sitecustomize auto-wraps common agent step functions at runtime (no file edits)
+- LoopGuard enforces step/time budgets, duplicate-action suppression, and tool rate limits
+- All changes are add-only; no identifiers are renamed; no files are deleted

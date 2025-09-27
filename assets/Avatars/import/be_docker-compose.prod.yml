@@ -1,0 +1,408 @@
+# TRAE AI Production Docker Compose - MacBook Air M1 Optimized
+# ARM64 Architecture with 16GB RAM Optimization
+
+version: '3.8'
+
+services:
+  # Main TRAE AI Backend Service
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.arm64
+      platforms:
+        - linux/arm64
+    image: traeai:production-arm64
+    container_name: traeai-backend
+    restart: unless-stopped
+    platform: linux/arm64
+
+    environment:
+      - ENVIRONMENT=production
+      - PLATFORM=linux/arm64
+      - ARCH=arm64
+      - OPTIMIZED_FOR=M1_MACBOOK_AIR
+      - WORKERS=4
+      - MAX_REQUESTS=1000
+      - TIMEOUT=30
+      - KEEPALIVE=2
+      - DATABASE_URL=postgresql://traeai:${DB_PASSWORD}@database:5432/traeai_prod
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - SENTRY_DSN=${SENTRY_DSN}
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - OMP_NUM_THREADS=2
+      - MKL_NUM_THREADS=2
+      - OPENBLAS_NUM_THREADS=2
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./logs:/app/logs
+      - ./uploads:/app/uploads
+      - ./cache:/app/cache
+      - ./static:/app/static
+      - ./media:/app/media
+
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: '2.0'
+        reservations:
+          memory: 2G
+          cpus: '1.0'
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    networks:
+      - traeai-network
+
+  # PostgreSQL Database - ARM64 Optimized
+  database:
+    image: postgres:15-alpine
+    container_name: traeai-database
+    restart: unless-stopped
+    platform: linux/arm64
+
+    environment:
+      - POSTGRES_DB=traeai_prod
+      - POSTGRES_USER=traeai
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_INITDB_ARGS="--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+      - PGDATA=/var/lib/postgresql/data/pgdata
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+      - ./database/postgresql.conf:/etc/postgresql/postgresql.conf
+
+    command: >
+      postgres
+      -c config_file=/etc/postgresql/postgresql.conf
+      -c shared_buffers=2GB
+      -c effective_cache_size=6GB
+      -c maintenance_work_mem=512MB
+      -c checkpoint_completion_target=0.9
+      -c wal_buffers=16MB
+      -c default_statistics_target=100
+      -c random_page_cost=1.1
+      -c effective_io_concurrency=200
+      -c work_mem=64MB
+      -c min_wal_size=1GB
+      -c max_wal_size=4GB
+      -c max_worker_processes=8
+      -c max_parallel_workers_per_gather=4
+      -c max_parallel_workers=8
+      -c max_parallel_maintenance_workers=4
+
+    ports:
+      - "5432:5432"
+
+    deploy:
+      resources:
+        limits:
+          memory: 3G
+          cpus: '1.5'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U traeai -d traeai_prod"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - traeai-network
+
+  # Redis Cache - ARM64 Optimized
+  redis:
+    image: redis:7-alpine
+    container_name: traeai-redis
+    restart: unless-stopped
+    platform: linux/arm64
+
+    command: >
+      redis-server
+      --maxmemory 1gb
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+      --appendonly yes
+      --appendfsync everysec
+      --tcp-keepalive 300
+      --timeout 0
+
+    volumes:
+      - redis_data:/data
+
+    ports:
+      - "6379:6379"
+
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.1'
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+    networks:
+      - traeai-network
+
+  # Celery Worker for Background Tasks
+  celery-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.arm64
+    image: traeai:production-arm64
+    container_name: traeai-celery-worker
+    restart: unless-stopped
+    platform: linux/arm64
+
+    command: celery -A backend.celery_app worker --loglevel=info --concurrency=4 --max-tasks-per-child=1000
+
+    environment:
+      - ENVIRONMENT=production
+      - PLATFORM=linux/arm64
+      - DATABASE_URL=postgresql://traeai:${DB_PASSWORD}@database:5432/traeai_prod
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OMP_NUM_THREADS=1
+      - MKL_NUM_THREADS=1
+      - OPENBLAS_NUM_THREADS=1
+
+    volumes:
+      - ./logs:/app/logs
+      - ./uploads:/app/uploads
+      - ./cache:/app/cache
+
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+    networks:
+      - traeai-network
+
+  # Celery Beat Scheduler
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.arm64
+    image: traeai:production-arm64
+    container_name: traeai-celery-beat
+    restart: unless-stopped
+    platform: linux/arm64
+
+    command: celery -A backend.celery_app beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+    environment:
+      - ENVIRONMENT=production
+      - PLATFORM=linux/arm64
+      - DATABASE_URL=postgresql://traeai:${DB_PASSWORD}@database:5432/traeai_prod
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY}
+
+    volumes:
+      - ./logs:/app/logs
+
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.1'
+
+    networks:
+      - traeai-network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: traeai-nginx
+    restart: unless-stopped
+    platform: linux/arm64
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./static:/var/www/static:ro
+      - ./media:/var/www/media:ro
+      - ./ssl:/etc/nginx/ssl:ro
+
+    depends_on:
+      - backend
+
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
+
+    networks:
+      - traeai-network
+
+  # Prometheus Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: traeai-prometheus
+    restart: unless-stopped
+    platform: linux/arm64
+
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+
+    ports:
+      - "9090:9090"
+
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.1'
+
+    networks:
+      - traeai-network
+
+  # Grafana Dashboard
+  grafana:
+    image: grafana/grafana:latest
+    container_name: traeai-grafana
+    restart: unless-stopped
+    platform: linux/arm64
+
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      - prometheus
+
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.1'
+
+    networks:
+      - traeai-network
+
+# Volumes for persistent data
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+# Network configuration
+networks:
+  traeai-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# M1 MacBook Air Resource Summary:
+# Total Memory Allocation: ~12GB (leaving 4GB for system)
+# - Backend: 4GB
+# - Database: 3GB
+# - Redis: 1GB
+# - Celery Worker: 2GB
+# - Celery Beat: 512MB
+# - Nginx: 256MB
+# - Prometheus: 1GB
+# - Grafana: 512MB
+#
+# Total CPU Allocation: ~7 cores (leaving 1 core for system)
+# - Backend: 2 cores
+# - Database: 1.5 cores
+# - Redis: 0.5 cores
+# - Celery Worker: 1 core
+# - Celery Beat: 0.5 cores
+# - Nginx: 0.5 cores
+# - Prometheus: 0.5 cores
+# - Grafana: 0.5 cores

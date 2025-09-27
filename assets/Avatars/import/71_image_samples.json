@@ -1,0 +1,62 @@
+{
+  "graphics": {
+    "social_media_graphics": [
+      {
+        "platform": "Instagram",
+        "dimensions": "1080x1080",
+        "style": "modern_gradient",
+        "text": "AI Content Revolution",
+        "color_scheme": "blue_purple_gradient"
+      },
+      {
+        "platform": "Twitter",
+        "dimensions": "1200x675",
+        "style": "tech_minimalist",
+        "text": "Generate. Create. Innovate.",
+        "color_scheme": "dark_tech"
+      }
+    ],
+    "presentation_slides": {
+      "template": "corporate_modern",
+      "slide_count": 10,
+      "theme": "AI_innovation",
+      "color_palette": [
+        "#1E3A8A",
+        "#3B82F6",
+        "#60A5FA",
+        "#93C5FD"
+      ]
+    }
+  },
+  "avatars": {
+    "professional_headshots": [
+      {
+        "style": "corporate_professional",
+        "gender": "diverse",
+        "age_range": "25-45",
+        "attire": "business_formal",
+        "background": "neutral_gradient"
+      },
+      {
+        "style": "creative_professional",
+        "gender": "diverse",
+        "age_range": "20-40",
+        "attire": "smart_casual",
+        "background": "modern_office"
+      }
+    ]
+  },
+  "artwork": {
+    "concept_art": {
+      "theme": "futuristic_ai_lab",
+      "style": "photorealistic",
+      "resolution": "8K",
+      "lighting": "cinematic"
+    },
+    "illustrations": {
+      "style": "modern_vector",
+      "theme": "technology_innovation",
+      "color_scheme": "vibrant_tech"
+    }
+  }
+}

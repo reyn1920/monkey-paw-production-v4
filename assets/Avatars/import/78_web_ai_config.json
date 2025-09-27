@@ -1,0 +1,168 @@
+{
+  "web_ai": {
+    "enabled": true,
+    "default_platform": "chatgpt",
+    "timeout_seconds": 30,
+    "max_retries": 3,
+    "retry_delay_seconds": 2,
+    "rate_limiting": {
+      "enabled": true,
+      "requests_per_minute": 20,
+      "burst_limit": 5
+    },
+    "platforms": {
+      "chatgpt": {
+        "enabled": true,
+        "url": "https://chat.openai.com",
+        "selectors": {
+          "message_input": "textarea[data-id='root']",
+          "send_button": "button[data-testid='send-button']",
+          "response_container": "div[data-message-author-role='assistant']",
+          "loading_indicator": "div[data-testid='loading-indicator']"
+        },
+        "wait_times": {
+          "page_load": 5000,
+          "response_timeout": 30000,
+          "typing_delay": 100
+        },
+        "priority": 1
+      },
+      "gemini": {
+        "enabled": true,
+        "url": "https://gemini.google.com",
+        "selectors": {
+          "message_input": "div[contenteditable='true']",
+          "send_button": "button[aria-label='Send message']",
+          "response_container": "div[data-response-container]",
+          "loading_indicator": "div[data-loading]"
+        },
+        "wait_times": {
+          "page_load": 5000,
+          "response_timeout": 30000,
+          "typing_delay": 100
+        },
+        "priority": 2
+      },
+      "claude": {
+        "enabled": true,
+        "url": "https://claude.ai",
+        "selectors": {
+          "message_input": "div[contenteditable='true']",
+          "send_button": "button[aria-label='Send Message']",
+          "response_container": "div[data-is-streaming='false']",
+          "loading_indicator": "div[data-is-streaming='true']"
+        },
+        "wait_times": {
+          "page_load": 5000,
+          "response_timeout": 30000,
+          "typing_delay": 100
+        },
+        "priority": 3
+      },
+      "abacus": {
+        "enabled": true,
+        "url": "https://abacus.ai",
+        "selectors": {
+          "message_input": "textarea[placeholder*='message']",
+          "send_button": "button[type='submit']",
+          "response_container": "div[data-role='assistant']",
+          "loading_indicator": "div[data-loading='true']"
+        },
+        "wait_times": {
+          "page_load": 5000,
+          "response_timeout": 30000,
+          "typing_delay": 100
+        },
+        "priority": 4
+      },
+      "perplexity": {
+        "enabled": true,
+        "url": "https://www.perplexity.ai",
+        "selectors": {
+          "message_input": "textarea[placeholder*='Ask anything']",
+          "send_button": "button[aria-label='Submit']",
+          "response_container": "div[data-testid='answer']",
+          "loading_indicator": "div[data-testid='loading']"
+        },
+        "wait_times": {
+          "page_load": 5000,
+          "response_timeout": 30000,
+          "typing_delay": 100
+        },
+        "priority": 5
+      }
+    },
+    "browser_settings": {
+      "headless": true,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "extra_args": [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--disable-default-apps"
+      ]
+    },
+    "session_management": {
+      "max_concurrent_sessions": 3,
+      "session_timeout_minutes": 30,
+      "cleanup_interval_minutes": 5,
+      "reuse_sessions": true
+    },
+    "error_handling": {
+      "max_consecutive_failures": 5,
+      "failure_cooldown_minutes": 10,
+      "fallback_enabled": true,
+      "fallback_order": ["chatgpt", "gemini", "claude", "abacus", "perplexity"]
+    },
+    "logging": {
+      "level": "INFO",
+      "file_path": "logs/web_ai.log",
+      "max_file_size_mb": 10,
+      "backup_count": 5,
+      "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    },
+    "avatar_generation": {
+      "enabled": true,
+      "default_style": "realistic",
+      "supported_styles": [
+        "realistic",
+        "cartoon",
+        "anime",
+        "artistic",
+        "minimalist",
+        "cyberpunk",
+        "fantasy"
+      ],
+      "quality_settings": {
+        "resolution": "1024x1024",
+        "quality_modifiers": [
+          "high quality",
+          "detailed",
+          "professional",
+          "8k resolution",
+          "sharp focus"
+        ]
+      },
+      "prompt_optimization": {
+        "enabled": true,
+        "use_multi_platform_validation": true,
+        "generate_alternatives": true,
+        "max_prompt_length": 500
+      }
+    },
+    "performance": {
+      "screenshot_enabled": false,
+      "debug_mode": false,
+      "cache_responses": true,
+      "cache_duration_minutes": 60,
+      "metrics_collection": true
+    }
+  }
+}

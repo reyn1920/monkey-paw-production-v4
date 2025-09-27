@@ -1,0 +1,31 @@
+TRAE.AI DIRECTIVE — Add-Only, Ethical Research, v6 Included
+=========================================================
+Operate locally in add-only mode. Do not delete or overwrite user files; create patches under patches/ and await approval.
+
+1) Run installer:
+   ./install_and_run_all.sh
+
+2) Research (ethical, headful — NO bypassing security/CAPTCHAs):
+   Use puppeteer/runner.mjs to open: official docs, GitHub repos (public), community forums, your local scraped HTML dumps.
+   Goals: improve single-operator dashboard UX, strengthen render pipeline, reduce warnings to zero.
+
+3) Import local scraped data:
+   - If data/scraped/scraped.json exists: python utils/import_scraped.py data/scraped/scraped.json
+   - Else if data/scraped/html_dumps exists: python utils/rescrape_local.py … && import the result
+
+4) Verify v6 capabilities:
+   - /library/voices and /library/items return data
+   - /episodes/{id}/render accepts library voice + captions_on
+   - Captions generated if Whisper CLI is installed
+
+5) Debug to GREEN:
+   - No errors or warnings across backend build, frontend build (if built), and runtime logs
+   - No placeholder/demo/mock/test code in runtime paths (quarantine changes as patches)
+
+6) Go live (local first):
+   - Confirm true DB (data/base44.sqlite) and real media paths
+   - For public hosting, generate a reverse-proxy config (Caddy/Nginx) but DO NOT change router/firewall automatically; output instructions
+
+7) Finalize:
+   - Prepare → Render → Approve → Publish a sample episode
+   - Produce reports/final_summary.txt with steps taken and remaining actions

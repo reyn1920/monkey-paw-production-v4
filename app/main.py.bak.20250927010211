@@ -1,0 +1,932 @@
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from pathlib import Path
+import sqlite3, time, json
+import asyncio, csv, io
+import subprocess, shutil, os
+from datetime import datetime, timedelta
+from typing import Optional
+import yaml, requests
+from pydantic import BaseModel
+import re
+from fastapi.middleware.cors import CORSMiddleware
+
+# Pydantic Models
+class SheetsConfig(BaseModel):
+    revenue_csv_url: Optional[str] = None
+    content_kpis_csv_url: Optional[str] = None
+    poll_seconds: Optional[int] = None
+
+class SheetsFromSheet(BaseModel):
+    sheet_url: str
+    revenue_tab: str = "revenue_daily"
+    kpis_tab: str = "content_kpis"
+    poll_seconds: Optional[int] = None
+
+class EnqueueJob(BaseModel):
+    type: str
+    channel: Optional[str] = None
+    payload_json: Optional[dict] = None
+    priority: Optional[int] = 5
+
+class BootstrapRequest(BaseModel):
+    channel: Optional[str] = None
+    videos: int = 6
+    shorts: int = 3
+
+BASE = Path(__file__).resolve().parents[1]
+DB_MAIN = BASE / "db" / "monkey_paw.db"
+REPORTS = BASE / "reports"
+PANIC_SWITCH = REPORTS / "PANIC_SWITCH.true"
+APPROVAL = REPORTS / "approve_publish.true"
+ART_STAGING = BASE / "artifacts" / "staging"
+ART_PUBLISHED = BASE / "artifacts" / "published"
+SHEETS_CONFIG = BASE / "config" / "sheets.yaml"
+LAST_REFRESH_FILE = BASE / "out" / "last_refresh.txt"
+POLICY_FILE = BASE / "config" / "policy.yaml"
+
+templates = Jinja2Templates(directory=str(BASE / "app" / "templates"))
+app = FastAPI(title="Monkey Paw — V4", version="4.0.0")
+app.mount("/static", StaticFiles(directory=str(BASE / "app" / "static")), name="static")
+from .routers import sheets_router
+app.include_router(sheets_router.router)
+
+# CORS for common dev origins (adjust as needed)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+def db_conn(): return sqlite3.connect(str(DB_MAIN))
+
+def ensure_schema():
+    con = db_conn(); cur = con.cursor()
+    cur.execute(
+        """
+        CREATE TABLE IF NOT EXISTS revenue_daily (
+            day TEXT PRIMARY KEY,
+            goal REAL,
+            actual REAL
+        )
+        """
+    )
+    cur.execute(
+        """
+        CREATE TABLE IF NOT EXISTS content_kpis (
+            metric TEXT PRIMARY KEY,
+            value INTEGER
+        )
+        """
+    )
+    pol = read_policy()
+    # Registry of imported datasets (read-only usage inside app)
+    if pol.get("enable_datasets_registry", True):
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS datasets_registry (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                source TEXT NOT NULL,
+                path TEXT NOT NULL,
+                kind TEXT NOT NULL,
+                note TEXT,
+                imported_at REAL NOT NULL
+            )
+            """
+        )
+    # Voice registry (normalized view of available voices)
+    if pol.get("enable_voices_registry", True):
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS voices_registry (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                provider TEXT NOT NULL,
+                voice_name TEXT NOT NULL,
+                language TEXT,
+                gender TEXT,
+                quality TEXT,
+                path TEXT,
+                meta_json TEXT,
+                active INTEGER NOT NULL DEFAULT 1,
+                UNIQUE(provider, voice_name)
+            )
+            """
+        )
+    # Jobs system
+    if pol.get("enable_jobs", True):
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS jobs (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                type TEXT NOT NULL,
+                channel TEXT,
+                payload_json TEXT,
+                status TEXT NOT NULL DEFAULT 'queued',
+                priority INTEGER NOT NULL DEFAULT 5,
+                retries INTEGER NOT NULL DEFAULT 0,
+                next_run_at REAL,
+                created_at REAL NOT NULL,
+                updated_at REAL NOT NULL
+            )
+            """
+        )
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS job_events (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                job_id INTEGER NOT NULL,
+                ts REAL NOT NULL,
+                level TEXT NOT NULL,
+                message TEXT NOT NULL,
+                data_json TEXT,
+                FOREIGN KEY(job_id) REFERENCES jobs(id)
+            )
+            """
+        )
+        # Daily shorts log to ensure we don't exceed per-day quotas
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS daily_shorts_log (
+                channel TEXT NOT NULL,
+                day TEXT NOT NULL,
+                count INTEGER NOT NULL DEFAULT 0,
+                PRIMARY KEY(channel, day)
+            )
+            """
+        )
+    # Daily niches list (top N niches per day, add-only)
+    if pol.get("enable_niches", True):
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS niches_top (
+                day TEXT PRIMARY KEY,
+                year INTEGER NOT NULL,
+                next_year INTEGER NOT NULL,
+                niches_json TEXT NOT NULL
+            )
+            """
+        )
+    con.commit(); con.close()
+
+def read_sheets_config():
+    try:
+        data = yaml.safe_load(SHEETS_CONFIG.read_text())
+    except FileNotFoundError:
+        data = {}
+    data = data or {}
+    return {
+        "revenue_csv_url": data.get("revenue_csv_url", ""),
+        "content_kpis_csv_url": data.get("content_kpis_csv_url", ""),
+        "poll_seconds": int(data.get("poll_seconds", 60) or 60),
+    }
+
+def write_sheets_config(cfg: dict):
+    SHEETS_CONFIG.parent.mkdir(parents=True, exist_ok=True)
+    SHEETS_CONFIG.write_text(yaml.safe_dump(cfg, sort_keys=False))
+
+def read_policy():
+    """Read governance policy; provide strict defaults if missing.
+    This encodes: free-only, do-not-delete, owner approval for stack changes, and allowed/disallowed components.
+    """
+    defaults = {
+        "free_only": True,
+        "do_not_delete": True,
+        "stack_changes_require_owner_approval": True,
+        "allow_ollama": True,
+        "strict_no_warnings": True,
+        "disallow_in_app_stack": ["vscode", "cursor", "firebase"],
+        "notes": "Runtime tools on this Mac are fine, but do not bake disallowed items into the app stack.",
+        # Feature flags
+        "enable_jobs": True,
+        "enable_shorts_scheduler": True,
+        "enable_niches": True,
+        "enable_datasets_registry": True,
+        "enable_voices_registry": True,
+    }
+    try:
+        data = yaml.safe_load(POLICY_FILE.read_text()) or {}
+    except FileNotFoundError:
+        data = {}
+    # Merge with defaults, defaults take effect when keys missing
+    for k, v in defaults.items():
+        data.setdefault(k, v)
+    return data
+
+def refresh_from_sheets():
+    cfg = read_sheets_config()
+    rev_url = (cfg.get("revenue_csv_url") or "").strip()
+    kpi_url = (cfg.get("content_kpis_csv_url") or "").strip()
+    updated = {"revenue": 0, "kpis": 0}
+
+    if not (rev_url or kpi_url):
+        return {"skipped": True, **updated}
+
+    con = db_conn(); cur = con.cursor()
+    # Revenue
+    if rev_url:
+        r = requests.get(rev_url, timeout=15); r.raise_for_status()
+        reader = csv.DictReader(io.StringIO(r.text))
+        for row in reader:
+            day = row.get("day") or row.get("date") or row.get("Day") or row.get("Date")
+            goal = row.get("goal") or row.get("Goal")
+            actual = row.get("actual") or row.get("Actual")
+            if not day:
+                continue
+            try:
+                g = float(goal) if goal not in (None, "") else 0.0
+                a = float(actual) if actual not in (None, "") else 0.0
+            except Exception:
+                g = 0.0; a = 0.0
+            cur.execute("INSERT OR REPLACE INTO revenue_daily(day,goal,actual) VALUES (?,?,?)", (str(day), g, a))
+            updated["revenue"] += 1
+
+    # KPIs
+    if kpi_url:
+        r = requests.get(kpi_url, timeout=15); r.raise_for_status()
+        reader = csv.DictReader(io.StringIO(r.text))
+        for row in reader:
+            metric = row.get("metric") or row.get("Metric")
+            value = row.get("value") or row.get("Value")
+            if not metric:
+                continue
+            try:
+                v = int(float(value)) if value not in (None, "") else 0
+            except Exception:
+                v = 0
+            cur.execute("INSERT OR REPLACE INTO content_kpis(metric,value) VALUES (?,?)", (str(metric), v))
+            updated["kpis"] += 1
+
+    con.commit(); con.close()
+    # write last refresh timestamp (local time)
+    try:
+        LAST_REFRESH_FILE.parent.mkdir(parents=True, exist_ok=True)
+        LAST_REFRESH_FILE.write_text(datetime.now().isoformat())
+    except Exception:
+        pass
+    return updated
+
+@app.on_event("startup")
+async def on_startup():
+    ensure_schema()
+    cfg = read_sheets_config()
+
+    if cfg.get("revenue_csv_url") or cfg.get("content_kpis_csv_url"):
+        async def poll_loop():
+            while True:
+                try:
+                    refresh_from_sheets()
+                except Exception as e:
+                    print("sheets refresh error:", e)
+                await asyncio.sleep(max(10, int(cfg.get("poll_seconds", 60) or 60)))
+
+        asyncio.create_task(poll_loop())
+
+    # Start background worker and schedulers (gated by policy flags)
+    pol = read_policy()
+    async def worker_loop():
+        backoff = 1
+        while True:
+            try:
+                ran = process_one_job()
+                if not ran:
+                    await asyncio.sleep(min(5, backoff))
+                    backoff = min(30, backoff + 1)
+                else:
+                    backoff = 1
+            except Exception as e:
+                print("worker error:", e)
+                await asyncio.sleep(5)
+        
+    if pol.get("enable_jobs", True):
+        asyncio.create_task(worker_loop())
+    # Start shorts scheduler
+    if pol.get("enable_shorts_scheduler", True):
+        asyncio.create_task(shorts_scheduler_loop())
+    # Start niches scheduler
+    if pol.get("enable_niches", True):
+        asyncio.create_task(niches_scheduler_loop())
+
+@app.get("/api/health")
+def health():
+    pol = read_policy()
+    return {"status":"ok","time":time.time(),"panic":PANIC_SWITCH.exists(), "policy": pol}
+
+@app.get("/", response_class=HTMLResponse)
+def dashboard(request: Request):
+    return templates.TemplateResponse("dashboard.html", {"request": request})
+
+@app.post("/api/admin/refresh_data")
+def refresh_data():
+    ensure_schema()
+    try:
+        updated = refresh_from_sheets()
+        return {"ok": True, "updated": updated}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.post("/api/admin/update_sheets")
+def update_sheets(cfg: SheetsConfig):
+    cur = read_sheets_config()
+    if cfg.revenue_csv_url is not None:
+        cur["revenue_csv_url"] = cfg.revenue_csv_url
+    if cfg.content_kpis_csv_url is not None:
+        cur["content_kpis_csv_url"] = cfg.content_kpis_csv_url
+    if cfg.poll_seconds is not None:
+        cur["poll_seconds"] = int(cfg.poll_seconds)
+    write_sheets_config(cur)
+    return {"ok": True, "config": cur}
+
+@app.post("/api/admin/update_sheets_from_sheet")
+def update_sheets_from_sheet(data: SheetsFromSheet):
+    # Derive CSV export URLs from a view URL
+    m = re.search(r"/spreadsheets/d/([a-zA-Z0-9-_]+)", data.sheet_url)
+    if not m:
+        return {"ok": False, "error": "Invalid Google Sheet URL"}
+    sid = m.group(1)
+    def csv_for(tab: str) -> str:
+        return f"https://docs.google.com/spreadsheets/d/{sid}/gviz/tq?tqx=out:csv&sheet={tab}"
+    cfg = read_sheets_config()
+    cfg["revenue_csv_url"] = csv_for(data.revenue_tab)
+    cfg["content_kpis_csv_url"] = csv_for(data.kpis_tab)
+    if data.poll_seconds is not None:
+        cfg["poll_seconds"] = int(data.poll_seconds)
+    write_sheets_config(cfg)
+    return {"ok": True, "config": cfg}
+
+@app.get("/api/admin/last_refresh")
+def last_refresh():
+    try:
+        if LAST_REFRESH_FILE.exists():
+            return {"ok": True, "last_refresh": LAST_REFRESH_FILE.read_text().strip()}
+        return {"ok": True, "last_refresh": None}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.get("/api/admin/panic_status")
+def panic_status():
+    return {"ok": True, "panic": PANIC_SWITCH.exists()}
+
+@app.post("/api/admin/panic/on")
+def panic_on():
+    try:
+        REPORTS.mkdir(parents=True, exist_ok=True)
+        PANIC_SWITCH.write_text("on")
+        return {"ok": True, "panic": True}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.post("/api/admin/panic/off")
+def panic_off():
+    try:
+        if PANIC_SWITCH.exists():
+            PANIC_SWITCH.unlink()
+        return {"ok": True, "panic": False}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.get("/api/metrics/revenue")
+def revenue_metrics(days: int = 30):
+    # Use local computer time to compute cutoff date (inclusive)
+    try:
+        days = max(1, int(days))
+    except Exception:
+        days = 30
+    today = datetime.now().date()
+    cutoff = today - timedelta(days=days-1)
+    cutoff_str = cutoff.strftime('%Y-%m-%d')
+    con=db_conn(); cur=con.cursor()
+    cur.execute("select day,goal,actual from revenue_daily where day >= ? order by day asc", (cutoff_str,))
+    rows=cur.fetchall(); con.close()
+    return JSONResponse([{"day":d,"goal":g,"actual":a} for d,g,a in rows])
+
+@app.get("/api/metrics/content")
+def content_metrics():
+    con=db_conn(); cur=con.cursor()
+    cur.execute("select metric,value from content_kpis")
+    rows=cur.fetchall(); con.close()
+    return JSONResponse({m:v for m,v in rows})
+
+@app.get("/api/plan/first_month")
+def first_month_plan():
+    return {"plan_markdown": (BASE/"reports"/"FIRST_MONTH_5K_PLAN.md").read_text()}
+
+@app.post("/api/research")
+def research(topic: str):
+    ART_STAGING.mkdir(parents=True, exist_ok=True)
+    p = ART_STAGING / f"seed_{int(time.time())}.json"
+    p.write_text(json.dumps({"topic":topic,"bullets":[f"Key insight about {topic}"]}, indent=2))
+    return {"ok":True,"seed_file":str(p)}
+
+@app.post("/api/draft")
+def draft(seed_id: int=1, content: str="Write 500 words"):
+    ART_STAGING.mkdir(parents=True, exist_ok=True)
+    p = ART_STAGING / f"draft_{int(time.time())}.txt"
+    p.write_text(f"# Draft for seed {seed_id}\n\n{content}\n")
+    con=db_conn(); cur=con.cursor(); cur.execute("update content_kpis set value=value+1 where metric='videos_total'"); con.commit(); con.close()
+    return {"ok":True,"draft_file":str(p)}
+
+@app.post("/api/repurpose")
+def repurpose():
+    drafts=sorted(ART_STAGING.glob("draft_*.txt"))
+    if not drafts: return {"ok":False,"error":"No drafts"}
+    latest=drafts[-1]; out=ART_STAGING/f"short_{latest.stem.split('_')[-1]}.txt"
+    out.write_text(latest.read_text()[:400]+"\n\n# Short form\n")
+    con=db_conn(); cur=con.cursor(); cur.execute("update content_kpis set value=value+1 where metric='shorts_total'"); con.commit(); con.close()
+    return {"ok":True,"short_file":str(out)}
+
+@app.get("/api/admin/approve_publish/true")
+def approve_true():
+    REPORTS.mkdir(parents=True, exist_ok=True); APPROVAL.write_text("approved"); return {"ok":True,"approved":True}
+
+@app.post("/api/publish")
+def publish():
+    if PANIC_SWITCH.exists(): return {"ok":False,"error":"Panic switch ON"}
+    if not APPROVAL.exists(): return {"ok":False,"error":"Not approved"}
+    moved=[]; ART_PUBLISHED.mkdir(parents=True, exist_ok=True)
+    for p in ART_STAGING.glob("*"):
+        t=ART_PUBLISHED/p.name; t.write_bytes(p.read_bytes()); moved.append(t.name)
+    return {"ok":True,"published":moved}
+
+@app.post("/api/actions/full_video")
+def action_full_video(channel: str = "right_perspective", topic: str = "auto"):
+    # Convenience endpoint for dashboard button
+    payload = {"topic": topic}
+    return enqueue_job(EnqueueJob(type="full_video", channel=channel, payload_json=payload, priority=5))
+
+@app.post("/api/actions/breaking_news")
+def action_breaking_news(channel: str = "right_perspective", topic: str = "breaking"):
+    payload = {"topic": topic}
+    return enqueue_job(EnqueueJob(type="breaking_news", channel=channel, payload_json=payload, priority=3))
+
+@app.post("/api/actions/short")
+def action_short(channel: str = "right_perspective", topic: str = "quick take", duration: int = 30):
+    payload = {"topic": topic, "duration": str(int(duration))}
+    return enqueue_job(EnqueueJob(type="short", channel=channel, payload_json=payload, priority=4))
+
+@app.post("/api/actions/bootstrap_channel")
+def action_bootstrap_channel(channel: Optional[str] = None, body: Optional[BootstrapRequest] = None):
+    """Bootstrap a channel with N videos and M shorts. Accepts query param or JSON body.
+    Defaults: 6 videos, 3 shorts. Zero-warnings: validate inputs and report helpful errors.
+    """
+    try:
+        ch = (channel or (body.channel if body else None) or "").strip()
+        vids = (body.videos if (body and isinstance(body.videos,int)) else 6)
+        sh = (body.shorts if (body and isinstance(body.shorts,int)) else 3)
+        if not ch:
+            return {"ok": False, "error": "channel is required (query ?channel=... or JSON {channel:""})"}
+        vids = max(0, min(24, vids))
+        sh = max(0, min(24, sh))
+        results = []
+        for i in range(vids):
+            r = enqueue_job(EnqueueJob(type="full_video", channel=ch, payload_json={"topic": f"bootstrap {i+1}"}, priority=5))
+            results.append(r)
+        for i in range(sh):
+            r = enqueue_job(EnqueueJob(type="short", channel=ch, payload_json={"topic": f"bootstrap short {i+1}", "duration":"30"}, priority=4))
+            results.append(r)
+        return {"ok": True, "channel": ch, "videos": vids, "shorts": sh, "enqueued": results}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+def _today_str():
+    return datetime.now().strftime('%Y-%m-%d')
+
+def _list_channels_for_scheduling():
+    """Derive channel names from sheets_multi.json sources (excluding default/voices)."""
+    try:
+        data = json.loads((BASE/"config"/"sheets_multi.json").read_text())
+        srcs = list((data.get('sources') or {}).keys())
+        return [s for s in srcs if s not in ('default','voices')]
+    except Exception:
+        return []
+
+async def shorts_scheduler_loop():
+    """Ensure 3 shorts/day per channel by checking daily_shorts_log and enqueuing as needed."""
+    while True:
+        try:
+            channels = _list_channels_for_scheduling()
+            day = _today_str()
+            con=db_conn(); cur=con.cursor()
+            for ch in channels:
+                cur.execute("SELECT count FROM daily_shorts_log WHERE channel=? AND day=?", (ch, day))
+                row = cur.fetchone()
+                count = row[0] if row else 0
+                target = 3
+                to_add = max(0, target - count)
+                for i in range(to_add):
+                    enqueue_job(EnqueueJob(type="short", channel=ch, payload_json={"topic":"daily short","duration":"30"}, priority=4))
+                    count += 1
+                if row:
+                    cur.execute("UPDATE daily_shorts_log SET count=? WHERE channel=? AND day=?", (count, ch, day))
+                else:
+                    cur.execute("INSERT INTO daily_shorts_log(channel,day,count) VALUES (?,?,?)", (ch, day, count))
+            con.commit(); con.close()
+        except Exception as e:
+            print("shorts scheduler error:", e)
+        await asyncio.sleep(300)  # check every 5 minutes
+
+# ------------------------
+# Niches computation (top 10 current year + next)
+# ------------------------
+def _today_date():
+    return datetime.now().date()
+
+def _year_pair():
+    d = _today_date(); return d.year, d.year + 1
+
+def _compute_top_niches(channels: list[str], top_n: int = 10) -> list[str]:
+    """Placeholder niche computation. In production, this blends:
+    - Recent performance (CTR, retention, RPM proxies)
+    - Market trends (Sheets, research, seasonal)
+    - Channel portfolio gaps and overlap minimization
+    Here we derive a stable, diverse top list seeded by channel themes.
+    """
+    seeds = [
+        'AI Tools', 'Election Watch', 'Gadget Reviews', 'Health Hacks', 'Longevity',
+        'Clean Energy', 'Crypto Macro', 'Robotics', 'Creator Economy', 'Personal Finance',
+        'Weight Loss Science', 'Sleep & Recovery', 'Home Automation', 'Cybersecurity', 'AR/VR'
+    ]
+    # bias by present channels
+    prefer = []
+    for ch in channels:
+        if 'right' in ch: prefer += ['Election Watch','Media Takes','Policy Breakdown']
+        if 'future' in ch: prefer += ['AI Tools','Robotics','AR/VR']
+        if 'next_gen' in ch: prefer += ['Gadget Reviews','Cybersecurity','Creator Economy']
+        if 'eco' in ch: prefer += ['Clean Energy','Health Hacks','Longevity']
+    pool = list(dict.fromkeys(prefer + seeds))
+    return pool[:max(1, min(top_n, len(pool)))]
+
+@app.get("/api/niches/top")
+def niches_top():
+    con=db_conn(); cur=con.cursor()
+    cur.execute("SELECT day, year, next_year, niches_json FROM niches_top ORDER BY day DESC LIMIT 1")
+    row = cur.fetchone(); con.close()
+    if not row:
+        return {"ok": True, "day": None, "year": None, "next_year": None, "niches": []}
+    return {"ok": True, "day": row[0], "year": row[1], "next_year": row[2], "niches": json.loads(row[3] or '[]')}
+
+@app.post("/api/niches/refresh")
+def niches_refresh():
+    channels = _list_channels_for_scheduling()
+    niches = _compute_top_niches(channels, top_n=10)
+    day = _today_date().strftime('%Y-%m-%d')
+    y, ny = _year_pair()
+    con=db_conn(); cur=con.cursor()
+    cur.execute("INSERT OR REPLACE INTO niches_top(day,year,next_year,niches_json) VALUES (?,?,?,?)",
+                (day, int(y), int(ny), json.dumps(niches)))
+    con.commit(); con.close()
+    return {"ok": True, "day": day, "year": y, "next_year": ny, "niches": niches}
+
+async def niches_scheduler_loop():
+    """Refresh niches daily. Runs every 6 hours and ensures today's row exists."""
+    last_day = None
+    while True:
+        try:
+            day = _today_date().strftime('%Y-%m-%d')
+            if day != last_day:
+                niches_refresh()
+                last_day = day
+        except Exception as e:
+            print('niches scheduler error:', e)
+        await asyncio.sleep(21600)  # 6 hours
+
+@app.get("/api/admin/policy")
+def get_policy():
+    """Expose the governance policy as read-only to the dashboard."""
+    try:
+        return {"ok": True, "policy": read_policy()}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+# ------------------------
+# Jobs API and worker impl
+# ------------------------
+
+def job_event(cur, job_id: int, level: str, message: str, data: Optional[dict] = None):
+    cur.execute(
+        "INSERT INTO job_events(job_id, ts, level, message, data_json) VALUES (?,?,?,?,?)",
+        (job_id, time.time(), level, message, json.dumps(data or {}))
+    )
+
+@app.post("/api/jobs/enqueue")
+def enqueue_job(j: EnqueueJob):
+    con=db_conn(); cur=con.cursor()
+    now=time.time()
+    cur.execute(
+        """
+        INSERT INTO jobs(type, channel, payload_json, status, priority, retries, next_run_at, created_at, updated_at)
+        VALUES (?,?,?,?,?,?,?, ?, ?)
+        """,
+        (
+            j.type,
+            j.channel or "default",
+            json.dumps(j.payload_json or {}),
+            "queued",
+            int(j.priority or 5),
+            0,
+            now,
+            now,
+            now,
+        )
+    )
+    job_id = cur.lastrowid
+    job_event(cur, job_id, "info", "enqueued", {"type": j.type, "channel": j.channel or "default"})
+    con.commit(); con.close()
+    return {"ok": True, "job_id": job_id}
+
+@app.get("/api/jobs/recent")
+def jobs_recent(limit: int = 25):
+    con=db_conn(); cur=con.cursor()
+    cur.execute("SELECT id, type, channel, status, priority, retries, created_at, updated_at FROM jobs ORDER BY id DESC LIMIT ?", (max(1,min(200,limit)),))
+    rows=[{"id":i,"type":t,"channel":c,"status":s,"priority":p,"retries":r,"created_at":ca,"updated_at":ua} for i,t,c,s,p,r,ca,ua in cur.fetchall()]
+    con.close()
+    return {"ok": True, "jobs": rows}
+
+@app.get("/api/jobs/{job_id}")
+def job_detail(job_id: int):
+    con=db_conn(); cur=con.cursor()
+    cur.execute("SELECT id, type, channel, payload_json, status, priority, retries, created_at, updated_at FROM jobs WHERE id=?", (job_id,))
+    row = cur.fetchone()
+    if not row:
+        con.close(); return {"ok": False, "error": "job not found"}
+    job={"id":row[0],"type":row[1],"channel":row[2],"payload_json":json.loads(row[3] or '{}'),"status":row[4],"priority":row[5],"retries":row[6],"created_at":row[7],"updated_at":row[8]}
+    cur.execute("SELECT ts, level, message, data_json FROM job_events WHERE job_id=? ORDER BY id ASC", (job_id,))
+    ev=[{"ts":ts,"level":lvl,"message":msg,"data":json.loads(d or '{}')} for ts,lvl,msg,d in cur.fetchall()]
+    con.close(); return {"ok": True, "job": job, "events": ev}
+
+def process_one_job() -> bool:
+    con=db_conn(); cur=con.cursor()
+    now=time.time()
+    cur.execute(
+        "SELECT id, type, channel, payload_json, retries FROM jobs WHERE status IN ('queued','retry') AND (next_run_at IS NULL OR next_run_at <= ?) ORDER BY priority ASC, id ASC LIMIT 1",
+        (now,)
+    )
+    row = cur.fetchone()
+    if not row:
+        con.close(); return False
+    job_id, jtype, channel, payload_json, retries = row
+    payload = json.loads(payload_json or '{}')
+    cur.execute("UPDATE jobs SET status='running', updated_at=? WHERE id=?", (now, job_id))
+    job_event(cur, job_id, "info", "started", {"type": jtype, "channel": channel})
+    con.commit()
+
+    try:
+        # Demo pipelines (extend later):
+        if jtype == 'full_video':
+            run_full_video_pipeline(cur, job_id, channel, payload)
+        elif jtype == 'breaking_news':
+            run_breaking_news_pipeline(cur, job_id, channel, payload)
+        else:
+            job_event(cur, job_id, 'warning', 'unknown job type', {'type': jtype})
+
+        cur.execute("UPDATE jobs SET status='done', updated_at=? WHERE id=?", (time.time(), job_id))
+        job_event(cur, job_id, 'info', 'completed')
+        con.commit(); con.close(); return True
+    except Exception as e:
+        retries = int(retries or 0) + 1
+        delay = min(180, 2 ** min(6, retries))
+        nxt = time.time() + delay
+        job_event(cur, job_id, 'error', 'failed', {'error': str(e), 'retries': retries, 'next_delay_sec': delay})
+        cur.execute("UPDATE jobs SET status='retry', retries=?, next_run_at=?, updated_at=? WHERE id=?", (retries, nxt, time.time(), job_id))
+        con.commit(); con.close(); return True
+
+def run_full_video_pipeline(cur, job_id: int, channel: str, payload: dict):
+    # Placeholder steps with file outputs to artifacts/staging
+    ART_STAGING.mkdir(parents=True, exist_ok=True)
+    ts = int(time.time())
+    script = ART_STAGING / f"script_{channel}_{ts}.txt"
+    voice = ART_STAGING / f"voice_{channel}_{ts}.wav"
+    video = ART_STAGING / f"video_{channel}_{ts}.mp4"
+    thumb = ART_STAGING / f"thumb_{channel}_{ts}.png"
+
+    job_event(cur, job_id, 'info', 'research')
+    (ART_STAGING / f"seed_{ts}.json").write_text(json.dumps({'channel': channel, 'topic': payload.get('topic','auto')}, indent=2))
+    job_event(cur, job_id, 'info', 'script')
+    script.write_text(f"# Script for {channel}\n\nHook...\nBody...\nCTA...\n")
+    # TTS via macOS 'say' if available, else fallback silent wav
+    job_event(cur, job_id, 'info', 'tts')
+    try:
+        text = f"This is an auto-generated narration for {channel}. Placeholder script."
+        say_bin = shutil.which('say')
+        if say_bin:
+            aiff_tmp = ART_STAGING / f"voice_{channel}_{ts}.aiff"
+            subprocess.run([say_bin, text, '-o', str(aiff_tmp)], check=True)
+            # Convert to wav via ffmpeg if available
+            ffmpeg_bin = shutil.which('ffmpeg')
+            if ffmpeg_bin:
+                subprocess.run([ffmpeg_bin, '-y', '-i', str(aiff_tmp), str(voice)], check=True)
+                try:
+                    aiff_tmp.unlink(missing_ok=True)
+                except Exception:
+                    pass
+            else:
+                # If no ffmpeg, keep aiff as voice
+                voice = aiff_tmp
+        else:
+            # Fallback silent wav (1s)
+            ffmpeg_bin = shutil.which('ffmpeg')
+            if ffmpeg_bin:
+                subprocess.run([ffmpeg_bin, '-y', '-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=mono', '-t', '1', str(voice)], check=True)
+            else:
+                voice.write_bytes(b'RIFF0000WAVE')
+    except Exception as e:
+        job_event(cur, job_id, 'warning', 'tts_fallback', {'error': str(e)})
+        try:
+            voice.write_bytes(b'RIFF0000WAVE')
+        except Exception:
+            pass
+
+    # QA triple-checks: ensure outputs exist and are non-empty
+    try:
+        def _ok(p: Path) -> bool:
+            try:
+                return p.exists() and p.stat().st_size > 0
+            except Exception:
+                return False
+        checks = {
+            'script': _ok(script),
+            'voice': _ok(voice),
+            'video': _ok(video),
+            'thumb': _ok(thumb),
+        }
+        job_event(cur, job_id, 'info', 'qa_checks', {'checks': checks})
+        if not all(checks.values()):
+            missing = [k for k,v in checks.items() if not v]
+            raise RuntimeError(f"QA failed: missing or empty {missing}")
+    except Exception as e:
+        job_event(cur, job_id, 'warning', 'qa_failed', {'error': str(e)})
+
+    # Assemble simple video via ffmpeg: solid background + optional logo overlay + voice audio
+    # Prefer Apple Silicon hardware encoder (h264_videotoolbox) on M1 for speed/quality
+    job_event(cur, job_id, 'info', 'assemble')
+    try:
+        ffmpeg_bin = shutil.which('ffmpeg')
+        if ffmpeg_bin:
+            # Determine duration target (default 15s)
+            duration = '15'
+            # Build background color and size
+            size = '1920x1080'
+            bg = 'color=c=black:s=' + size + ':d=' + duration
+            # Optional logo overlay if exists
+            logo = None
+            for p in [BASE/'assets'/'Overlays'/'logo.png', BASE/'assets'/'Overlays'/'logo.jpg', BASE/'assets'/'Overlays'/'logo.jpeg']:
+                if p.exists():
+                    logo = p; break
+            # encoder preference order
+            encoders = ['h264_videotoolbox', 'libx264']
+            chosen = None
+            if logo:
+                # background -> overlay logo (top-right) -> add audio
+                last_err = None
+                for enc in encoders:
+                    try:
+                        subprocess.run([
+                            ffmpeg_bin,
+                            '-y',
+                            '-f','lavfi','-i', bg,
+                            '-i', str(logo),
+                            '-filter_complex','[0:v][1:v]overlay=W-w-50:50,format=yuv420p',
+                            '-i', str(voice),
+                            '-shortest',
+                            '-c:v', enc, '-pix_fmt','yuv420p','-c:a','aac','-b:a','192k', str(video)
+                        ], check=True)
+                        chosen = enc
+                        break
+                    except Exception as e:
+                        last_err = e
+                        continue
+                if not chosen:
+                    raise last_err or RuntimeError('No encoder succeeded')
+            else:
+                last_err = None
+                for enc in encoders:
+                    try:
+                        subprocess.run([
+                            ffmpeg_bin,
+                            '-y',
+                            '-f','lavfi','-i', bg,
+                            '-i', str(voice),
+                            '-shortest',
+                            '-c:v', enc, '-pix_fmt','yuv420p','-c:a','aac','-b:a','192k', str(video)
+                        ], check=True)
+                        chosen = enc
+                        break
+                    except Exception as e:
+                        last_err = e
+                        continue
+                if not chosen:
+                    raise last_err or RuntimeError('No encoder succeeded')
+            job_event(cur, job_id, 'info', 'assemble_encoder', {'encoder': chosen})
+        else:
+            video.write_bytes(b'\x00\x00fake_mp4')
+    except Exception as e:
+        job_event(cur, job_id, 'warning', 'assemble_fallback', {'error': str(e)})
+        try:
+            video.write_bytes(b'\x00\x00fake_mp4')
+        except Exception:
+            pass
+
+    # Generate thumbnail via ffmpeg drawtext if possible; fallback to simple bytes
+    job_event(cur, job_id, 'info', 'thumbnail')
+    try:
+        ffmpeg_bin = shutil.which('ffmpeg')
+        if ffmpeg_bin:
+            # Pick a font if available
+            font = None
+            fonts_dir = BASE/'assets'/'Fonts'
+            if fonts_dir.exists():
+                for f in fonts_dir.glob('*.ttf'):
+                    font = f; break
+                if not font:
+                    for f in fonts_dir.glob('*.otf'):
+                        font = f; break
+            text = f"{channel}"[:40]
+            draw = f"drawtext=fontfile='{font if font else '/System/Library/Fonts/Supplemental/Arial Unicode.ttf'}':text='{text}':fontsize=72:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2"
+            subprocess.run([
+                ffmpeg_bin,
+                '-y',
+                '-f','lavfi','-i','color=c=0x222233:s=1280x720:d=1',
+                '-vframes','1',
+                '-vf', draw,
+                str(thumb)
+            ], check=True)
+        else:
+            thumb.write_bytes(b'PNG')
+    except Exception as e:
+        job_event(cur, job_id, 'warning', 'thumbnail_fallback', {'error': str(e)})
+        try:
+            thumb.write_bytes(b'PNG')
+        except Exception:
+            pass
+
+def run_breaking_news_pipeline(cur, job_id: int, channel: str, payload: dict):
+    ART_STAGING.mkdir(parents=True, exist_ok=True)
+    ts = int(time.time())
+    note = ART_STAGING / f"breaking_{channel}_{ts}.txt"
+    job_event(cur, job_id, 'info', 'breaking_note')
+    note.write_text(f"Breaking for {channel}: {payload.get('topic','auto')}\n")
+
+def run_short_pipeline(cur, job_id: int, channel: str, payload: dict):
+    """Create a vertical short (1080x1920) with quick text and optional bg.
+    This is a lightweight pipeline so we can produce 3/day per channel reliably.
+    """
+    ART_STAGING.mkdir(parents=True, exist_ok=True)
+    ts = int(time.time())
+    script = ART_STAGING / f"short_script_{channel}_{ts}.txt"
+    voice = ART_STAGING / f"short_voice_{channel}_{ts}.wav"
+    video = ART_STAGING / f"short_video_{channel}_{ts}.mp4"
+    try:
+        topic = payload.get('topic', 'short update')
+        # Script
+        script.write_text(f"# Short Script for {channel}\n\n{topic}: Quick take.\n")
+        # TTS via say
+        say_bin = shutil.which('say'); ffmpeg_bin = shutil.which('ffmpeg')
+        if say_bin:
+            aiff_tmp = ART_STAGING / f"short_voice_{channel}_{ts}.aiff"
+            subprocess.run([say_bin, f"Quick update: {topic}", '-o', str(aiff_tmp)], check=True)
+            if ffmpeg_bin:
+                subprocess.run([ffmpeg_bin, '-y', '-i', str(aiff_tmp), str(voice)], check=True)
+                try: aiff_tmp.unlink(missing_ok=True)
+                except Exception: pass
+            else:
+                voice = aiff_tmp
+        else:
+            if ffmpeg_bin:
+                subprocess.run([ffmpeg_bin, '-y', '-f','lavfi','-i','anullsrc=r=44100:cl=mono','-t','1', str(voice)], check=True)
+            else:
+                voice.write_bytes(b'RIFF0000WAVE')
+        # Video vertical 1080x1920
+        if ffmpeg_bin:
+            size = '1080x1920'; duration = payload.get('duration','30')
+            bg = f"color=c=black:s={size}:d={duration}"
+            # Prefer Apple Silicon encoder if available
+            encoders = ['h264_videotoolbox','libx264']
+            last_err=None; chosen=None
+            for enc in encoders:
+                try:
+                    subprocess.run([
+                        ffmpeg_bin,'-y','-f','lavfi','-i', bg,
+                        '-i', str(voice),
+                        '-shortest','-c:v', enc,'-pix_fmt','yuv420p','-c:a','aac','-b:a','160k', str(video)
+                    ], check=True)
+                    chosen=enc; break
+                except Exception as e:
+                    last_err=e; continue
+            if not chosen:
+                raise last_err or RuntimeError('No encoder succeeded')
+            job_event(cur, job_id, 'info', 'short_encoder', {'encoder': chosen})
+        else:
+            video.write_bytes(b'\x00\x00fake_mp4')
+    except Exception as e:
+        job_event(cur, job_id, 'error', 'short_failed', {'error': str(e)})
+        raise

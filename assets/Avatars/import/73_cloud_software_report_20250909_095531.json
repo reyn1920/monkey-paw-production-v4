@@ -1,0 +1,144 @@
+{
+  "timestamp": "2025-09-09T09:55:31.335082",
+  "total_software": 9,
+  "by_category": {
+    "automation": 1,
+    "background_music": 1,
+    "bonus_tools": 1,
+    "script_writing": 1,
+    "thumbnail_creation": 1,
+    "training": 1,
+    "video_editing": 1,
+    "voice_generation": 2
+  },
+  "by_status": {
+    "active": 9
+  },
+  "by_integration_type": {
+    "rpa": 4,
+    "api": 3,
+    "manual": 2
+  },
+  "health_summary": {
+    "healthy": 9
+  },
+  "software_details": [
+    {
+      "name": "Lingo Blaster",
+      "category": "automation",
+      "status": "active",
+      "integration_type": "rpa",
+      "health_status": "healthy",
+      "capabilities": [
+        "language_processing",
+        "content_translation",
+        "multilingual_support"
+      ],
+      "license_type": "subscription"
+    },
+    {
+      "name": "Background Music",
+      "category": "background_music",
+      "status": "active",
+      "integration_type": "api",
+      "health_status": "healthy",
+      "capabilities": [
+        "music_library",
+        "royalty_free_music",
+        "audio_mixing"
+      ],
+      "license_type": "subscription"
+    },
+    {
+      "name": "Voiceover Cash Machine",
+      "category": "bonus_tools",
+      "status": "active",
+      "integration_type": "manual",
+      "health_status": "healthy",
+      "capabilities": [
+        "voiceover_training",
+        "business_strategies",
+        "monetization"
+      ],
+      "license_type": "one_time"
+    },
+    {
+      "name": "Scriptelo",
+      "category": "script_writing",
+      "status": "active",
+      "integration_type": "rpa",
+      "health_status": "healthy",
+      "capabilities": [
+        "script_generation",
+        "content_writing",
+        "template_processing"
+      ],
+      "license_type": "subscription"
+    },
+    {
+      "name": "Thumbnail Blaster",
+      "category": "thumbnail_creation",
+      "status": "active",
+      "integration_type": "rpa",
+      "health_status": "healthy",
+      "capabilities": [
+        "thumbnail_creation",
+        "image_editing",
+        "template_processing"
+      ],
+      "license_type": "subscription"
+    },
+    {
+      "name": "Training",
+      "category": "training",
+      "status": "active",
+      "integration_type": "manual",
+      "health_status": "healthy",
+      "capabilities": [
+        "video_training",
+        "tutorials",
+        "skill_development"
+      ],
+      "license_type": "subscription"
+    },
+    {
+      "name": "Captionizer",
+      "category": "video_editing",
+      "status": "active",
+      "integration_type": "api",
+      "health_status": "healthy",
+      "capabilities": [
+        "subtitle_generation",
+        "caption_creation",
+        "video_processing"
+      ],
+      "license_type": "subscription"
+    },
+    {
+      "name": "Speechelo",
+      "category": "voice_generation",
+      "status": "active",
+      "integration_type": "rpa",
+      "health_status": "healthy",
+      "capabilities": [
+        "text_to_speech",
+        "voice_synthesis",
+        "audio_generation"
+      ],
+      "license_type": "one_time"
+    },
+    {
+      "name": "Voice Generator",
+      "category": "voice_generation",
+      "status": "active",
+      "integration_type": "api",
+      "health_status": "healthy",
+      "capabilities": [
+        "voice_synthesis",
+        "custom_voices",
+        "audio_processing"
+      ],
+      "license_type": "subscription"
+    }
+  ]
+}

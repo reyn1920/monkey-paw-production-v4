@@ -1,0 +1,107 @@
+🔍 Configuration File Validator
+==================================================
+Found 506 configuration files:
+  JSON: 345 files
+  YAML: 110 files
+  TOML: 12 files
+  ENV: 20 files
+  DOCKER-COMPOSE: 19 files
+
+==================================================
+
+📄 Validating JSON files...
+  ✅ free_api_integration_report_20250911_093454.json: Valid JSON
+  ✅ rss_integration_test_report_20250904_042422.json: Valid JSON
+  ❌ debug_guard_report.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250904_125153.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ pets_response.json: Valid JSON
+  ✅ deployment_checklist_2025  m12_  H01  S.json: Valid JSON
+  ✅ startup_report.json: Valid JSON
+  ✅ error_counts.json: Valid JSON
+  ❌ rss_integration_test_report_20250903_211138.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ the_right_perspective_pipeline.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250904_044352.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ mcp_ai_debugging_session_20250910_184622.json: Valid JSON
+  ✅ rss_integration_test_report_20250904_031052.json: Valid JSON
+  ❌ CREDENTIAL_REPLACEMENT_LOG.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ the_right_perspective_production_schedule.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ pyrightconfig.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ final_test.json: Valid JSON
+  ❌ file_error_report.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ rss_integration_test_report_20250904_031025.json: Valid JSON
+  ✅ pipeline_debug_report.json: Valid JSON
+  ❌ test_random.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ mcp_ai_debugging_session_20250909_081142.json: Valid JSON
+  ❌ rss_integration_test_report_20250904_044552.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ deployment_checklist_20250911_094132.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ random_pets_response.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ cloud_software_report_20250911_093550.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250905_231812.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250903_213103.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250904_025539.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ random_pets_test.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ deployment_summary.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ environment_setup_guide_2025  m12_  H01  S.json: Valid JSON
+  ✅ rss_integration_test_report_20250903_210723.json: Valid JSON
+  ❌ channels.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ content_automation_config.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ the_right_perspective_setup_report.json: Valid JSON
+  ✅ pipeline_config.json: Valid JSON
+  ✅ rss_integration_test_report_20250903_213143.json: Valid JSON
+  ✅ m1_optimization_analysis.json: Valid JSON
+  ✅ test_search.json: Valid JSON
+  ❌ environment_setup_guide_20250911_094132.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ cats_response.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ rss_integration_test_report_20250904_030741.json: Valid JSON
+  ❌ cloud_software_report_20250909_095531.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ rss_integration_test_report_20250904_044643.json: Valid JSON
+  ❌ rss_integration_test_report_20250903_214105.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ minimal_api_discovery_results_20250911_101945.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ ai_debugging_session_20250909_080613.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ .base44rc.minimal.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250903_211921.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ .prettierrc.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ package-lock.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ package.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250903_213930.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ diagnostic_report.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ integration_verification_20250909_095631.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ trae_ai_dashboard_status.json: Valid JSON
+  ❌ .base44rc.production.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ database_validation_data_20250911_100324.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250905_230144.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250904_025557.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_feeds_example.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ .base44rc.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250904_165512.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250904_044537.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ deployment_readiness_report.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ minimal_api_discovery_results_20250911_102119.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250904_045222.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ mcp_ai_debugging_session_20250909_081536.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ rss_integration_test_report_20250904_044825.json: Valid JSON
+  ✅ deployment_checklist_20250911_094053.json: Valid JSON
+  ❌ rss_integration_test_report_20250904_165020.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ mcp_ai_debugging_session_20250909_081652.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ temp_paste_payload.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ .base44rc.enhanced.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ ai_session_data.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ the_right_perspective_first_content_report.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ integration_verification_2025  m15_  H51  S.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ base44_sync_config.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ .base44rc.simple.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ go_live_preparation_report.json: Valid JSON
+  ❌ ai_integration_test_results.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ integration_verification_20250909_095713.json: Valid JSON
+  ❌ test_final.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ base44_guard_report.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ rss_integration_test_report_20250903_212408.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ .safety-policy.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ go_live_report.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ environment_setup_guide_20250911_094053.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ❌ langfuse/turbo.json: JSON Error: Illegal trailing comma before end of array: line 44 column 22 (char 784)
+  ✅ langfuse/package.json: Valid JSON
+  ❌ rewritten/manifest.json: JSON Error: Expecting value: line 1 column 1 (char 0)
+  ✅ test_output/master_workflow_result.json: Valid JSON
+  ✅ test_output/verification_report_1757265906.json: Valid JSON
+  ✅ test_output/verification_report_1757265958.json: Valid JSON
