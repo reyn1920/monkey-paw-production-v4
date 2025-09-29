@@ -153,6 +153,15 @@ from pydantic import BaseModel
 
 import requests
 
+# Optional leakstrap middleware (add-only, safe). Import if present.
+try:
+    from app.middleware.leakstrap import LeakStrapMiddleware  # type: ignore
+except Exception:
+    try:
+        from .middleware.leakstrap import LeakStrapMiddleware  # type: ignore
+    except Exception:
+        LeakStrapMiddleware = None  # type: ignore
+
 
 # Pydantic Models
 class SheetsConfig(BaseModel):
@@ -179,6 +188,16 @@ class BootstrapRequest(BaseModel):
     channel: Optional[str] = None
     videos: int = 6
     shorts: int = 3
+
+
+# Optional SimpleTraeAI import for stack chat
+try:
+    from app.trae_ai_simple import SimpleTraeAI  # type: ignore
+except Exception:
+    try:
+        from .trae_ai_simple import SimpleTraeAI  # type: ignore
+    except Exception:
+        SimpleTraeAI = None  # type: ignore
 
 
 BASE = Path(__file__).resolve().parents[1]
@@ -231,6 +250,13 @@ app = FastAPI(title="Monkey Paw — V4", version="4.0.0")
 app.add_middleware(GZipMiddleware, minimum_size=500)
 app.mount("/static", StaticFiles(directory=str(BASE / "app" / "static")), name="static")
 
+# Wire leakstrap middleware if available and not disabled
+if os.getenv("LEAKSTRAP_ENABLE", "1") != "0" and 'LeakStrapMiddleware' in globals() and LeakStrapMiddleware:
+    try:
+        app.add_middleware(LeakStrapMiddleware)
+    except Exception:
+        pass
+
 # Silence linter F401 for intentionally-imported helpers used by runtime wiring
 _unused = (os, List, WebSocket, WebSocketDisconnect)  # noqa: F401
 
@@ -242,22 +268,89 @@ app.include_router(websocket_router)
 app.include_router(integration_pack_router)
 app.include_router(integration_pack_public_router)
 
+
+# ===== Stack Chat (text) =====
+class StackChatReq(BaseModel):
+    message: str
+
+
+@app.post("/api/stack/chat")
+async def stack_chat(req: StackChatReq):
+    """Simple text chat with the stack using SimpleTraeAI backends (add-only)."""
+    try:
+        if not SimpleTraeAI:
+            return {"ok": False, "error": "Stack chat unavailable: SimpleTraeAI not found"}
+        agent = SimpleTraeAI()
+        # Use non-cross-validated single best to be responsive
+        result = await agent.generate_content(req.message, content_type="text", parameters=None, cross_validate=False)
+        return {"ok": True, "result": result}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+
+# ===== BF briefs (read-only) =====
+@app.get("/api/briefs/{name}")
+def briefs_get(name: str):
+    """Return the saved prompt brief content for ChatGPT or Gemini (read-only)."""
+    try:
+        n = (name or "").strip().lower()
+        path = None
+        if n in ("chatgpt", "chatgpt5", "gpt"):
+            path = BASE / "config" / "briefs" / "chatgpt5_prompt.md"
+        elif n in ("gemini", "gemini_pro", "gemini-pro"):
+            path = BASE / "config" / "briefs" / "gemini_prompt.md"
+        else:
+            return {"ok": False, "error": "unknown brief name"}
+        if not path.exists():
+            return {"ok": False, "error": f"brief not found: {path}"}
+        return {"ok": True, "name": n, "content": path.read_text(errors="replace")}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+
+# Natural language interpretation (voice-friendly)
+class StackInterpretReq(BaseModel):
+    message: str
+    context: Optional[dict] = None
+
+
+@app.post("/api/stack/interpret")
+async def stack_interpret(req: StackInterpretReq):
+    """Interpret a natural request into structured intent/slots (add-only)."""
+    try:
+        if not SimpleTraeAI:
+            return {"ok": False, "error": "Interpret unavailable: SimpleTraeAI not found"}
+        agent = SimpleTraeAI()
+        preface = (
+            "Interpret the user's intent for the Monkey Paw app. "
+            "Return a concise JSON with fields: intent, entities (dict), summary. "
+            "Only include JSON in the content of your reply."
+        )
+        # Nudge the clients via a structured prompt
+        prompt = f"{preface}\nUser: {req.message}\nContext: {json.dumps(req.context or {}, ensure_ascii=False)}"
+        result = await agent.generate_content(prompt, content_type="text", parameters=None, cross_validate=False)
+        return {"ok": True, "result": result}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
 # CORS for common dev origins (adjust as needed)
+_default_cors = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
+_env_cors = os.getenv("ALLOW_ORIGINS", "").strip()
+_origins = _default_cors + ([o.strip() for o in _env_cors.split(",") if o.strip()] if _env_cors else [])
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:8000",
-        "http://127.0.0.1:8000",
-    ],
+    allow_origins=_origins,
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
-
 
 def db_conn():
     # Ensure DB directory exists before connecting

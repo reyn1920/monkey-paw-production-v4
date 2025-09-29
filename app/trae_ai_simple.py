@@ -258,9 +258,17 @@ class ChatGPTClient:
                 'temperature': 0.7
             }
 
-            response = self.session.post(
+            # Offload blocking HTTP to a worker thread to avoid blocking event loop
+            response = await asyncio.to_thread(
+                self.session.post,
                 f"{self.config['base_url']}/chat/completions",
-                json=payload
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                json=payload,
             )
             response.raise_for_status()
 
@@ -309,10 +317,17 @@ class GeminiClient:
             }
 
             url = f"{self.config['base_url']}/models/{self.config.get('model', 'gemini-pro')}:generateContent"
-            response = self.session.post(
+            response = await asyncio.to_thread(
+                self.session.post,
                 url,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
                 params={'key': self.config.get('api_key')},
-                json=payload
+                json=payload,
             )
             response.raise_for_status()
 
@@ -356,9 +371,16 @@ class AbacusClient:
                 'temperature': 0.7
             }
 
-            response = self.session.post(
+            response = await asyncio.to_thread(
+                self.session.post,
                 f"{self.config['base_url']}/generate",
-                json=payload
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                json=payload,
             )
             response.raise_for_status()
 

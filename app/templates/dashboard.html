@@ -14,12 +14,25 @@
   <small id="revHint" style="opacity:.7">Uses your computer's current date</small>
   </div>
   <div class="card">
+    <h3>Stack Chat</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <input id="chatInput" placeholder="Type a message…" style="min-width:280px;flex:1"/>
+      <button id="chatSend">Send</button>
+      <button id="chatMic">Mic</button>
+      <button id="chatSpeak">Speak Reply</button>
+    </div>
+    <small>Talk to the stack. Voice uses your browser's Web Speech APIs when available.</small>
+    <pre id="chatOut" style="max-height:240px;overflow:auto"></pre>
+  </div>
+  <div class="card">
     <h3>Stack Integration</h3>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
       <button id="traeSetKeys">Set API Keys</button>
       <button id="traeReload">Reload</button>
       <button id="traeTest">Quick Test</button>
       <button id="traePlatforms">Platform Status</button>
+      <button id="openChatGPT">Open ChatGPT + Copy Brief</button>
+      <button id="openGemini">Open Gemini + Copy Brief</button>
     </div>
     <small>Keys are stored locally in <code>config/integrations.yaml</code> (masked on GET). Covers ChatGPT/Gemini/Abacus clients used in the stack.</small>
     <pre id="traeOut" style="max-height:240px;overflow:auto"></pre>
@@ -38,6 +51,10 @@
       <input id="driveExt" placeholder="pdf,mp4,md" style="width:120px"/>
       <button id="driveSearch">Search</button>
       <button id="driveIngestListed">Ingest Listed</button>
+      <button id="driveRunRules">Run Rules</button>
+      <label for="driveSince">Since (unix ts):</label>
+      <input id="driveSince" placeholder="e.g. $(date -v-1d +%s)" style="width:160px"/>
+      <button id="driveShowChanges">Changes Since</button>
     </div>
     <small>Scans the configured Drive path from Integrations, saves metadata to SQLite, add-only.</small>
     <pre id="driveOut" style="max-height:260px;overflow:auto"></pre>
@@ -245,6 +262,14 @@ await loadRevenue();
   const traeTestBtn = document.getElementById('traeTest');
   const traePlatformsBtn = document.getElementById('traePlatforms');
   const traeOut = document.getElementById('traeOut');
+  const openChatGPTBtn = document.getElementById('openChatGPT');
+  const openGeminiBtn = document.getElementById('openGemini');
+  // Stack Chat elements
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+  const chatMic = document.getElementById('chatMic');
+  const chatSpeak = document.getElementById('chatSpeak');
+  const chatOut = document.getElementById('chatOut');
 
   // Set Sheets URLs (CSV exports)
   if (setSheetsBtn) {
@@ -287,6 +312,25 @@ await loadRevenue();
       driveOut.textContent='Ingesting from Drive catalog…';
       const r = await p('/api/drive/ingest_from_catalog', { rels: driveLastList.slice(0,200) });
       driveOut.textContent = JSON.stringify(r,null,2);
+    }catch(e){ driveOut.textContent='Error: '+e; }
+  };
+
+  if (driveRunRulesBtn) driveRunRulesBtn.onclick = async ()=>{
+    try{
+      driveOut.textContent='Running ingest rules…';
+      const r = await p('/api/drive/run_rules?limit=2000', {});
+      driveOut.textContent = JSON.stringify(r,null,2);
+    }catch(e){ driveOut.textContent='Error: '+e; }
+  };
+
+  if (driveShowChangesBtn) driveShowChangesBtn.onclick = async ()=>{
+    try{
+      driveOut.textContent='Loading changes…';
+      const sinceVal = (driveSince && driveSince.value.trim()) || '0';
+      const r = await g(`/api/drive/changes?since=${encodeURIComponent(sinceVal)}&limit=500`);
+      driveOut.textContent = JSON.stringify(r,null,2);
+      // Update driveLastList for possible ingest
+      if (r && r.items) driveLastList = (r.items||[]).map(x=>x.rel);
     }catch(e){ driveOut.textContent='Error: '+e; }
   };
 
@@ -350,6 +394,56 @@ await loadRevenue();
     try{ resOut.textContent='Loading…'; const r = await g('/api/resources/registry'); resOut.textContent = JSON.stringify(r,null,2); }
     catch(e){ resOut.textContent='Error: '+e; }
   };
+
+  // ===== Stack Chat wiring =====
+  async function chatSendMsg(){
+    try{
+      const msg = (chatInput && chatInput.value.trim()) || '';
+      if (!msg){ alert('Type a message'); return; }
+      chatOut.textContent = 'Thinking…';
+      const r = await fetch('/api/stack/chat', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ message: msg }) });
+      const j = await r.json();
+      chatOut.textContent = JSON.stringify(j,null,2);
+      // Auto-speak best content if present
+      const content = j && j.result && j.result.result && j.result.result.content;
+      if (content && window.speechSynthesis && chatSpeak && chatSpeak._autoSpeak){ speakText(content); }
+    }catch(e){ chatOut.textContent='Error: '+e; }
+  }
+  if (chatSend) chatSend.onclick = chatSendMsg;
+  if (chatInput) chatInput.onkeydown = (ev)=>{ if (ev.key==='Enter'){ chatSendMsg(); } };
+
+  // Mic (speech-to-text) using webkitSpeechRecognition if available
+  let recognizer = null; let recognizing = false;
+  if ('webkitSpeechRecognition' in window){
+    recognizer = new webkitSpeechRecognition();
+    recognizer.continuous = false; recognizer.interimResults = false; recognizer.lang = 'en-US';
+    recognizer.onresult = (e)=>{ const t = e.results[0][0].transcript; if (chatInput) chatInput.value = t; };
+    recognizer.onerror = ()=>{ recognizing = false; if (chatMic) chatMic.textContent='Mic'; };
+    recognizer.onend = ()=>{ recognizing = false; if (chatMic) chatMic.textContent='Mic'; };
+  }
+  if (chatMic) chatMic.onclick = ()=>{
+    if (!recognizer){ alert('Speech recognition not supported in this browser'); return; }
+    if (!recognizing){ recognizing = true; chatMic.textContent='Stop'; recognizer.start(); }
+    else { recognizer.stop(); }
+  };
+
+  // Speak (text-to-speech)
+  function speakText(text){
+    try{
+      if (!window.speechSynthesis){ alert('Speech synthesis not supported'); return; }
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 1.0; u.pitch = 1.0; u.lang = 'en-US';
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    }catch(e){ console.warn('speak error', e); }
+  }
+  if (chatSpeak) { chatSpeak._autoSpeak = false; chatSpeak.onclick = async ()=>{
+    try{
+      const txt = (()=>{ try{ const j = JSON.parse(chatOut.textContent||'{}'); return j && j.result && j.result.result && j.result.result.content; } catch{ return null; } })();
+      if (!txt){ alert('No reply to speak yet'); return; }
+      speakText(txt);
+    }catch(e){ /*noop*/ }
+  }; }
 
   // Web Guard wiring
   async function loadGuard(){
