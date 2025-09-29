@@ -20,8 +20,20 @@
       <button id="chatSend">Send</button>
       <button id="chatMic">Mic</button>
       <button id="chatSpeak">Speak Reply</button>
+      <label style="display:flex;align-items:center;gap:4px"><input type="checkbox" id="chatAutoSpeak"/> Auto-speak</label>
+      <label>Lang:
+        <select id="chatLang">
+          <option value="en-US" selected>en-US</option>
+          <option value="en-GB">en-GB</option>
+          <option value="es-ES">es-ES</option>
+          <option value="fr-FR">fr-FR</option>
+          <option value="de-DE">de-DE</option>
+        </select>
+      </label>
+      <label style="display:flex;align-items:center;gap:4px"><input type="checkbox" id="chatContinuous"/> Continuous mic</label>
     </div>
     <small>Talk to the stack. Voice uses your browser's Web Speech APIs when available.</small>
+    <div id="chatInterim" style="min-height:1.2em;color:#6b7280;margin-bottom:6px"></div>
     <pre id="chatOut" style="max-height:240px;overflow:auto"></pre>
   </div>
   <div class="card">
@@ -269,7 +281,11 @@ await loadRevenue();
   const chatSend = document.getElementById('chatSend');
   const chatMic = document.getElementById('chatMic');
   const chatSpeak = document.getElementById('chatSpeak');
+  const chatAutoSpeak = document.getElementById('chatAutoSpeak');
+  const chatLang = document.getElementById('chatLang');
+  const chatContinuous = document.getElementById('chatContinuous');
   const chatOut = document.getElementById('chatOut');
+  const chatInterim = document.getElementById('chatInterim');
 
   // Set Sheets URLs (CSV exports)
   if (setSheetsBtn) {
@@ -416,15 +432,30 @@ await loadRevenue();
   let recognizer = null; let recognizing = false;
   if ('webkitSpeechRecognition' in window){
     recognizer = new webkitSpeechRecognition();
-    recognizer.continuous = false; recognizer.interimResults = false; recognizer.lang = 'en-US';
-    recognizer.onresult = (e)=>{ const t = e.results[0][0].transcript; if (chatInput) chatInput.value = t; };
+    recognizer.continuous = !!(chatContinuous && chatContinuous.checked);
+    recognizer.interimResults = true;
+    recognizer.lang = (chatLang && chatLang.value) || 'en-US';
+    recognizer.onresult = (e)=>{
+      try{
+        let final=''; let interim='';
+        for (let i = e.resultIndex; i < e.results.length; ++i){
+          const res = e.results[i];
+          if (res.isFinal) final += res[0].transcript;
+          else interim += res[0].transcript;
+        }
+        if (chatInput) chatInput.value = (final || chatInput.value);
+        if (chatInterim) chatInterim.textContent = interim;
+      }catch(_){ /*noop*/ }
+    };
     recognizer.onerror = ()=>{ recognizing = false; if (chatMic) chatMic.textContent='Mic'; };
     recognizer.onend = ()=>{ recognizing = false; if (chatMic) chatMic.textContent='Mic'; };
   }
   if (chatMic) chatMic.onclick = ()=>{
     if (!recognizer){ alert('Speech recognition not supported in this browser'); return; }
-    if (!recognizing){ recognizing = true; chatMic.textContent='Stop'; recognizer.start(); }
-    else { recognizer.stop(); }
+    recognizer.lang = (chatLang && chatLang.value) || 'en-US';
+    recognizer.continuous = !!(chatContinuous && chatContinuous.checked);
+    if (!recognizing){ recognizing = true; chatMic.textContent='Stop'; if (chatInterim) chatInterim.textContent=''; recognizer.start(); }
+    else { recognizer.stop(); if (chatInterim) chatInterim.textContent=''; }
   };
 
   // Speak (text-to-speech)
@@ -444,6 +475,10 @@ await loadRevenue();
       speakText(txt);
     }catch(e){ /*noop*/ }
   }; }
+
+  // Auto-speak toggle and TTS language binding
+  if (chatAutoSpeak) chatAutoSpeak.onchange = ()=>{ if (chatSpeak) chatSpeak._autoSpeak = !!chatAutoSpeak.checked; };
+  if (chatLang) chatLang.onchange = ()=>{ /* TTS voice lang preference */ };
 
   // Web Guard wiring
   async function loadGuard(){
