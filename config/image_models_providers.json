@@ -1,0 +1,308 @@
+{
+  "image_models_providers": {
+    "version": "1.0.0",
+    "description": "Comprehensive configuration for all image generation models and providers",
+    "last_updated": "2025-01-09",
+    "enabled": true,
+
+    "provider_hierarchy": {
+      "primary": "openai_dalle",
+      "secondary": "stability_ai",
+      "tertiary": "local_stable_diffusion",
+      "fallback": "placeholder_generator"
+    },
+
+    "providers": {
+      "openai_dalle": {
+        "name": "OpenAI DALL-E",
+        "type": "cloud_api",
+        "enabled": true,
+        "priority": 1,
+        "base_url": "https://api.openai.com/v1",
+        "api_key_env": "OPENAI_API_KEY",
+        "models": {
+          "dall-e-3": {
+            "capabilities": ["text2img", "style_control", "quality_control"],
+            "max_resolution": "1792x1024",
+            "cost_per_image": 0.040,
+            "generation_time": "10-30s"
+          },
+          "dall-e-2": {
+            "capabilities": ["text2img", "img2img", "inpainting", "variations"],
+            "max_resolution": "1024x1024",
+            "cost_per_image": 0.020,
+            "generation_time": "5-15s"
+          }
+        },
+        "rate_limits": {
+          "requests_per_minute": 50,
+          "requests_per_hour": 1000,
+          "requests_per_day": 10000
+        },
+        "features": {
+          "batch_processing": false,
+          "real_time_generation": true,
+          "custom_training": false,
+          "api_streaming": false
+        }
+      },
+
+      "stability_ai": {
+        "name": "Stability AI",
+        "type": "cloud_api",
+        "enabled": true,
+        "priority": 2,
+        "base_url": "https://api.stability.ai/v1",
+        "api_key_env": "STABILITY_API_KEY",
+        "models": {
+          "stable-diffusion-xl-1024-v1-0": {
+            "capabilities": ["text2img", "img2img", "inpainting", "outpainting", "upscaling"],
+            "max_resolution": "1536x1536",
+            "cost_per_image": 0.030,
+            "generation_time": "15-45s"
+          },
+          "stable-diffusion-v1-6": {
+            "capabilities": ["text2img", "img2img", "inpainting"],
+            "max_resolution": "1024x1024",
+            "cost_per_image": 0.020,
+            "generation_time": "10-30s"
+          }
+        },
+        "rate_limits": {
+          "requests_per_minute": 150,
+          "requests_per_hour": 3000,
+          "requests_per_day": 50000
+        },
+        "features": {
+          "batch_processing": true,
+          "real_time_generation": true,
+          "custom_training": true,
+          "api_streaming": false
+        }
+      },
+
+      "local_stable_diffusion": {
+        "name": "Local Stable Diffusion",
+        "type": "local_inference",
+        "enabled": true,
+        "priority": 3,
+        "base_path": "./models/stable-diffusion",
+        "device": "cuda",
+        "models": {
+          "stable-diffusion-xl-base-1.0": {
+            "capabilities": ["text2img", "img2img", "controlnet", "lora"],
+            "max_resolution": "1024x1024",
+            "cost_per_image": 0.001,
+            "generation_time": "30-120s",
+            "vram_required": "8GB"
+          },
+          "stable-diffusion-v1-5": {
+            "capabilities": ["text2img", "img2img", "inpainting", "controlnet", "lora"],
+            "max_resolution": "768x768",
+            "cost_per_image": 0.001,
+            "generation_time": "20-60s",
+            "vram_required": "6GB"
+          }
+        },
+        "rate_limits": {
+          "concurrent_requests": 3,
+          "queue_size": 10
+        },
+        "features": {
+          "batch_processing": true,
+          "real_time_generation": false,
+          "custom_training": true,
+          "offline_operation": true
+        }
+      },
+
+      "midjourney_api": {
+        "name": "Midjourney API",
+        "type": "cloud_api",
+        "enabled": false,
+        "priority": 4,
+        "base_url": "https://api.midjourney.com/v1",
+        "api_key_env": "MIDJOURNEY_API_KEY",
+        "models": {
+          "midjourney-v6": {
+            "capabilities": ["text2img", "style_control", "aspect_ratio_control"],
+            "max_resolution": "2048x2048",
+            "cost_per_image": 0.050,
+            "generation_time": "60-180s"
+          }
+        },
+        "rate_limits": {
+          "requests_per_minute": 20,
+          "requests_per_hour": 200
+        },
+        "features": {
+          "batch_processing": false,
+          "real_time_generation": false,
+          "custom_training": false,
+          "style_presets": true
+        }
+      },
+
+      "replicate_api": {
+        "name": "Replicate API",
+        "type": "cloud_api",
+        "enabled": false,
+        "priority": 5,
+        "base_url": "https://api.replicate.com/v1",
+        "api_key_env": "REPLICATE_API_TOKEN",
+        "models": {
+          "sdxl": {
+            "model_version": "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b",
+            "capabilities": ["text2img", "img2img"],
+            "max_resolution": "1024x1024",
+            "cost_per_second": 0.0023,
+            "generation_time": "10-30s"
+          }
+        },
+        "features": {
+          "batch_processing": false,
+          "real_time_generation": false,
+          "custom_models": true,
+          "webhook_support": true
+        }
+      },
+
+      "placeholder_generator": {
+        "name": "Placeholder Generator",
+        "type": "fallback",
+        "enabled": true,
+        "priority": 999,
+        "description": "Generates placeholder images when other providers fail",
+        "features": {
+          "instant_generation": true,
+          "no_cost": true,
+          "always_available": true
+        }
+      }
+    },
+
+    "model_categories": {
+      "photorealistic": {
+        "description": "Models optimized for photorealistic image generation",
+        "recommended_models": [
+          "dall-e-3",
+          "stable-diffusion-xl-1024-v1-0",
+          "midjourney-v6"
+        ],
+        "use_cases": ["portraits", "product_photography", "realistic_scenes"]
+      },
+
+      "artistic": {
+        "description": "Models optimized for artistic and creative content",
+        "recommended_models": [
+          "dall-e-3",
+          "stable-diffusion-xl-1024-v1-0",
+          "midjourney-v6"
+        ],
+        "use_cases": ["illustrations", "concept_art", "creative_designs"]
+      },
+
+      "technical": {
+        "description": "Models for technical and precise image generation",
+        "recommended_models": [
+          "stable-diffusion-xl-1024-v1-0",
+          "stable-diffusion-v1-5"
+        ],
+        "use_cases": ["diagrams", "technical_illustrations", "precise_editing"]
+      },
+
+      "avatar_generation": {
+        "description": "Models specialized for avatar and character generation",
+        "recommended_models": [
+          "dall-e-3",
+          "stable-diffusion-xl-1024-v1-0"
+        ],
+        "use_cases": ["profile_pictures", "character_design", "persona_creation"]
+      }
+    },
+
+    "capability_matrix": {
+      "text2img": {
+        "providers": ["openai_dalle", "stability_ai", "local_stable_diffusion", "midjourney_api", "replicate_api"],
+        "description": "Generate images from text prompts"
+      },
+      "img2img": {
+        "providers": ["stability_ai", "local_stable_diffusion", "replicate_api"],
+        "description": "Transform existing images based on prompts"
+      },
+      "inpainting": {
+        "providers": ["openai_dalle", "stability_ai", "local_stable_diffusion"],
+        "description": "Fill or modify specific areas of images"
+      },
+      "outpainting": {
+        "providers": ["stability_ai"],
+        "description": "Extend images beyond their original boundaries"
+      },
+      "upscaling": {
+        "providers": ["stability_ai"],
+        "description": "Increase image resolution while maintaining quality"
+      },
+      "style_control": {
+        "providers": ["openai_dalle", "midjourney_api"],
+        "description": "Control artistic style and aesthetic"
+      },
+      "controlnet": {
+        "providers": ["local_stable_diffusion"],
+        "description": "Precise control over image composition and structure"
+      },
+      "lora": {
+        "providers": ["local_stable_diffusion"],
+        "description": "Low-rank adaptation for custom model fine-tuning"
+      }
+    },
+
+    "routing_rules": {
+      "cost_optimization": {
+        "enabled": true,
+        "prefer_local_when_available": true,
+        "cost_threshold": 0.05,
+        "batch_size_threshold": 5
+      },
+      "quality_optimization": {
+        "enabled": true,
+        "high_quality_providers": ["openai_dalle", "midjourney_api"],
+        "quality_threshold": 0.8
+      },
+      "speed_optimization": {
+        "enabled": true,
+        "fast_providers": ["openai_dalle", "stability_ai"],
+        "max_wait_time": 60
+      },
+      "capability_routing": {
+        "enabled": true,
+        "route_by_capability": true,
+        "fallback_on_unavailable": true
+      }
+    },
+
+    "load_balancing": {
+      "strategy": "weighted_round_robin",
+      "weights": {
+        "openai_dalle": 0.4,
+        "stability_ai": 0.3,
+        "local_stable_diffusion": 0.2,
+        "midjourney_api": 0.1
+      },
+      "health_check_interval": 300,
+      "circuit_breaker": {
+        "enabled": true,
+        "failure_threshold": 5,
+        "recovery_timeout": 300
+      }
+    },
+
+    "monitoring": {
+      "track_provider_performance": true,
+      "track_cost_per_provider": true,
+      "track_success_rates": true,
+      "track_generation_times": true,
+      "alert_on_provider_failure": true,
+      "daily_usage_reports": true
+    }
+  }
+}

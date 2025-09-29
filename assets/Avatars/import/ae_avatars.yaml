@@ -1,0 +1,14 @@
+engine:
+  default: linly_talker
+  options: [linly_talker, talking_heads]
+voices:
+  male: en-US-GuyNeural
+  female: en-US-JennyNeural
+paths:
+  linly_talker_bin: ""
+  talking_heads_bin: ""
+output:
+  dir: out
+  fps: 30
+  width: 1280
+  height: 720

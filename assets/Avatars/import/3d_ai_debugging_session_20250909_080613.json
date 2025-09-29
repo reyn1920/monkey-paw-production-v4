@@ -1,0 +1,52 @@
+{
+  "session_metadata": {
+    "timestamp": 1757419573.5824819,
+    "total_queries": 1,
+    "services_used": [
+      "abacus"
+    ],
+    "browser_launched": true
+  },
+  "mcp_calls": [
+    {
+      "service": "abacus",
+      "service_name": "Abacus AI",
+      "url": "https://apps.abacus.ai/",
+      "query": "Please help me debug this error:\n\nError Message: sqlite3.OperationalError: no such column: search_keywords\n\nCode Context:\n\n# Code that caused the error:\ncursor.execute(\n    \"SELECT task_id, search_keywords FROM api_discovery_tasks WHERE search_keywords LIKE ?\",\n    ('%python%',)\n)\n\n# Full error traceback:\n# sqlite3.OperationalError: no such column: search_keywords\n# This suggests the database schema is missing the expected column\n    \n\nI need:\n1. Root cause analysis\n2. Specific fix with code examples\n3. Prevention strategies\n4. Best practices to avoid similar issues\n\nPlease provide a comprehensive solution.",
+      "response": "Based on my analysis of your SQLite error, here's what I found:\n\n**Error Analysis:**\nThe error \"no such column: search_keywords\" indicates that your database table schema doesn't include the expected column.\n\n**Root Cause:**\n- Your application code is trying to query a column that doesn't exist\n- This typically happens when database migrations haven't been run\n- Or when the schema definition is out of sync with the code\n\n**Solution:**\n```sql\nALTER TABLE api_discovery_tasks ADD COLUMN search_keywords TEXT;\n```\n\n**Best Practices:**\n1. Always use database migrations for schema changes\n2. Implement proper error handling for missing columns\n3. Use schema validation in your application startup\n4. Consider using an ORM that handles schema validation\n\n**Prevention:**\n- Add database schema tests to your CI/CD pipeline\n- Use database migration tools like Alembic (Python) or Flyway\n- Implement graceful degradation for missing columns",
+      "screenshot_name": "abacus_response_1757419547",
+      "timestamp": 1757419547.548198,
+      "success": true,
+      "error": null
+    }
+  ],
+  "service_configurations": {
+    "abacus": {
+      "url": "https://apps.abacus.ai/",
+      "name": "Abacus AI",
+      "selectors": {
+        "input": "textarea, input[type=\"text\"], .chat-input, [contenteditable=\"true\"]",
+        "submit": "button[type=\"submit\"], .send-button, .submit-btn, button:contains(\"Send\")",
+        "response": ".response, .message, .chat-message, .output, .answer"
+      }
+    },
+    "gemini": {
+      "url": "https://gemini.google.com/app",
+      "name": "Google Gemini",
+      "selectors": {
+        "input": "div[contenteditable=\"true\"], textarea, .input-area, .prompt-input",
+        "submit": "button[aria-label=\"Send\"], .send-button, button[data-testid=\"send-button\"]",
+        "response": ".model-response, .response-text, .message-content, [data-message-author-role=\"assistant\"]"
+      }
+    },
+    "chatgpt": {
+      "url": "https://chatgpt.com/",
+      "name": "ChatGPT",
+      "selectors": {
+        "input": "#prompt-textarea, textarea[placeholder*=\"Message\"], .ProseMirror",
+        "submit": "button[data-testid=\"send-button\"], .send-button",
+        "response": ".markdown, .message-content, [data-message-author-role=\"assistant\"]"
+      }
+    }
+  }
+}

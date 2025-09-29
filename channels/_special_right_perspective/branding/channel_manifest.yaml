@@ -1,0 +1,130 @@
+# The Right Perspective - Special Case Channel Configuration
+# This channel requires special handling due to sensitive content and humor requirements
+
+channel_info:
+  name: "The Right Perspective"
+  slug: "right_perspective"
+  description: "Special case channel with unique humor and sensitive content handling"
+  category: "comedy_commentary"
+  
+# CRITICAL: Publishing Controls
+publishing:
+  publish_opt_in: false  # NO auto-publish until manually enabled
+  redact_personal_info: true
+  sensitive_topics_flag: true
+  requires_manual_review: true
+  
+# Content Guidelines
+content:
+  style: "dry_humor"
+  tone: "sarcastic_commentary"
+  humor_level: "high"
+  sensitivity: "high"
+  
+  # Special writing requirements
+  writing_requirements:
+    - "Human-like humor that's hard for AI to replicate"
+    - "Quick cuts and timing"
+    - "Duo banter between male and female avatars"
+    - "Natural reactions and presentations"
+    - "Context-aware jokes and references"
+    
+# Avatar Configuration
+avatars:
+  primary:
+    type: "male"
+    engine: "linlyx_talker"
+    port: 9510
+    personality: "sarcastic_host"
+    
+  secondary:
+    type: "female"
+    engine: "talking_heads"
+    port: 9520
+    personality: "witty_cohost"
+    
+  interaction:
+    enable_duo_mode: true
+    banter_style: "natural_conversation"
+    reaction_timing: "human_like"
+    
+# Video Production
+video_production:
+  style: "quick_cuts"
+  pacing: "fast"
+  transitions: "dynamic"
+  
+  # Producer role integration
+  lighting:
+    mood: "dramatic"
+    angles: "dynamic"
+    
+  camera_movements:
+    style: "cinematic"
+    automation: "software_controlled"
+    
+# Content Safety
+safety:
+  content_warnings: true
+  age_restriction: "mature"
+  disclaimer_required: true
+  
+  # YouTube compliance
+  youtube_compliance:
+    avatar_disclosure: true
+    disclaimer_text: "This content features AI-generated avatars"
+    placement: "bottom_corner"
+    
+# Analytics & Optimization
+analytics:
+  track_humor_effectiveness: true
+  monitor_audience_reaction: true
+  optimize_timing: true
+  
+  # Special metrics
+  humor_metrics:
+    - "joke_success_rate"
+    - "audience_engagement"
+    - "banter_effectiveness"
+    
+# Revenue Optimization
+revenue:
+  monetization_strategy: "premium_content"
+  ad_placement: "strategic"
+  sponsor_integration: "natural"
+  
+# Research & Development
+research:
+  humor_ai_training: true
+  audience_analysis: true
+  content_optimization: true
+  
+  # Continuous improvement
+  feedback_loops:
+    - "audience_reaction_analysis"
+    - "humor_effectiveness_tracking"
+    - "avatar_interaction_optimization"
+    
+# Emergency Controls
+emergency:
+  auto_stop_on_controversy: true
+  manual_override_required: true
+  content_review_queue: true
+  
+# Integration Notes
+integration_notes: |
+  This channel requires:
+  1. Manual review of all content before publishing
+  2. Special humor AI training and fine-tuning
+  3. Advanced avatar interaction programming
+  4. Professional-level video production integration
+  5. Continuous monitoring for content appropriateness
+  
+  The humor aspect is particularly challenging and requires:
+  - Human-level wit and timing
+  - Context-aware joke generation
+  - Natural conversation flow between avatars
+  - Professional production values
+  
+  This is NOT a plug-and-play system and requires significant
+  research and development for each component.

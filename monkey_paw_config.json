@@ -1,0 +1,66 @@
+{
+  "monkey_paw": {
+    "version": "2.0.0",
+    "core_purpose": "automated_research_to_publishing_pipeline",
+    "description": "Automated research → drafting → repurposing → publishing system"
+  },
+  "core_pipeline": {
+    "enabled": true,
+    "components": {
+      "research": {
+        "enabled": true,
+        "description": "Automated topic research and content discovery"
+      },
+      "drafting": {
+        "enabled": true,
+        "description": "Automated content creation and writing"
+      },
+      "repurposing": {
+        "enabled": true,
+        "description": "Multi-format content adaptation"
+      },
+      "publishing": {
+        "enabled": true,
+        "description": "Multi-platform content distribution"
+      }
+    }
+  },
+  "addons": {
+    "nocode_coder_stack": {
+      "enabled": false,
+      "description": "No-code coder orchestrator and agent builder",
+      "location": "/Users/thomasbrianreynolds/Desktop/nocode-coder-stack",
+      "note": "Separated from core to prevent drift"
+    },
+    "video_processing": {
+      "enabled": true,
+      "description": "Video content processing and compliance checking",
+      "note": "Supporting feature for video content pipeline"
+    }
+  },
+  "database": {
+    "type": "sqlite",
+    "path": "backend/runtime.db",
+    "features": {
+      "faiss_vector_search": true,
+      "job_queue": true,
+      "content_storage": true
+    }
+  },
+  "scheduler": {
+    "type": "apscheduler",
+    "enabled": true,
+    "features": {
+      "job_orchestration": true,
+      "file_queues": true,
+      "background_processing": true
+    }
+  },
+  "policies": {
+    "add_only": true,
+    "zero_cost": true,
+    "local_first": true,
+    "rule_1_vocab_ban": true
+  }
+}
+

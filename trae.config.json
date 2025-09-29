@@ -1,0 +1,106 @@
+{
+  "project": "monkey-paw",
+  "version": "2.0.0",
+  "platformIntegration": {
+    "enabled": true,
+    "supportedPlatforms": ["cursor", "bolt", "firebase", "vscode", "gitpod", "replit"],
+    "syncMode": "realtime",
+    "conflictResolution": "ai-assisted"
+  },
+  "ai": {
+    "model": "claude-3.5-sonnet",
+    "features": [
+      "code-generation",
+      "debugging",
+      "optimization",
+      "multi-platform-sync",
+      "cross-platform-deployment",
+      "intelligent-refactoring",
+      "automated-testing",
+      "security-analysis"
+    ],
+    "capabilities": {
+      "multiFileEditing": true,
+      "contextAwareness": true,
+      "projectAnalysis": true,
+      "dependencyManagement": true,
+      "performanceOptimization": true
+    }
+  },
+  "development": {
+    "environments": {
+      "local": {
+        "editor": "cursor",
+        "terminal": "integrated",
+        "debugging": true
+      },
+      "cloud": {
+        "platforms": ["gitpod", "replit", "codespaces"],
+        "autoSync": true,
+        "sharedWorkspace": true
+      }
+    },
+    "workflow": {
+      "autoSave": true,
+      "autoFormat": true,
+      "autoLint": true,
+      "autoTest": true,
+      "autoCommit": false
+    }
+  },
+  "integration": {
+    "vscode": {
+      "enabled": true,
+      "syncSettings": true,
+      "syncExtensions": true
+    },
+    "cursor": {
+      "enabled": true,
+      "aiIntegration": true,
+      "sharedContext": true
+    },
+    "bolt": {
+      "enabled": true,
+      "autoDeployment": true,
+      "frameworkDetection": true
+    },
+    "firebase": {
+      "enabled": true,
+      "hosting": true,
+      "functions": true,
+      "firestore": true,
+      "auth": true
+    },
+    "github": {
+      "enabled": true,
+      "actions": true,
+      "autoDeployment": true,
+      "prIntegration": true
+    },
+    "deployment": {
+      "enabled": true,
+      "platforms": ["netlify", "firebase", "vercel"],
+      "autoPreview": true,
+      "rollbackSupport": true
+    }
+  },
+  "collaboration": {
+    "realTimeSync": true,
+    "sharedCursor": true,
+    "voiceChat": false,
+    "screenShare": false,
+    "commentSystem": true
+  },
+  "security": {
+    "secretsManagement": true,
+    "environmentVariables": true,
+    "accessControl": true,
+    "auditLogging": true
+  },
+  "performance": {
+    "caching": true,
+    "bundleOptimization": true,
+    "lazyLoading": true,
+    "codesplitting": true
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "global": {
+    "client_id": "YOUR_GOOGLE_OAUTH_CLIENT_ID",
+    "client_secret": "YOUR_GOOGLE_OAUTH_CLIENT_SECRET",
+    "redirect_uri": "http://127.0.0.1:8000/oauth2/callback/youtube",
+    "scopes": [
+      "https://www.googleapis.com/auth/youtube.upload",
+      "https://www.googleapis.com/auth/youtube.readonly",
+      "https://www.googleapis.com/auth/yt-analytics.readonly"
+    ]
+  },
+  "channels": {
+    "UC_fz1kiUOIDz5-VtVtKn7OQ": { "refresh_token": "", "note": "The Right Perspective" },
+    "UC8pIkBnof0r5Fh6h5nxPh7g": { "refresh_token": "", "note": "Next Gen Tech Today" },
+    "UC_p_3vPbe6gpM8VK2uF2B6Q": { "refresh_token": "", "note": "EcoWell Living" },
+    "UC4wNMA9Xi0aJ_9kvJy6KBTQ": { "refresh_token": "", "note": "AI Trend Reports" }
+  }
+}

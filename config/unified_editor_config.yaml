@@ -1,0 +1,278 @@
+# 🔗 UNIFIED EDITOR INTEGRATION CONFIG
+# Connects Cursor, Bolt.diy, Google Firebase, and Trae.ai
+
+version: "2.0"
+integration_name: "Monkey Paw Production Unified Development Environment"
+
+# 🎯 CORE EDITORS CONFIGURATION
+editors:
+  cursor:
+    enabled: true
+    path: "/Applications/Cursor.app"
+    workspace_file: "monkey-paw.code-workspace"
+    extensions:
+      - "continue.continue"
+      - "ms-vscode.vscode-typescript-next"
+      - "bradlc.vscode-tailwindcss"
+      - "ms-vscode.vscode-eslint"
+      - "ms-python.python"
+    ai_models:
+      - provider: "ollama"
+        models: ["codellama", "deepseek-coder", "qwen2.5-coder"]
+      - provider: "openai"
+        models: ["gpt-4", "gpt-3.5-turbo"]
+    sync_settings: true
+    auto_launch: true
+
+  bolt_diy:
+    enabled: true
+    url: "https://bolt.diy"
+    local_port: 5173
+    project_sync: true
+    ai_providers:
+      - "openai"
+      - "anthropic"
+      - "ollama"
+      - "google"
+    features:
+      - "real_time_preview"
+      - "ai_code_generation"
+      - "multi_model_support"
+    sync_with_cursor: true
+
+  firebase:
+    enabled: true
+    project_id: "monkey-paw-production-v4"
+    hosting_site: "monkey-paw-production-v4"
+    functions_region: "us-central1"
+    firestore_enabled: true
+    auth_enabled: true
+    storage_enabled: true
+    analytics_enabled: true
+    auto_deploy: true
+    environments:
+      - "development"
+      - "staging" 
+      - "production"
+
+  trae_ai:
+    enabled: true
+    mode: "local_first"
+    solo_agent: true
+    autonomous_features:
+      - "code_generation"
+      - "bug_fixing"
+      - "documentation"
+      - "testing"
+    integrations:
+      - "cursor"
+      - "vscode"
+      - "sublime"
+    ai_services:
+      - "ollama"
+      - "openai"
+
+# 🔄 SYNCHRONIZATION SETTINGS
+sync:
+  project_files:
+    enabled: true
+    bidirectional: true
+    exclude_patterns:
+      - "node_modules/"
+      - ".git/"
+      - "dist/"
+      - "build/"
+    include_patterns:
+      - "src/**"
+      - "config/**"
+      - "*.json"
+      - "*.yaml"
+      - "*.md"
+
+  settings:
+    cursor_to_bolt: true
+    bolt_to_firebase: true
+    firebase_to_trae: true
+    trae_to_cursor: true
+
+  real_time: true
+  conflict_resolution: "merge_with_prompt"
+
+# 🤖 SHARED AI SERVICES
+ai_services:
+  ollama:
+    endpoint: "http://localhost:11434"
+    models:
+      - "codellama:7b"
+      - "deepseek-coder:6.7b"
+      - "qwen2.5-coder:7b"
+      - "llama3.1:8b"
+    health_check: true
+    auto_start: true
+
+  openai:
+    api_key_env: "OPENAI_API_KEY"
+    models:
+      - "gpt-4"
+      - "gpt-3.5-turbo"
+      - "gpt-4-turbo"
+    rate_limiting: true
+
+  anthropic:
+    api_key_env: "ANTHROPIC_API_KEY"
+    models:
+      - "claude-3-sonnet"
+      - "claude-3-haiku"
+
+# 🔐 AUTHENTICATION & SECURITY
+auth:
+  firebase_auth: true
+  shared_tokens: true
+  secure_storage: true
+  token_refresh: true
+  
+  providers:
+    - "google"
+    - "github"
+    - "email"
+
+  permissions:
+    cursor: ["read", "write", "execute"]
+    bolt_diy: ["read", "write", "deploy"]
+    firebase: ["read", "write", "admin"]
+    trae_ai: ["read", "write", "autonomous"]
+
+# 🚀 DEPLOYMENT PIPELINE
+deployment:
+  enabled: true
+  trigger_from:
+    - "cursor_save"
+    - "bolt_build"
+    - "trae_completion"
+  
+  stages:
+    - name: "build"
+      commands:
+        - "npm run build"
+        - "npm run test"
+    
+    - name: "deploy_staging"
+      firebase_target: "staging"
+      auto_approve: false
+    
+    - name: "deploy_production"
+      firebase_target: "production"
+      auto_approve: false
+      require_tests: true
+
+# 🔧 WORKFLOW AUTOMATION
+workflows:
+  code_generation:
+    trigger: "ai_request"
+    steps:
+      - "trae_ai_generate"
+      - "cursor_review"
+      - "bolt_preview"
+      - "firebase_test_deploy"
+
+  bug_fixing:
+    trigger: "error_detected"
+    steps:
+      - "trae_ai_analyze"
+      - "cursor_debug"
+      - "bolt_test_fix"
+      - "firebase_validate"
+
+  documentation:
+    trigger: "code_completion"
+    steps:
+      - "trae_ai_document"
+      - "cursor_format"
+      - "firebase_publish"
+
+# 📊 MONITORING & ANALYTICS
+monitoring:
+  enabled: true
+  metrics:
+    - "editor_usage"
+    - "ai_requests"
+    - "deployment_success"
+    - "error_rates"
+  
+  alerts:
+    - "deployment_failure"
+    - "ai_service_down"
+    - "sync_conflicts"
+
+  dashboards:
+    - "unified_development"
+    - "ai_performance"
+    - "deployment_status"
+
+# 🔌 EXTENSIONS & PLUGINS
+extensions:
+  cursor:
+    - "continue"
+    - "prettier"
+    - "eslint"
+    - "tailwindcss"
+    - "python"
+    - "typescript"
+
+  vscode_compatibility: true
+  sublime_integration: true
+  
+  custom_plugins:
+    - "monkey_paw_sync"
+    - "unified_ai_assistant"
+    - "cross_editor_navigation"
+
+# 🌐 NETWORKING & PORTS
+networking:
+  ports:
+    cursor_lsp: 6969
+    bolt_dev: 5173
+    firebase_emulator: 9099
+    trae_ai_service: 8080
+    unified_hub: 3003
+  
+  cors_enabled: true
+  ssl_enabled: true
+  local_network: true
+
+# 📁 PROJECT STRUCTURE
+project_structure:
+  shared_folders:
+    - "src/"
+    - "config/"
+    - "assets/"
+    - "tests/"
+  
+  editor_specific:
+    cursor: ".vscode/"
+    bolt: ".bolt/"
+    firebase: ".firebase/"
+    trae: ".trae/"
+
+# 🔄 BACKUP & RECOVERY
+backup:
+  enabled: true
+  frequency: "hourly"
+  retention: "30_days"
+  
+  targets:
+    - "project_files"
+    - "configurations"
+    - "ai_models"
+    - "deployment_history"
+
+# 🎛️ FEATURE FLAGS
+features:
+  real_time_collaboration: true
+  ai_pair_programming: true
+  automated_testing: true
+  continuous_deployment: true
+  cross_editor_debugging: true
+  unified_search: true
+  shared_snippets: true
+  collaborative_ai: true

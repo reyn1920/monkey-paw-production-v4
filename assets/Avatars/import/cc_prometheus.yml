@@ -1,0 +1,290 @@
+# Prometheus Configuration for Zero-Cost Monitoring Stack
+# This configuration sets up Prometheus to scrape metrics from our applications
+# and system monitoring endpoints
+
+global:
+  scrape_interval: 15s          # Set the scrape interval to every 15 seconds
+  evaluation_interval: 15s      # Evaluate rules every 15 seconds
+  external_labels:
+    monitor: 'zero-cost-monitoring'
+    environment: 'production'
+    project: 'trae-ai-production'
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'
+rule_files:
+  - "alert_rules.yml"
+  - "recording_rules.yml"
+
+# Scrape configuration
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    scrape_interval: 15s
+    metrics_path: /metrics
+
+  # Our main application metrics
+  - job_name: 'trae-ai-application'
+    static_configs:
+      - targets: ['localhost:8000']
+    scrape_interval: 15s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+    honor_labels: true
+
+  # System metrics via node_exporter (if available)
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['localhost:9100']
+    scrape_interval: 15s
+    metrics_path: /metrics
+
+  # Web scraping service metrics
+  - job_name: 'web-scraping-service'
+    static_configs:
+      - targets: ['localhost:8001']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 15s
+
+  # API discovery service metrics
+  - job_name: 'api-discovery-service'
+    static_configs:
+      - targets: ['localhost:8002']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 15s
+
+  # Research agent metrics
+  - job_name: 'research-agent'
+    static_configs:
+      - targets: ['localhost:8003']
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scrape_timeout: 30s
+
+  # Database metrics (if using PostgreSQL with postgres_exporter)
+  - job_name: 'postgres-exporter'
+    static_configs:
+      - targets: ['localhost:9187']
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Redis metrics (if using redis_exporter)
+  - job_name: 'redis-exporter'
+    static_configs:
+      - targets: ['localhost:9121']
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Nginx metrics (if using nginx-prometheus-exporter)
+  - job_name: 'nginx-exporter'
+    static_configs:
+      - targets: ['localhost:9113']
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Custom business metrics endpoint
+  - job_name: 'business-metrics'
+    static_configs:
+      - targets: ['localhost:8004']
+    scrape_interval: 60s
+    metrics_path: /business-metrics
+    scrape_timeout: 30s
+
+  # Health check endpoints
+  - job_name: 'health-checks'
+    static_configs:
+      - targets:
+        - 'localhost:8000'
+        - 'localhost:8001'
+        - 'localhost:8002'
+        - 'localhost:8003'
+    scrape_interval: 30s
+    metrics_path: /health
+    scrape_timeout: 10s
+
+  # Blackbox exporter for external service monitoring
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # Look for a HTTP 200 response
+    static_configs:
+      - targets:
+        - https://api.publicapis.org/entries
+        - https://rapidapi.com
+        - https://github.com/api/v3
+        - https://www.programmableweb.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9115  # Blackbox exporter address
+
+  # File-based service discovery for dynamic targets
+  - job_name: 'file-discovery'
+    file_sd_configs:
+      - files:
+        - 'targets/*.json'
+        - 'targets/*.yml'
+    refresh_interval: 30s
+
+  # Pushgateway for batch jobs and short-lived processes
+  - job_name: 'pushgateway'
+    static_configs:
+      - targets: ['localhost:9091']
+    honor_labels: true
+
+  # Custom scrapers for specific services
+  - job_name: 'automation-services'
+    static_configs:
+      - targets: ['localhost:8005']
+    scrape_interval: 60s
+    metrics_path: /automation-metrics
+
+  - job_name: 'content-processing'
+    static_configs:
+      - targets: ['localhost:8006']
+    scrape_interval: 45s
+    metrics_path: /content-metrics
+
+  - job_name: 'ai-model-metrics'
+    static_configs:
+      - targets: ['localhost:8007']
+    scrape_interval: 120s
+    metrics_path: /ai-metrics
+    scrape_timeout: 60s
+
+# Remote write configuration (for long-term storage)
+# Uncomment and configure if using remote storage like Grafana Cloud, AWS, etc.
+# remote_write:
+#   - url: "https://prometheus-prod-10-prod-us-central-0.grafana.net/api/prom/push"
+#     basic_auth:
+#       username: "your-username"
+#       password: "your-api-key"
+#     write_relabel_configs:
+#       - source_labels: [__name__]
+#         regex: 'expensive_metric.*'
+#         action: drop
+
+# Remote read configuration (for querying remote storage)
+# remote_read:
+#   - url: "https://prometheus-prod-10-prod-us-central-0.grafana.net/api/prom/read"
+#     basic_auth:
+#       username: "your-username"
+#       password: "your-api-key"
+
+# Storage configuration
+storage:
+  tsdb:
+    path: ./prometheus_data
+    retention.time: 15d
+    retention.size: 10GB
+    wal-compression: true
+
+# Web configuration
+web:
+  listen-address: '0.0.0.0:9090'
+  max-connections: 512
+  read-timeout: 30s
+
+# Runtime configuration
+runtime:
+  gogc: 75  # Tune garbage collection for better performance
+
+# Feature flags
+feature_flags:
+  - name: "promql-at-modifier"
+    enabled: true
+  - name: "promql-negative-offset"
+    enabled: true
+
+# Tracing configuration (if using Jaeger)
+# tracing:
+#   endpoint: "http://localhost:14268/api/traces"
+#   sampling_fraction: 0.1
+
+# Log configuration
+log:
+  level: info
+  format: logfmt
+
+# Query configuration
+query:
+  timeout: 2m
+  max-concurrency: 20
+  max-samples: 50000000
+
+# Additional scrape configs for development/testing
+# These can be enabled/disabled based on environment
+# - job_name: 'development-services'
+#   static_configs:
+#     - targets: ['localhost:3000', 'localhost:3001']
+#   scrape_interval: 10s
+#   metrics_path: /dev-metrics
+
+# Metric relabeling for cost optimization
+# This section helps reduce storage costs by dropping unnecessary metrics
+metric_relabel_configs:
+  # Drop expensive metrics that aren't needed
+  - source_labels: [__name__]
+    regex: 'go_memstats_.*'
+    action: drop
+
+  # Keep only specific HTTP status codes
+  - source_labels: [__name__, code]
+    regex: 'http_requests_total;[45]..'
+    action: keep
+
+  # Rename metrics for consistency
+  - source_labels: [__name__]
+    regex: 'old_metric_name'
+    target_label: __name__
+    replacement: 'new_metric_name'
+
+# Service discovery configurations
+# Uncomment and configure based on your infrastructure
+
+# Kubernetes service discovery
+# kubernetes_sd_configs:
+#   - role: pod
+#     namespaces:
+#       names:
+#         - default
+#         - monitoring
+
+# Consul service discovery
+# consul_sd_configs:
+#   - server: 'localhost:8500'
+#     services: ['web', 'api', 'database']
+
+# EC2 service discovery
+# ec2_sd_configs:
+#   - region: us-west-2
+#     port: 9100
+#     filters:
+#       - name: tag:Environment
+#         values: [production]
+
+# Docker service discovery
+# docker_sd_configs:
+#   - host: unix:///var/run/docker.sock
+#     refresh_interval: 30s
+
+# DNS service discovery
+# dns_sd_configs:
+#   - names:
+#     - 'tasks.web-service'
+#     - 'tasks.api-service'
+#     type: 'A'
+#     port: 9100

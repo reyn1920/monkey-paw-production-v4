@@ -1,0 +1,21 @@
+[
+  {
+    "key": "cmd+alt+o",
+    "command": "ollama.askSelection",
+    "when": "editorHasSelection"
+  },
+  {
+    "key": "cmd+alt+e",
+    "command": "ollama.explainSelection",
+    "when": "editorHasSelection"
+  },
+  {
+    "key": "cmd+alt+i",
+    "command": "ollama.insertAtCursor",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+alt+m",
+    "command": "ollama.cycleModel"
+  }
+]

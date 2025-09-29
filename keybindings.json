@@ -1,0 +1,158 @@
+[
+  {
+    "key": "cmd+shift+a",
+    "command": "cursor.ai.chat",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+k",
+    "command": "cursor.ai.inline",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+shift+k",
+    "command": "cursor.ai.refactor",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+alt+s",
+    "command": "multiPlatform.sync",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "cmd+shift+d",
+    "command": "multiPlatform.deploy.bolt",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "cmd+shift+f",
+    "command": "multiPlatform.deploy.firebase",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "cmd+shift+n",
+    "command": "multiPlatform.deploy.netlify",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+`",
+    "command": "workbench.action.terminal.toggleTerminal"
+  },
+  {
+    "key": "cmd+shift+`",
+    "command": "workbench.action.terminal.new"
+  },
+  {
+    "key": "f5",
+    "command": "workbench.action.debug.start",
+    "when": "debuggersAvailable && !inDebugMode"
+  },
+  {
+    "key": "shift+f5",
+    "command": "workbench.action.debug.stop",
+    "when": "inDebugMode"
+  },
+  {
+    "key": "cmd+shift+g",
+    "command": "workbench.view.scm"
+  },
+  {
+    "key": "cmd+k cmd+c",
+    "command": "git.commitStaged"
+  },
+  {
+    "key": "cmd+k cmd+p",
+    "command": "git.push"
+  },
+  {
+    "key": "cmd+k cmd+l",
+    "command": "git.pull"
+  },
+  {
+    "key": "cmd+shift+t",
+    "command": "test-explorer.run-all"
+  },
+  {
+    "key": "cmd+t",
+    "command": "test-explorer.run-file"
+  },
+  {
+    "key": "cmd+r",
+    "command": "test-explorer.run-test-at-cursor"
+  },
+  {
+    "key": "cmd+n",
+    "command": "workbench.action.files.newUntitledFile"
+  },
+  {
+    "key": "cmd+shift+n",
+    "command": "workbench.action.newWindow"
+  },
+  {
+    "key": "cmd+w",
+    "command": "workbench.action.closeActiveEditor"
+  },
+  {
+    "key": "cmd+shift+w",
+    "command": "workbench.action.closeWindow"
+  },
+  {
+    "key": "cmd+p",
+    "command": "workbench.action.quickOpen"
+  },
+  {
+    "key": "cmd+shift+p",
+    "command": "workbench.action.showCommands"
+  },
+  {
+    "key": "cmd+f",
+    "command": "actions.find"
+  },
+  {
+    "key": "cmd+shift+f",
+    "command": "workbench.action.findInFiles"
+  },
+  {
+    "key": "cmd+h",
+    "command": "editor.action.startFindReplaceAction"
+  },
+  {
+    "key": "cmd+shift+h",
+    "command": "workbench.action.replaceInFiles"
+  },
+  {
+    "key": "cmd+g",
+    "command": "editor.action.nextMatchFindAction",
+    "when": "editorFocus"
+  },
+  {
+    "key": "cmd+shift+g",
+    "command": "editor.action.previousMatchFindAction",
+    "when": "editorFocus"
+  },
+  {
+    "key": "cmd+d",
+    "command": "editor.action.addSelectionToNextFindMatch",
+    "when": "editorFocus"
+  },
+  {
+    "key": "cmd+k cmd+d",
+    "command": "editor.action.moveSelectionToNextFindMatch",
+    "when": "editorFocus"
+  },
+  {
+    "key": "alt+cmd+f",
+    "command": "editor.action.formatDocument",
+    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "cmd+k cmd+f",
+    "command": "editor.action.formatSelection",
+    "when": "editorHasDocumentSelectionFormattingProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+alt+f",
+    "command": "editor.action.formatDocument",
+    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+  }
+]

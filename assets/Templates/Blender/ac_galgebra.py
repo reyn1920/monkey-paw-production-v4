@@ -1,0 +1,1 @@
+raise ImportError("""As of SymPy 10 the galgebra module is maintained separately at https://github.com/pygae/galgebra""")

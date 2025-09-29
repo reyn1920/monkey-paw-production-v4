@@ -1,0 +1,6 @@
+export { default as Dashboard } from './Dashboard'
+export { default as StackTemplates } from './StackTemplates'
+export { default as PlatformIntegrations } from './PlatformIntegrations'
+export { default as AutomationCenter } from './AutomationCenter'
+export { default as Settings } from './Settings'
+export { NotFound } from './NotFound'

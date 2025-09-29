@@ -1,0 +1,17 @@
+{
+  "monitoring_interval": 15,
+  "content_generation_interval": 30,
+  "max_daily_content": 10,
+  "priority_keywords": [
+    "breaking",
+    "urgent",
+    "scandal",
+    "controversy",
+    "hypocrisy",
+    "contradiction",
+    "exposed"
+  ],
+  "content_formats": ["video", "article", "social_post"],
+  "auto_publish": false,
+  "quality_threshold": 0.7
+}

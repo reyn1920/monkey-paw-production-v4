@@ -1,0 +1,16 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["**/.base44rc.json", "*.base44rc.*.json"],
+      "url": "./.vscode/schemas/base44rc.schema.json"
+    }
+  ],
+  "css.lint.unknownProperties": "ignore",
+  "css.lint.unknownAtRules": "ignore",
+  "html.validate.styles": false,
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "jinja-html": "html"
+  },
+  "files.autoSave": "onFocusChange"
+}

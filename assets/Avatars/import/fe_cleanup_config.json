@@ -1,0 +1,38 @@
+{
+  "profiles": {
+    "default": {
+      "tools": [
+        "href_fix",
+        "rule1_rewriter",
+        "unused_scanner",
+        "package_patcher"
+      ],
+      "auto_fix": false,
+      "parallel": false
+    },
+    "security": {
+      "tools": ["rule1_rewriter", "package_patcher"],
+      "auto_fix": true,
+      "security_focus": true
+    },
+    "quick": {
+      "tools": ["href_fix", "unused_scanner"],
+      "quick_mode": true
+    },
+    "full": {
+      "tools": [
+        "href_fix",
+        "rule1_rewriter",
+        "unused_scanner",
+        "package_patcher"
+      ],
+      "auto_fix": true,
+      "parallel": true,
+      "comprehensive": true
+    }
+  },
+  "thresholds": {
+    "max_issues": 1000,
+    "error_threshold": 10
+  }
+}

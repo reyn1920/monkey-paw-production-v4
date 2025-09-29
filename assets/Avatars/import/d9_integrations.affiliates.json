@@ -1,0 +1,90 @@
+{
+  "The Right Perspective": [
+    {
+      "name": "ExpressVPN",
+      "url": "https://www.expressvpn.com/affiliates"
+    },
+    {
+      "name": "NordVPN",
+      "url": "https://nordvpn.com/affiliate-program/"
+    },
+    {
+      "name": "My Patriot Supply",
+      "url": "https://www.mypatriotsupply.com/pages/affiliate"
+    },
+    {
+      "name": "Goldco (Gold/IRA)",
+      "url": "https://www.goldco.com/affiliate-program/"
+    },
+    {
+      "name": "Audible",
+      "url": "https://www.audible.com/affiliates"
+    }
+  ],
+  "Next Gen Tech Today": [
+    {
+      "name": "Amazon Associates",
+      "url": "https://affiliate-program.amazon.com/"
+    },
+    {
+      "name": "Best Buy",
+      "url": "https://www.bestbuy.com/site/misc/affiliates/pcmcat316000050005.c?id=pcmcat316000050005"
+    },
+    {
+      "name": "B&H Photo",
+      "url": "https://www.bhphotovideo.com/find/HelpCenter/affiliate.jsp"
+    },
+    {
+      "name": "eBay Partner Network",
+      "url": "https://partnernetwork.ebay.com/"
+    },
+    {
+      "name": "Newegg",
+      "url": "https://newegg.io/affiliate"
+    }
+  ],
+  "EcoWell Living": [
+    {
+      "name": "Thrive Market",
+      "url": "https://thrivemarket.com/affiliate"
+    },
+    {
+      "name": "iHerb",
+      "url": "https://www.iherb.com/info/affiliates"
+    },
+    {
+      "name": "EarthHero",
+      "url": "https://earthhero.com/affiliate-program/"
+    },
+    {
+      "name": "Grove Collaborative",
+      "url": "https://www.grove.co/affiliate"
+    },
+    {
+      "name": "Pact (Apparel)",
+      "url": "https://wearpact.com/pages/affiliate-program"
+    }
+  ],
+  "AI Trend Reports": [
+    {
+      "name": "Canva",
+      "url": "https://www.canva.com/affiliates/"
+    },
+    {
+      "name": "Grammarly",
+      "url": "https://www.grammarly.com/affiliates"
+    },
+    {
+      "name": "Descript",
+      "url": "https://www.descript.com/affiliate-program"
+    },
+    {
+      "name": "Coursera",
+      "url": "https://www.coursera.org/affiliates"
+    },
+    {
+      "name": "Udemy",
+      "url": "https://www.udemy.com/affiliate/"
+    }
+  ]
+}

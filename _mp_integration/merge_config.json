@@ -1,0 +1,12 @@
+{
+  "downloads_path": "~/Downloads",
+  "desktop_path": "~/Desktop/monkey paw",
+  "drive_path": "~/Google Drive/online production",
+  "file_patterns": [
+    "*.py",
+    "*.js",
+    "*.ts",
+    "*.json",
+    "*.md"
+  ]
+}

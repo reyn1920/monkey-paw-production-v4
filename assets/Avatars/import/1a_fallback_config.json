@@ -1,0 +1,53 @@
+{
+  "enabled": true,
+  "preferred_providers": [
+    "groq_free",
+    "together_free",
+    "huggingface_free",
+    "ollama_local"
+  ],
+  "fallback_models": {
+    "text_generation": "llama3-8b-8192",
+    "chat": "llama3-8b-8192",
+    "code": "codellama",
+    "image_description": "llama3-8b-8192"
+  },
+  "max_retries": 3,
+  "timeout_seconds": 30,
+  "rate_limits": {
+    "groq_free": {
+      "requests_per_minute": 30,
+      "requests_per_hour": 1000,
+      "tokens_per_minute": 6000
+    },
+    "together_free": {
+      "requests_per_minute": 60,
+      "requests_per_hour": 1000,
+      "tokens_per_minute": 10000
+    },
+    "huggingface_free": {
+      "requests_per_minute": 100,
+      "requests_per_hour": 1000,
+      "tokens_per_minute": 20000
+    },
+    "ollama_local": {
+      "requests_per_minute": 1000,
+      "requests_per_hour": 10000,
+      "tokens_per_minute": 100000
+    }
+  },
+  "fallback_triggers": {
+    "credit_threshold": 100,
+    "error_codes": [429, 402, 403],
+    "error_messages": [
+      "insufficient credits",
+      "quota exceeded",
+      "rate limit exceeded"
+    ]
+  },
+  "quality_settings": {
+    "prefer_quality": false,
+    "prefer_speed": true,
+    "max_response_time_ms": 30000
+  }
+}

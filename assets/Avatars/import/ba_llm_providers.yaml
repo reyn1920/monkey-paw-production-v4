@@ -1,0 +1,9 @@
+# LLM Providers Configuration
+# Configuration for various language model providers and their endpoints
+
+nemotron9b:
+  provider: "openrouter"
+  model: "nvidia/nemotron-nano-9b-v2:free"
+  base_url: "https://openrouter.ai/api/v1"
+  timeout_sec: 60
+  max_output_tokens: 2048

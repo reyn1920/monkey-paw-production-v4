@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmeml version="4">
+  <project>
+    <name>DemoProject</name>
+    <children>
+      <sequence>
+        <name>DemoProject_Timeline</name>
+        <rate>
+          <timebase>25</timebase>
+          <ntsc>FALSE</ntsc>
+        </rate>
+        <media>
+          <audio>
+            <track>
+              <clipitem id="intro">
+                <name>intro</name>
+                <file id="intro_file">
+                  <name>intro</name>
+                  <pathurl>file://output/davinci_resolve/intro_20250909_040001.wav</pathurl>
+                  <rate>
+                    <timebase>25</timebase>
+                    <ntsc>FALSE</ntsc>
+                  </rate>
+                  <media>
+                    <audio>
+                      <samplecharacteristics>
+                        <depth>24</depth>
+                        <samplerate>48000</samplerate>
+                      </samplecharacteristics>
+                    </audio>
+                  </media>
+                </file>
+                <start>0</start>
+                <end>157</end>
+                <in>0</in>
+                <out>157</out>
+              </clipitem>
+            </track>
+            <track>
+              <clipitem id="explanation">
+                <name>explanation</name>
+                <file id="explanation_file">
+                  <name>explanation</name>
+                  <pathurl>file://output/davinci_resolve/explanation_20250909_040004.wav</pathurl>
+                  <rate>
+                    <timebase>25</timebase>
+                    <ntsc>FALSE</ntsc>
+                  </rate>
+                  <media>
+                    <audio>
+                      <samplecharacteristics>
+                        <depth>24</depth>
+                        <samplerate>48000</samplerate>
+                      </samplecharacteristics>
+                    </audio>
+                  </media>
+                </file>
+                <start>0</start>
+                <end>177</end>
+                <in>0</in>
+                <out>177</out>
+              </clipitem>
+            </track>
+            <track>
+              <clipitem id="conclusion">
+                <name>conclusion</name>
+                <file id="conclusion_file">
+                  <name>conclusion</name>
+                  <pathurl>file://output/davinci_resolve/conclusion_20250909_040007.wav</pathurl>
+                  <rate>
+                    <timebase>25</timebase>
+                    <ntsc>FALSE</ntsc>
+                  </rate>
+                  <media>
+                    <audio>
+                      <samplecharacteristics>
+                        <depth>24</depth>
+                        <samplerate>48000</samplerate>
+                      </samplecharacteristics>
+                    </audio>
+                  </media>
+                </file>
+                <start>0</start>
+                <end>185</end>
+                <in>0</in>
+                <out>185</out>
+              </clipitem>
+            </track>
+          </audio>
+        </media>
+      </sequence>
+    </children>
+  </project>
+</xmeml>

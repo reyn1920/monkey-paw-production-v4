@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Service Identity -->
+    <key>Label</key>
+    <string>com.trae.ai.autonomous</string>
+
+    <!-- Program Configuration -->
+    <key>Program</key>
+    <string>/usr/bin/python3</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/thomasbrianreynolds/online production/launch_autonomous.py</string>
+    </array>
+
+    <!-- Working Directory -->
+    <key>WorkingDirectory</key>
+    <string>/Users/thomasbrianreynolds/online production</string>
+
+    <!-- Environment Variables -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>TRAE_MASTER_KEY</key>
+        <string>trae_master_key_2024_production</string>
+        <key>TRAE_MODE</key>
+        <string>autonomous</string>
+        <key>PYTHONPATH</key>
+        <string>/Users/thomasbrianreynolds/online production</string>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+
+    <!-- Auto-Start Configuration -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Keep Alive - The Heart of Self-Healing -->
+    <key>KeepAlive</key>
+    <dict>
+        <!-- Always restart if crashed -->
+        <key>Crashed</key>
+        <true/>
+
+        <!-- Restart if process exits unexpectedly -->
+        <key>SuccessfulExit</key>
+        <false/>
+
+        <!-- Advanced conditions for restart -->
+        <key>NetworkState</key>
+        <true/>
+
+        <!-- Check if specific paths exist -->
+        <key>PathState</key>
+        <dict>
+            <key>/Users/thomasbrianreynolds/online production/data</key>
+            <true/>
+            <key>/Users/thomasbrianreynolds/online production/backend</key>
+            <true/>
+        </dict>
+    </dict>
+
+    <!-- Restart Throttling -->
+    <key>ThrottleInterval</key>
+    <integer>30</integer>
+
+    <!-- Process Management -->
+    <key>ProcessType</key>
+    <string>Background</string>
+
+    <!-- Resource Limits -->
+    <key>SoftResourceLimits</key>
+    <dict>
+        <key>NumberOfFiles</key>
+        <integer>4096</integer>
+        <key>NumberOfProcesses</key>
+        <integer>512</integer>
+    </dict>
+
+    <key>HardResourceLimits</key>
+    <dict>
+        <key>NumberOfFiles</key>
+        <integer>8192</integer>
+        <key>NumberOfProcesses</key>
+        <integer>1024</integer>
+    </dict>
+
+    <!-- Logging Configuration -->
+    <key>StandardOutPath</key>
+    <string>/Users/thomasbrianreynolds/online production/logs/autonomous_stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/thomasbrianreynolds/online production/logs/autonomous_stderr.log</string>
+
+    <!-- Security -->
+    <key>UserName</key>
+    <string>thomasbrianreynolds</string>
+
+    <key>GroupName</key>
+    <string>staff</string>
+
+    <!-- Advanced Monitoring -->
+    <key>WatchPaths</key>
+    <array>
+        <string>/Users/thomasbrianreynolds/online production/backend/agents</string>
+        <string>/Users/thomasbrianreynolds/online production/config</string>
+    </array>
+
+    <!-- Exit Timeout -->
+    <key>ExitTimeOut</key>
+    <integer>30</integer>
+
+    <!-- Disable in Safe Mode -->
+    <key>Disabled</key>
+    <false/>
+
+    <!-- Enable Transactions -->
+    <key>EnableTransactions</key>
+    <true/>
+
+    <!-- Session Type -->
+    <key>LimitLoadToSessionType</key>
+    <string>Aqua</string>
+</dict>
+</plist>

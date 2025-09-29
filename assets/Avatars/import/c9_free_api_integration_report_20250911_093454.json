@@ -1,0 +1,196 @@
+{
+  "timestamp": "2025-09-11T09:34:54.385812",
+  "total_apis": 8,
+  "configured_apis": [],
+  "unconfigured_apis": [
+    "groq",
+    "huggingface",
+    "pexels",
+    "guardian",
+    "nytimes",
+    "reddit",
+    "youtube",
+    "github"
+  ],
+  "api_status": {
+    "groq": {
+      "name": "Groq",
+      "category": "AI/ML",
+      "env_var": "GROQ_API_KEY",
+      "api_key_configured": false,
+      "api_key_present": false,
+      "timestamp": "2025-09-11T09:34:54.385844"
+    },
+    "huggingface": {
+      "name": "Hugging Face",
+      "category": "AI/ML",
+      "env_var": "HUGGINGFACE_API_KEY",
+      "api_key_configured": false,
+      "api_key_present": false,
+      "timestamp": "2025-09-11T09:34:54.385846"
+    },
+    "pexels": {
+      "name": "Pexels",
+      "category": "Media",
+      "env_var": "PEXELS_API_KEY",
+      "api_key_configured": false,
+      "api_key_present": false,
+      "timestamp": "2025-09-11T09:34:54.385848"
+    },
+    "guardian": {
+      "name": "Guardian",
+      "category": "News",
+      "env_var": "GUARDIAN_API_KEY",
+      "api_key_configured": false,
+      "api_key_present": false,
+      "timestamp": "2025-09-11T09:34:54.385850"
+    },
+    "nytimes": {
+      "name": "NY Times",
+      "category": "News",
+      "env_var": "NYTIMES_API_KEY",
+      "api_key_configured": false,
+      "api_key_present": false,
+      "timestamp": "2025-09-11T09:34:54.385852"
+    },
+    "reddit": {
+      "name": "Reddit",
+      "category": "Social",
+      "env_var": "REDDIT_CLIENT_ID",
+      "api_key_configured": false,
+      "api_key_present": false,
+      "timestamp": "2025-09-11T09:34:54.385854"
+    },
+    "youtube": {
+      "name": "YouTube Data API",
+      "category": "Social",
+      "env_var": "YOUTUBE_API_KEY",
+      "api_key_configured": false,
+      "api_key_present": true,
+      "timestamp": "2025-09-11T09:34:54.385855"
+    },
+    "github": {
+      "name": "GitHub",
+      "category": "Development",
+      "env_var": "GITHUB_TOKEN",
+      "api_key_configured": false,
+      "api_key_present": false,
+      "timestamp": "2025-09-11T09:34:54.385857"
+    }
+  },
+  "key_configuration_check": {
+    "groq": {
+      "env_var": "GROQ_API_KEY",
+      "configured": false,
+      "present": false,
+      "value_preview": "Not set",
+      "timestamp": "2025-09-11T09:34:54.385859"
+    },
+    "huggingface": {
+      "env_var": "HUGGINGFACE_API_KEY",
+      "configured": false,
+      "present": false,
+      "value_preview": "Not set",
+      "timestamp": "2025-09-11T09:34:54.385861"
+    },
+    "pexels": {
+      "env_var": "PEXELS_API_KEY",
+      "configured": false,
+      "present": false,
+      "value_preview": "Not set",
+      "timestamp": "2025-09-11T09:34:54.385863"
+    },
+    "guardian": {
+      "env_var": "GUARDIAN_API_KEY",
+      "configured": false,
+      "present": false,
+      "value_preview": "Not set",
+      "timestamp": "2025-09-11T09:34:54.385865"
+    },
+    "nytimes": {
+      "env_var": "NYTIMES_API_KEY",
+      "configured": false,
+      "present": false,
+      "value_preview": "Not set",
+      "timestamp": "2025-09-11T09:34:54.385867"
+    },
+    "reddit": {
+      "env_var": "REDDIT_CLIENT_ID",
+      "configured": false,
+      "present": false,
+      "value_preview": "Not set",
+      "timestamp": "2025-09-11T09:34:54.385868"
+    },
+    "youtube": {
+      "env_var": "YOUTUBE_API_KEY",
+      "configured": false,
+      "present": true,
+      "value_preview": "your_actua...",
+      "timestamp": "2025-09-11T09:34:54.385870"
+    },
+    "github": {
+      "env_var": "GITHUB_TOKEN",
+      "configured": false,
+      "present": false,
+      "value_preview": "Not set",
+      "timestamp": "2025-09-11T09:34:54.385872"
+    }
+  },
+  "setup_instructions": {
+    "groq": {
+      "url": "https://console.groq.com/",
+      "description": "Fast AI inference with generous free tier",
+      "free_tier": "Generous free usage limits"
+    },
+    "huggingface": {
+      "url": "https://huggingface.co/settings/tokens",
+      "description": "Access to thousands of AI models",
+      "free_tier": "1000 requests/month free"
+    },
+    "pexels": {
+      "url": "https://www.pexels.com/api/",
+      "description": "Free stock photos and videos",
+      "free_tier": "200 requests/hour"
+    },
+    "guardian": {
+      "url": "https://open-platform.theguardian.com/",
+      "description": "Guardian newspaper content",
+      "free_tier": "5,000 calls/day"
+    },
+    "nytimes": {
+      "url": "https://developer.nytimes.com/",
+      "description": "NY Times articles and reviews",
+      "free_tier": "4,000 requests/day"
+    },
+    "reddit": {
+      "url": "https://www.reddit.com/prefs/apps",
+      "description": "Reddit posts and comments",
+      "free_tier": "60 requests/minute"
+    },
+    "youtube": {
+      "url": "https://console.developers.google.com/",
+      "description": "YouTube video data",
+      "free_tier": "10,000 units/day"
+    },
+    "arxiv": {
+      "url": "https://arxiv.org/help/api",
+      "description": "Academic papers (no key required)",
+      "free_tier": "Unlimited with rate limits"
+    },
+    "github": {
+      "url": "https://github.com/settings/tokens",
+      "description": "GitHub repositories and data",
+      "free_tier": "5,000 requests/hour"
+    },
+    "google_trends": {
+      "url": "https://trends.google.com/",
+      "description": "Google search trends (no key required)",
+      "free_tier": "Unlimited with rate limits"
+    }
+  },
+  "summary": {
+    "configured_count": 0,
+    "unconfigured_count": 8,
+    "success_rate": 0.0
+  }
+}

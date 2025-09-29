@@ -1,0 +1,272 @@
+{
+  "stable_diffusion": {
+    "version": "1.0.0",
+    "description": "Stable Diffusion model configuration and settings",
+    "last_updated": "2025-01-09",
+    "enabled": true,
+
+    "models": {
+      "sd_xl_base": {
+        "name": "Stable Diffusion XL Base 1.0",
+        "model_id": "stabilityai/stable-diffusion-xl-base-1.0",
+        "enabled": true,
+        "priority": 1,
+        "model_type": "text2img",
+        "resolution": "1024x1024",
+        "vae": "madebyollin/sdxl-vae-fp16-fix",
+        "scheduler": "DPMSolverMultistepScheduler",
+        "precision": "fp16",
+        "device": "cuda",
+        "memory_efficient": true,
+        "use_safetensors": true,
+        "features": {
+          "text_to_image": true,
+          "image_to_image": true,
+          "inpainting": false,
+          "controlnet": true,
+          "lora": true
+        }
+      },
+
+      "sd_xl_refiner": {
+        "name": "Stable Diffusion XL Refiner 1.0",
+        "model_id": "stabilityai/stable-diffusion-xl-refiner-1.0",
+        "enabled": true,
+        "priority": 2,
+        "model_type": "refiner",
+        "resolution": "1024x1024",
+        "precision": "fp16",
+        "device": "cuda",
+        "use_with_base": "sd_xl_base",
+        "refiner_start": 0.8
+      },
+
+      "sd_v1_5": {
+        "name": "Stable Diffusion v1.5",
+        "model_id": "runwayml/stable-diffusion-v1-5",
+        "enabled": true,
+        "priority": 3,
+        "model_type": "text2img",
+        "resolution": "512x512",
+        "scheduler": "DPMSolverMultistepScheduler",
+        "precision": "fp16",
+        "device": "cuda",
+        "features": {
+          "text_to_image": true,
+          "image_to_image": true,
+          "inpainting": true,
+          "controlnet": true,
+          "lora": true
+        }
+      },
+
+      "sd_inpaint": {
+        "name": "Stable Diffusion Inpainting",
+        "model_id": "runwayml/stable-diffusion-inpainting",
+        "enabled": true,
+        "priority": 4,
+        "model_type": "inpainting",
+        "resolution": "512x512",
+        "scheduler": "DDIMScheduler",
+        "precision": "fp16",
+        "device": "cuda",
+        "features": {
+          "inpainting": true,
+          "outpainting": true
+        }
+      },
+
+      "sd_2_1": {
+        "name": "Stable Diffusion 2.1",
+        "model_id": "stabilityai/stable-diffusion-2-1",
+        "enabled": false,
+        "priority": 5,
+        "model_type": "text2img",
+        "resolution": "768x768",
+        "scheduler": "DPMSolverMultistepScheduler",
+        "precision": "fp16",
+        "device": "cuda"
+      }
+    },
+
+    "schedulers": {
+      "DPMSolverMultistepScheduler": {
+        "class_name": "DPMSolverMultistepScheduler",
+        "config": {
+          "beta_start": 0.00085,
+          "beta_end": 0.012,
+          "beta_schedule": "scaled_linear",
+          "num_train_timesteps": 1000,
+          "solver_order": 2,
+          "prediction_type": "epsilon",
+          "thresholding": false,
+          "dynamic_thresholding_ratio": 0.995,
+          "sample_max_value": 1.0,
+          "algorithm_type": "dpmsolver++",
+          "solver_type": "midpoint",
+          "lower_order_final": true
+        }
+      },
+
+      "DDIMScheduler": {
+        "class_name": "DDIMScheduler",
+        "config": {
+          "beta_start": 0.00085,
+          "beta_end": 0.012,
+          "beta_schedule": "scaled_linear",
+          "num_train_timesteps": 1000,
+          "clip_sample": false,
+          "set_alpha_to_one": false,
+          "steps_offset": 1,
+          "prediction_type": "epsilon"
+        }
+      },
+
+      "EulerDiscreteScheduler": {
+        "class_name": "EulerDiscreteScheduler",
+        "config": {
+          "beta_start": 0.00085,
+          "beta_end": 0.012,
+          "beta_schedule": "scaled_linear",
+          "num_train_timesteps": 1000,
+          "prediction_type": "epsilon",
+          "interpolation_type": "linear",
+          "use_karras_sigmas": false
+        }
+      }
+    },
+
+    "controlnet_models": {
+      "canny": {
+        "name": "ControlNet Canny",
+        "model_id": "lllyasviel/sd-controlnet-canny",
+        "enabled": true,
+        "compatible_models": ["sd_v1_5"],
+        "preprocessing": {
+          "low_threshold": 100,
+          "high_threshold": 200
+        }
+      },
+
+      "openpose": {
+        "name": "ControlNet OpenPose",
+        "model_id": "lllyasviel/sd-controlnet-openpose",
+        "enabled": true,
+        "compatible_models": ["sd_v1_5"],
+        "preprocessing": {
+          "detect_resolution": 512,
+          "image_resolution": 512
+        }
+      },
+
+      "depth": {
+        "name": "ControlNet Depth",
+        "model_id": "lllyasviel/sd-controlnet-depth",
+        "enabled": true,
+        "compatible_models": ["sd_v1_5"],
+        "preprocessing": {
+          "detect_resolution": 512,
+          "image_resolution": 512
+        }
+      }
+    },
+
+    "lora_models": {
+      "portrait_enhancement": {
+        "name": "Portrait Enhancement LoRA",
+        "path": "./models/lora/portrait_enhancement.safetensors",
+        "enabled": true,
+        "weight": 0.8,
+        "compatible_models": ["sd_xl_base", "sd_v1_5"]
+      },
+
+      "style_transfer": {
+        "name": "Style Transfer LoRA",
+        "path": "./models/lora/style_transfer.safetensors",
+        "enabled": true,
+        "weight": 0.7,
+        "compatible_models": ["sd_xl_base"]
+      }
+    },
+
+    "generation_parameters": {
+      "default": {
+        "steps": 20,
+        "guidance_scale": 7.5,
+        "negative_prompt": "blurry, low quality, distorted, deformed, extra limbs, bad anatomy, worst quality, low quality, normal quality, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
+        "eta": 0.0,
+        "generator_seed": null,
+        "width": 512,
+        "height": 512,
+        "num_images": 1
+      },
+
+      "high_quality": {
+        "steps": 30,
+        "guidance_scale": 8.0,
+        "negative_prompt": "blurry, low quality, distorted, deformed, extra limbs, bad anatomy, worst quality, low quality, normal quality, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
+        "eta": 0.0,
+        "generator_seed": null,
+        "width": 1024,
+        "height": 1024,
+        "num_images": 1
+      },
+
+      "ultra_quality": {
+        "steps": 50,
+        "guidance_scale": 9.0,
+        "negative_prompt": "blurry, low quality, distorted, deformed, extra limbs, bad anatomy, worst quality, low quality, normal quality, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
+        "eta": 0.0,
+        "generator_seed": null,
+        "width": 1024,
+        "height": 1024,
+        "num_images": 1,
+        "use_refiner": true
+      }
+    },
+
+    "optimization": {
+      "memory_efficient_attention": true,
+      "use_cpu_offload": false,
+      "use_sequential_cpu_offload": false,
+      "enable_vae_slicing": true,
+      "enable_vae_tiling": true,
+      "enable_attention_slicing": "auto",
+      "enable_model_cpu_offload": false,
+      "torch_compile": false,
+      "channels_last": true
+    },
+
+    "safety": {
+      "safety_checker": true,
+      "requires_safety_checker": true,
+      "nsfw_filter": true,
+      "content_filter": true,
+      "watermark": false
+    },
+
+    "paths": {
+      "models_dir": "./models/stable-diffusion",
+      "cache_dir": "./cache/diffusers",
+      "output_dir": "./output/generated_images",
+      "temp_dir": "./temp/diffusion"
+    },
+
+    "hardware": {
+      "device": "cuda",
+      "device_map": "auto",
+      "torch_dtype": "float16",
+      "variant": "fp16",
+      "use_safetensors": true,
+      "low_cpu_mem_usage": true
+    },
+
+    "api_settings": {
+      "max_concurrent_requests": 3,
+      "request_timeout": 300,
+      "retry_attempts": 3,
+      "retry_delay": 5,
+      "queue_size": 10
+    }
+  }
+}

@@ -1,0 +1,32 @@
+rules:
+  - id: py-danger-eval
+    languages: [python]
+    message: "Avoid eval/exec; prefer safer alternatives."
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: exec(...)
+    severity: ERROR
+
+  - id: py-broad-except
+    languages: [python]
+    message: "Avoid bare except; catch specific exceptions."
+    pattern: |
+      try:
+        ...
+      except:
+        ...
+    severity: WARNING
+
+  - id: js-innerHTML-direct
+    languages: [javascript, typescript]
+    message: "Avoid direct innerHTML assignment; use safer APIs."
+    pattern: |
+      $X.innerHTML = $Y
+    severity: WARNING
+
+  - id: go-error-ignore
+    languages: [go]
+    message: "Do not ignore returned errors."
+    pattern: |
+      $X, _ := $F(...)
+    severity: WARNING

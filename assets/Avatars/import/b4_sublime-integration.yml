@@ -1,0 +1,34 @@
+name: Sublime Text Integration Workflow
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  sublime-automation:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Sublime Text
+      run: |
+        # Install Sublime Text on macOS runner
+        brew install --cask sublime-text
+
+    - name: Format Code with Sublime Text
+      run: |
+        # Format Python files
+        find . -name "*.py" -not -path "./venv/*" -not -path "./models/*" -exec subl --command reindent --wait {} \;
+
+    - name: Check for formatting changes
+      run: |
+        if [[ -n $(git diff --name-only) ]]; then
+          echo "Code formatting changes detected"
+          git diff --name-only
+          exit 1
+        else
+          echo "Code is properly formatted"
+        fi

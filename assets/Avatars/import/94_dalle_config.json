@@ -1,0 +1,274 @@
+{
+  "dalle_config": {
+    "version": "1.0.0",
+    "description": "DALL-E API configuration and settings for OpenAI image generation",
+    "last_updated": "2025-01-09",
+    "enabled": true,
+
+    "api_settings": {
+      "base_url": "https://api.openai.com/v1",
+      "api_version": "v1",
+      "timeout": 120,
+      "max_retries": 3,
+      "retry_delay": 2,
+      "backoff_factor": 2.0,
+      "max_concurrent_requests": 5,
+      "rate_limit_per_minute": 50,
+      "rate_limit_per_hour": 1000
+    },
+
+    "models": {
+      "dall_e_3": {
+        "name": "DALL-E 3",
+        "model_id": "dall-e-3",
+        "enabled": true,
+        "priority": 1,
+        "max_prompt_length": 4000,
+        "supported_sizes": [
+          "1024x1024",
+          "1792x1024",
+          "1024x1792"
+        ],
+        "supported_quality": ["standard", "hd"],
+        "supported_styles": ["vivid", "natural"],
+        "default_settings": {
+          "size": "1024x1024",
+          "quality": "standard",
+          "style": "vivid",
+          "response_format": "url"
+        },
+        "features": {
+          "text_to_image": true,
+          "image_editing": false,
+          "image_variations": false,
+          "inpainting": false,
+          "outpainting": false,
+          "style_control": true,
+          "quality_control": true
+        },
+        "pricing": {
+          "standard_1024x1024": 0.040,
+          "standard_1792x1024": 0.080,
+          "standard_1024x1792": 0.080,
+          "hd_1024x1024": 0.080,
+          "hd_1792x1024": 0.120,
+          "hd_1024x1792": 0.120
+        }
+      },
+
+      "dall_e_2": {
+        "name": "DALL-E 2",
+        "model_id": "dall-e-2",
+        "enabled": true,
+        "priority": 2,
+        "max_prompt_length": 1000,
+        "supported_sizes": [
+          "256x256",
+          "512x512",
+          "1024x1024"
+        ],
+        "default_settings": {
+          "size": "1024x1024",
+          "response_format": "url",
+          "n": 1
+        },
+        "features": {
+          "text_to_image": true,
+          "image_editing": true,
+          "image_variations": true,
+          "inpainting": true,
+          "outpainting": false,
+          "style_control": false,
+          "quality_control": false
+        },
+        "pricing": {
+          "1024x1024": 0.020,
+          "512x512": 0.018,
+          "256x256": 0.016,
+          "edit_1024x1024": 0.020,
+          "variation_1024x1024": 0.020
+        }
+      }
+    },
+
+    "generation_presets": {
+      "avatar_portrait": {
+        "model": "dall-e-3",
+        "size": "1024x1024",
+        "quality": "hd",
+        "style": "natural",
+        "prompt_template": "Professional headshot portrait of {description}, studio lighting, clean background, high resolution, photorealistic",
+        "prompt_enhancements": [
+          "professional photography",
+          "studio lighting",
+          "high resolution",
+          "clean composition"
+        ]
+      },
+
+      "content_illustration": {
+        "model": "dall-e-3",
+        "size": "1792x1024",
+        "quality": "hd",
+        "style": "vivid",
+        "prompt_template": "Digital illustration of {description}, modern art style, vibrant colors, detailed artwork",
+        "prompt_enhancements": [
+          "digital art",
+          "modern style",
+          "vibrant colors",
+          "detailed illustration"
+        ]
+      },
+
+      "social_media_graphic": {
+        "model": "dall-e-3",
+        "size": "1024x1024",
+        "quality": "standard",
+        "style": "vivid",
+        "prompt_template": "Social media graphic for {description}, eye-catching design, modern aesthetic, engaging visual",
+        "prompt_enhancements": [
+          "social media ready",
+          "eye-catching",
+          "modern design",
+          "engaging visual"
+        ]
+      },
+
+      "product_visualization": {
+        "model": "dall-e-3",
+        "size": "1024x1024",
+        "quality": "hd",
+        "style": "natural",
+        "prompt_template": "Product visualization of {description}, professional product photography, clean white background, commercial quality",
+        "prompt_enhancements": [
+          "product photography",
+          "commercial quality",
+          "clean background",
+          "professional lighting"
+        ]
+      },
+
+      "concept_art": {
+        "model": "dall-e-3",
+        "size": "1792x1024",
+        "quality": "hd",
+        "style": "vivid",
+        "prompt_template": "Concept art of {description}, detailed digital painting, fantasy art style, rich colors and textures",
+        "prompt_enhancements": [
+          "concept art",
+          "digital painting",
+          "detailed artwork",
+          "rich textures"
+        ]
+      }
+    },
+
+    "prompt_optimization": {
+      "enabled": true,
+      "auto_enhance": true,
+      "style_keywords": {
+        "photorealistic": ["photorealistic", "realistic", "photograph", "photo"],
+        "artistic": ["artistic", "painting", "artwork", "illustration"],
+        "digital_art": ["digital art", "digital painting", "cgi", "3d render"],
+        "vintage": ["vintage", "retro", "classic", "old-fashioned"],
+        "modern": ["modern", "contemporary", "sleek", "minimalist"]
+      },
+      "quality_keywords": [
+        "high resolution",
+        "detailed",
+        "professional",
+        "high quality",
+        "masterpiece",
+        "award winning"
+      ],
+      "negative_keywords": [
+        "blurry",
+        "low quality",
+        "distorted",
+        "pixelated",
+        "amateur",
+        "ugly"
+      ]
+    },
+
+    "content_policy": {
+      "enabled": true,
+      "strict_mode": true,
+      "blocked_content": [
+        "violence",
+        "adult_content",
+        "hate_speech",
+        "illegal_activities",
+        "copyrighted_characters",
+        "real_people_without_consent"
+      ],
+      "content_filtering": {
+        "pre_generation": true,
+        "post_generation": true,
+        "prompt_analysis": true
+      }
+    },
+
+    "caching": {
+      "enabled": true,
+      "cache_duration": 3600,
+      "max_cache_size": "500MB",
+      "cache_location": "./cache/dalle",
+      "cache_key_strategy": "prompt_hash",
+      "compress_cached_images": true
+    },
+
+    "error_handling": {
+      "retry_on_rate_limit": true,
+      "retry_on_server_error": true,
+      "retry_on_timeout": true,
+      "fallback_to_dalle_2": true,
+      "log_errors": true,
+      "error_notification": {
+        "enabled": true,
+        "threshold": 5,
+        "time_window": 300
+      }
+    },
+
+    "monitoring": {
+      "track_usage": true,
+      "track_costs": true,
+      "track_performance": true,
+      "track_success_rate": true,
+      "daily_usage_limit": 1000,
+      "monthly_budget_limit": 500.00,
+      "alert_thresholds": {
+        "daily_usage": 0.8,
+        "monthly_budget": 0.9,
+        "error_rate": 0.1
+      }
+    },
+
+    "output_settings": {
+      "default_format": "png",
+      "supported_formats": ["png", "jpeg", "webp"],
+      "compression_quality": 95,
+      "metadata_preservation": true,
+      "watermark": {
+        "enabled": false,
+        "text": "Generated by DALL-E",
+        "position": "bottom-right",
+        "opacity": 0.7
+      }
+    },
+
+    "integration": {
+      "webhook_notifications": {
+        "enabled": false,
+        "url": null,
+        "events": ["generation_complete", "generation_failed"]
+      },
+      "api_key_rotation": {
+        "enabled": false,
+        "rotation_interval": 2592000,
+        "backup_keys": []
+      }
+    }
+  }
+}

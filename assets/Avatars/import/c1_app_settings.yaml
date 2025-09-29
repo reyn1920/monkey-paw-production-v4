@@ -1,0 +1,36 @@
+# Application Settings Configuration
+# Thumbnail Generation Pipeline Control
+
+# THUMBNAIL_MODE: Controls thumbnail generation behavior
+# Values: 'enabled', 'disabled', 'auto'
+# - enabled: Force thumbnail generation for all supported content
+# - disabled: Skip all thumbnail generation
+# - auto: Generate thumbnails based on content type and size heuristics
+THUMBNAIL_MODE: 'enabled'
+
+# Thumbnail Configuration
+thumbnail:
+  max_width: 800
+  max_height: 600
+  quality: 85
+  format: 'webp'
+  fallback_format: 'jpeg'
+  
+# Content Processing
+content:
+  supported_formats:
+    - 'jpg'
+    - 'jpeg'
+    - 'png'
+    - 'gif'
+    - 'webp'
+    - 'pdf'
+    - 'mp4'
+    - 'mov'
+  max_file_size: 50MB
+  
+# Performance Settings
+performance:
+  concurrent_jobs: 4
+  timeout_seconds: 30
+  retry_attempts: 3

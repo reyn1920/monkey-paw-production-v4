@@ -1,0 +1,398 @@
+# Alertmanager Configuration for Trae AI Zero-Cost Monitoring Stack
+# This configuration defines how alerts are routed and delivered
+
+global:
+  # SMTP configuration for email notifications
+  smtp_smarthost: 'localhost:587'
+  smtp_from: 'alerts@trae-ai.com'
+  smtp_auth_username: 'alerts@trae-ai.com'
+  smtp_auth_password: 'your-email-password'  # Use environment variable in production
+  smtp_require_tls: true
+  
+  # Slack webhook URL (replace with your actual webhook)
+  slack_api_url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
+  
+  # Global labels attached to all alerts
+  external_labels:
+    cluster: 'trae-ai-production'
+    environment: 'production'
+
+# Templates for custom notification formatting
+templates:
+  - '/etc/alertmanager/templates/*.tmpl'
+
+# Route tree for alert routing
+route:
+  # Default receiver for all alerts
+  receiver: 'default-notifications'
+  
+  # Group alerts by these labels
+  group_by: ['alertname', 'cluster', 'service']
+  
+  # Wait time before sending initial notification
+  group_wait: 30s
+  
+  # Wait time before sending additional notifications for new alerts in the same group
+  group_interval: 5m
+  
+  # Wait time before re-sending notifications for the same alert
+  repeat_interval: 4h
+  
+  # Child routes for specific alert routing
+  routes:
+    # Critical alerts - immediate notification
+    - match:
+        severity: critical
+      receiver: 'critical-alerts'
+      group_wait: 10s
+      group_interval: 1m
+      repeat_interval: 30m
+      routes:
+        # System down alerts - highest priority
+        - match:
+            alertname: SystemDown
+          receiver: 'system-down-alerts'
+          group_wait: 0s
+          repeat_interval: 5m
+        
+        # Critical CPU/Memory alerts
+        - match_re:
+            alertname: 'Critical(CPU|Memory)Usage'
+          receiver: 'resource-critical-alerts'
+          group_wait: 5s
+          repeat_interval: 15m
+    
+    # Error level alerts
+    - match:
+        severity: error
+      receiver: 'error-alerts'
+      group_wait: 1m
+      group_interval: 3m
+      repeat_interval: 2h
+    
+    # Warning level alerts
+    - match:
+        severity: warning
+      receiver: 'warning-alerts'
+      group_wait: 5m
+      group_interval: 10m
+      repeat_interval: 8h
+    
+    # Team-specific routing
+    - match:
+        team: infrastructure
+      receiver: 'infrastructure-team'
+      continue: true  # Also send to default receiver
+    
+    - match:
+        team: development
+      receiver: 'development-team'
+      continue: true
+    
+    - match:
+        team: business
+      receiver: 'business-team'
+      continue: true
+    
+    # Component-specific routing
+    - match:
+        component: scraping
+      receiver: 'scraping-alerts'
+      group_by: ['alertname', 'source']
+    
+    - match:
+        component: api_discovery
+      receiver: 'api-discovery-alerts'
+      group_by: ['alertname', 'source']
+    
+    # Maintenance window - suppress non-critical alerts
+    - match:
+        maintenance: 'true'
+      receiver: 'null'  # Discard alerts during maintenance
+      routes:
+        - match:
+            severity: critical
+          receiver: 'maintenance-critical-alerts'
+
+# Inhibition rules - suppress certain alerts when others are firing
+inhibit_rules:
+  # Suppress warning alerts when critical alerts are firing for the same service
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'cluster', 'service']
+  
+  # Suppress individual component alerts when system is down
+  - source_match:
+      alertname: 'SystemDown'
+    target_match_re:
+      alertname: '(High|Critical)(CPU|Memory|Disk).*'
+    equal: ['cluster']
+  
+  # Suppress scraping alerts when network issues are detected
+  - source_match:
+      alertname: 'NetworkConnectivityIssue'
+    target_match_re:
+      alertname: 'Scraping.*'
+    equal: ['cluster']
+  
+  # Suppress cache alerts when Redis is down
+  - source_match:
+      alertname: 'RedisDown'
+    target_match_re:
+      alertname: '.*Cache.*'
+    equal: ['cluster']
+
+# Receivers define how to send notifications
+receivers:
+  # Default notification receiver
+  - name: 'default-notifications'
+    email_configs:
+      - to: 'admin@trae-ai.com'
+        subject: '[Trae AI] Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Severity: {{ .Labels.severity }}
+          Instance: {{ .Labels.instance }}
+          Time: {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          {{ if .Annotations.runbook_url }}
+          Runbook: {{ .Annotations.runbook_url }}
+          {{ end }}
+          {{ end }}
+    
+    slack_configs:
+      - channel: '#alerts'
+        title: 'Trae AI Alert'
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Severity:* {{ .Labels.severity }}
+          *Description:* {{ .Annotations.description }}
+          {{ if .Annotations.runbook_url }}
+          *Runbook:* {{ .Annotations.runbook_url }}
+          {{ end }}
+          {{ end }}
+        send_resolved: true
+  
+  # Critical alerts - multiple notification channels
+  - name: 'critical-alerts'
+    email_configs:
+      - to: 'admin@trae-ai.com,oncall@trae-ai.com'
+        subject: '[CRITICAL] Trae AI Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          🚨 CRITICAL ALERT 🚨
+          
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Instance: {{ .Labels.instance }}
+          Time: {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          {{ if .Annotations.runbook_url }}
+          Runbook: {{ .Annotations.runbook_url }}
+          {{ end }}
+          
+          This requires immediate attention!
+          {{ end }}
+    
+    slack_configs:
+      - channel: '#critical-alerts'
+        title: '🚨 CRITICAL: Trae AI Alert'
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Instance:* {{ .Labels.instance }}
+          {{ if .Annotations.runbook_url }}
+          *Runbook:* {{ .Annotations.runbook_url }}
+          {{ end }}
+          {{ end }}
+        send_resolved: true
+        color: 'danger'
+    
+    # Webhook for integration with PagerDuty, OpsGenie, etc.
+    webhook_configs:
+      - url: 'http://localhost:8080/webhook/critical'
+        send_resolved: true
+  
+  # System down alerts - highest priority
+  - name: 'system-down-alerts'
+    email_configs:
+      - to: 'admin@trae-ai.com,oncall@trae-ai.com,ceo@trae-ai.com'
+        subject: '[SYSTEM DOWN] Trae AI - Immediate Action Required'
+        body: |
+          🔥 SYSTEM DOWN ALERT 🔥
+          
+          The Trae AI system is currently down and requires immediate attention.
+          
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Instance: {{ .Labels.instance }}
+          Time: {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          {{ end }}
+          
+          Please investigate immediately and follow the incident response procedure.
+    
+    slack_configs:
+      - channel: '#incidents'
+        title: '🔥 SYSTEM DOWN - Trae AI'
+        text: |
+          @channel SYSTEM DOWN ALERT
+          
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Instance:* {{ .Labels.instance }}
+          {{ end }}
+        send_resolved: true
+        color: 'danger'
+  
+  # Resource critical alerts
+  - name: 'resource-critical-alerts'
+    email_configs:
+      - to: 'infrastructure@trae-ai.com'
+        subject: '[RESOURCE CRITICAL] {{ .GroupLabels.alertname }}'
+        body: |
+          Critical resource usage detected on Trae AI system.
+          
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Instance: {{ .Labels.instance }}
+          Current Value: {{ .Annotations.value }}
+          {{ end }}
+    
+    slack_configs:
+      - channel: '#infrastructure'
+        title: '⚠️ Resource Critical Alert'
+        send_resolved: true
+  
+  # Error level alerts
+  - name: 'error-alerts'
+    email_configs:
+      - to: 'alerts@trae-ai.com'
+        subject: '[ERROR] Trae AI: {{ .GroupLabels.alertname }}'
+    
+    slack_configs:
+      - channel: '#alerts'
+        title: '❌ Error Alert'
+        color: 'warning'
+        send_resolved: true
+  
+  # Warning level alerts
+  - name: 'warning-alerts'
+    slack_configs:
+      - channel: '#monitoring'
+        title: '⚠️ Warning Alert'
+        color: 'warning'
+        send_resolved: true
+  
+  # Team-specific receivers
+  - name: 'infrastructure-team'
+    email_configs:
+      - to: 'infrastructure@trae-ai.com'
+        subject: '[Infrastructure] {{ .GroupLabels.alertname }}'
+    
+    slack_configs:
+      - channel: '#infrastructure'
+        send_resolved: true
+  
+  - name: 'development-team'
+    email_configs:
+      - to: 'development@trae-ai.com'
+        subject: '[Development] {{ .GroupLabels.alertname }}'
+    
+    slack_configs:
+      - channel: '#development'
+        send_resolved: true
+  
+  - name: 'business-team'
+    email_configs:
+      - to: 'business@trae-ai.com'
+        subject: '[Business Metrics] {{ .GroupLabels.alertname }}'
+    
+    slack_configs:
+      - channel: '#business-metrics'
+        send_resolved: true
+  
+  # Component-specific receivers
+  - name: 'scraping-alerts'
+    slack_configs:
+      - channel: '#web-scraping'
+        title: '🕷️ Web Scraping Alert'
+        text: |
+          {{ range .Alerts }}
+          *Source:* {{ .Labels.source }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          {{ end }}
+        send_resolved: true
+  
+  - name: 'api-discovery-alerts'
+    slack_configs:
+      - channel: '#api-discovery'
+        title: '🔍 API Discovery Alert'
+        text: |
+          {{ range .Alerts }}
+          *Source:* {{ .Labels.source }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          {{ end }}
+        send_resolved: true
+  
+  # Maintenance window critical alerts
+  - name: 'maintenance-critical-alerts'
+    email_configs:
+      - to: 'oncall@trae-ai.com'
+        subject: '[MAINTENANCE - CRITICAL] {{ .GroupLabels.alertname }}'
+        body: |
+          Critical alert during maintenance window - requires immediate attention.
+          
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          {{ end }}
+  
+  # Null receiver for suppressed alerts
+  - name: 'null'
+
+# Time intervals for muting alerts (optional)
+time_intervals:
+  - name: 'business-hours'
+    time_intervals:
+      - times:
+          - start_time: '09:00'
+            end_time: '17:00'
+        weekdays: ['monday:friday']
+        location: 'UTC'
+  
+  - name: 'maintenance-window'
+    time_intervals:
+      - times:
+          - start_time: '02:00'
+            end_time: '04:00'
+        weekdays: ['sunday']
+        location: 'UTC'
+
+# Mute time intervals (optional - requires Alertmanager v0.24+)
+mute_time_intervals:
+  - name: 'weekend-non-critical'
+    time_intervals:
+      - times:
+          - start_time: '18:00'
+            end_time: '09:00'
+        weekdays: ['saturday', 'sunday']
+        location: 'UTC'
+
+# Configuration validation
+# Run: amtool config check alertmanager.yml
+# Test routing: amtool config routes test --config.file=alertmanager.yml
+
+# Environment variables to set in production:
+# - SMTP_AUTH_PASSWORD: Email password
+# - SLACK_API_URL: Slack webhook URL
+# - PAGERDUTY_INTEGRATION_KEY: PagerDuty integration key
+# - WEBHOOK_URL: Custom webhook endpoint

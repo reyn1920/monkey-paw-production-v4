@@ -1,0 +1,12 @@
+{
+  "hub": "https://pubsubhubbub.appspot.com",
+  "verify_token": "CHANGE_ME_RANDOM_32B",
+  "hmac_secret": "CHANGE_ME_RANDOM_32B",
+  "subscriptions": [
+    {"channel_id": "UC_fz1kiUOIDz5-VtVtKn7OQ"},
+    {"channel_id": "UC8pIkBnof0r5Fh6h5nxPh7g"},
+    {"channel_id": "UC_p_3vPbe6gpM8VK2uF2B6Q"},
+    {"channel_id": "UC4wNMA9Xi0aJ_9kvJy6KBTQ"}
+  ],
+  "callback_url": "http://127.0.0.1:8000/youtube/webhook"
+}

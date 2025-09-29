@@ -1,0 +1,89 @@
+{
+  "summary": {
+    "passed": 8,
+    "failed": 2,
+    "warnings": 3,
+    "total": 13,
+    "success_rate": 61.53846153846154
+  },
+  "results": [
+    {
+      "test": "Main Dashboard Health Check",
+      "status": "PASS",
+      "message": "Server responding on http://127.0.0.1:8080",
+      "timestamp": "2025-09-11T05:47:17.891646"
+    },
+    {
+      "test": "Quality Dashboard Health Check",
+      "status": "FAIL",
+      "message": "HTTP 404",
+      "timestamp": "2025-09-11T05:47:17.894920"
+    },
+    {
+      "test": "Ai Benchmark Health Check",
+      "status": "FAIL",
+      "message": "HTTP 404",
+      "timestamp": "2025-09-11T05:47:17.898175"
+    },
+    {
+      "test": "Minimal Server Health Check",
+      "status": "PASS",
+      "message": "Server responding on http://localhost:8000",
+      "timestamp": "2025-09-11T05:47:17.901926"
+    },
+    {
+      "test": "ChatGPT Status Endpoint",
+      "status": "PASS",
+      "message": "Endpoint accessible",
+      "timestamp": "2025-09-11T05:47:17.903797"
+    },
+    {
+      "test": "Gemini Status Endpoint",
+      "status": "PASS",
+      "message": "Endpoint accessible",
+      "timestamp": "2025-09-11T05:47:17.905498"
+    },
+    {
+      "test": "Abacus AI Status Endpoint",
+      "status": "PASS",
+      "message": "Endpoint accessible",
+      "timestamp": "2025-09-11T05:47:17.907861"
+    },
+    {
+      "test": "AI Benchmark Endpoint",
+      "status": "PASS",
+      "message": "Endpoint accessible",
+      "timestamp": "2025-09-11T05:47:17.909616"
+    },
+    {
+      "test": "Cost Tracking Endpoint",
+      "status": "PASS",
+      "message": "Endpoint accessible",
+      "timestamp": "2025-09-11T05:47:17.910704"
+    },
+    {
+      "test": "Main Dashboard Page",
+      "status": "PASS",
+      "message": "Page loads successfully",
+      "timestamp": "2025-09-11T05:47:17.912834"
+    },
+    {
+      "test": "Dashboard Page Page",
+      "status": "WARN",
+      "message": "HTTP 404",
+      "timestamp": "2025-09-11T05:47:17.913992"
+    },
+    {
+      "test": "AI Integration Page Page",
+      "status": "WARN",
+      "message": "HTTP 404",
+      "timestamp": "2025-09-11T05:47:17.915096"
+    },
+    {
+      "test": "Quality Page Page",
+      "status": "WARN",
+      "message": "HTTP 404",
+      "timestamp": "2025-09-11T05:47:17.916280"
+    }
+  ]
+}

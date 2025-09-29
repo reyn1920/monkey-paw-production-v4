@@ -1,0 +1,15 @@
+{
+  "project": "online-production",
+  "services": {
+    "paste": {
+      "enabled": true,
+      "port": 8000
+    }
+  },
+  "tasks": [
+    {
+      "name": "start:paste",
+      "run": "PORT=8000 python3 paste_app.py"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "lead_magnet": {
+    "title": "Eco Habit Starter",
+    "chapters": [
+      {
+        "heading": "Low-Friction Habits",
+        "body": "Small wins that stack."
+      },
+      {
+        "heading": "Kitchen & Cleaning",
+        "body": "Switches that save money and waste."
+      }
+    ]
+  },
+  "guide": {
+    "title": "Sustainable Daily Blueprint",
+    "chapters": [
+      {
+        "heading": "Home",
+        "body": "Air, water, waste, energy."
+      },
+      {
+        "heading": "Shopping",
+        "body": "Labels, materials, and simple swaps."
+      }
+    ]
+  },
+  "kit_readme": "Planner, checklists, and 7-day challenge for Eco Vital Living.",
+  "landing": {
+    "title": "Eco Habit Planner",
+    "description": "A weekly system for healthier, lower-waste living.",
+    "includes": [
+      "Starter PDF",
+      "Blueprint PDF",
+      "7-day challenge & planner"
+    ],
+    "price": "$19",
+    "primary_url": "https://payhip.com/",
+    "secondary_url": "https://github.com/"
+  },
+  "newsletter": {
+    "title": "Eco Vital Weekly",
+    "intro": "Practical changes that actually stick.",
+    "items": [
+      {
+        "heading": "Habit of the Week",
+        "body": "Try this small change."
+      },
+      {
+        "heading": "Swap Spotlight",
+        "body": "A better product or practice."
+      }
+    ],
+    "footer": "Hit reply and tell me what\u2019s working."
+  }
+}

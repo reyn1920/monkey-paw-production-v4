@@ -1,0 +1,408 @@
+# TRAE.AI Production Alert Rules
+# Comprehensive monitoring and alerting for all services
+
+groups:
+  # System Health Alerts
+  - name: system_health
+    rules:
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "Service {{ $labels.job }} on {{ $labels.instance }} has been down for more than 1 minute."
+
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is above 80% for more than 5 minutes on {{ $labels.instance }}."
+
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes)) * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Memory usage is above 85% for more than 5 minutes on {{ $labels.instance }}."
+
+      - alert: DiskSpaceLow
+        expr: (1 - (node_filesystem_avail_bytes{fstype!="tmpfs"}/node_filesystem_size_bytes{fstype!="tmpfs"})) * 100 > 90
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disk space low on {{ $labels.instance }}"
+          description: "Disk usage is above 90% on {{ $labels.instance }} {{ $labels.mountpoint }}."
+
+  # Application Performance Alerts
+  - name: application_performance
+    rules:
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High response time for {{ $labels.job }}"
+          description: "95th percentile response time is above 2 seconds for {{ $labels.job }}."
+
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m])/rate(http_requests_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate for {{ $labels.job }}"
+          description: "Error rate is above 5% for {{ $labels.job }}."
+
+      - alert: APIRequestsSpike
+        expr: rate(http_requests_total[5m]) > 100
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "API requests spike detected"
+          description: "Request rate is above 100 req/sec for {{ $labels.job }}."
+
+  # Database Alerts
+  - name: database_health
+    rules:
+      - alert: PostgreSQLDown
+        expr: pg_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "PostgreSQL is down"
+          description: "PostgreSQL database is not responding."
+
+      - alert: PostgreSQLTooManyConnections
+        expr: pg_stat_database_numbackends/pg_settings_max_connections > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PostgreSQL too many connections"
+          description: "PostgreSQL has more than 80% of max connections in use."
+
+      - alert: PostgreSQLSlowQueries
+        expr: pg_stat_activity_max_tx_duration > 300
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PostgreSQL slow queries detected"
+          description: "Long running queries detected (> 5 minutes)."
+
+      - alert: RedisDown
+        expr: redis_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis is down"
+          description: "Redis cache server is not responding."
+
+      - alert: RedisHighMemoryUsage
+        expr: redis_memory_used_bytes/redis_memory_max_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis high memory usage"
+          description: "Redis memory usage is above 90%."
+
+  # Content Generation Alerts
+  - name: content_generation
+    rules:
+      - alert: ContentGenerationFailureRate
+        expr: rate(content_generation_failures_total[10m])/rate(content_generation_requests_total[10m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High content generation failure rate"
+          description: "Content generation failure rate is above 10%."
+
+      - alert: ContentGenerationQueueBacklog
+        expr: content_generation_queue_size > 100
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Content generation queue backlog"
+          description: "Content generation queue has more than 100 pending items."
+
+      - alert: AIModelResponseTime
+        expr: histogram_quantile(0.95, rate(ai_model_request_duration_seconds_bucket[10m])) > 30
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "AI model slow response time"
+          description: "AI model 95th percentile response time is above 30 seconds."
+
+  # Marketing Campaign Alerts
+  - name: marketing_campaigns
+    rules:
+      - alert: SocialMediaPostingFailure
+        expr: rate(social_media_post_failures_total[30m]) > 0.1
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Social media posting failures detected"
+          description: "Social media posting failure rate is elevated."
+
+      - alert: EmailCampaignFailureRate
+        expr: rate(email_campaign_failures_total[1h])/rate(email_campaign_attempts_total[1h]) > 0.05
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High email campaign failure rate"
+          description: "Email campaign failure rate is above 5%."
+
+      - alert: SEOScoreDropped
+        expr: seo_score < 70
+        for: 1h
+        labels:
+          severity: warning
+        annotations:
+          summary: "SEO score dropped significantly"
+          description: "SEO score has dropped below 70 for {{ $labels.domain }}."
+
+  # Revenue and Monetization Alerts
+  - name: revenue_monitoring
+    rules:
+      - alert: RevenueDropSignificant
+        expr: (revenue_daily_total - revenue_daily_total offset 1d)/revenue_daily_total offset 1d < -0.2
+        for: 2h
+        labels:
+          severity: warning
+        annotations:
+          summary: "Significant revenue drop detected"
+          description: "Daily revenue has dropped by more than 20% compared to yesterday."
+
+      - alert: YouTubeRevenueDown
+        expr: youtube_revenue_24h < youtube_revenue_24h offset 1d * 0.7
+        for: 4h
+        labels:
+          severity: warning
+        annotations:
+          summary: "YouTube revenue significantly down"
+          description: "YouTube revenue is down more than 30% compared to yesterday."
+
+      - alert: AffiliateConversionRateDropped
+        expr: affiliate_conversion_rate < 0.02
+        for: 6h
+        labels:
+          severity: warning
+        annotations:
+          summary: "Affiliate conversion rate dropped"
+          description: "Affiliate conversion rate has dropped below 2%."
+
+      - alert: EbookSalesStalled
+        expr: ebook_sales_24h == 0
+        for: 24h
+        labels:
+          severity: warning
+        annotations:
+          summary: "No ebook sales in 24 hours"
+          description: "No ebook sales have been recorded in the last 24 hours."
+
+  # Business Metrics Alerts
+  - name: business_metrics
+    rules:
+      - alert: NewsletterSubscriptionRateDropped
+        expr: newsletter_subscription_rate_24h < newsletter_subscription_rate_24h offset 1d * 0.5
+        for: 12h
+        labels:
+          severity: warning
+        annotations:
+          summary: "Newsletter subscription rate dropped significantly"
+          description: "Newsletter subscription rate is down more than 50% compared to yesterday."
+
+      - alert: WebsiteTrafficDropped
+        expr: website_visitors_24h < website_visitors_24h offset 1d * 0.6
+        for: 6h
+        labels:
+          severity: warning
+        annotations:
+          summary: "Website traffic dropped significantly"
+          description: "Website traffic is down more than 40% compared to yesterday."
+
+      - alert: SocialMediaEngagementLow
+        expr: social_media_engagement_rate < 0.01
+        for: 24h
+        labels:
+          severity: warning
+        annotations:
+          summary: "Social media engagement rate very low"
+          description: "Social media engagement rate has been below 1% for 24 hours."
+
+  # Security Alerts
+  - name: security_monitoring
+    rules:
+      - alert: UnauthorizedAPIAccess
+        expr: rate(http_requests_total{status="401"}[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High rate of unauthorized API access attempts"
+          description: "More than 10 unauthorized access attempts per second detected."
+
+      - alert: SuspiciousActivityDetected
+        expr: rate(security_suspicious_activity_total[10m]) > 5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Suspicious activity detected"
+          description: "Suspicious activity rate is above normal thresholds."
+
+      - alert: APIRateLimitExceeded
+        expr: rate(http_requests_total{status="429"}[5m]) > 50
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "API rate limit frequently exceeded"
+          description: "High rate of rate-limited requests detected."
+
+  # Infrastructure Alerts
+  - name: infrastructure_monitoring
+    rules:
+      - alert: ContainerRestartLoop
+        expr: rate(container_start_time_seconds[10m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Container restart loop detected"
+          description: "Container {{ $labels.name }} is restarting frequently."
+
+      - alert: NetworkLatencyHigh
+        expr: histogram_quantile(0.95, rate(network_latency_seconds_bucket[5m])) > 0.5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High network latency detected"
+          description: "Network latency 95th percentile is above 500ms."
+
+      - alert: LoadBalancerUnhealthy
+        expr: nginx_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Load balancer is down"
+          description: "Nginx load balancer is not responding."
+
+  # Task Queue Alerts
+  - name: task_queue_monitoring
+    rules:
+      - alert: TaskQueueBacklog
+        expr: task_queue_pending_jobs > 1000
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Task queue backlog detected"
+          description: "Task queue has more than 1000 pending jobs."
+
+      - alert: TaskProcessingFailureRate
+        expr: rate(task_processing_failures_total[10m])/rate(task_processing_attempts_total[10m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High task processing failure rate"
+          description: "Task processing failure rate is above 10%."
+
+      - alert: WorkerNodesDown
+        expr: worker_nodes_active < 2
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Insufficient worker nodes active"
+          description: "Less than 2 worker nodes are active for task processing."
+
+  # External Service Alerts
+  - name: external_services
+    rules:
+      - alert: YouTubeAPIDown
+        expr: youtube_api_success_rate < 0.9
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "YouTube API experiencing issues"
+          description: "YouTube API success rate is below 90%."
+
+      - alert: OpenAIAPIDown
+        expr: openai_api_success_rate < 0.9
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "OpenAI API experiencing issues"
+          description: "OpenAI API success rate is below 90%."
+
+      - alert: EmailServiceDown
+        expr: email_service_success_rate < 0.95
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Email service experiencing issues"
+          description: "Email service success rate is below 95%."
+
+      - alert: PaymentGatewayDown
+        expr: payment_gateway_success_rate < 0.98
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Payment gateway experiencing issues"
+          description: "Payment gateway success rate is below 98%."
+
+  # Data Quality Alerts
+  - name: data_quality
+    rules:
+      - alert: DataIngestionFailure
+        expr: rate(data_ingestion_failures_total[30m]) > 0.05
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Data ingestion failures detected"
+          description: "Data ingestion failure rate is elevated."
+
+      - alert: DataValidationErrors
+        expr: rate(data_validation_errors_total[1h]) > 10
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High rate of data validation errors"
+          description: "Data validation error rate is above normal thresholds."
+
+      - alert: MetricsCollectionGap
+        expr: absent_over_time(up[10m])
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Metrics collection gap detected"
+          description: "No metrics have been collected for {{ $labels.job }} in the last 10 minutes."

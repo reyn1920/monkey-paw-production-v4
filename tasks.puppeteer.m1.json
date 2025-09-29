@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "PUP M1: headless check",
+      "type": "shell",
+      "command": "node tools/puppeteer/check.mjs"
+    },
+    {
+      "label": "PUP M1: screenshot diff",
+      "type": "shell",
+      "command": "node tools/puppeteer/screenshot_check.mjs"
+    },
+    {
+      "label": "PUP M1: device matrix",
+      "type": "shell",
+      "command": "node tools/puppeteer/device_matrix.mjs"
+    },
+    {
+      "label": "PUP M1: performance trace",
+      "type": "shell",
+      "command": "node tools/puppeteer/trace_run.mjs"
+    },
+    {
+      "label": "PUP M1: open ChatGPT",
+      "type": "shell",
+      "command": "node tools/puppeteer/open_chatgpt.mjs"
+    },
+    {
+      "label": "PUP M1: open Gemini",
+      "type": "shell",
+      "command": "node tools/puppeteer/open_gemini.mjs"
+    },
+    {
+      "label": "PUP M1: open Abacus",
+      "type": "shell",
+      "command": "node tools/puppeteer/open_abacus.mjs"
+    }
+  ]
+}

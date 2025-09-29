@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "execution_time": 0.0108489990234375,
+  "apis_discovered": 15,
+  "apis_saved": 0,
+  "categories": [
+    "Development",
+    "Government",
+    "Weather",
+    "Animals",
+    "Entertainment",
+    "Science & Math",
+    "Text",
+    "Geocoding",
+    "Photography"
+  ],
+  "report": {
+    "error": "no such column: quality_score"
+  },
+  "timestamp": "2025-09-11T10:19:45.851033"
+}

@@ -1,0 +1,85 @@
+{
+  "test_summary": {
+    "total_tests": 12,
+    "passed_tests": 7,
+    "failed_tests": 5,
+    "success_rate": 58.333333333333336,
+    "duration_seconds": 0.081652,
+    "start_time": "2025-09-03T21:07:23.346099",
+    "end_time": "2025-09-03T21:07:23.427751"
+  },
+  "test_results": [
+    {
+      "test_name": "BreakingNewsWatcher Test",
+      "success": false,
+      "details": "Error: 'BreakingNewsWatcher' object has no attribute 'logger'",
+      "timestamp": "2025-09-03T21:07:23.346484"
+    },
+    {
+      "test_name": "HypocrisyDatabaseManager Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-03T21:07:23.351959"
+    },
+    {
+      "test_name": "Hypocrisy Database Integration",
+      "success": false,
+      "details": "Error: 'HypocrisyDatabaseManager' object has no attribute 'initialize_database'",
+      "timestamp": "2025-09-03T21:07:23.351969"
+    },
+    {
+      "test_name": "PlannerAgent Initialization",
+      "success": true,
+      "details": "Successfully initialized with RSS intelligence",
+      "timestamp": "2025-09-03T21:07:23.395523"
+    },
+    {
+      "test_name": "RSS Intelligence Retrieval",
+      "success": true,
+      "details": "Retrieved intelligence: ['trending_topics', 'topic_momentum', 'content_opportunities', 'intelligence_briefing']",
+      "timestamp": "2025-09-03T21:07:23.395642"
+    },
+    {
+      "test_name": "Trending Topics Integration",
+      "success": true,
+      "details": "Found 3 trending topics",
+      "timestamp": "2025-09-03T21:07:23.395651"
+    },
+    {
+      "test_name": "Content Opportunities",
+      "success": true,
+      "details": "Identified 0 opportunities",
+      "timestamp": "2025-09-03T21:07:23.395656"
+    },
+    {
+      "test_name": "Topic Momentum Calculation",
+      "success": true,
+      "details": "Calculated momentum for 0 topics",
+      "timestamp": "2025-09-03T21:07:23.395660"
+    },
+    {
+      "test_name": "ResearchAgent Integration",
+      "success": false,
+      "details": "Error: 'BreakingNewsWatcher' object has no attribute 'logger'",
+      "timestamp": "2025-09-03T21:07:23.425395"
+    },
+    {
+      "test_name": "TaskQueueManager Initialization",
+      "success": true,
+      "details": "Successfully initialized",
+      "timestamp": "2025-09-03T21:07:23.427722"
+    },
+    {
+      "test_name": "Task Queue Integration",
+      "success": false,
+      "details": "Error: TaskQueueManager.add_task() got an unexpected keyword argument 'type'",
+      "timestamp": "2025-09-03T21:07:23.427734"
+    },
+    {
+      "test_name": "End-to-End Workflow",
+      "success": false,
+      "details": "Component initialization failed",
+      "timestamp": "2025-09-03T21:07:23.427741"
+    }
+  ]
+}

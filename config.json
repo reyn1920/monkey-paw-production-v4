@@ -1,0 +1,58 @@
+{
+  "$schema": "https://raw.githubusercontent.com/continuedev/continue/main/website/src/pages/reference/schemas/configSchema.json",
+  "models": [
+    {
+      "title": "Llama 3.1 (8B)",
+      "provider": "ollama",
+      "model": "llama3.1",
+      "temperature": 0.2
+    },
+    {
+      "title": "Mistral 7B Instruct",
+      "provider": "ollama",
+      "model": "mistral",
+      "temperature": 0.2
+    },
+    {
+      "title": "Code Llama",
+      "provider": "ollama",
+      "model": "codellama",
+      "temperature": 0.1
+    }
+  ],
+  "tabAutocompleteModel": {
+    "provider": "ollama",
+    "model": "llama3.1",
+    "temperature": 0.1
+  },
+  "allowAnonymousTelemetry": false,
+  "contextProviders": [
+    {
+      "name": "file"
+    },
+    {
+      "name": "folder"
+    },
+    {
+      "name": "git"
+    }
+  ],
+  "allowModelToEditFiles": true,
+  "quickActions": [
+    {
+      "name": "Rule\u20111 Check & Fix (Add\u2011Only)",
+      "description": "Scan file and propose additive edits only.",
+      "prompt": "Avoid restricted vocabulary; prefer 'runtime'. Add-only diffs. If unsure, ask. Output DIFF only."
+    },
+    {
+      "name": "UPR Double\u2011Audit",
+      "description": "Two passes before 'CLEAN'.",
+      "prompt": "Run two independent audits (lint/type/tests). Only declare CLEAN if both pass; else propose add-only fixes."
+    },
+    {
+      "name": "No\u2011Lie Guard",
+      "description": "Be explicit about uncertainty.",
+      "prompt": "Do not invent facts. If unsure, say 'Unknown locally' and suggest a local verification step."
+    }
+  ]
+}

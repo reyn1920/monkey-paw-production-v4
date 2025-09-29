@@ -1,0 +1,41 @@
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Deploy to production
+      run: echo 'Deploying to production...'
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    - name: Install Python dependencies
+      run: pip install -r requirements.txt
+    - name: Install Node dependencies
+      run: npm install
+    - name: Run Python tests
+      run: python -m pytest tests/
+    - name: Run frontend tests
+      run: npm test
+    - name: Build frontend
+      run: npm run build
+name: Monkey Paw Production CI/CD
+'on':
+  pull_request:
+    branches:
+    - main
+  push:
+    branches:
+    - main
+    - develop
+  workflow_dispatch: {}

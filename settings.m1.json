@@ -1,0 +1,15 @@
+{
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.venv/**": true,
+    "**/.vscode/**": true,
+    "**/_puppeteer_artifacts/**": true
+  },
+  "terminal.integrated.inheritEnv": true,
+  "typescript.tsserver.maxTsServerMemory": 3072,
+  "telemetry.telemetryLevel": "off",
+  "workbench.tree.indent": 10,
+  "workbench.editor.enablePreview": false
+}

@@ -1,0 +1,333 @@
+# Intelligent Scaling Rules Configuration
+# This file defines the scaling policies for different services based on various metrics
+
+scaling_rules:
+  # API Service Scaling Rules
+  - name: "api_cpu_scaling"
+    service: "api"
+    metric_type: "cpu_utilization_percent"
+    scale_up_threshold: 70.0
+    scale_down_threshold: 30.0
+    min_replicas: 2
+    max_replicas: 10
+    cooldown_seconds: 300
+    weight: 1.0
+    enabled: true
+    emergency_threshold: 90.0
+    description: "Scale API service based on CPU utilization"
+
+  - name: "api_memory_scaling"
+    service: "api"
+    metric_type: "memory_utilization_percent"
+    scale_up_threshold: 80.0
+    scale_down_threshold: 40.0
+    min_replicas: 2
+    max_replicas: 10
+    cooldown_seconds: 300
+    weight: 1.2
+    enabled: true
+    emergency_threshold: 95.0
+    description: "Scale API service based on memory utilization"
+
+  - name: "api_request_rate_scaling"
+    service: "api"
+    metric_type: "http_requests_per_second"
+    scale_up_threshold: 100.0
+    scale_down_threshold: 20.0
+    min_replicas: 2
+    max_replicas: 15
+    cooldown_seconds: 180
+    weight: 1.5
+    enabled: true
+    emergency_threshold: 200.0
+    description: "Scale API service based on request rate"
+
+  - name: "api_response_time_scaling"
+    service: "api"
+    metric_type: "http_request_duration_p95"
+    scale_up_threshold: 2.0  # 2 seconds
+    scale_down_threshold: 0.5  # 500ms
+    min_replicas: 2
+    max_replicas: 12
+    cooldown_seconds: 240
+    weight: 1.3
+    enabled: true
+    emergency_threshold: 5.0
+    description: "Scale API service based on response time (P95)"
+
+  # Content Agent Scaling Rules
+  - name: "content_agent_queue_scaling"
+    service: "content-agent"
+    metric_type: "model_generation_queue_size"
+    scale_up_threshold: 15.0
+    scale_down_threshold: 5.0
+    min_replicas: 1
+    max_replicas: 8
+    cooldown_seconds: 180
+    weight: 1.5
+    enabled: true
+    emergency_threshold: 50.0
+    description: "Scale content agent based on queue size"
+
+  - name: "content_agent_cpu_scaling"
+    service: "content-agent"
+    metric_type: "cpu_utilization_percent"
+    scale_up_threshold: 75.0
+    scale_down_threshold: 25.0
+    min_replicas: 1
+    max_replicas: 6
+    cooldown_seconds: 300
+    weight: 1.0
+    enabled: true
+    emergency_threshold: 95.0
+    description: "Scale content agent based on CPU utilization"
+
+  - name: "content_agent_memory_scaling"
+    service: "content-agent"
+    metric_type: "memory_utilization_percent"
+    scale_up_threshold: 85.0
+    scale_down_threshold: 35.0
+    min_replicas: 1
+    max_replicas: 6
+    cooldown_seconds: 300
+    weight: 1.1
+    enabled: true
+    emergency_threshold: 98.0
+    description: "Scale content agent based on memory utilization"
+
+  # Marketing Agent Scaling Rules
+  - name: "marketing_agent_cpu_scaling"
+    service: "marketing-agent"
+    metric_type: "cpu_utilization_percent"
+    scale_up_threshold: 70.0
+    scale_down_threshold: 30.0
+    min_replicas: 1
+    max_replicas: 4
+    cooldown_seconds: 300
+    weight: 1.0
+    enabled: true
+    emergency_threshold: 90.0
+    description: "Scale marketing agent based on CPU utilization"
+
+  - name: "marketing_agent_queue_scaling"
+    service: "marketing-agent"
+    metric_type: "model_generation_queue_size"
+    scale_up_threshold: 10.0
+    scale_down_threshold: 3.0
+    min_replicas: 1
+    max_replicas: 4
+    cooldown_seconds: 240
+    weight: 1.2
+    enabled: true
+    emergency_threshold: 25.0
+    description: "Scale marketing agent based on queue size"
+
+  # Backend Service Scaling Rules
+  - name: "backend_cpu_scaling"
+    service: "backend"
+    metric_type: "cpu_utilization_percent"
+    scale_up_threshold: 65.0
+    scale_down_threshold: 25.0
+    min_replicas: 2
+    max_replicas: 8
+    cooldown_seconds: 300
+    weight: 1.0
+    enabled: true
+    emergency_threshold: 85.0
+    description: "Scale backend service based on CPU utilization"
+
+  - name: "backend_memory_scaling"
+    service: "backend"
+    metric_type: "memory_utilization_percent"
+    scale_up_threshold: 75.0
+    scale_down_threshold: 35.0
+    min_replicas: 2
+    max_replicas: 8
+    cooldown_seconds: 300
+    weight: 1.1
+    enabled: true
+    emergency_threshold: 90.0
+    description: "Scale backend service based on memory utilization"
+
+  - name: "backend_database_connections_scaling"
+    service: "backend"
+    metric_type: "database_connections_active"
+    scale_up_threshold: 80.0  # 80% of max connections
+    scale_down_threshold: 30.0
+    min_replicas: 2
+    max_replicas: 6
+    cooldown_seconds: 360
+    weight: 1.3
+    enabled: true
+    emergency_threshold: 95.0
+    description: "Scale backend based on database connection usage"
+
+  # Frontend Service Scaling Rules
+  - name: "frontend_request_rate_scaling"
+    service: "frontend"
+    metric_type: "http_requests_per_second"
+    scale_up_threshold: 150.0
+    scale_down_threshold: 30.0
+    min_replicas: 2
+    max_replicas: 8
+    cooldown_seconds: 180
+    weight: 1.0
+    enabled: true
+    emergency_threshold: 300.0
+    description: "Scale frontend based on request rate"
+
+  - name: "frontend_error_rate_scaling"
+    service: "frontend"
+    metric_type: "http_error_rate_percent"
+    scale_up_threshold: 5.0  # 5% error rate
+    scale_down_threshold: 1.0
+    min_replicas: 2
+    max_replicas: 6
+    cooldown_seconds: 120
+    weight: 2.0  # High weight for error-based scaling
+    enabled: true
+    emergency_threshold: 15.0
+    description: "Scale frontend based on error rate"
+
+# Global Configuration
+global_settings:
+  # Default cooldown period for all rules (can be overridden per rule)
+  default_cooldown_seconds: 300
+
+  # Minimum time between any scaling actions across all services
+  global_cooldown_seconds: 60
+
+  # Maximum number of concurrent scaling actions
+  max_concurrent_scaling_actions: 3
+
+  # Enable predictive scaling based on historical data
+  enable_predictive_scaling: true
+
+  # Predictive scaling window (seconds ahead to predict)
+  prediction_window_seconds: 300
+
+  # Minimum confidence threshold for predictive scaling decisions
+  prediction_confidence_threshold: 0.7
+
+  # Enable emergency scaling (bypass cooldowns for critical thresholds)
+  enable_emergency_scaling: true
+
+  # Scaling decision logging level (DEBUG, INFO, WARNING, ERROR)
+  log_level: "INFO"
+
+  # Metrics collection interval (seconds)
+  metrics_collection_interval: 30
+
+  # Historical data retention period (hours)
+  historical_data_retention_hours: 24
+
+# Notification Settings
+notifications:
+  # Enable notifications for scaling events
+  enabled: true
+
+  # Notification channels
+  channels:
+    - type: "webhook"
+      url: "${SLACK_WEBHOOK_URL}"
+      events: ["scale_up", "scale_down", "emergency_scale", "scaling_failed"]
+      enabled: true
+
+    - type: "email"
+      recipients: ["${ADMIN_EMAIL}"]
+      events: ["emergency_scale", "scaling_failed"]
+      enabled: false
+
+  # Notification rate limiting (minimum seconds between notifications)
+  rate_limit_seconds: 300
+
+# Health Check Configuration
+health_checks:
+  # Enable health checks before scaling decisions
+  enabled: true
+
+  # Health check timeout (seconds)
+  timeout_seconds: 10
+
+  # Number of consecutive failed health checks before marking unhealthy
+  failure_threshold: 3
+
+  # Health check endpoints for each service
+  endpoints:
+    api: "/health"
+    backend: "/api/health"
+    frontend: "/"
+    content-agent: "/health"
+    marketing-agent: "/health"
+
+# Advanced Scaling Policies
+advanced_policies:
+  # Enable multi-metric scaling (consider multiple metrics simultaneously)
+  enable_multi_metric_scaling: true
+
+  # Multi-metric aggregation method (weighted_average, max, min)
+  multi_metric_aggregation: "weighted_average"
+
+  # Enable cascade scaling (scale dependent services together)
+  enable_cascade_scaling: true
+
+  # Cascade scaling relationships
+  cascade_relationships:
+    - primary: "api"
+      dependents: ["backend"]
+      scale_ratio: 0.5  # Scale dependents at 50% of primary scaling
+
+    - primary: "content-agent"
+      dependents: ["backend"]
+      scale_ratio: 0.3
+
+  # Enable time-based scaling policies
+  enable_time_based_scaling: true
+
+  # Time-based scaling rules
+  time_based_rules:
+    - name: "business_hours_boost"
+      schedule: "0 9-17 * * 1-5"  # 9 AM to 5 PM, Monday to Friday
+      services: ["api", "frontend"]
+      min_replicas_multiplier: 1.5
+      enabled: true
+
+    - name: "weekend_scale_down"
+      schedule: "0 0-23 * * 0,6"  # All day Saturday and Sunday
+      services: ["marketing-agent"]
+      max_replicas_multiplier: 0.5
+      enabled: true
+
+# Resource Limits and Constraints
+resource_constraints:
+  # Maximum total replicas across all services
+  max_total_replicas: 50
+
+  # Resource quotas per service
+  service_quotas:
+    api:
+      max_cpu_cores: 16
+      max_memory_gb: 32
+    backend:
+      max_cpu_cores: 12
+      max_memory_gb: 24
+    content-agent:
+      max_cpu_cores: 20
+      max_memory_gb: 40
+    marketing-agent:
+      max_cpu_cores: 8
+      max_memory_gb: 16
+    frontend:
+      max_cpu_cores: 8
+      max_memory_gb: 16
+
+  # Cost optimization settings
+  cost_optimization:
+    enabled: true
+    max_hourly_cost_usd: 50.0
+    cost_per_replica_hour:
+      api: 0.50
+      backend: 0.40
+      content-agent: 0.80
+      marketing-agent: 0.30
+      frontend: 0.25

@@ -1,0 +1,69 @@
+{
+  "lead_magnet": {
+    "title": "FutureTech Cheat Sheet",
+    "chapters": [
+      {
+        "heading": "Signals to Watch",
+        "body": "Compute, models, edge, tooling."
+      },
+      {
+        "heading": "How to Vet Hype",
+        "body": "Check benchmarks, data, and shipping products."
+      }
+    ]
+  },
+  "guide": {
+    "title": "FutureTech Starter Guide",
+    "chapters": [
+      {
+        "heading": "What Matters",
+        "body": "Latency, cost, capability, reliability."
+      },
+      {
+        "heading": "Your First Build",
+        "body": "A simple workflow you can ship in a weekend."
+      }
+    ]
+  },
+  "kit_readme": "Prompts, outlines, and brand checklist for FutureTech Chronicles.",
+  "landing": {
+    "title": "FutureTech Starter Kit",
+    "description": "Everything you need to follow the signal, not the noise.",
+    "includes": [
+      "Cheat Sheet PDF",
+      "Starter Guide PDF",
+      "Brand checklist"
+    ],
+    "price": "$19",
+    "primary_url": "https://payhip.com/",
+    "secondary_url": "https://github.com/"
+  },
+  "newsletter": {
+    "title": "This Week in FutureTech",
+    "intro": "Big moves in AI and the tools that matter.",
+    "items": [
+      {
+        "heading": "Model advances",
+        "body": "What actually changed."
+      },
+      {
+        "heading": "Tools to try",
+        "body": "Free options you can run now."
+      }
+    ],
+    "footer": "Reply with a topic request."
+  },
+  "course": {
+    "title": "Mini Course \u2014 FutureTech Compass",
+    "lessons": [
+      {
+        "title": "The Signal",
+        "html": "Read the right metrics."
+      },
+      {
+        "title": "The Build",
+        "html": "Ship a weekend project."
+      }
+    ]
+  }
+}

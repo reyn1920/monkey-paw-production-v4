@@ -1,0 +1,41 @@
+{
+  "tts_samples": {
+    "professional_voice": {
+      "text": "Welcome to our AI-powered content generation platform. Experience studio-quality voice synthesis with emotional control and perfect pronunciation.",
+      "voice_style": "professional",
+      "emotion": "confident",
+      "speed": 1.0,
+      "quality": "studio_grade"
+    },
+    "casual_voice": {
+      "text": "Hey there! Check out this amazing AI system that creates incredible content in just seconds. It's like having a Hollywood studio in your computer!",
+      "voice_style": "casual",
+      "emotion": "excited",
+      "speed": 1.1,
+      "quality": "studio_grade"
+    }
+  },
+  "music_samples": {
+    "background_music": {
+      "genre": "Corporate/Inspirational",
+      "duration": "60 seconds",
+      "tempo": "120 BPM",
+      "key": "C Major",
+      "mood": "Uplifting and Professional"
+    },
+    "intro_jingle": {
+      "genre": "Tech/Modern",
+      "duration": "10 seconds",
+      "tempo": "130 BPM",
+      "key": "A Minor",
+      "mood": "Dynamic and Engaging"
+    }
+  },
+  "sound_effects": [
+    "notification_chime.wav",
+    "success_sound.wav",
+    "transition_whoosh.wav",
+    "button_click.wav",
+    "ambient_tech.wav"
+  ]
+}

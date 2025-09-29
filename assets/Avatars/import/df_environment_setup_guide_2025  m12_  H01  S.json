@@ -1,0 +1,321 @@
+{
+  "title": "Live Environment Setup Guide",
+  "generated_at": "2025-09-12T16:01:33.252599",
+  "categories": [
+    {
+      "name": "core_system",
+      "title": "Core system configuration for live environment",
+      "required": true,
+      "services": [
+        {
+          "variable": "ENVIRONMENT",
+          "description": "Environment type",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "NODE_ENV",
+          "description": "Node environment",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "DEBUG",
+          "description": "Debug mode",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "PORT",
+          "description": "Application port",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "HOST",
+          "description": "Host binding",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "SECRET_KEY",
+          "description": "Application secret key (32+ chars)",
+          "signup_url": "",
+          "required": true,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "JWT_SECRET",
+          "description": "JWT token secret",
+          "signup_url": "",
+          "required": true,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "JWT_ALGORITHM",
+          "description": "JWT algorithm",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "JWT_EXPIRATION_HOURS",
+          "description": "JWT expiration time",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        }
+      ]
+    },
+    {
+      "name": "database",
+      "title": "Database configuration",
+      "required": true,
+      "services": [
+        {
+          "variable": "DATABASE_PATH",
+          "description": "SQLite database path",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "DATABASE_URL",
+          "description": "Database URL",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        }
+      ]
+    },
+    {
+      "name": "free_ai_ml",
+      "title": "Free AI/ML API integrations",
+      "required": false,
+      "services": [
+        {
+          "variable": "GROQ_API_KEY",
+          "description": "Groq AI API key - Fast inference",
+          "signup_url": "https://console.groq.com/",
+          "required": false,
+          "free_tier": "Generous free usage limits for fast AI inference"
+        },
+        {
+          "variable": "HUGGINGFACE_API_KEY",
+          "description": "Hugging Face API token",
+          "signup_url": "https://huggingface.co/settings/tokens",
+          "required": false,
+          "free_tier": "1,000 requests/month free"
+        }
+      ]
+    },
+    {
+      "name": "free_media",
+      "title": "Free media API integrations",
+      "required": false,
+      "services": [
+        {
+          "variable": "PEXELS_API_KEY",
+          "description": "Pexels stock photos API",
+          "signup_url": "https://www.pexels.com/api/",
+          "required": false,
+          "free_tier": "200 requests/hour free"
+        }
+      ]
+    },
+    {
+      "name": "free_news",
+      "title": "Free news API integrations",
+      "required": false,
+      "services": [
+        {
+          "variable": "GUARDIAN_API_KEY",
+          "description": "Guardian News API",
+          "signup_url": "https://open - platform.theguardian.com/",
+          "required": false,
+          "free_tier": "5,000 calls/day free"
+        },
+        {
+          "variable": "NYTIMES_API_KEY",
+          "description": "NY Times API",
+          "signup_url": "https://developer.nytimes.com/",
+          "required": false,
+          "free_tier": "4,000 requests/day free"
+        }
+      ]
+    },
+    {
+      "name": "free_social",
+      "title": "Free social media API integrations",
+      "required": false,
+      "services": [
+        {
+          "variable": "REDDIT_CLIENT_ID",
+          "description": "Reddit API client ID",
+          "signup_url": "https://www.reddit.com/prefs/apps",
+          "required": false,
+          "free_tier": "60 requests/minute free"
+        },
+        {
+          "variable": "REDDIT_CLIENT_SECRET",
+          "description": "Reddit API client secret",
+          "signup_url": "https://www.reddit.com/prefs/apps",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "YOUTUBE_API_KEY",
+          "description": "YouTube Data API v3 key",
+          "signup_url": "https://console.developers.google.com/",
+          "required": false,
+          "free_tier": "10,000 units/day free"
+        },
+        {
+          "variable": "GITHUB_TOKEN",
+          "description": "GitHub personal access token",
+          "signup_url": "https://github.com/settings/tokens",
+          "required": false,
+          "free_tier": "5,000 requests/hour free"
+        }
+      ]
+    },
+    {
+      "name": "free_email",
+      "title": "Free email service integrations",
+      "required": false,
+      "services": [
+        {
+          "variable": "SENDGRID_API_KEY",
+          "description": "SendGrid API key (100 emails/day free)",
+          "signup_url": "https://app.sendgrid.com/settings/api_keys",
+          "required": false,
+          "free_tier": "100 emails/day free"
+        },
+        {
+          "variable": "MAILCHIMP_API_KEY",
+          "description": "Mailchimp API key (2,000 contacts free)",
+          "signup_url": "https://mailchimp.com/developer/marketing/guides/quick - start/",
+          "required": false,
+          "free_tier": "2,000 contacts free"
+        }
+      ]
+    },
+    {
+      "name": "free_analytics",
+      "title": "Free analytics service integrations",
+      "required": false,
+      "services": [
+        {
+          "variable": "GOOGLE_ANALYTICS_ID",
+          "description": "Google Analytics tracking ID",
+          "signup_url": "https://analytics.google.com/",
+          "required": false,
+          "free_tier": "Free with Google account"
+        },
+        {
+          "variable": "GOOGLE_SEARCH_CONSOLE_KEY",
+          "description": "Google Search Console API key",
+          "signup_url": "https://search.google.com/search - console",
+          "required": false,
+          "free_tier": "Free tier available"
+        }
+      ]
+    },
+    {
+      "name": "payment_sandbox",
+      "title": "Free payment system sandbox environments",
+      "required": false,
+      "services": [
+        {
+          "variable": "STRIPE_PUBLIC_KEY",
+          "description": "Stripe test public key",
+          "signup_url": "https://dashboard.stripe.com/test/apikeys",
+          "required": false,
+          "free_tier": "Free sandbox environment"
+        },
+        {
+          "variable": "STRIPE_SECRET_KEY",
+          "description": "Stripe test secret key",
+          "signup_url": "https://dashboard.stripe.com/test/apikeys",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "PAYPAL_CLIENT_ID",
+          "description": "PayPal sandbox client ID",
+          "signup_url": "https://developer.paypal.com/",
+          "required": false,
+          "free_tier": "Free sandbox environment"
+        },
+        {
+          "variable": "PAYPAL_CLIENT_SECRET",
+          "description": "PayPal sandbox client secret",
+          "signup_url": "https://developer.paypal.com/",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "SQUARE_APPLICATION_ID",
+          "description": "Square sandbox application ID",
+          "signup_url": "https://developer.squareup.com/",
+          "required": false,
+          "free_tier": "Free sandbox environment"
+        },
+        {
+          "variable": "SQUARE_ACCESS_TOKEN",
+          "description": "Square sandbox access token",
+          "signup_url": "https://developer.squareup.com/",
+          "required": false,
+          "free_tier": "Free tier available"
+        }
+      ]
+    },
+    {
+      "name": "deployment",
+      "title": "Deployment and hosting configuration",
+      "required": false,
+      "services": [
+        {
+          "variable": "NETLIFY_AUTH_TOKEN",
+          "description": "Netlify deployment token",
+          "signup_url": "https://app.netlify.com/user/applications",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "NETLIFY_SITE_ID",
+          "description": "Netlify site ID",
+          "signup_url": "https://app.netlify.com/",
+          "required": false,
+          "free_tier": "Free tier available"
+        }
+      ]
+    },
+    {
+      "name": "security",
+      "title": "Security and CORS configuration",
+      "required": true,
+      "services": [
+        {
+          "variable": "ALLOWED_HOSTS",
+          "description": "Allowed host domains",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        },
+        {
+          "variable": "CORS_ORIGINS",
+          "description": "CORS allowed origins",
+          "signup_url": "",
+          "required": false,
+          "free_tier": "Free tier available"
+        }
+      ]
+    }
+  ]
+}

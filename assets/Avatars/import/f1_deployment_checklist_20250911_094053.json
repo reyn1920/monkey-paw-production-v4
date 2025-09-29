@@ -1,0 +1,107 @@
+[
+  {
+    "category": "Environment Setup",
+    "items": [
+      {
+        "task": "Backup current .env file",
+        "critical": true
+      },
+      {
+        "task": "Set ENVIRONMENT=production",
+        "critical": true
+      },
+      {
+        "task": "Set DEBUG=false",
+        "critical": true
+      },
+      {
+        "task": "Configure strong SECRET_KEY (32+ chars)",
+        "critical": true
+      },
+      {
+        "task": "Set up JWT secrets",
+        "critical": true
+      }
+    ]
+  },
+  {
+    "category": "Security Configuration",
+    "items": [
+      {
+        "task": "Configure ALLOWED_HOSTS for production domain",
+        "critical": true
+      },
+      {
+        "task": "Set CORS_ORIGINS for production URLs",
+        "critical": true
+      },
+      {
+        "task": "Verify no secrets in source code",
+        "critical": true
+      },
+      {
+        "task": "Enable HTTPS in production",
+        "critical": true
+      }
+    ]
+  },
+  {
+    "category": "API Integration",
+    "items": [
+      {
+        "task": "Configure free AI/ML APIs (Groq, Hugging Face)",
+        "critical": false
+      },
+      {
+        "task": "Set up media APIs (Pexels)",
+        "critical": false
+      },
+      {
+        "task": "Configure news APIs (Guardian, NY Times)",
+        "critical": false
+      },
+      {
+        "task": "Set up social APIs (Reddit, YouTube, GitHub)",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "category": "Service Integration",
+    "items": [
+      {
+        "task": "Configure email services (SendGrid, Mailchimp)",
+        "critical": false
+      },
+      {
+        "task": "Set up analytics (Google Analytics)",
+        "critical": false
+      },
+      {
+        "task": "Configure payment sandbox environments",
+        "critical": false
+      }
+    ]
+  },
+  {
+    "category": "Deployment",
+    "items": [
+      {
+        "task": "Set up Netlify deployment tokens",
+        "critical": false
+      },
+      {
+        "task": "Configure CI/CD pipeline",
+        "critical": false
+      },
+      {
+        "task": "Test all integrations in staging",
+        "critical": true
+      },
+      {
+        "task": "Verify database connectivity",
+        "critical": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,106 @@
+# Default avatar configuration
+# linly_talker is the default avatar. talking_head is secondary.
+
+version: 1
+
+default_avatar: linly_talker
+
+avatars:
+  linly_talker:
+    label: "Linly Talker (Default)"
+    enabled: true
+    assets_dir: "assets/Avatars/linly_talker/"
+    voice_preset: "default"
+    enhancements:
+      - "lighting_profile:soft_key_fill"
+      - "face_ratio:golden"
+      - "lip_sync:high"
+      - "skin_tone_preserve:true"
+    services:
+      mode: "cli_or_http"   # cli_or_http | cli_only | http_only
+      http:
+        enabled: true
+        host: "127.0.0.1"
+        port: 8350
+        health_path: "/health"
+        timeout_sec: 20
+      cli:
+        enabled: true
+        entry: "tools/linly_talker/run.sh"   # optional, not required yet
+        timeout_sec: 180
+    poses:
+      default: "half_body"
+      full_body:
+        scale: 1.0
+        anchor: "center_bottom"
+      half_body:
+        scale: 1.2
+        anchor: "center"
+    assets:
+      masked_png_dir: "assets/Avatars/linly_talker/masked/"
+      greenscreen_dir: "assets/Avatars/linly_talker/greenscreen/"
+      chroma_key:
+        key_color: "#00FF00"
+        similarity: 0.12
+        blend: 0.08
+  talking_head:
+    label: "Talking Head (Secondary)"
+    enabled: true
+    assets_dir: "assets/Avatars/talking_head/"
+    voice_preset: "default"
+    enhancements:
+      - "lighting_profile:studio_three_point"
+      - "face_ratio:golden"
+      - "lip_sync:medium"
+    services:
+      mode: "cli_or_http"
+      http:
+        enabled: true
+        host: "127.0.0.1"
+        port: 8351
+        health_path: "/health"
+        timeout_sec: 20
+      cli:
+        enabled: true
+        entry: "tools/talking_head/run.sh"
+        timeout_sec: 180
+    poses:
+      default: "half_body"
+      full_body:
+        scale: 1.0
+        anchor: "center_bottom"
+      half_body:
+        scale: 1.15
+        anchor: "center"
+    assets:
+      masked_png_dir: "assets/Avatars/talking_head/masked/"
+      greenscreen_dir: "assets/Avatars/talking_head/greenscreen/"
+      chroma_key:
+        key_color: "#00FF00"
+        similarity: 0.12
+        blend: 0.08
+
+# Per-channel overrides can be added later under channels key
+channels:
+  right_perspective:
+    # Two avatars always: male and female
+    avatars:
+      - id: right_male
+        gender: male
+        base: linly_talker   # uses linly_talker services and assets
+        pose: half_body
+        wardrobe_plan: "daily_rotation"
+      - id: right_female
+        gender: female
+        base: talking_head   # uses talking_head services and assets
+        pose: half_body
+        wardrobe_plan: "daily_rotation"
+  futuretech_chronicles:
+    avatar: linly_talker
+    pose: half_body
+  next_gen_tech_today:
+    avatar: talking_head
+    pose: half_body
+  eco_health_living:
+    avatar: linly_talker
+    pose: full_body

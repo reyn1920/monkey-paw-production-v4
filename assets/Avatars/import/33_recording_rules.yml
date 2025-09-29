@@ -1,0 +1,388 @@
+# TRAE.AI Production Recording Rules
+# Pre-computed metrics for efficient querying and dashboards
+
+groups:
+  # System Performance Recording Rules
+  - name: system_performance
+    interval: 30s
+    rules:
+      # CPU utilization aggregations
+      - record: instance:cpu_utilization:rate5m
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+
+      - record: job:cpu_utilization:mean5m
+        expr: avg by(job) (instance:cpu_utilization:rate5m)
+
+      # Memory utilization
+      - record: instance:memory_utilization:ratio
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+
+      - record: job:memory_utilization:mean
+        expr: avg by(job) (instance:memory_utilization:ratio)
+
+      # Disk utilization
+      - record: instance:disk_utilization:ratio
+        expr: (1 - (node_filesystem_avail_bytes{fstype!="tmpfs"} / node_filesystem_size_bytes{fstype!="tmpfs"})) * 100
+
+      # Network I/O rates
+      - record: instance:network_receive_bytes:rate5m
+        expr: rate(node_network_receive_bytes_total[5m])
+
+      - record: instance:network_transmit_bytes:rate5m
+        expr: rate(node_network_transmit_bytes_total[5m])
+
+  # Application Performance Recording Rules
+  - name: application_performance
+    interval: 30s
+    rules:
+      # HTTP request rates
+      - record: job:http_requests:rate5m
+        expr: sum by(job) (rate(http_requests_total[5m]))
+
+      - record: job:http_requests:rate1h
+        expr: sum by(job) (rate(http_requests_total[1h]))
+
+      # HTTP error rates
+      - record: job:http_errors:rate5m
+        expr: sum by(job) (rate(http_requests_total{status=~"5.."}[5m]))
+
+      - record: job:http_error_rate:ratio5m
+        expr: job:http_errors:rate5m / job:http_requests:rate5m
+
+      # Response time percentiles
+      - record: job:http_request_duration:p50_5m
+        expr: histogram_quantile(0.50, sum by(job, le) (rate(http_request_duration_seconds_bucket[5m])))
+
+      - record: job:http_request_duration:p95_5m
+        expr: histogram_quantile(0.95, sum by(job, le) (rate(http_request_duration_seconds_bucket[5m])))
+
+      - record: job:http_request_duration:p99_5m
+        expr: histogram_quantile(0.99, sum by(job, le) (rate(http_request_duration_seconds_bucket[5m])))
+
+      # Request volume by endpoint
+      - record: endpoint:http_requests:rate5m
+        expr: sum by(endpoint, method) (rate(http_requests_total[5m]))
+
+  # Database Performance Recording Rules
+  - name: database_performance
+    interval: 60s
+    rules:
+      # PostgreSQL connection utilization
+      - record: postgres:connection_utilization:ratio
+        expr: pg_stat_database_numbackends / pg_settings_max_connections
+
+      # PostgreSQL query performance
+      - record: postgres:queries:rate5m
+        expr: rate(pg_stat_database_xact_commit[5m]) + rate(pg_stat_database_xact_rollback[5m])
+
+      - record: postgres:slow_queries:count
+        expr: pg_stat_activity_count{state="active"} and pg_stat_activity_query_duration > 300
+
+      # Redis performance
+      - record: redis:operations:rate5m
+        expr: rate(redis_commands_processed_total[5m])
+
+      - record: redis:memory_utilization:ratio
+        expr: redis_memory_used_bytes / redis_memory_max_bytes
+
+      - record: redis:hit_rate:ratio5m
+        expr: rate(redis_keyspace_hits_total[5m]) / (rate(redis_keyspace_hits_total[5m]) + rate(redis_keyspace_misses_total[5m]))
+
+  # Content Generation Recording Rules
+  - name: content_generation
+    interval: 60s
+    rules:
+      # Content generation rates
+      - record: content:generation_requests:rate5m
+        expr: rate(content_generation_requests_total[5m])
+
+      - record: content:generation_success:rate5m
+        expr: rate(content_generation_success_total[5m])
+
+      - record: content:generation_success_rate:ratio5m
+        expr: content:generation_success:rate5m / content:generation_requests:rate5m
+
+      # Content generation duration
+      - record: content:generation_duration:p95_5m
+        expr: histogram_quantile(0.95, rate(content_generation_duration_seconds_bucket[5m]))
+
+      # AI model performance
+      - record: ai:model_requests:rate5m
+        expr: sum by(model) (rate(ai_model_requests_total[5m]))
+
+      - record: ai:model_duration:p95_5m
+        expr: histogram_quantile(0.95, sum by(model, le) (rate(ai_model_request_duration_seconds_bucket[5m])))
+
+      # Content queue metrics
+      - record: content:queue_size:current
+        expr: content_generation_queue_size
+
+      - record: content:queue_processing_rate:5m
+        expr: rate(content_generation_queue_processed_total[5m])
+
+  # Marketing Performance Recording Rules
+  - name: marketing_performance
+    interval: 300s # 5 minutes
+    rules:
+      # Social media metrics
+      - record: social:posts:rate1h
+        expr: rate(social_media_posts_total[1h])
+
+      - record: social:engagement:rate1h
+        expr: rate(social_media_engagements_total[1h])
+
+      - record: social:engagement_rate:ratio1h
+        expr: social:engagement:rate1h / social:posts:rate1h
+
+      # Email campaign metrics
+      - record: email:campaigns_sent:rate1h
+        expr: rate(email_campaigns_sent_total[1h])
+
+      - record: email:opens:rate1h
+        expr: rate(email_opens_total[1h])
+
+      - record: email:clicks:rate1h
+        expr: rate(email_clicks_total[1h])
+
+      - record: email:open_rate:ratio1h
+        expr: email:opens:rate1h / email:campaigns_sent:rate1h
+
+      - record: email:click_rate:ratio1h
+        expr: email:clicks:rate1h / email:campaigns_sent:rate1h
+
+      # SEO metrics
+      - record: seo:rankings:average
+        expr: avg by(domain) (seo_keyword_ranking)
+
+      - record: seo:traffic:rate1h
+        expr: rate(seo_organic_traffic_total[1h])
+
+  # Revenue Recording Rules
+  - name: revenue_metrics
+    interval: 300s # 5 minutes
+    rules:
+      # Total revenue aggregations
+      - record: revenue:total:rate1h
+        expr: rate(revenue_total[1h])
+
+      - record: revenue:total:rate24h
+        expr: rate(revenue_total[24h])
+
+      # Revenue by source
+      - record: revenue:youtube:rate24h
+        expr: rate(revenue_youtube_total[24h])
+
+      - record: revenue:affiliate:rate24h
+        expr: rate(revenue_affiliate_total[24h])
+
+      - record: revenue:ebooks:rate24h
+        expr: rate(revenue_ebooks_total[24h])
+
+      - record: revenue:newsletter:rate24h
+        expr: rate(revenue_newsletter_total[24h])
+
+      - record: revenue:pod:rate24h
+        expr: rate(revenue_pod_total[24h])
+
+      # Conversion rates
+      - record: conversion:affiliate:rate1h
+        expr: rate(affiliate_conversions_total[1h]) / rate(affiliate_clicks_total[1h])
+
+      - record: conversion:ebook:rate1h
+        expr: rate(ebook_sales_total[1h]) / rate(ebook_views_total[1h])
+
+      # Customer metrics
+      - record: customers:new:rate24h
+        expr: rate(customers_new_total[24h])
+
+      - record: customers:returning:rate24h
+        expr: rate(customers_returning_total[24h])
+
+  # Business Metrics Recording Rules
+  - name: business_metrics
+    interval: 600s # 10 minutes
+    rules:
+      # Website traffic
+      - record: website:visitors:rate1h
+        expr: rate(website_visitors_total[1h])
+
+      - record: website:pageviews:rate1h
+        expr: rate(website_pageviews_total[1h])
+
+      - record: website:bounce_rate:ratio1h
+        expr: rate(website_bounces_total[1h]) / rate(website_sessions_total[1h])
+
+      # Newsletter metrics
+      - record: newsletter:subscribers:rate24h
+        expr: rate(newsletter_subscribers_total[24h])
+
+      - record: newsletter:unsubscribes:rate24h
+        expr: rate(newsletter_unsubscribes_total[24h])
+
+      - record: newsletter:growth_rate:ratio24h
+        expr: (newsletter:subscribers:rate24h - newsletter:unsubscribes:rate24h) / newsletter_subscribers_total
+
+      # Content performance
+      - record: content:views:rate1h
+        expr: rate(content_views_total[1h])
+
+      - record: content:shares:rate1h
+        expr: rate(content_shares_total[1h])
+
+      - record: content:engagement_rate:ratio1h
+        expr: content:shares:rate1h / content:views:rate1h
+
+  # Infrastructure Recording Rules
+  - name: infrastructure_metrics
+    interval: 60s
+    rules:
+      # Container metrics
+      - record: container:cpu_usage:rate5m
+        expr: rate(container_cpu_usage_seconds_total[5m])
+
+      - record: container:memory_usage:bytes
+        expr: container_memory_usage_bytes
+
+      - record: container:network_receive:rate5m
+        expr: rate(container_network_receive_bytes_total[5m])
+
+      - record: container:network_transmit:rate5m
+        expr: rate(container_network_transmit_bytes_total[5m])
+
+      # Load balancer metrics
+      - record: nginx:requests:rate5m
+        expr: rate(nginx_http_requests_total[5m])
+
+      - record: nginx:response_time:p95_5m
+        expr: histogram_quantile(0.95, rate(nginx_http_request_duration_seconds_bucket[5m]))
+
+      # Service availability
+      - record: service:availability:ratio5m
+        expr: avg_over_time(up[5m])
+
+      - record: service:availability:ratio1h
+        expr: avg_over_time(up[1h])
+
+  # Task Queue Recording Rules
+  - name: task_queue_metrics
+    interval: 60s
+    rules:
+      # Queue size and processing
+      - record: queue:pending_jobs:current
+        expr: task_queue_pending_jobs
+
+      - record: queue:processing_rate:5m
+        expr: rate(task_queue_processed_total[5m])
+
+      - record: queue:failure_rate:5m
+        expr: rate(task_queue_failures_total[5m])
+
+      - record: queue:success_rate:ratio5m
+        expr: (queue:processing_rate:5m - queue:failure_rate:5m) / queue:processing_rate:5m
+
+      # Worker performance
+      - record: workers:active:current
+        expr: task_queue_workers_active
+
+      - record: workers:utilization:ratio
+        expr: task_queue_workers_busy / task_queue_workers_active
+
+  # Security Recording Rules
+  - name: security_metrics
+    interval: 60s
+    rules:
+      # Authentication metrics
+      - record: auth:attempts:rate5m
+        expr: rate(auth_attempts_total[5m])
+
+      - record: auth:failures:rate5m
+        expr: rate(auth_failures_total[5m])
+
+      - record: auth:failure_rate:ratio5m
+        expr: auth:failures:rate5m / auth:attempts:rate5m
+
+      # API security
+      - record: api:unauthorized_requests:rate5m
+        expr: rate(http_requests_total{status="401"}[5m])
+
+      - record: api:forbidden_requests:rate5m
+        expr: rate(http_requests_total{status="403"}[5m])
+
+      - record: api:rate_limited_requests:rate5m
+        expr: rate(http_requests_total{status="429"}[5m])
+
+      # Suspicious activity
+      - record: security:suspicious_activity:rate5m
+        expr: rate(security_suspicious_activity_total[5m])
+
+  # External Services Recording Rules
+  - name: external_services
+    interval: 300s # 5 minutes
+    rules:
+      # API success rates
+      - record: external:youtube_api:success_rate5m
+        expr: rate(youtube_api_success_total[5m]) / rate(youtube_api_requests_total[5m])
+
+      - record: external:openai_api:success_rate5m
+        expr: rate(openai_api_success_total[5m]) / rate(openai_api_requests_total[5m])
+
+      - record: external:email_service:success_rate5m
+        expr: rate(email_service_success_total[5m]) / rate(email_service_requests_total[5m])
+
+      - record: external:payment_gateway:success_rate5m
+        expr: rate(payment_gateway_success_total[5m]) / rate(payment_gateway_requests_total[5m])
+
+      # API response times
+      - record: external:youtube_api:response_time_p95_5m
+        expr: histogram_quantile(0.95, rate(youtube_api_request_duration_seconds_bucket[5m]))
+
+      - record: external:openai_api:response_time_p95_5m
+        expr: histogram_quantile(0.95, rate(openai_api_request_duration_seconds_bucket[5m]))
+
+  # Data Quality Recording Rules
+  - name: data_quality
+    interval: 300s # 5 minutes
+    rules:
+      # Data ingestion rates
+      - record: data:ingestion_rate:5m
+        expr: rate(data_ingestion_total[5m])
+
+      - record: data:ingestion_errors:rate5m
+        expr: rate(data_ingestion_errors_total[5m])
+
+      - record: data:ingestion_success_rate:ratio5m
+        expr: (data:ingestion_rate:5m - data:ingestion_errors:rate5m) / data:ingestion_rate:5m
+
+      # Data validation
+      - record: data:validation_errors:rate5m
+        expr: rate(data_validation_errors_total[5m])
+
+      - record: data:quality_score:current
+        expr: data_quality_score
+
+  # Aggregated Business KPIs
+  - name: business_kpis
+    interval: 3600s # 1 hour
+    rules:
+      # Daily active users
+      - record: business:daily_active_users:current
+        expr: count by() (increase(user_sessions_total[24h]) > 0)
+
+      # Customer lifetime value
+      - record: business:customer_ltv:average
+        expr: avg(customer_lifetime_value)
+
+      # Monthly recurring revenue
+      - record: business:mrr:current
+        expr: sum(subscription_revenue_monthly)
+
+      # Churn rate
+      - record: business:churn_rate:monthly
+        expr: rate(customer_churn_total[30d])
+
+      # Growth metrics
+      - record: business:revenue_growth:monthly
+        expr: (revenue:total:rate24h * 30 - revenue:total:rate24h offset 30d * 30) / (revenue:total:rate24h offset 30d * 30)
+
+      - record: business:user_growth:monthly
+        expr: (business:daily_active_users:current - business:daily_active_users:current offset 30d) / business:daily_active_users:current offset 30d

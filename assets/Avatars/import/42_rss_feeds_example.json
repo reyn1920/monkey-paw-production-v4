@@ -1,0 +1,114 @@
+{
+  "feeds": [
+    {
+      "name": "BBC News - Technology",
+      "url": "http://feeds.bbci.co.uk/news/technology/rss.xml",
+      "category": "technology",
+      "active": true
+    },
+    {
+      "name": "TechCrunch",
+      "url": "https://techcrunch.com/feed/",
+      "category": "technology",
+      "active": true
+    },
+    {
+      "name": "Reuters - Technology",
+      "url": "https://feeds.reuters.com/reuters/technologyNews",
+      "category": "technology",
+      "active": true
+    },
+    {
+      "name": "Ars Technica",
+      "url": "http://feeds.arstechnica.com/arstechnica/index",
+      "category": "technology",
+      "active": true
+    },
+    {
+      "name": "The Verge",
+      "url": "https://www.theverge.com/rss/index.xml",
+      "category": "technology",
+      "active": true
+    },
+    {
+      "name": "Wired",
+      "url": "https://www.wired.com/feed/rss",
+      "category": "technology",
+      "active": true
+    },
+    {
+      "name": "CNN - Technology",
+      "url": "http://rss.cnn.com/rss/edition_technology.rss",
+      "category": "technology",
+      "active": true
+    },
+    {
+      "name": "Engadget",
+      "url": "https://www.engadget.com/rss.xml",
+      "category": "technology",
+      "active": true
+    },
+    {
+      "name": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/feed/",
+      "category": "technology",
+      "active": true
+    },
+    {
+      "name": "ZDNet",
+      "url": "https://www.zdnet.com/news/rss.xml",
+      "category": "technology",
+      "active": true
+    },
+    {
+      "name": "Fox News - Politics",
+      "url": "http://feeds.foxnews.com/foxnews/politics",
+      "category": "politics",
+      "active": true
+    },
+    {
+      "name": "CNN - Politics",
+      "url": "http://rss.cnn.com/rss/edition_politics.rss",
+      "category": "politics",
+      "active": true
+    },
+    {
+      "name": "Politico",
+      "url": "https://www.politico.com/rss/politicopicks.xml",
+      "category": "politics",
+      "active": true
+    },
+    {
+      "name": "The Hill - News",
+      "url": "https://thehill.com/news/feed/",
+      "category": "politics",
+      "active": true
+    },
+    {
+      "name": "Reuters - Politics",
+      "url": "https://feeds.reuters.com/reuters/politicsNews",
+      "category": "politics",
+      "active": true
+    },
+    {
+      "name": "Associated Press - Politics",
+      "url": "https://feeds.apnews.com/rss/apf-politics",
+      "category": "politics",
+      "active": true
+    },
+    {
+      "name": "Washington Post - Politics",
+      "url": "https://feeds.washingtonpost.com/rss/politics",
+      "category": "politics",
+      "active": true
+    },
+    {
+      "name": "NPR - Politics",
+      "url": "https://feeds.npr.org/1014/rss.xml",
+      "category": "politics",
+      "active": true
+    }
+  ],
+  "last_updated": "2024-01-15T00:00:00Z",
+  "version": "1.0"
+}

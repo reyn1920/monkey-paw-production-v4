@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "project": {
+    "name": "monkey paw production v4",
+    "type": "web-app",
+    "framework": "react",
+    "ai_assistance": {
+      "enabled": true,
+      "auto_suggestions": true,
+      "code_review": true,
+      "optimization": true
+    }
+  },
+  "integrations": {
+    "cursor": {
+      "enabled": true
+    },
+    "bolt": {
+      "enabled": true
+    },
+    "firebase": {
+      "enabled": true
+    }
+  },
+  "ai_ceo": {
+    "enabled": true,
+    "webhook_url": "http://localhost:8000/trae-webhook"
+  }
+}

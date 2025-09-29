@@ -1,0 +1,56 @@
+{
+  "lead_magnet": {
+    "title": "Next-Gen Gadget Picks",
+    "chapters": [
+      {
+        "heading": "3 Budget Gems",
+        "body": "Great value without hype."
+      },
+      {
+        "heading": "When to Upgrade",
+        "body": "Simple rules to buy at the right time."
+      }
+    ]
+  },
+  "guide": {
+    "title": "Smart Buyer\u2019s Guide",
+    "chapters": [
+      {
+        "heading": "Specs That Matter",
+        "body": "Longevity, parts, reliability."
+      },
+      {
+        "heading": "Protection & Care",
+        "body": "Make gear last longer."
+      }
+    ]
+  },
+  "kit_readme": "Templates for reviews, scripts, and links for Next Gen Tech Today.",
+  "landing": {
+    "title": "Next-Gen Buyer Kit",
+    "description": "Be the person everyone asks for advice.",
+    "includes": [
+      "Gadget Picks PDF",
+      "Buyer\u2019s Guide PDF",
+      "Review templates"
+    ],
+    "price": "$19",
+    "primary_url": "https://payhip.com/",
+    "secondary_url": "https://github.com/"
+  },
+  "newsletter": {
+    "title": "Next Gen Weekly",
+    "intro": "Picks you won\u2019t regret.",
+    "items": [
+      {
+        "heading": "Deal to watch",
+        "body": "Price vs. value."
+      },
+      {
+        "heading": "Avoid list",
+        "body": "Skip these traps."
+      }
+    ],
+    "footer": "Hit reply and tell me your budget."
+  }
+}

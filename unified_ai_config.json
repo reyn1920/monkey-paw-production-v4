@@ -1,0 +1,76 @@
+{
+  "unified_ai_hub": {
+    "version": "1.0.0",
+    "workspace_path": "/Users/thomasbrianreynolds/monkey paw production v4",
+    "platforms": {
+      "cursor": {
+        "enabled": true,
+        "priority": 1,
+        "features": [
+          "IDE integration",
+          "AI code completion",
+          "Continue extension",
+          "Workspace configuration"
+        ]
+      },
+      "windsurf": {
+        "enabled": true,
+        "priority": 2,
+        "features": [
+          "GitHub Actions",
+          "CI/CD automation",
+          "DaVinci Resolve integration",
+          "Unified workflows"
+        ]
+      },
+      "trae": {
+        "enabled": true,
+        "priority": 3,
+        "features": [
+          "SOLO agents",
+          "Autonomous development",
+          "Self-healing systems",
+          "AI collaboration"
+        ]
+      },
+      "vscode": {
+        "enabled": true,
+        "priority": 4,
+        "features": [
+          "Debug Agent System",
+          "LangGraph integration",
+          "IntelliSense enhancement",
+          "Extension management"
+        ]
+      },
+      "ollama": {
+        "enabled": true,
+        "priority": 5,
+        "features": [
+          "12+ local AI models",
+          "Server monitoring",
+          "Performance metrics",
+          "Continue integration"
+        ]
+      },
+      "sublime": {
+        "enabled": true,
+        "priority": 6,
+        "features": [
+          "Build 4200 support",
+          "Automation reports",
+          "Project configurations",
+          "Package Control"
+        ]
+      }
+    },
+    "integration_settings": {
+      "auto_sync": true,
+      "sync_interval": 300,
+      "error_retry_count": 3,
+      "concurrent_operations": true,
+      "logging_level": "INFO",
+      "backup_configs": true
+    }
+  }
+}

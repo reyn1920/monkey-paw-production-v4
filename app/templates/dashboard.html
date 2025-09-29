@@ -1,0 +1,439 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>Monkey Paw — V4</title>
+<link rel="stylesheet" href="/static/css/style.css"/></head><body>
+<header><h1>Monkey Paw — V4 Dashboard</h1><div class="grid">
+<div class="card"><h3>Status</h3><pre id="health">loading…</pre></div>
+<div class="card"><h3>Revenue (<span id="revTitleDays">30</span> days)</h3>
+<div style="display:flex;align-items:center;gap:8px;margin:6px 0 10px 0">
+  <label for="revDays">Timeframe:</label>
+  <select id="revDays">
+    <option value="7">7</option>
+    <option value="30" selected>30</option>
+    <option value="60">60</option>
+  </select>
+  <button id="revReload">Reload</button>
+  <small id="revHint" style="opacity:.7">Uses your computer's current date</small>
+  </div>
+  <div class="card">
+    <h3>Stack Integration</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <button id="traeSetKeys">Set API Keys</button>
+      <button id="traeReload">Reload</button>
+      <button id="traeTest">Quick Test</button>
+      <button id="traePlatforms">Platform Status</button>
+    </div>
+    <small>Keys are stored locally in <code>config/integrations.yaml</code> (masked on GET). Covers ChatGPT/Gemini/Abacus clients used in the stack.</small>
+    <pre id="traeOut" style="max-height:240px;overflow:auto"></pre>
+  </div>
+  <div id="liveLaneBanner" style="display:none;background:#8b0000;color:#fff;padding:8px 12px;border-radius:6px;margin:8px 0;">
+    Live check failing — open Web Guard, Imports, and verify panels to diagnose. <button id="llRefresh" style="margin-left:8px">Recheck</button>
+  </div>
+  <div class="card">
+    <h3>Drive Catalog</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <button id="driveScan">Scan Now</button>
+      <button id="driveStats">Show Stats</button>
+      <label for="driveQ">Query:</label>
+      <input id="driveQ" placeholder="keywords" style="min-width:180px"/>
+      <label for="driveExt">Ext:</label>
+      <input id="driveExt" placeholder="pdf,mp4,md" style="width:120px"/>
+      <button id="driveSearch">Search</button>
+      <button id="driveIngestListed">Ingest Listed</button>
+    </div>
+    <small>Scans the configured Drive path from Integrations, saves metadata to SQLite, add-only.</small>
+    <pre id="driveOut" style="max-height:260px;overflow:auto"></pre>
+  </div>
+  <div class="card">
+    <h3>Resources</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <button id="resDual">Dual-Engine Prompt</button>
+      <button id="resUni">University Access</button>
+    </div>
+    <small>These come from the installed pack under <code>_mp_maxout_stack/prompts</code> and <code>_mp_maxout_stack/registry</code>.</small>
+    <pre id="resOut" style="max-height:260px;overflow:auto"></pre>
+  </div>
+  <div class="card">
+    <h3>Live Lane Banner</h3>
+    <div id="liveLaneBanner" style="display:none;background:#8b0000;color:#fff;padding:8px 12px;border-radius:6px;margin:8px 0;">
+      Live check failing — open Web Guard, Imports, and verify panels to diagnosing. <button id="llRefresh" style="margin-left:8px">Recheck</button>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Incidents</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <button id="incRefresh">Refresh</button>
+    </div>
+    <pre id="incOut" style="max-height:200px;overflow:auto"></pre>
+  </div>
+<div class="card"><h3>$5k Plan</h3><button id="viewPlan">Open</button>
+<a href="/static/FIRST_MONTH_5K_PLAN.pdf" target="_blank">Download PDF</a></div></div></header>
+<section class="grid"><div class="card"><h3>Pipeline</h3>
+<button id="doResearch">research</button><button id="doDraft">draft</button><button id="doRepurpose">repurpose</button>
+<button id="approve">approve</button><button id="publish">publish</button></div>
+{{ ... }}
+<div class="card">
+  <h3>Quick Actions</h3>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px">
+    <label for="qaChannel">Channel:</label>
+    <select id="qaChannel">
+      <option value="right_perspective">right_perspective</option>
+      <option value="futuretech_chronicles">futuretech_chronicles</option>
+      <option value="next_gen_tech_today">next_gen_tech_today</option>
+      <option value="eco_health_living">eco_health_living</option>
+    </select>
+    <input id="qaTopic" placeholder="topic (optional)" style="flex:1;min-width:200px"/>
+    <button id="btnFullVideo">Full Video</button>
+    <button id="btnBreaking">Breaking News Now</button>
+  </div>
+  <small>Uses <code>/api/actions/full_video</code> and <code>/api/actions/breaking_news</code>. See status below in Jobs.</small>
+  </div>
+  <div class="card">
+    <h3>Jobs</h3>
+    <div style="display:flex;gap:8px;margin-bottom:8px">
+      <button id="jobsRefresh">Refresh</button>
+    </div>
+    <pre id="jobsOut" style="max-height:240px;overflow:auto"></pre>
+  </div>
+  <div class="card">
+  <h3>Live Data</h3>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button id="refreshData">Refresh Data</button>
+    <button id="setSheets">Set Sheets URLs</button>
+    <button id="setSheetFromUrl">Set From Sheet URL</button>
+  </div>
+  <small>Uses public Google Sheets CSV URLs configured in <code>config/sheets.yaml</code>.</small>
+  <pre id="refreshResult" style="max-height:160px;overflow:auto"></pre>
+  </div>
+  <div class="card">
+    <h3>Channels Explorer</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <label for="srcSel">Source:</label>
+      <select id="srcSel"></select>
+      <label for="keySel">Tab Key:</label>
+      <select id="keySel"></select>
+      <button id="fetchSheet">Fetch</button>
+    </div>
+    <small>Sources and keys come from <code>config/sheets_multi.json</code>. Use /api/sheets/{source}/{key}.</small>
+    <pre id="sheetOut" style="max-height:220px;overflow:auto"></pre>
+  </div>
+  <div class="card">
+    <h3>Web Guard</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <button id="guardRefresh">Refresh Status</button>
+      <button id="guardDryRun">Dry-Run Once</button>
+      <button id="guardShowLog">Show Log Tail</button>
+    </div>
+    <small>Memory guard pauses heavy browser helpers when RAM is low. Config in <code>_mp_maxout_stack/config/runtime.yml</code>.</small>
+    <pre id="guardOut" style="max-height:220px;overflow:auto"></pre>
+  </div>
+  <div class="card">
+    <h3>Integrations</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <button id="intShow">Show Config</button>
+      <button id="intSetPaths">Set Paths</button>
+      <button id="intSetTrae">Set Trae.ai Token</button>
+    </div>
+    <small>Config saved to <code>config/integrations.yaml</code> (token masked in UI).</small>
+    <pre id="intOut" style="max-height:200px;overflow:auto"></pre>
+  </div>
+  <div class="card">
+    <h3>Imports</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <label for="impSource">Source:</label>
+      <select id="impSource"><option value="downloads">downloads</option><option value="drive">drive</option></select>
+      <label for="impGlob">Glob:</label>
+      <input id="impGlob" value="**/*" style="min-width:200px"/>
+      <button id="impList">List</button>
+      <button id="impIngestAll">Ingest All Listed</button>
+    </div>
+    <small>Copies files into <code>app/artifacts/staging/</code>. No deletes.</small>
+    <pre id="impOut" style="max-height:220px;overflow:auto"></pre>
+  </div>
+  <div class="card">
+    <h3>Admin</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <button id="panicOn">Panic ON</button>
+      <button id="panicOff">Panic OFF</button>
+      <button id="checkPanic">Check Panic</button>
+      <button id="checkLastRefresh">Last Refresh</button>
+    </div>
+    <div><small>Panic prevents publishing; toggles a file at <code>reports/PANIC_SWITCH.true</code>.</small></div>
+    <pre id="adminOut" style="max-height:160px;overflow:auto"></pre>
+  </div>
+</section>
+<script src="/static/js/tinychart.js"></script>
+<script>
+async function g(u){return (await fetch(u)).json()}
+async function p(u,b){return (await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b||{})})).json()}
+(async()=>{
+document.getElementById('health').textContent=JSON.stringify(await g('/api/health'),null,2);
+const k=await g('/api/metrics/content');
+const ul=document.getElementById('kpis'); Object.entries(k).forEach(([a,b])=>{const li=document.createElement('li'); li.textContent=a+': '+b; ul.appendChild(li)});
+const ctx=document.getElementById('revChart').getContext('2d');
+const revDaysSel=document.getElementById('revDays');
+const revTitleDays=document.getElementById('revTitleDays');
+const revReload=document.getElementById('revReload');
+async function loadRevenue(){
+  const days = parseInt(revDaysSel.value||'30', 10);
+  const rev = await g(`/api/metrics/revenue?days=${days}`);
+  // Clear canvas
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  TinyChart.line(ctx,rev.map(x=>x.actual),{label:'Actual',color:'#22c55e'});
+  TinyChart.line(ctx,rev.map(x=>x.goal),{label:'Goal',color:'#3b82f6'});
+}
+revDaysSel.addEventListener('change', loadRevenue);
+revReload.addEventListener('click', loadRevenue);
+await loadRevenue();
+
+  // Live Data controls
+  const refreshBtn = document.getElementById('refreshData');
+  const setSheetsBtn = document.getElementById('setSheets');
+  const setSheetFromUrlBtn = document.getElementById('setSheetFromUrl');
+  const refreshOut = document.getElementById('refreshResult');
+  // Pipeline & actions controls
+  const viewPlanBtn = document.getElementById('viewPlan');
+  const doResearchBtn = document.getElementById('doResearch');
+  const doDraftBtn = document.getElementById('doDraft');
+  const doRepurposeBtn = document.getElementById('doRepurpose');
+  const approveBtn = document.getElementById('approve');
+  const publishBtn = document.getElementById('publish');
+  const qaChannelSel = document.getElementById('qaChannel');
+  const qaTopicInput = document.getElementById('qaTopic');
+  const btnFullVideo = document.getElementById('btnFullVideo');
+  const btnBreaking = document.getElementById('btnBreaking');
+  const jobsRefreshBtn = document.getElementById('jobsRefresh');
+  const jobsOut = document.getElementById('jobsOut');
+  // Web Guard elements
+  const guardRefreshBtn = document.getElementById('guardRefresh');
+  const guardDryRunBtn = document.getElementById('guardDryRun');
+  const guardShowLogBtn = document.getElementById('guardShowLog');
+  const guardOut = document.getElementById('guardOut');
+  // Integrations & Imports elements
+  const intShowBtn = document.getElementById('intShow');
+  const intSetPathsBtn = document.getElementById('intSetPaths');
+  const intSetTraeBtn = document.getElementById('intSetTrae');
+  const intOut = document.getElementById('intOut');
+  const impSource = document.getElementById('impSource');
+  const impGlob = document.getElementById('impGlob');
+  const impListBtn = document.getElementById('impList');
+  const impIngestAllBtn = document.getElementById('impIngestAll');
+  const impOut = document.getElementById('impOut');
+  // Drive catalog elements
+  const driveScanBtn = document.getElementById('driveScan');
+  const driveStatsBtn = document.getElementById('driveStats');
+  const driveSearchBtn = document.getElementById('driveSearch');
+  const driveQ = document.getElementById('driveQ');
+  const driveExt = document.getElementById('driveExt');
+  const driveOut = document.getElementById('driveOut');
+  const driveIngestListedBtn = document.getElementById('driveIngestListed');
+  const liveLaneBanner = document.getElementById('liveLaneBanner');
+  const llRefresh = document.getElementById('llRefresh');
+  const incRefresh = document.getElementById('incRefresh');
+  const incOut = document.getElementById('incOut');
+  // Resources elements
+  const resDualBtn = document.getElementById('resDual');
+  const resUniBtn = document.getElementById('resUni');
+  const resRegistryBtn = document.getElementById('resRegistry');
+  const resOut = document.getElementById('resOut');
+  // Explorer elements
+  const srcSel = document.getElementById('srcSel');
+  const keySel = document.getElementById('keySel');
+  const fetchSheetBtn = document.getElementById('fetchSheet');
+  const sheetOut = document.getElementById('sheetOut');
+  // Trae elements
+  const traeSetKeysBtn = document.getElementById('traeSetKeys');
+  const traeReloadBtn = document.getElementById('traeReload');
+  const traeTestBtn = document.getElementById('traeTest');
+  const traePlatformsBtn = document.getElementById('traePlatforms');
+  const traeOut = document.getElementById('traeOut');
+
+  // Set Sheets URLs (CSV exports)
+  if (setSheetsBtn) {
+    setSheetsBtn.onclick = async ()=>{
+      try{
+        const rev = prompt('Revenue CSV URL (public export):','');
+        if (rev===null) return;
+        const kpi = prompt('Content KPIs CSV URL (public export):','');
+        if (kpi===null) return;
+        const poll = prompt('Poll seconds (default 60):','60');
+        const body = { revenue_csv_url: rev||'', content_kpis_csv_url: kpi||'', poll_seconds: parseInt(poll||'60',10) };
+        const r = await p('/api/admin/update_sheets', body);
+        alert('Saved. Reloading.');
+        location.reload();
+      }catch(e){ alert('Failed to save: '+e); }
+    };
+
+  // Drive catalog wiring
+  let driveLastList = [];
+  if (driveScanBtn) driveScanBtn.onclick = async ()=>{
+    try{ driveOut.textContent='Scanning…'; const r = await p('/api/drive/scan',{}); driveOut.textContent=JSON.stringify(r,null,2);}catch(e){driveOut.textContent='Error: '+e;}
+  };
+  if (driveStatsBtn) driveStatsBtn.onclick = async ()=>{
+    try{ driveOut.textContent='Loading stats…'; const r = await g('/api/drive/stats'); driveOut.textContent=JSON.stringify(r,null,2);}catch(e){driveOut.textContent='Error: '+e;}
+  };
+  if (driveSearchBtn) driveSearchBtn.onclick = async ()=>{
+    try{
+      driveOut.textContent='Searching…';
+      const q = encodeURIComponent(driveQ.value||'');
+      const ex = encodeURIComponent((driveExt.value||'').trim());
+      const url = `/api/drive/list?q=${q}&ext=${ex}&limit=200&sort=mtime_desc`;
+      const r = await g(url);
+      driveLastList = (r.items||[]).map(x=>x.rel);
+      driveOut.textContent = JSON.stringify(r,null,2);
+    }catch(e){ driveOut.textContent='Error: '+e; }
+  };
+  if (driveIngestListedBtn) driveIngestListedBtn.onclick = async ()=>{
+    try{
+      if (!driveLastList.length){ alert('Nothing listed. Run Search first.'); return; }
+      driveOut.textContent='Ingesting from Drive catalog…';
+      const r = await p('/api/drive/ingest_from_catalog', { rels: driveLastList.slice(0,200) });
+      driveOut.textContent = JSON.stringify(r,null,2);
+    }catch(e){ driveOut.textContent='Error: '+e; }
+  };
+
+  // Live-lane banner wiring
+  async function checkLiveLane(){
+    try{
+      const r = await g('/api/verify/live_lane');
+      if (r.ok){ if (liveLaneBanner) liveLaneBanner.style.display='none'; }
+      else { if (liveLaneBanner) liveLaneBanner.style.display='block'; }
+    }catch(e){ if (liveLaneBanner) liveLaneBanner.style.display='block'; }
+  }
+  if (llRefresh) llRefresh.onclick = checkLiveLane;
+  checkLiveLane();
+
+  // Incidents wiring
+  async function loadIncidents(){
+    try{ if (incOut) { incOut.textContent='Loading…'; const r = await g('/api/incidents/open'); incOut.textContent = JSON.stringify(r,null,2);} }
+    catch(e){ if (incOut) incOut.textContent='Error: '+e; }
+  }
+  if (incRefresh) incRefresh.onclick = loadIncidents;
+  loadIncidents();
+
+  // Trae wiring
+  if (traeSetKeysBtn) traeSetKeysBtn.onclick = async ()=>{
+    try{
+      const openai = prompt('OpenAI API Key (leave blank to keep current/mask):',''); if (openai===null) return;
+      const gemini = prompt('Google Gemini API Key (leave blank to keep current/mask):',''); if (gemini===null) return;
+      const abacus = prompt('Abacus API Key (leave blank to keep current/mask):',''); if (abacus===null) return;
+      const body = {};
+      if (openai!=='') body.openai_api_key = openai;
+      if (gemini!=='') body.google_ai_api_key = gemini;
+      if (abacus!=='') body.abacus_api_key = abacus;
+      traeOut.textContent='Saving keys…';
+      const r = await p('/api/integrations/config', body);
+      traeOut.textContent = JSON.stringify(r,null,2);
+    }catch(e){ traeOut.textContent='Error: '+e; }
+  };
+  if (traeReloadBtn) traeReloadBtn.onclick = async ()=>{
+    try{ traeOut.textContent='Reloading config…'; const r = await g('/api/trae-ai/reload-config'); traeOut.textContent = JSON.stringify(r,null,2); }
+    catch(e){ traeOut.textContent='Error: '+e; }
+  };
+  if (traeTestBtn) traeTestBtn.onclick = async ()=>{
+    try{ traeOut.textContent='Testing…'; const r = await g('/api/trae-ai/test-connection'); traeOut.textContent = JSON.stringify(r,null,2); }
+    catch(e){ traeOut.textContent='Error: '+e; }
+  };
+  if (traePlatformsBtn) traePlatformsBtn.onclick = async ()=>{
+    try{ traeOut.textContent='Loading platforms…'; const r = await g('/api/trae-ai/platforms/status'); traeOut.textContent = JSON.stringify(r,null,2); }
+    catch(e){ traeOut.textContent='Error: '+e; }
+  };
+
+  // Resources wiring
+  if (resDualBtn) resDualBtn.onclick = async ()=>{
+    try{ resOut.textContent='Loading…'; const r = await g('/api/resources/dual_engine_prompt'); resOut.textContent = r.ok? r.markdown : ('Error: '+(r.error||'unknown')); }
+    catch(e){ resOut.textContent='Error: '+e; }
+  };
+  if (resUniBtn) resUniBtn.onclick = async ()=>{
+    try{ resOut.textContent='Loading…'; const r = await g('/api/resources/university_access'); resOut.textContent = r.ok? r.markdown : ('Error: '+(r.error||'unknown')); }
+    catch(e){ resOut.textContent='Error: '+e; }
+  };
+  if (resRegistryBtn) resRegistryBtn.onclick = async ()=>{
+    try{ resOut.textContent='Loading…'; const r = await g('/api/resources/registry'); resOut.textContent = JSON.stringify(r,null,2); }
+    catch(e){ resOut.textContent='Error: '+e; }
+  };
+
+  // Web Guard wiring
+  async function loadGuard(){
+    try { guardOut.textContent='Loading…'; guardOut.textContent = JSON.stringify(await g('/api/guard/status'), null, 2); }
+    catch(e){ guardOut.textContent='Error: '+e; }
+  }
+  if (guardRefreshBtn) guardRefreshBtn.onclick = loadGuard;
+  if (guardDryRunBtn) guardDryRunBtn.onclick = async ()=>{
+    try { guardOut.textContent='Dry-running…'; guardOut.textContent = JSON.stringify(await p('/api/guard/dry_run_once', {}), null, 2); }
+    catch(e){ guardOut.textContent='Error: '+e; }
+  };
+  if (guardShowLogBtn) guardShowLogBtn.onclick = async ()=>{
+    try { guardOut.textContent='Loading log…'; guardOut.textContent = JSON.stringify(await g('/api/guard/log_tail?lines=120'), null, 2); }
+    catch(e){ guardOut.textContent='Error: '+e; }
+  };
+  // initial load
+  loadGuard();
+
+  // Integrations wiring
+  async function loadIntegrations(){ try{ intOut.textContent='Loading…'; intOut.textContent=JSON.stringify(await g('/api/integrations/config'),null,2);}catch(e){intOut.textContent='Error: '+e;} }
+  if (intShowBtn) intShowBtn.onclick = loadIntegrations;
+  if (intSetPathsBtn) intSetPathsBtn.onclick = async ()=>{
+    try{
+      const downloads = prompt('Downloads path:', (await g('/api/integrations/config')).config.downloads_path || ''); if (downloads===null) return;
+      const drive = prompt('Drive path (optional):', (await g('/api/integrations/config')).config.drive_path || ''); if (drive===null) return;
+      intOut.textContent='Saving…'; intOut.textContent=JSON.stringify(await p('/api/integrations/config',{downloads_path:downloads,drive_path:drive}),null,2);
+    }catch(e){ intOut.textContent='Error: '+e; }
+  };
+  if (intSetTraeBtn) intSetTraeBtn.onclick = async ()=>{
+    try{
+      const tok = prompt('Trae.ai API token (kept locally):',''); if (tok===null) return;
+      intOut.textContent='Saving…'; intOut.textContent=JSON.stringify(await p('/api/integrations/config',{trae_api_token:tok}),null,2);
+    }catch(e){ intOut.textContent='Error: '+e; }
+  };
+  loadIntegrations();
+
+  // Imports wiring
+  let lastList = [];
+  async function doList(){
+    try{
+      impOut.textContent='Listing…';
+      const src = impSource.value; const pattern = impGlob.value||'**/*';
+      const r = await g(`/api/imports/list?source=${encodeURIComponent(src)}&glob=${encodeURIComponent(pattern)}`);
+      lastList = (r.items||[]).map(x=>x.rel);
+      impOut.textContent = JSON.stringify(r,null,2);
+    }catch(e){ impOut.textContent='Error: '+e; }
+  }
+  if (impListBtn) impListBtn.onclick = doList;
+  if (impIngestAllBtn) impIngestAllBtn.onclick = async ()=>{
+    try{
+      if (!lastList.length){ alert('Nothing listed to ingest. Click List first.'); return; }
+      impOut.textContent='Ingesting…';
+      const body = { source: impSource.value, items: lastList.slice(0,200) };
+      const r = await p('/api/imports/ingest', body);
+      impOut.textContent = JSON.stringify(r,null,2);
+    }catch(e){ impOut.textContent='Error: '+e; }
+  };
+  }
+ const adminOut = document.getElementById('adminOut');
+ if (panicOn) panicOn.onclick = async ()=>{ adminOut.textContent='...'; adminOut.textContent=JSON.stringify(await p('/api/admin/panic/on',{}),null,2); };
+ if (panicOff) panicOff.onclick = async ()=>{ adminOut.textContent='...'; adminOut.textContent=JSON.stringify(await p('/api/admin/panic/off',{}),null,2); };
+ if (checkPanic) checkPanic.onclick = async ()=>{ adminOut.textContent='...'; adminOut.textContent=JSON.stringify(await g('/api/admin/panic_status'),null,2); };
+  if (checkLast) checkLast.onclick = async ()=>{ adminOut.textContent='...'; adminOut.textContent=JSON.stringify(await g('/api/admin/last_refresh'),null,2); };
+
+  // Populate Channels Explorer
+  try {
+    const cfg = await g('/api/sheets/config');
+    const sources = cfg.sources || {};
+    const names = Object.keys(sources).sort();
+    names.forEach(n=>{ const o=document.createElement('option'); o.value=o.textContent=n; srcSel.appendChild(o); });
+    function loadKeys(){
+      keySel.innerHTML='';
+      const sel = srcSel.value; const keys = (sources[sel]||[]).slice().sort();
+      keys.forEach(k=>{ const o=document.createElement('option'); o.value=o.textContent=k; keySel.appendChild(o); });
+    }
+    srcSel.onchange = loadKeys; loadKeys();
+  } catch(e){ /* no sources yet */ }
+  if (fetchSheetBtn) fetchSheetBtn.onclick = async ()=>{
+    sheetOut.textContent='Loading…';
+    try{
+      const src = srcSel.value; const key = keySel.value;
+      const r = await g(`/api/sheets/${encodeURIComponent(src)}/${encodeURIComponent(key)}`);
+      sheetOut.textContent = JSON.stringify(r,null,2);
+    }catch(e){ sheetOut.textContent='Error: '+e; }
+  };
+})();
+</script></body></html>

@@ -1,0 +1,118 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.black-formatter",
+    "charliermarsh.ruff",
+    "ms-python.mypy-type-checker",
+    "ms-vscode.vscode-typescript-next",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "ms-vscode.live-server",
+    "ritwickdey.liveserver",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "visualstudioexptteam.vscodeintellicode",
+    "github.copilot",
+    "github.copilot-chat",
+    "continue.continue",
+    "codeium.codeium",
+    "tabnine.tabnine-vscode",
+    "ms-vscode.vscode-ai",
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode.remote-explorer",
+    "github.vscode-github-actions",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "github.vscode-pull-request-github",
+    "ms-vscode.test-adapter-converter",
+    "hbenl.vscode-test-explorer",
+    "ms-playwright.playwright",
+    "humao.rest-client",
+    "rangav.vscode-thunder-client",
+    "ms-vscode.vscode-json",
+    "alefragnani.project-manager",
+    "gruntfuggly.todo-tree",
+    "aaron-bond.better-comments",
+    "pkief.material-icon-theme",
+    "zhuangtongfa.material-theme",
+    "github.github-vscode-theme",
+    "ms-vscode.wordcount",
+    "streetsidesoftware.code-spell-checker",
+    "wayou.vscode-todo-highlight",
+    "oderwat.indent-rainbow",
+    "ms-vscode.hexeditor",
+    "ms-vscode.vscode-speech",
+    "ms-toolsai.jupyter",
+    "ms-toolsai.vscode-jupyter-cell-tags",
+    "ms-toolsai.jupyter-keymap",
+    "ms-toolsai.jupyter-renderers",
+    "ms-dotnettools.vscode-dotnet-runtime",
+    "ms-vscode.powershell",
+    "ms-vscode.cpptools",
+    "rust-lang.rust-analyzer",
+    "golang.go",
+    "ms-vscode.cmake-tools",
+    "twxs.cmake",
+    "ms-vscode.makefile-tools",
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "hashicorp.terraform",
+    "ms-azuretools.vscode-azurefunctions",
+    "ms-dotnettools.csharp",
+    "ms-python.isort",
+    "ms-python.pylint",
+    "ms-python.flake8",
+    "njpwerner.autodocstring",
+    "kevinrose.vsc-python-indent",
+    "ms-python.python-environment-manager",
+    "dongli.python-preview",
+    "wholroyd.jinja",
+    "samuelcolvin.jinjahtml",
+    "ms-python.debugpy",
+    "ms-vscode.js-debug",
+    "firefox-devtools.vscode-firefox-debug",
+    "ms-edgedevtools.vscode-edge-devtools",
+    "ms-vscode.vscode-edge-devtools",
+    "ms-vscode.node-debug2",
+    "ms-vscode.js-debug-nightly"
+  ],
+  "platformSpecific": {
+    "cursor": [
+      "cursor.cursor-ai",
+      "cursor.cursor-copilot",
+      "cursor.cursor-chat"
+    ],
+    "bolt": [
+      "bolt.bolt-ai",
+      "bolt.deployment-manager"
+    ],
+    "trae": [
+      "trae.trae-ai",
+      "trae.multi-platform-sync"
+    ]
+  },
+  "unwantedRecommendations": [
+    "ms-vscode.vscode-typescript",
+    "hookyqr.beautify",
+    "ms-vscode.vscode-css-peek",
+    "formulahendry.code-runner"
+  ],
+  "requirements": {
+    "cursor": {
+      "minVersion": "0.1.0",
+      "features": ["ai-completion", "chat", "refactoring"]
+    },
+    "bolt": {
+      "minVersion": "1.0.0",
+      "features": ["deployment", "framework-detection"]
+    },
+    "trae": {
+      "minVersion": "2.0.0",
+      "features": ["multi-platform-sync", "ai-assistance"]
+    }
+  }
+}

@@ -1,0 +1,91 @@
+
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+.vite/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# AI Tools and Extensions
+.cursor/
+.cursor/rules/
+.cursor/rules/codacy.mdc
+.github/instructions/
+.github/instructions/codacy.instructions.md
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+
+# Temporary files
+tmp/
+temp/
+
+# Audio artifacts (keeping staging for development)
+artifacts/production/
+artifacts/temp/
+
+# App local secrets and state
+config/integrations.yaml
+config/ingest_rules.yaml
+out/
+artifacts/
+reports/
+logs/
+
+# Virtualenvs and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Pack (guard) runtime logs
+_mp_maxout_stack/
+
+# Large archives
+*.zip
+*.7z
+*.tar
+*.tar.gz

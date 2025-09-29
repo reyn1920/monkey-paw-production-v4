@@ -1,0 +1,1118 @@
+{
+  "metadata": {
+    "scan_timestamp": "2025-01-11T12:00:00Z",
+    "project_name": "ONLINE_PRODUCTION",
+    "scan_type": "comprehensive_multi_lang",
+    "total_files_scanned": 506,
+    "scan_scope": "all_file_types",
+    "constraints": {
+      "add_only": true,
+      "zero_cost": true,
+      "vocab_new": "runtime",
+      "no_renames_deletes": true
+    }
+  },
+  "file_categories": {
+    "python_files": {
+      "count": 150,
+      "sample_files": [
+        "./simple_api_discovery.py",
+        "./api_master_dashboard.py",
+        "./final_integration_report.py",
+        "./routers/comprehensive_dashboard.py",
+        "./routers/software_status.py",
+        "./trae_ai_base44/tools/respect_robots.py",
+        "./trae_ai_base44/fastapi_app/main.py",
+        "./config_validator.py"
+      ],
+      "issues": {
+        "formatting": "17,413 lines need black formatting",
+        "linting": "ruff issues with deprecated settings",
+        "type_hints": "missing type annotations",
+        "imports": "unused imports detected",
+        "test_failures": "4 authentication-related test failures"
+      }
+    },
+    "javascript_typescript": {
+      "count": 85,
+      "sample_files": [
+        "./langfuse/web/types/next-auth.d.ts",
+        "./langfuse/web/tailwind.config.ts",
+        "./langfuse/web/src/app/layout.tsx",
+        "./langfuse/web/.eslintrc.js",
+        "./langfuse/web/playwright.config.ts"
+      ],
+      "issues": {
+        "eslint": "configuration issues in package.json",
+        "typescript": "compilation errors possible",
+        "formatting": "prettier formatting needed",
+        "unused_vars": "unused variables detected"
+      }
+    },
+    "html_css": {
+      "count": 35,
+      "sample_files": [
+        "./trae_ai_base44/frontend/index.html",
+        "./base44_installer_v6/frontend/index.html",
+        "./canvas_prototype.html",
+        "./dashboard_demo.html",
+        "./langfuse/web/src/styles/globals.css",
+        "./app/static/css/dashboard.css"
+      ],
+      "issues": {
+        "validation": "HTML structure validation needed",
+        "accessibility": "a11y compliance checks required",
+        "css_lint": "stylelint issues possible",
+        "responsive": "mobile responsiveness verification"
+      }
+    },
+    "configuration_files": {
+      "count": 506,
+      "breakdown": {
+        "json": 345,
+        "yaml": 110,
+        "toml": 12,
+        "env": 20,
+        "docker_compose": 19
+      },
+      "sample_files": [
+        "./langfuse/web/package.json",
+        "./langfuse/web/tsconfig.json",
+        "./langfuse/docker-compose.dev.yml",
+        "./pyproject.toml",
+        "./.env.production.secure"
+      ],
+      "issues": {
+        "empty_files": "multiple empty JSON files detected",
+        "syntax": "potential JSON/YAML syntax issues",
+        "security": "environment variable validation needed",
+        "docker": "obsolete version attributes in compose files"
+      }
+    },
+    "docker_deployment": {
+      "count": 25,
+      "sample_files": [
+        "./langfuse/web/Dockerfile",
+        "./langfuse/docker-compose.yml",
+        "./docker-compose.scaling.yml",
+        "./backend/Dockerfile",
+        "./Dockerfile.test"
+      ],
+      "issues": {
+        "hadolint": "dockerfile linting required",
+        "security": "security best practices check",
+        "compose_validation": "docker-compose validation needed"
+      }
+    },
+    "documentation": {
+      "count": 45,
+      "sample_files": [
+        "./README.md",
+        "./DEPLOYMENT.md",
+        "./GO_LIVE_CHECKLIST.md",
+        "./CLEAN_ARCHITECTURE_DESIGN.md",
+        "./MASTER_FILE_ISSUES_LIST.md"
+      ],
+      "issues": {
+        "markdown_lint": "markdown syntax validation",
+        "consistency": "documentation consistency check",
+        "completeness": "missing documentation sections"
+      }
+    }
+  },
+  "critical_issues": [
+    {
+      "category": "python",
+      "severity": "high",
+      "description": "17,413 lines of Python code need black formatting",
+      "files_affected": "all_python_files",
+      "fix_required": true
+    },
+    {
+      "category": "python",
+      "severity": "high", 
+      "description": "4 authentication-related test failures",
+      "files_affected": "test_suite",
+      "fix_required": true
+    },
+    {
+      "category": "javascript",
+      "severity": "medium",
+      "description": "ESLint configuration issues in package.json",
+      "files_affected": "langfuse/web/package.json",
+      "fix_required": true
+    },
+    {
+      "category": "configuration",
+      "severity": "medium",
+      "description": "Multiple empty JSON configuration files",
+      "files_affected": "various_json_files",
+      "fix_required": false
+    }
+  ],
+  "medium_issues": [
+    {
+      "category": "python",
+      "description": "Deprecated ruff linter settings in pyproject.toml",
+      "fix_required": true
+    },
+    {
+      "category": "python", 
+      "description": "Invalid # noqa rule codes in agents/loop_prevention.py",
+      "fix_required": true
+    },
+    {
+      "category": "docker",
+      "description": "Obsolete version attributes in docker-compose files",
+      "fix_required": false
+    }
+  ],
+  "cosmetic_issues": [
+    {
+      "category": "documentation",
+      "description": "Markdown formatting inconsistencies",
+      "fix_required": false
+    },
+    {
+      "category": "css",
+      "description": "CSS code style improvements possible",
+      "fix_required": false
+    }
+  ],
+  "verification_targets": {
+    "web_urls": [
+      "http://localhost:8000",
+      "http://localhost:3000", 
+      "http://localhost:8080"
+    ],
+    "key_pages": [
+      "/",
+      "/dashboard",
+      "/api/health",
+      "/admin"
+    ],
+    "responsive_breakpoints": [
+      "mobile_375px",
+      "tablet_768px", 
+      "desktop_1920px"
+    ]
+  },
+  "tools_required": {
+    "python": ["ruff", "black", "mypy", "pytest"],
+    "javascript": ["eslint", "prettier", "tsc"],
+    "html_css": ["html-validate", "stylelint"],
+    "config": ["jsonlint", "yamllint", "toml-sort"],
+    "docker": ["hadolint", "docker-compose"],
+    "documentation": ["markdownlint"]
+  },
+  "estimated_fix_time": {
+    "python_fixes": "30_minutes",
+    "js_ts_fixes": "15_minutes", 
+    "html_css_fixes": "10_minutes",
+    "config_fixes": "20_minutes",
+    "docker_fixes": "10_minutes",
+    "documentation": "15_minutes",
+    "total": "100_minutes"
+  },
+  "discovered_files": [
+  {
+    "path": "./free_api_integration_report_20250911_093454.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./rss_integration_test_report_20250904_042422.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./simple_api_discovery.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./api_master_dashboard.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./GO_LIVE_INSTRUCTIONS.md",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./server_logs.txt",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./final_integration_report.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./routers/comprehensive_dashboard.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./routers/software_status.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./routers/policy_router.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./routers/health_router.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./routers/dashboard_safe.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./routers/meta.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./debug_guard_report.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./submit_paste.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./rss_integration_test_report_20250904_125153.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./unterminated_strings_fix_report.txt",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./unused_params_example.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./find_quotes.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./pets_response.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./launch_live_integrated.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./_quarantine/main_minimal.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./_quarantine/requirements-base44.txt",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./_quarantine/README.md",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./_quarantine/requirements-dev.txt",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./_quarantine/main_app.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./_quarantine/requirements-m1.txt",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./SECURITY_COMMAND_CENTER.md",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./zero_cost_growth_action_plan.md",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./docker-compose.m1.yml",
+    "kind": "yaml",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/tools/ai_debug/gitleaks.toml",
+    "kind": "toml",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/tools/ai_debug/semgrep.yml",
+    "kind": "yaml",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/tools/respect_robots.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/tools/rule1_guard.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/tools/rate_limit.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/tools/py_audit.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/frontend/index.html",
+    "kind": "html",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/frontend/tailwind.config.js",
+    "kind": "js",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/frontend/vite.config.js",
+    "kind": "js",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/frontend/package.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/frontend/postcss.config.js",
+    "kind": "js",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/frontend/src/styles.css",
+    "kind": "css",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/frontend/src/main.jsx",
+    "kind": "js",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/frontend/src/App.jsx",
+    "kind": "js",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/frontend/src/api.js",
+    "kind": "js",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/netlify.toml",
+    "kind": "toml",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/nocode_editor/server/index.js",
+    "kind": "js",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/nocode_editor/server/package.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/nocode_editor/public/index.html",
+    "kind": "html",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/puppeteer/package.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/GOVERNANCE.md",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/fastapi_app/main.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/DO_NOT_DELETE.md",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/content/right_perspective_outline.md",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/content/right_perspective_script.md",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/utils/seed_sqlite.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/backend/requirements.txt",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/backend/__init__.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/backend/app.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/README.md",
+    "kind": "doc",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/netlify/functions/ping.js",
+    "kind": "js",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/adapters/talking_heads_adapter.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/adapters/linly_talker_adapter.py",
+    "kind": "py",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/datetime.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/builtins.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/time.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/genericpath.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/enum.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/abc.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/subprocess.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/dataclasses.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/typing.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/_sitebuiltins.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/resource.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/_codecs.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/posixpath.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/contextlib.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/zipimport.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/_codecs.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/posixpath.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/contextlib.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/zipimport.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/_sitebuiltins.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/resource.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/typing.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/abc.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/subprocess.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/dataclasses.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/genericpath.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/enum.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/time.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/@plugins_snapshot.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/datetime.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/sre_compile.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/io.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/codecs.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/warnings.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/typing_extensions.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/_warnings.meta.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  },
+  {
+    "path": "./trae_ai_base44/.mypy_cache/3.13/ast.data.json",
+    "kind": "json",
+    "tool": "pending",
+    "severity": "info",
+    "message": "File discovered - pending scan",
+    "line": 0,
+    "col": 0
+  }
+]

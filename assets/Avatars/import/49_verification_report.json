@@ -1,0 +1,42 @@
+{
+  "verification_summary": {
+    "timestamp": "2025-09-07T13:46:23.492080",
+    "total_tests": 4,
+    "passed_tests": 4,
+    "failed_tests": 0,
+    "success_rate": "100.0%"
+  },
+  "test_results": [
+    {
+      "test": "Dashboard Connectivity",
+      "passed": true,
+      "details": "Dashboard is accessible",
+      "timestamp": "2025-09-07T13:46:23.489151"
+    },
+    {
+      "test": "Agents Endpoint",
+      "passed": true,
+      "details": "Found 4 agents",
+      "timestamp": "2025-09-07T13:46:23.491467"
+    },
+    {
+      "test": "Sample Video Creation",
+      "passed": true,
+      "details": "Created: test_outputs/sample_video.mp4",
+      "timestamp": "2025-09-07T13:46:23.491863"
+    },
+    {
+      "test": "Sample PDF Creation",
+      "passed": true,
+      "details": "Created: test_outputs/sample_lead_magnet.pdf",
+      "timestamp": "2025-09-07T13:46:23.492053"
+    }
+  ],
+  "output_files": {
+    "sample_video": "test_outputs/sample_video.mp4",
+    "sample_pdf": "test_outputs/sample_lead_magnet.pdf",
+    "video_info": "test_outputs/sample_video.txt",
+    "pdf_info": "test_outputs/sample_lead_magnet.txt"
+  },
+  "system_status": "OPERATIONAL"
+}

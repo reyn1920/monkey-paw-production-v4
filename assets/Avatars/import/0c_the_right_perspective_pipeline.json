@@ -1,0 +1,21 @@
+{
+  "channel_name": "The Right Perspective",
+  "channel_id": "UC_fz1kiUOIDz5-VtVtKn7OQ",
+  "content_type": "audio_only",
+  "voice_profile": "Matthew (Speechelo)",
+  "target_length": "12-15 minutes",
+  "posting_schedule": "daily at 6 PM EST",
+  "content_style": "Gutfeld/Jesse Watters inspired",
+  "category": "politics",
+  "target_audience": "conservative viewers",
+  "monetization": [
+    "high-value ads",
+    "merchandise",
+    "affiliate marketing"
+  ],
+  "platforms": [
+    "youtube"
+  ],
+  "setup_date": "2025-09-09T03:10:53.358732",
+  "status": "initialized"
+}

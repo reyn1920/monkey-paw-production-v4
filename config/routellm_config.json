@@ -1,0 +1,220 @@
+{
+  "version": "1.0.0",
+  "service_name": "RouteLL API Integration",
+  "description": "Abacus.AI RouteLL API configuration with credit monitoring and optimization",
+
+  "api_settings": {
+    "base_url": "https://routellm.abacus.ai/v1",
+    "chat_completions_endpoint": "/chat/completions",
+    "api_key_env": "ROUTELLM_API_KEY",
+    "default_model": "route-llm",
+    "timeout_seconds": 30,
+    "max_retries": 3,
+    "retry_delay_seconds": 1
+  },
+
+  "authentication": {
+    "method": "bearer_token",
+    "header_name": "Authorization",
+    "header_format": "Bearer {api_key}",
+    "content_type": "application/json"
+  },
+
+  "credit_system": {
+    "monthly_credits": 20000,
+    "pro_tier_credits": 25000,
+    "unlimited_models": [
+      "GPT-5-Mini",
+      "GPT-4.1-Mini",
+      "Gemini 2.0 Flash",
+      "DeepSeek R1",
+      "Qwen",
+      "GPT-OSS 120b",
+      "Llama 4"
+    ],
+    "high_cost_models": [
+      "GPT-5",
+      "GPT-4.1",
+      "Sonnet-3.7",
+      "o3-pro",
+      "Claude Opus 4.1"
+    ],
+    "credit_rollover": true,
+    "warning_thresholds": {
+      "75_percent": 15000,
+      "90_percent": 18000,
+      "95_percent": 19000
+    }
+  },
+
+  "monitoring": {
+    "enabled": true,
+    "track_usage": true,
+    "log_requests": true,
+    "log_responses": false,
+    "performance_metrics": true,
+    "credit_tracking": {
+      "enabled": true,
+      "update_frequency_seconds": 60,
+      "alert_on_threshold": true,
+      "daily_usage_limit": 2000,
+      "hourly_usage_limit": 200
+    },
+    "health_check": {
+      "enabled": true,
+      "interval_seconds": 300,
+      "endpoint": "/health",
+      "timeout_seconds": 10
+    }
+  },
+
+  "rate_limiting": {
+    "enabled": true,
+    "requests_per_minute": 60,
+    "requests_per_hour": 1000,
+    "burst_limit": 10,
+    "backoff_strategy": "exponential",
+    "max_backoff_seconds": 60
+  },
+
+  "model_configuration": {
+    "route-llm": {
+      "name": "RouteLL Model",
+      "description": "Intelligent model routing for optimal cost and performance",
+      "supported_parameters": [
+        "max_tokens",
+        "stream",
+        "temperature",
+        "top_p",
+        "stop",
+        "response_format"
+      ],
+      "default_parameters": {
+        "max_tokens": 1000,
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "stream": false
+      },
+      "cost_optimization": {
+        "prefer_unlimited_models": true,
+        "fallback_to_paid": false,
+        "cost_threshold_credits": 100
+      }
+    }
+  },
+
+  "response_format": {
+    "json_mode": {
+      "supported": true,
+      "parameter": "response_format",
+      "value": {"type": "json"}
+    },
+    "streaming": {
+      "supported": true,
+      "parameter": "stream",
+      "chunk_processing": true
+    }
+  },
+
+  "error_handling": {
+    "retry_on_errors": [429, 500, 502, 503, 504],
+    "fail_fast_errors": [400, 401, 403, 404],
+    "credit_exhausted_handling": {
+      "action": "fallback_to_free_models",
+      "notification": true,
+      "log_level": "warning"
+    },
+    "api_key_invalid_handling": {
+      "action": "disable_service",
+      "notification": true,
+      "log_level": "error"
+    }
+  },
+
+  "optimization": {
+    "caching": {
+      "enabled": true,
+      "ttl_seconds": 3600,
+      "cache_responses": true,
+      "cache_key_strategy": "hash_prompt_and_params"
+    },
+    "prompt_optimization": {
+      "enabled": true,
+      "max_prompt_length": 4000,
+      "truncate_strategy": "smart_truncate",
+      "compress_whitespace": true
+    },
+    "batch_processing": {
+      "enabled": false,
+      "batch_size": 5,
+      "batch_timeout_seconds": 10
+    }
+  },
+
+  "integration": {
+    "trae_ai_compatibility": true,
+    "openai_sdk_compatible": true,
+    "custom_headers": {},
+    "middleware": [
+      "credit_tracker",
+      "rate_limiter",
+      "error_handler",
+      "performance_monitor"
+    ]
+  },
+
+  "logging": {
+    "level": "INFO",
+    "format": "json",
+    "include_request_id": true,
+    "include_timestamp": true,
+    "include_user_id": true,
+    "sensitive_data_masking": true,
+    "log_file": "logs/routellm_api.log",
+    "max_log_size_mb": 100,
+    "backup_count": 5
+  },
+
+  "analytics": {
+    "enabled": true,
+    "track_model_usage": true,
+    "track_response_times": true,
+    "track_error_rates": true,
+    "track_credit_consumption": true,
+    "daily_reports": true,
+    "weekly_reports": true,
+    "export_format": "json"
+  },
+
+  "security": {
+    "api_key_rotation": {
+      "enabled": false,
+      "rotation_days": 90,
+      "notification_days_before": 7
+    },
+    "request_validation": {
+      "enabled": true,
+      "max_request_size_mb": 10,
+      "validate_json": true,
+      "sanitize_input": true
+    },
+    "response_validation": {
+      "enabled": true,
+      "validate_json": true,
+      "content_filtering": false
+    }
+  },
+
+  "fallback": {
+    "enabled": true,
+    "fallback_providers": [
+      "ollama_local",
+      "huggingface_local"
+    ],
+    "fallback_conditions": [
+      "api_unavailable",
+      "credits_exhausted",
+      "rate_limit_exceeded"
+    ]
+  }
+}

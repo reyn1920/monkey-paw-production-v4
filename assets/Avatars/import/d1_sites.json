@@ -1,0 +1,26 @@
+{
+  "persistentProfileDir": ".puppeteer_profile",
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "deviceScaleFactor": 1
+  },
+  "sites": [
+    {
+      "name": "ChatGPT",
+      "url": "https://chatgpt.com/"
+    },
+    {
+      "name": "Gemini",
+      "url": "https://g.co/gemini/share/5da17eca829e"
+    },
+    {
+      "name": "Abacus.ai ChatLLM",
+      "url": "https://apps.abacus.ai/chatllm/?appId=1024a18ebe"
+    },
+    {
+      "name": "YouTube Studio",
+      "url": "https://studio.youtube.com/"
+    }
+  ]
+}

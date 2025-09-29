@@ -1,0 +1,30 @@
+# Governance Policy (enforced by the app)
+# Free-only, do-not-delete, owner approval for stack changes
+
+free_only: true
+# Do not delete or overwrite enhanced or core files; only add
+do_not_delete: true
+# Changes to the app stack or adding new external services require owner approval
+stack_changes_require_owner_approval: true
+strict_no_warnings: true
+
+# Allowed local tools
+allow_ollama: true
+# Sublime is OK to use on this Mac; not embedded as a dependency of the app
+allow_sublime: true
+
+# Disallowed in the app stack (runtime tools are fine; do not bake in)
+disallow_in_app_stack:
+  - vscode
+  - cursor
+  - firebase
+
+# Auto-check for updates for local tools/configs and report suggestions (no changes without approval)
+auto_update_check: true
+
+notes: |
+  This policy ensures the studio remains $0/month for cloud, uses only free tools/APIs,
+  and respects the do-not-delete rule. The app will not adopt new SaaS stacks or paid
+  services without explicit owner approval. Local tools like Ollama and Sublime are
+  allowed because they already exist on this Mac. The app can suggest upgrades but
+  will not change the stack without approval.

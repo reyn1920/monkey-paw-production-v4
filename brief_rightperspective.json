@@ -1,0 +1,56 @@
+{
+  "lead_magnet": {
+    "title": "Media Logic Decoder",
+    "chapters": [
+      {
+        "heading": "Spot the Spin",
+        "body": "Simple patterns to notice framing."
+      },
+      {
+        "heading": "Check Yourself",
+        "body": "Avoid easy traps and echo chambers."
+      }
+    ]
+  },
+  "guide": {
+    "title": "Sharper Takes Guide",
+    "chapters": [
+      {
+        "heading": "Good Evidence",
+        "body": "Primary sources, direct quotes, and timelines."
+      },
+      {
+        "heading": "Punchy Writing",
+        "body": "Cut fluff, keep receipts."
+      }
+    ]
+  },
+  "kit_readme": "Monologue templates, cutaway patterns, and pacing beat-sheet.",
+  "landing": {
+    "title": "Sharp Commentary Kit",
+    "description": "Structure, beats, and visuals for snappy commentary.",
+    "includes": [
+      "Decoder PDF",
+      "Sharper Takes PDF",
+      "Beat-sheet & templates"
+    ],
+    "price": "$19",
+    "primary_url": "https://payhip.com/",
+    "secondary_url": "https://github.com/"
+  },
+  "newsletter": {
+    "title": "The Weekly Angle",
+    "intro": "Tight takes and what the data shows.",
+    "items": [
+      {
+        "heading": "Clip of the Week",
+        "body": "Why it landed."
+      },
+      {
+        "heading": "One Chart",
+        "body": "A visual that matters."
+      }
+    ],
+    "footer": "Send a story you want decoded."
+  }
+}

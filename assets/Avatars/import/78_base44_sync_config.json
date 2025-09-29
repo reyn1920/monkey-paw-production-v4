@@ -1,0 +1,26 @@
+{
+  "sync_files": [
+    "backend/app.py",
+    "backend/requirements.txt",
+    "frontend/index.html",
+    "configs/env.local.example",
+    "README.md",
+    "netlify.toml"
+  ],
+  "exclude_patterns": [
+    "__pycache__",
+    ".git",
+    ".venv",
+    "node_modules",
+    "*.pyc",
+    "*.log",
+    ".DS_Store"
+  ],
+  "auto_backup": true,
+  "backup_dir": "backups/base44_sync",
+  "sync_interval": 300,
+  "auto_restart_services": false,
+  "notification_webhook": null,
+  "dry_run": false,
+  "verbose_logging": true
+}

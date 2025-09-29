@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "auto_analysis": true,
+  "breakpoint_suggestions": true,
+  "error_categorization": true,
+  "fix_suggestions": true,
+  "test_generation": true,
+  "session_timeout": 3600,
+  "max_analysis_cache": 1000
+}

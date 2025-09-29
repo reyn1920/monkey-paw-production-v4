@@ -1,0 +1,41 @@
+{
+  "name": "Monkey Paw - Code Snippets",
+  "description": "Code snippets and examples for the Monkey Paw project",
+  "languages": {
+    "python": {
+      "version": "3.9",
+      "main_file": "main.py",
+      "dependencies": [
+        "fastapi",
+        "uvicorn",
+        "pydantic"
+      ]
+    },
+    "javascript": {
+      "version": "18.15.0",
+      "main_file": "index.js",
+      "dependencies": [
+        "express",
+        "cors"
+      ]
+    },
+    "typescript": {
+      "version": "4.9.5",
+      "main_file": "index.ts",
+      "dependencies": [
+        "@types/node"
+      ]
+    }
+  },
+  "settings": {
+    "memory_limit": "128000",
+    "time_limit": "5",
+    "compile_only": false,
+    "public": true
+  },
+  "templates": {
+    "api_endpoint": "backend/app.py",
+    "frontend_component": "src/components/",
+    "utility_function": "src/utils/"
+  }
+}

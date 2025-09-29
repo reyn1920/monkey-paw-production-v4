@@ -1,0 +1,145 @@
+{
+  "timestamp": "2025-09-06T05:23:06.028303",
+  "tests": {
+    "File System Integrity": {
+      "status": "PASS",
+      "details": {
+        "existing_paths": 4,
+        "missing_paths": [],
+        "integrity_score": "4/4"
+      },
+      "timestamp": "2025-09-06T05:23:06.059320"
+    },
+    "Database Connectivity": {
+      "status": "PASS",
+      "details": {
+        "tables_found": 98,
+        "database_accessible": true
+      },
+      "timestamp": "2025-09-06T05:23:07.068959"
+    },
+    "System Components": {
+      "status": "PASS",
+      "details": {
+        "available_components": 4,
+        "total_components": 4,
+        "component_status": {
+          "Dashboard": "AVAILABLE",
+          "Agents": "AVAILABLE",
+          "Task Queue": "AVAILABLE",
+          "Secret Store": "AVAILABLE"
+        }
+      },
+      "timestamp": "2025-09-06T05:23:08.069752"
+    },
+    "Dashboard Accessibility": {
+      "status": "FAIL",
+      "details": {
+        "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=10)"
+      },
+      "timestamp": "2025-09-06T05:23:19.079216"
+    },
+    "API Endpoints": {
+      "status": "FAIL",
+      "details": {
+        "endpoints_tested": 3,
+        "working_endpoints": 0,
+        "api_results": {
+          "/api/agents/status": "ERROR: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "/api/system/health": "ERROR: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "/api/tasks/pending": "ERROR: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)"
+        }
+      },
+      "timestamp": "2025-09-06T05:23:35.097636"
+    },
+    "Content Generation blog_post": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:24:06.169007"
+    },
+    "Content Generation social_media": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:24:36.176319"
+    },
+    "Content Generation video_script": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:25:06.181121"
+    },
+    "Content Generation newsletter": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:25:36.188894"
+    },
+    "Marketing Campaign": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:26:06.195640"
+    },
+    "Monetization subscription_revenue": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:26:36.195886"
+    },
+    "Monetization advertising_revenue": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:27:06.196914"
+    },
+    "Monetization affiliate_commissions": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:27:36.202471"
+    },
+    "Video Generation news_video": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:28:06.209741"
+    },
+    "Video Generation tutorial_video": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:28:36.215710"
+    },
+    "Video Generation promotional_video": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:29:06.224519"
+    },
+    "Integration: Content to Marketing Pipeline": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:29:36.232454"
+    },
+    "Integration: Marketing to Analytics Pipeline": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:30:06.248531"
+    },
+    "Integration: Content to Monetization Pipeline": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:30:36.257936"
+    },
+    "Performance: Content Generation Load": {
+      "status": "FAIL",
+      "details": "Only 0/5 successful in 30.01s",
+      "timestamp": "2025-09-06T05:31:06.270742"
+    },
+    "Performance: Analytics Query Load": {
+      "status": "FAIL",
+      "details": "Only 0/10 successful in 30.02s",
+      "timestamp": "2025-09-06T05:31:36.289793"
+    },
+    "Master Workflow": {
+      "status": "ERROR",
+      "details": {},
+      "timestamp": "2025-09-06T05:32:06.296885"
+    }
+  },
+  "overall_status": "MOSTLY_FUNCTIONAL",
+  "errors": [
+    "Dashboard test failed: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=10)"
+  ]
+}

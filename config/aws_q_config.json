@@ -1,0 +1,39 @@
+{
+  "amazon_q": {
+    "enabled": true,
+    "region": "us-east-1",
+    "profile": "default",
+    "features": {
+      "code_completion": true,
+      "code_explanation": true,
+      "code_generation": true,
+      "security_scanning": true,
+      "performance_optimization": true
+    },
+    "integration": {
+      "vscode": true,
+      "cursor": true,
+      "trae_ai": true
+    },
+    "settings": {
+      "auto_suggestions": true,
+      "inline_completions": true,
+      "chat_interface": true,
+      "context_awareness": true
+    }
+  },
+  "troubleshooting": {
+    "common_issues": [
+      "AWS credentials not configured",
+      "Region not set properly",
+      "Extension not installed",
+      "Network connectivity issues"
+    ],
+    "solutions": [
+      "Run 'aws configure' to set up credentials",
+      "Verify region in AWS config",
+      "Install Amazon Q extension from marketplace",
+      "Check internet connection and AWS service status"
+    ]
+  }
+}

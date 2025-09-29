@@ -1,0 +1,57 @@
+### Test TRAE.AI Health
+GET http://localhost:8000/api/trae-ai/health
+
+### Get TRAE.AI Status
+GET http://localhost:8000/api/trae-ai/status
+
+### Test AI Platforms
+GET http://localhost:8000/api/trae-ai/test-connection
+
+### Generate Content
+POST http://localhost:8000/api/trae-ai/generate-content
+Content-Type: application/json
+
+{
+  "prompt": "Write about AI trends in 2024",
+  "content_type": "article",
+  "max_length": 500
+}
+
+### Research Analysis
+POST http://localhost:8000/api/trae-ai/research
+Content-Type: application/json
+
+{
+  "topic": "artificial intelligence",
+  "depth": "comprehensive",
+  "sources": 5
+}
+
+### Create Video
+POST http://localhost:8000/api/trae-ai/create-video
+Content-Type: application/json
+
+{
+  "script": "AI is transforming the world",
+  "style": "educational",
+  "duration": 60
+}
+
+### Get Platform Status
+GET http://localhost:8000/api/trae-ai/platforms/status
+
+### Batch Generate Content
+POST http://localhost:8000/api/trae-ai/batch/generate-content
+Content-Type: application/json
+
+{
+  "prompts": [
+    "Write about machine learning",
+    "Explain neural networks",
+    "Describe AI ethics"
+  ],
+  "content_type": "article"
+}
+
+### Get Usage Analytics
+GET http://localhost:8000/api/trae-ai/analytics/usage

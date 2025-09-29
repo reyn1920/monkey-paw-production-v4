@@ -1,0 +1,9 @@
+{
+  "paths": [
+    "assets/backgrounds/*",
+    "assets/avatars/*",
+    "assets/out/*",
+    "assets/mappings/*",
+    "backups/*"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "timestamp": "2025-09-07T13:24:51.994031",
+  "tests_passed": 0,
+  "tests_failed": 7,
+  "test_details": [
+    {
+      "test_name": "System Health Check",
+      "passed": false,
+      "details": null,
+      "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/v1/system/status (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x101f301a0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "timestamp": "2025-09-07T13:24:52.001135"
+    },
+    {
+      "test_name": "Agent Communication",
+      "passed": false,
+      "details": null,
+      "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/v1/system/agents (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x101f19090>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "timestamp": "2025-09-07T13:24:54.009280"
+    },
+    {
+      "test_name": "Dashboard Functionality",
+      "passed": false,
+      "details": null,
+      "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x101f19950>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "timestamp": "2025-09-07T13:24:56.021807"
+    },
+    {
+      "test_name": "Monetization Integration",
+      "passed": false,
+      "details": null,
+      "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/v1/monetization/status (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x101f15940>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "timestamp": "2025-09-07T13:24:58.035157"
+    },
+    {
+      "test_name": "Channel Roadmap Execution",
+      "passed": false,
+      "details": null,
+      "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/v1/research/analyze (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x101f16190>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "timestamp": "2025-09-07T13:25:00.050532"
+    },
+    {
+      "test_name": "Video Generation",
+      "passed": false,
+      "details": null,
+      "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/v1/content/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x101f1e570>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "timestamp": "2025-09-07T13:25:02.058474"
+    },
+    {
+      "test_name": "Digital Product Generation",
+      "passed": false,
+      "details": null,
+      "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/v1/content/generate (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x101eabce0>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+      "timestamp": "2025-09-07T13:25:04.067877"
+    }
+  ]
+}

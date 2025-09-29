@@ -1,0 +1,42 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#f0f8ff"/>
+
+  <!-- Head -->
+  <ellipse cx="256" cy="200" rx="120" ry="140" fill="#fdbcb4"/>
+
+  <!-- Hair -->
+  <ellipse cx="256" cy="120" rx="130" ry="80" fill="#8b4513"/>
+
+  <!-- Eyes -->
+  <ellipse cx="220" cy="180" rx="15" ry="20" fill="white"/>
+  <ellipse cx="292" cy="180" rx="15" ry="20" fill="white"/>
+  <circle cx="220" cy="180" r="8" fill="#4169e1"/>
+  <circle cx="292" cy="180" r="8" fill="#4169e1"/>
+  <circle cx="222" cy="178" r="3" fill="black"/>
+  <circle cx="294" cy="178" r="3" fill="black"/>
+
+  <!-- Nose -->
+  <ellipse cx="256" cy="210" rx="8" ry="12" fill="#f4a460"/>
+
+  <!-- Mouth -->
+  <ellipse cx="256" cy="240" rx="25" ry="15" fill="#ff6b6b"/>
+  <ellipse cx="256" cy="235" rx="20" ry="10" fill="#ffffff"/>
+
+  <!-- Eyebrows -->
+  <ellipse cx="220" cy="160" rx="20" ry="5" fill="#654321"/>
+  <ellipse cx="292" cy="160" rx="20" ry="5" fill="#654321"/>
+
+  <!-- Neck -->
+  <rect x="226" y="320" width="60" height="80" fill="#fdbcb4"/>
+
+  <!-- Shirt -->
+  <rect x="180" y="400" width="152" height="112" fill="#4169e1"/>
+
+  <!-- Text -->
+  <text x="256" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#333">
+    TRAE.AI Avatar
+  </text>
+</svg>

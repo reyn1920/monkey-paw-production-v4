@@ -1,0 +1,26 @@
+# Avatar Port Configuration
+# CRITICAL: Never bind dashboard to avatar ports - this causes crashes
+
+avatar_ports:
+  linlyx_talker:
+    port: 9510
+    service: "Linlyx-Talker (Primary Avatar)"
+    description: "Full-body avatar with natural expressions and movements"
+    
+  talking_heads:
+    port: 9520
+    service: "Talking Heads / Picoccio (Secondary Avatar)"
+    description: "Talking head avatar with facial expressions"
+    
+dashboard_ports:
+  main_dashboard:
+    port: 9600
+    service: "Automation Dashboard"
+    description: "Main control dashboard - NEVER bind to avatar ports"
+
+# Port conflict prevention
+conflict_prevention:
+  enabled: true
+  check_interval: 30
+  auto_kill_conflicts: false
+  log_conflicts: true

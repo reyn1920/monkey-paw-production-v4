@@ -1,0 +1,62 @@
+{
+    "folders": [
+        {
+            "name": "Monkey Paw Production v4",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "python.defaultInterpreterPath": "./venv/bin/python",
+        "python.terminal.activateEnvironment": true,
+        "files.exclude": {
+            "**/__pycache__": true,
+            "**/*.pyc": true,
+            "**/node_modules": true,
+            "**/.git": true,
+            "**/.DS_Store": true,
+            "**/Thumbs.db": true,
+            "**/venv": true,
+            "**/.env": true
+        },
+        "search.exclude": {
+            "**/__pycache__": true,
+            "**/node_modules": true,
+            "**/venv": true,
+            "**/artifacts": true,
+            "**/out": true,
+            "**/db/*.db": true,
+            "**/db/*.db-shm": true,
+            "**/db/*.db-wal": true
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.pylint",
+            "ms-python.black-formatter",
+            "humao.rest-client",
+            "ms-vscode.vscode-json",
+            "redhat.vscode-yaml"
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "FastAPI Development Server",
+                "type": "python",
+                "request": "launch",
+                "program": "${workspaceFolder}/-m",
+                "args": ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"],
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "PYTHONPATH": "${workspaceFolder}",
+                    "ENVIRONMENT": "development"
+                },
+                "justMyCode": false,
+                "python": "${workspaceFolder}/venv/bin/python"
+            }
+        ]
+    }
+}

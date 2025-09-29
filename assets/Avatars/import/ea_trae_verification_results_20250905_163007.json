@@ -1,0 +1,46 @@
+{
+  "status": "failed",
+  "summary": {
+    "total_tests": 8,
+    "passed_tests": 2,
+    "failed_tests": 6,
+    "success_rate": 25.0,
+    "total_duration": 15.138928890228271
+  },
+  "test_results": {
+    "system_startup": {
+      "status": "passed",
+      "duration": 10.017265796661377
+    },
+    "dashboard_connectivity": {
+      "status": "failed",
+      "duration": 0.022933006286621094
+    },
+    "agent_initialization": {
+      "status": "failed",
+      "duration": 0.005254983901977539
+    },
+    "secret_store_security": {
+      "status": "passed",
+      "duration": 0.057166099548339844
+    },
+    "video_creation_api": {
+      "status": "failed",
+      "duration": 0.002335786819458008
+    },
+    "rss_intelligence_feed": {
+      "status": "failed",
+      "duration": 0.001405954360961914
+    },
+    "marketing_automation": {
+      "status": "failed",
+      "duration": 0.0014231204986572266
+    },
+    "zero_cost_stack": {
+      "status": "failed",
+      "duration": 0.011670112609863281
+    }
+  },
+  "timestamp": "2025-09-05T16:30:07.594950",
+  "system_ready": false
+}

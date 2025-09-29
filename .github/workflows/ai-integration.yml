@@ -1,0 +1,18 @@
+jobs:
+  ai-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Test AI integrations
+      run: python ai_systems_tracker.py --test
+name: AI Integration Tests
+'on':
+  push:
+    paths:
+    - '*_integration.py'
+    - ai_systems_tracker.py
+  workflow_dispatch: {}

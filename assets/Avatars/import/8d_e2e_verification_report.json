@@ -1,0 +1,577 @@
+{
+  "overall_status": "ERROR",
+  "success_rate": 46.666666666666664,
+  "total_tests": 15,
+  "passed_tests": 7,
+  "failed_tests": 2,
+  "error_tests": 6,
+  "skipped_tests": 0,
+  "duration": 27.451337,
+  "start_time": "2025-09-09T01:02:08.654377",
+  "end_time": "2025-09-09T01:02:36.105714",
+  "results_by_category": {
+    "system_health": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "cpu_usage_check",
+          "category": "TestCategory.SYSTEM_HEALTH",
+          "status": "TestStatus.PASSED",
+          "duration": 1.0009899139404297,
+          "message": "CPU usage: 72.0%",
+          "details": {
+            "cpu_usage": 72.0,
+            "threshold": 80.0
+          },
+          "timestamp": "2025-09-09 01:02:09.655502",
+          "error_trace": null
+        },
+        {
+          "test_name": "memory_usage_check",
+          "category": "TestCategory.SYSTEM_HEALTH",
+          "status": "TestStatus.PASSED",
+          "duration": 4.410743713378906e-05,
+          "message": "Memory usage: 72.2%",
+          "details": {
+            "memory_usage": 72.2,
+            "total_memory": 17179869184,
+            "available_memory": 4770332672,
+            "threshold": 85.0
+          },
+          "timestamp": "2025-09-09 01:02:09.657472",
+          "error_trace": null
+        },
+        {
+          "test_name": "disk_usage_check",
+          "category": "TestCategory.SYSTEM_HEALTH",
+          "status": "TestStatus.PASSED",
+          "duration": 4.696846008300781e-05,
+          "message": "Disk usage: 2.4%",
+          "details": {
+            "disk_usage": 2.351221045292076,
+            "total_space": 494384795648,
+            "used_space": 11624079360,
+            "free_space": 70567374848,
+            "threshold": 90.0
+          },
+          "timestamp": "2025-09-09 01:02:09.658311",
+          "error_trace": null
+        },
+        {
+          "test_name": "database_connectivity",
+          "category": "TestCategory.SYSTEM_HEALTH",
+          "status": "TestStatus.PASSED",
+          "duration": 0.00012302398681640625,
+          "message": "Database connection successful",
+          "details": {
+            "database_path": "data/test_results.db"
+          },
+          "timestamp": "2025-09-09 01:02:09.659186",
+          "error_trace": null
+        },
+        {
+          "test_name": "network_connectivity",
+          "category": "TestCategory.SYSTEM_HEALTH",
+          "status": "TestStatus.PASSED",
+          "duration": 1.0078232288360596,
+          "message": "Network test: HTTP 200",
+          "details": {
+            "status_code": 200,
+            "response_time": 1.002141
+          },
+          "timestamp": "2025-09-09 01:02:10.667720",
+          "error_trace": null
+        }
+      ]
+    },
+    "orchestrator": {
+      "total": 1,
+      "passed": 0,
+      "failed": 0,
+      "error": 1,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "orchestrator_initialization",
+          "category": "TestCategory.ORCHESTRATOR",
+          "status": "TestStatus.ERROR",
+          "duration": 5.7220458984375e-06,
+          "message": "Failed to initialize orchestrator: name 'TraeAIOrchestrator' is not defined",
+          "details": {
+            "error": "name 'TraeAIOrchestrator' is not defined"
+          },
+          "timestamp": "2025-09-09 01:02:10.669965",
+          "error_trace": "name 'TraeAIOrchestrator' is not defined"
+        }
+      ]
+    },
+    "creative_pipeline": {
+      "total": 1,
+      "passed": 0,
+      "failed": 0,
+      "error": 1,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "creative_pipeline_initialization",
+          "category": "TestCategory.CREATIVE_PIPELINE",
+          "status": "TestStatus.ERROR",
+          "duration": 3.814697265625e-06,
+          "message": "Failed to initialize creative pipeline: name 'HollywoodCreativePipeline' is not defined",
+          "details": {
+            "error": "name 'HollywoodCreativePipeline' is not defined"
+          },
+          "timestamp": "2025-09-09 01:02:10.671370",
+          "error_trace": "name 'HollywoodCreativePipeline' is not defined"
+        }
+      ]
+    },
+    "marketing_engine": {
+      "total": 1,
+      "passed": 0,
+      "failed": 0,
+      "error": 1,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "marketing_engine_initialization",
+          "category": "TestCategory.MARKETING_ENGINE",
+          "status": "TestStatus.ERROR",
+          "duration": 2.1457672119140625e-06,
+          "message": "Failed to initialize marketing engine: name 'MarketingMonetizationEngine' is not defined",
+          "details": {
+            "error": "name 'MarketingMonetizationEngine' is not defined"
+          },
+          "timestamp": "2025-09-09 01:02:10.672216",
+          "error_trace": "name 'MarketingMonetizationEngine' is not defined"
+        }
+      ]
+    },
+    "agentic_protocol": {
+      "total": 1,
+      "passed": 0,
+      "failed": 0,
+      "error": 1,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "agentic_protocol_initialization",
+          "category": "TestCategory.AGENTIC_PROTOCOL",
+          "status": "TestStatus.ERROR",
+          "duration": 1.9073486328125e-06,
+          "message": "Failed to initialize agentic protocol: name 'AgenticProtocol' is not defined",
+          "details": {
+            "error": "name 'AgenticProtocol' is not defined"
+          },
+          "timestamp": "2025-09-09 01:02:10.672963",
+          "error_trace": "name 'AgenticProtocol' is not defined"
+        }
+      ]
+    },
+    "diagnosis_repair": {
+      "total": 1,
+      "passed": 0,
+      "failed": 0,
+      "error": 1,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "diagnosis_repair_initialization",
+          "category": "TestCategory.DIAGNOSIS_REPAIR",
+          "status": "TestStatus.ERROR",
+          "duration": 2.1457672119140625e-06,
+          "message": "Failed to initialize diagnosis and repair: name 'AutonomousDiagnosisRepair' is not defined",
+          "details": {
+            "error": "name 'AutonomousDiagnosisRepair' is not defined"
+          },
+          "timestamp": "2025-09-09 01:02:10.673734",
+          "error_trace": "name 'AutonomousDiagnosisRepair' is not defined"
+        }
+      ]
+    },
+    "zero_cost_stack": {
+      "total": 1,
+      "passed": 0,
+      "failed": 0,
+      "error": 1,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "zero_cost_stack_initialization",
+          "category": "TestCategory.ZERO_COST_STACK",
+          "status": "TestStatus.ERROR",
+          "duration": 3.0994415283203125e-06,
+          "message": "Failed to initialize zero cost stack: name 'ZeroCostStackManager' is not defined",
+          "details": {
+            "error": "name 'ZeroCostStackManager' is not defined"
+          },
+          "timestamp": "2025-09-09 01:02:10.674498",
+          "error_trace": "name 'ZeroCostStackManager' is not defined"
+        }
+      ]
+    },
+    "integration": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "error": 0,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "component_integration",
+          "category": "TestCategory.INTEGRATION",
+          "status": "TestStatus.FAILED",
+          "duration": 5.9604644775390625e-06,
+          "message": "Component integration: 0/6 components initialized",
+          "details": {
+            "initialized_components": 0,
+            "total_components": 6,
+            "success_rate": 0.0
+          },
+          "timestamp": "2025-09-09 01:02:10.675379",
+          "error_trace": null
+        }
+      ]
+    },
+    "security": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "error": 0,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "secret_scanning",
+          "category": "TestCategory.SECURITY",
+          "status": "TestStatus.FAILED",
+          "duration": 24.70233917236328,
+          "message": "Found 29 potential secrets",
+          "details": {
+            "secrets_found": 29,
+            "details": [
+              {
+                "file": "./backend/secure_secret_store.py",
+                "pattern": "password[\\s]*[=:][\\s]*[\"\\'][a-zA-Z0-9!@#$%^&*]{8,}[\"\\']",
+                "match": "PASSWORD = \"password\""
+              },
+              {
+                "file": "./backend/rule1_scanner.py",
+                "pattern": "password[\\s]*[=:][\\s]*[\"\\'][a-zA-Z0-9!@#$%^&*]{8,}[\"\\']",
+                "match": "password = \"secret123\""
+              },
+              {
+                "file": "./backend/rule1_scanner.py",
+                "pattern": "password[\\s]*[=:][\\s]*[\"\\'][a-zA-Z0-9!@#$%^&*]{8,}[\"\\']",
+                "match": "password = 'admin123'"
+              },
+              {
+                "file": "./venv/lib/python3.13/site-packages/selenium/webdriver/common/devtools/v138/audits.py",
+                "pattern": "token[\\s]*[=:][\\s]*[\"\\'][a-zA-Z0-9+/=]{10,}[\"\\']",
+                "match": "TOKEN = \"ErrorIdToken\""
+              },
+              {
+                "file": "./venv/lib/python3.13/site-packages/selenium/webdriver/common/devtools/v139/audits.py",
+                "pattern": "token[\\s]*[=:][\\s]*[\"\\'][a-zA-Z0-9+/=]{10,}[\"\\']",
+                "match": "TOKEN = \"ErrorIdToken\""
+              }
+            ]
+          },
+          "timestamp": "2025-09-09 01:02:35.379296",
+          "error_trace": null
+        }
+      ]
+    },
+    "performance": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "system_response_time",
+          "category": "TestCategory.PERFORMANCE",
+          "status": "TestStatus.PASSED",
+          "duration": 0.0009448528289794922,
+          "message": "System response time: 0.001s",
+          "details": {
+            "response_time": 0.0009400844573974609,
+            "threshold": 5.0,
+            "operations_tested": 4
+          },
+          "timestamp": "2025-09-09 01:02:35.383842",
+          "error_trace": null
+        }
+      ]
+    },
+    "end_to_end": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "results": [
+        {
+          "test_name": "end_to_end_workflow",
+          "category": "TestCategory.END_TO_END",
+          "status": "TestStatus.PASSED",
+          "duration": 0.7196049690246582,
+          "message": "End-to-end workflow: 7/7 steps completed (100.0%)",
+          "details": {
+            "completed_steps": 7,
+            "total_steps": 7,
+            "success_rate": 100.0,
+            "workflow_steps": [
+              "System initialization",
+              "Component loading",
+              "Configuration validation",
+              "Database connectivity",
+              "Network connectivity",
+              "Security validation",
+              "Performance validation"
+            ]
+          },
+          "timestamp": "2025-09-09 01:02:36.104545",
+          "error_trace": null
+        }
+      ]
+    }
+  },
+  "all_results": [
+    {
+      "test_name": "cpu_usage_check",
+      "category": "TestCategory.SYSTEM_HEALTH",
+      "status": "TestStatus.PASSED",
+      "duration": 1.0009899139404297,
+      "message": "CPU usage: 72.0%",
+      "details": {
+        "cpu_usage": 72.0,
+        "threshold": 80.0
+      },
+      "timestamp": "2025-09-09 01:02:09.655502",
+      "error_trace": null
+    },
+    {
+      "test_name": "memory_usage_check",
+      "category": "TestCategory.SYSTEM_HEALTH",
+      "status": "TestStatus.PASSED",
+      "duration": 4.410743713378906e-05,
+      "message": "Memory usage: 72.2%",
+      "details": {
+        "memory_usage": 72.2,
+        "total_memory": 17179869184,
+        "available_memory": 4770332672,
+        "threshold": 85.0
+      },
+      "timestamp": "2025-09-09 01:02:09.657472",
+      "error_trace": null
+    },
+    {
+      "test_name": "disk_usage_check",
+      "category": "TestCategory.SYSTEM_HEALTH",
+      "status": "TestStatus.PASSED",
+      "duration": 4.696846008300781e-05,
+      "message": "Disk usage: 2.4%",
+      "details": {
+        "disk_usage": 2.351221045292076,
+        "total_space": 494384795648,
+        "used_space": 11624079360,
+        "free_space": 70567374848,
+        "threshold": 90.0
+      },
+      "timestamp": "2025-09-09 01:02:09.658311",
+      "error_trace": null
+    },
+    {
+      "test_name": "database_connectivity",
+      "category": "TestCategory.SYSTEM_HEALTH",
+      "status": "TestStatus.PASSED",
+      "duration": 0.00012302398681640625,
+      "message": "Database connection successful",
+      "details": {
+        "database_path": "data/test_results.db"
+      },
+      "timestamp": "2025-09-09 01:02:09.659186",
+      "error_trace": null
+    },
+    {
+      "test_name": "network_connectivity",
+      "category": "TestCategory.SYSTEM_HEALTH",
+      "status": "TestStatus.PASSED",
+      "duration": 1.0078232288360596,
+      "message": "Network test: HTTP 200",
+      "details": {
+        "status_code": 200,
+        "response_time": 1.002141
+      },
+      "timestamp": "2025-09-09 01:02:10.667720",
+      "error_trace": null
+    },
+    {
+      "test_name": "orchestrator_initialization",
+      "category": "TestCategory.ORCHESTRATOR",
+      "status": "TestStatus.ERROR",
+      "duration": 5.7220458984375e-06,
+      "message": "Failed to initialize orchestrator: name 'TraeAIOrchestrator' is not defined",
+      "details": {
+        "error": "name 'TraeAIOrchestrator' is not defined"
+      },
+      "timestamp": "2025-09-09 01:02:10.669965",
+      "error_trace": "name 'TraeAIOrchestrator' is not defined"
+    },
+    {
+      "test_name": "creative_pipeline_initialization",
+      "category": "TestCategory.CREATIVE_PIPELINE",
+      "status": "TestStatus.ERROR",
+      "duration": 3.814697265625e-06,
+      "message": "Failed to initialize creative pipeline: name 'HollywoodCreativePipeline' is not defined",
+      "details": {
+        "error": "name 'HollywoodCreativePipeline' is not defined"
+      },
+      "timestamp": "2025-09-09 01:02:10.671370",
+      "error_trace": "name 'HollywoodCreativePipeline' is not defined"
+    },
+    {
+      "test_name": "marketing_engine_initialization",
+      "category": "TestCategory.MARKETING_ENGINE",
+      "status": "TestStatus.ERROR",
+      "duration": 2.1457672119140625e-06,
+      "message": "Failed to initialize marketing engine: name 'MarketingMonetizationEngine' is not defined",
+      "details": {
+        "error": "name 'MarketingMonetizationEngine' is not defined"
+      },
+      "timestamp": "2025-09-09 01:02:10.672216",
+      "error_trace": "name 'MarketingMonetizationEngine' is not defined"
+    },
+    {
+      "test_name": "agentic_protocol_initialization",
+      "category": "TestCategory.AGENTIC_PROTOCOL",
+      "status": "TestStatus.ERROR",
+      "duration": 1.9073486328125e-06,
+      "message": "Failed to initialize agentic protocol: name 'AgenticProtocol' is not defined",
+      "details": {
+        "error": "name 'AgenticProtocol' is not defined"
+      },
+      "timestamp": "2025-09-09 01:02:10.672963",
+      "error_trace": "name 'AgenticProtocol' is not defined"
+    },
+    {
+      "test_name": "diagnosis_repair_initialization",
+      "category": "TestCategory.DIAGNOSIS_REPAIR",
+      "status": "TestStatus.ERROR",
+      "duration": 2.1457672119140625e-06,
+      "message": "Failed to initialize diagnosis and repair: name 'AutonomousDiagnosisRepair' is not defined",
+      "details": {
+        "error": "name 'AutonomousDiagnosisRepair' is not defined"
+      },
+      "timestamp": "2025-09-09 01:02:10.673734",
+      "error_trace": "name 'AutonomousDiagnosisRepair' is not defined"
+    },
+    {
+      "test_name": "zero_cost_stack_initialization",
+      "category": "TestCategory.ZERO_COST_STACK",
+      "status": "TestStatus.ERROR",
+      "duration": 3.0994415283203125e-06,
+      "message": "Failed to initialize zero cost stack: name 'ZeroCostStackManager' is not defined",
+      "details": {
+        "error": "name 'ZeroCostStackManager' is not defined"
+      },
+      "timestamp": "2025-09-09 01:02:10.674498",
+      "error_trace": "name 'ZeroCostStackManager' is not defined"
+    },
+    {
+      "test_name": "component_integration",
+      "category": "TestCategory.INTEGRATION",
+      "status": "TestStatus.FAILED",
+      "duration": 5.9604644775390625e-06,
+      "message": "Component integration: 0/6 components initialized",
+      "details": {
+        "initialized_components": 0,
+        "total_components": 6,
+        "success_rate": 0.0
+      },
+      "timestamp": "2025-09-09 01:02:10.675379",
+      "error_trace": null
+    },
+    {
+      "test_name": "secret_scanning",
+      "category": "TestCategory.SECURITY",
+      "status": "TestStatus.FAILED",
+      "duration": 24.70233917236328,
+      "message": "Found 29 potential secrets",
+      "details": {
+        "secrets_found": 29,
+        "details": [
+          {
+            "file": "./backend/secure_secret_store.py",
+            "pattern": "password[\\s]*[=:][\\s]*[\"\\'][a-zA-Z0-9!@#$%^&*]{8,}[\"\\']",
+            "match": "PASSWORD = \"password\""
+          },
+          {
+            "file": "./backend/rule1_scanner.py",
+            "pattern": "password[\\s]*[=:][\\s]*[\"\\'][a-zA-Z0-9!@#$%^&*]{8,}[\"\\']",
+            "match": "password = \"secret123\""
+          },
+          {
+            "file": "./backend/rule1_scanner.py",
+            "pattern": "password[\\s]*[=:][\\s]*[\"\\'][a-zA-Z0-9!@#$%^&*]{8,}[\"\\']",
+            "match": "password = 'admin123'"
+          },
+          {
+            "file": "./venv/lib/python3.13/site-packages/selenium/webdriver/common/devtools/v138/audits.py",
+            "pattern": "token[\\s]*[=:][\\s]*[\"\\'][a-zA-Z0-9+/=]{10,}[\"\\']",
+            "match": "TOKEN = \"ErrorIdToken\""
+          },
+          {
+            "file": "./venv/lib/python3.13/site-packages/selenium/webdriver/common/devtools/v139/audits.py",
+            "pattern": "token[\\s]*[=:][\\s]*[\"\\'][a-zA-Z0-9+/=]{10,}[\"\\']",
+            "match": "TOKEN = \"ErrorIdToken\""
+          }
+        ]
+      },
+      "timestamp": "2025-09-09 01:02:35.379296",
+      "error_trace": null
+    },
+    {
+      "test_name": "system_response_time",
+      "category": "TestCategory.PERFORMANCE",
+      "status": "TestStatus.PASSED",
+      "duration": 0.0009448528289794922,
+      "message": "System response time: 0.001s",
+      "details": {
+        "response_time": 0.0009400844573974609,
+        "threshold": 5.0,
+        "operations_tested": 4
+      },
+      "timestamp": "2025-09-09 01:02:35.383842",
+      "error_trace": null
+    },
+    {
+      "test_name": "end_to_end_workflow",
+      "category": "TestCategory.END_TO_END",
+      "status": "TestStatus.PASSED",
+      "duration": 0.7196049690246582,
+      "message": "End-to-end workflow: 7/7 steps completed (100.0%)",
+      "details": {
+        "completed_steps": 7,
+        "total_steps": 7,
+        "success_rate": 100.0,
+        "workflow_steps": [
+          "System initialization",
+          "Component loading",
+          "Configuration validation",
+          "Database connectivity",
+          "Network connectivity",
+          "Security validation",
+          "Performance validation"
+        ]
+      },
+      "timestamp": "2025-09-09 01:02:36.104545",
+      "error_trace": null
+    }
+  ]
+}

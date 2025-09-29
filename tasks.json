@@ -1,0 +1,94 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Runtime: FastAPI (reload)",
+      "type": "shell",
+      "command": "uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "UPR: pass-1",
+      "type": "shell",
+      "command": "python -u tools/py_audit.py --mode=pass1 || true",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "UPR: pass-2",
+      "type": "shell",
+      "command": "python -u tools/py_audit.py --mode=pass2 || true",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Rule-1 guard",
+      "type": "shell",
+      "command": "python -u tools/rule1_guard.py --fail-on-hit",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Syntax normalizer",
+      "type": "shell",
+      "command": "python -u tools/syntax_normalizer.py",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Puppeteer headful check",
+      "type": "shell",
+      "command": "node tools/puppeteer/check.js",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Phoenix snapshot (SQLite)",
+      "type": "shell",
+      "command": "mkdir -p .phoenix && ts=$(date +%Y%m%d_%H%M%S) && cp -v **/*.db .phoenix/ 2>/dev/null || true && echo \"Snapshot ${ts} complete\"",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Git: add & commit",
+      "type": "shell",
+      "command": "git add -A && git commit -m \"VS Code pack + UPR wiring (add-only)\" || true",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Git: push",
+      "type": "shell",
+      "command": "git push",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Format: Python (ruff+black)",
+      "type": "shell",
+      "command": "ruff check --fix . && black .",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Format: JS/TS (prettier)",
+      "type": "shell",
+      "command": "npx prettier -w .",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}

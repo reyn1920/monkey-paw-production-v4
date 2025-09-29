@@ -1,0 +1,26 @@
+{
+  "video_script": {
+    "title": "AI Content Revolution Demo",
+    "duration": "60 seconds",
+    "scenes": [
+      {
+        "scene": 1,
+        "duration": "10s",
+        "voiceover": "Welcome to the future of content creation, where AI generates Hollywood-quality media in seconds.",
+        "visual": "Montage of AI-generated content"
+      },
+      {
+        "scene": 2,
+        "duration": "20s",
+        "voiceover": "From photorealistic avatars to cinema-grade videos, our AI pipeline delivers production-ready content across all media types.",
+        "visual": "Avatar demonstration"
+      },
+      {
+        "scene": 3,
+        "duration": "30s",
+        "voiceover": "Experience the power of unlimited creativity, where your ideas become reality instantly.",
+        "visual": "Content generation process"
+      }
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monkey-Paw Integration Dashboard</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    .row { margin-bottom: 1em; }
+    button { margin-right: 1em; }
+    #prompt { width: 100%; height: 4em; }
+  </style>
+</head>
+<body>
+  <h1>Monkey-Paw Integration Dashboard</h1>
+  <div class="row">
+    <button id="convene">Convene ChatGPT ↔ Gemini</button>
+    <span id="convene-status"></span>
+  </div>
+  <div class="row">
+    <label><input type="checkbox" id="public-toggle"> Public</label>
+    <span id="public-status"></span>
+  </div>
+  <div class="row">
+    <button id="diagnostics">Run AI Coders Diagnostics</button>
+    <span id="diag-status"></span>
+  </div>
+  <div class="row">
+    <textarea id="prompt" placeholder="Prompt will appear here..."></textarea>
+    <button id="build-prompt">Build Prompt</button>
+    <span id="prompt-status"></span>
+  </div>
+  <script>
+    document.getElementById('convene').onclick = function() {
+      const prompt = document.getElementById('prompt').value;
+      navigator.clipboard.writeText(prompt);
+      window.open('https://chat.openai.com/', '_blank');
+      window.open('https://gemini.google.com/', '_blank');
+      document.getElementById('convene-status').textContent = 'Prompt copied. Tabs opened.';
+    };
+    document.getElementById('public-toggle').onchange = async function() {
+      const pub = this.checked;
+      const res = await fetch('/api/toggle_public', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ public: pub })
+      });
+      const data = await res.json();
+      document.getElementById('public-status').textContent = data.public ? 'Public' : 'Private';
+    };
+    document.getElementById('build-prompt').onclick = async function() {
+      const goal = 'Integrate all prior assets + upgrades into my current app and stabilize for live publish';
+      const constraints = ['Rule-1 ban','No-delete','Zero-cost','M1 friendly'];
+      const context = { merge: 'best-of-both' };
+      const res = await fetch('/api/prompt_broker', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ goal, constraints, context })
+      });
+      const data = await res.json();
+      document.getElementById('prompt').value = data.prompt;
+      document.getElementById('prompt-status').textContent = 'Prompt built.';
+    };
+    document.getElementById('diagnostics').onclick = function() {
+      document.getElementById('diag-status').textContent = 'Diagnostics: All AI coders mutual check (simulated).';
+    };
+  </script>
+</body>
+</html>

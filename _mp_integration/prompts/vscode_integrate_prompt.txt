@@ -1,0 +1,43 @@
+You are a professional assistant operating in VS Code on macOS (M1, 16GB).
+Goal: Integrate the attached “Monkey-Paw Integration Pack v6” into my CURRENT app additively (no deletions), then sweep/import from Google Drive + Downloads + Desktop and merge results. Keep zero-cost. Enforce Rule-1, No-Delete, and Universal Persistence Rule (two clean passes).
+
+Follow the Base44 Output Contract:
+
+PLAN
+- Detect my active workspace as the current app. Do not move or remove files.
+- Add-only: copy pack content into a new folder named _mp_integration/ at the root of the current app.
+- Create `.vscode/tasks.json` with tasks:
+  - “Run API” → ./_mp_integration/scripts/run_api.sh
+  - “Open Dashboard” → open ./_mp_integration/dashboard/index.html
+  - “Ingest From Sources” → python3 ./_mp_integration/merge/ingest_and_stage.py
+  - “Merge Staged Into Current” → bash ./_mp_integration/merge/merge_into_current.sh
+- Create Makefile with targets: run, ingest, merge, verify.
+- Print post-steps to toggle public and use the ChatGPT↔Gemini convene flow.
+
+DIFFS
+- Add `_mp_integration/` with backend/, dashboard/, merge/, scripts/, prompts/.
+- Add `.vscode/tasks.json` and `Makefile`.
+- Add `README_INTEGRATION.md` summarizing the steps and safety rules.
+
+COMMANDS
+- Use copy-based commands to place all pack files under `_mp_integration/` (no overwrite outside it).
+- Generate `.vscode/tasks.json` and `Makefile`.
+- Run the “Run API” task then “Open Dashboard”.
+- Guide me to edit `_mp_integration/merge/merge_config.json` to set:
+  - current_project_root = absolute path of this workspace
+  - import_paths = my Google Drive root path + Downloads + Desktop
+- Run “Ingest From Sources”, then “Merge Staged Into Current”.
+
+VERIFY
+- curl http://127.0.0.1:8000/api/health → {"status":"ok"}.
+- Toggle public → public:true shown on dashboard.
+- Build prompt in the dashboard → copied to clipboard; open both web tabs and paste.
+
+ROLLBACK
+- Remove `_mp_integration/` and folders created under `imports/`, `integrated_pack/`, `backups/` only. No other files.
+
+Constraints:
+- Rule-1 vocabulary ban in any added strings/docs.
+- No-Delete: do not remove or overwrite existing app code.
+- Zero-cost: do not add any paid/trial services.
+- Two-pass verification before declaring done.

@@ -1,0 +1,49 @@
+{
+  "workflows": {
+    "content_creation": {
+      "description": "End-to-end content creation workflow",
+      "steps": [
+        "ai_content_generation",
+        "media_processing",
+        "platform_upload",
+        "analytics_tracking"
+      ],
+      "platforms": [
+        "cursor",
+        "trae",
+        "davinci_resolve"
+      ]
+    },
+    "ai_integration_test": {
+      "description": "Test all AI platform integrations",
+      "steps": [
+        "platform_connectivity",
+        "api_validation",
+        "performance_testing"
+      ],
+      "platforms": [
+        "cursor",
+        "windsurf",
+        "trae",
+        "vscode",
+        "ollama",
+        "sublime"
+      ]
+    },
+    "deployment": {
+      "description": "Automated deployment workflow",
+      "steps": [
+        "testing",
+        "building",
+        "staging_deployment",
+        "integration_testing",
+        "production_deployment"
+      ],
+      "platforms": [
+        "github_actions",
+        "firebase",
+        "netlify"
+      ]
+    }
+  }
+}

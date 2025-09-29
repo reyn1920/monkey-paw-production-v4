@@ -1,0 +1,290 @@
+version: "3.8"
+
+# Test environment configuration for TRAE.AI CI/CD pipeline
+# This file is used for automated testing and E2E validation
+
+services:
+  # Test Database
+  postgres-test:
+    image: postgres:15-alpine
+    container_name: traeai-postgres-test
+    environment:
+      POSTGRES_DB: traeai_test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_pass
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - postgres_test_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d traeai_test"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - traeai-test-network
+
+  # Test Redis Cache
+  redis-test:
+    image: redis:7-alpine
+    container_name: traeai-redis-test
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_test_data:/data
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - traeai-test-network
+
+  # Test Message Queue
+  rabbitmq-test:
+    image: rabbitmq:3-management-alpine
+    container_name: traeai-rabbitmq-test
+    environment:
+      RABBITMQ_DEFAULT_USER: test_user
+      RABBITMQ_DEFAULT_PASS: test_pass
+      RABBITMQ_DEFAULT_VHOST: /
+    volumes:
+      - rabbitmq_test_data:/var/lib/rabbitmq
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - traeai-test-network
+
+  # Content Agent - Test Mode
+  content-agent-test:
+    build:
+      context: ./content-agent
+      dockerfile: Dockerfile
+    container_name: traeai-content-agent-test
+    environment:
+      - ENVIRONMENT=test
+      - USE_MOCK=true
+      - DATABASE_URL=postgresql://test_user:test_pass@postgres-test:5432/traeai_test
+      - REDIS_URL=redis://redis-test:6379/0
+      - RABBITMQ_URL=amqp://test_user:test_pass@rabbitmq-test:5672//
+      - OPENAI_API_KEY=test_key_mock
+      - ANTHROPIC_API_KEY=test_key_mock
+      - GOOGLE_API_KEY=test_key_mock
+      - ELEVENLABS_API_KEY=test_key_mock
+      - STABILITY_API_KEY=test_key_mock
+      - REPLICATE_API_TOKEN=test_key_mock
+      - LOG_LEVEL=DEBUG
+    ports:
+      - "8001:8000"
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+      rabbitmq-test:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      - ./test_output:/app/output
+      - ./logs:/app/logs
+    networks:
+      - traeai-test-network
+
+  # Marketing Agent - Test Mode
+  marketing-agent-test:
+    build:
+      context: ./marketing-agent
+      dockerfile: Dockerfile
+    container_name: traeai-marketing-agent-test
+    environment:
+      - ENVIRONMENT=test
+      - USE_MOCK=true
+      - DATABASE_URL=postgresql://test_user:test_pass@postgres-test:5432/traeai_test
+      - REDIS_URL=redis://redis-test:6379/1
+      - RABBITMQ_URL=amqp://test_user:test_pass@rabbitmq-test:5672//
+      - TWITTER_API_KEY=test_key_mock
+      - FACEBOOK_ACCESS_TOKEN=test_key_mock
+      - LINKEDIN_ACCESS_TOKEN=test_key_mock
+      - YOUTUBE_API_KEY=test_key_mock
+      - MAILCHIMP_API_KEY=test_key_mock
+      - HUBSPOT_API_KEY=test_key_mock
+      - LOG_LEVEL=DEBUG
+    ports:
+      - "8002:8000"
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+      rabbitmq-test:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      - ./test_output:/app/output
+      - ./logs:/app/logs
+    networks:
+      - traeai-test-network
+
+  # Monetization Bundle - Test Mode
+  monetization-bundle-test:
+    build:
+      context: ./monetization-bundle
+      dockerfile: Dockerfile
+    container_name: traeai-monetization-bundle-test
+    environment:
+      - ENVIRONMENT=test
+      - USE_MOCK=true
+      - DATABASE_URL=postgresql://test_user:test_pass@postgres-test:5432/traeai_test
+      - REDIS_URL=redis://redis-test:6379/2
+      - RABBITMQ_URL=amqp://test_user:test_pass@rabbitmq-test:5672//
+      - STRIPE_SECRET_KEY=sk_test_mock
+      - PAYPAL_CLIENT_ID=test_client_id_mock
+      - GUMROAD_ACCESS_TOKEN=test_token_mock
+      - SHOPIFY_ACCESS_TOKEN=test_token_mock
+      - LOG_LEVEL=DEBUG
+    ports:
+      - "8003:8000"
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+      rabbitmq-test:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      - ./test_output:/app/output
+      - ./logs:/app/logs
+    networks:
+      - traeai-test-network
+
+  # Analytics Dashboard - Test Mode
+  analytics-dashboard-test:
+    build:
+      context: ./analytics-dashboard
+      dockerfile: Dockerfile
+    container_name: traeai-analytics-dashboard-test
+    environment:
+      - ENVIRONMENT=test
+      - USE_MOCK=true
+      - DATABASE_URL=postgresql://test_user:test_pass@postgres-test:5432/traeai_test
+      - REDIS_URL=redis://redis-test:6379/3
+      - RABBITMQ_URL=amqp://test_user:test_pass@rabbitmq-test:5672//
+      - GOOGLE_ANALYTICS_CREDENTIALS=test_credentials_mock
+      - YOUTUBE_ANALYTICS_API_KEY=test_key_mock
+      - FACEBOOK_INSIGHTS_ACCESS_TOKEN=test_token_mock
+      - LOG_LEVEL=DEBUG
+    ports:
+      - "8004:8000"
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+      rabbitmq-test:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      - ./test_output:/app/output
+      - ./logs:/app/logs
+    networks:
+      - traeai-test-network
+
+  # Test Load Balancer (Nginx)
+  nginx-test:
+    image: nginx:alpine
+    container_name: traeai-nginx-test
+    volumes:
+      - ./nginx/nginx.test.conf:/etc/nginx/nginx.conf:ro
+      - ./test_output:/var/www/static
+    ports:
+      - "8080:80"
+    depends_on:
+      - content-agent-test
+      - marketing-agent-test
+      - monetization-bundle-test
+      - analytics-dashboard-test
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - traeai-test-network
+
+  # Test Runner Service
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: traeai-test-runner
+    environment:
+      - ENVIRONMENT=test
+      - USE_MOCK=true
+      - DATABASE_URL=postgresql://test_user:test_pass@postgres-test:5432/traeai_test
+      - REDIS_URL=redis://redis-test:6379/4
+      - RABBITMQ_URL=amqp://test_user:test_pass@rabbitmq-test:5672//
+      - CONTENT_AGENT_URL=http://content-agent-test:8000
+      - MARKETING_AGENT_URL=http://marketing-agent-test:8000
+      - MONETIZATION_BUNDLE_URL=http://monetization-bundle-test:8000
+      - ANALYTICS_DASHBOARD_URL=http://analytics-dashboard-test:8000
+      - NGINX_URL=http://nginx-test:80
+    volumes:
+      - ./tests:/app/tests
+      - ./test_output:/app/test_output
+      - ./logs:/app/logs
+    depends_on:
+      nginx-test:
+        condition: service_healthy
+    command: |
+      sh -c '
+        echo "🧪 Starting TRAE.AI Test Suite..."
+        python -m pytest tests/ -v --tb=short --maxfail=5
+        echo "✅ Test Suite Complete!"
+      '
+    networks:
+      - traeai-test-network
+
+volumes:
+  postgres_test_data:
+    driver: local
+  redis_test_data:
+    driver: local
+  rabbitmq_test_data:
+    driver: local
+
+networks:
+  traeai-test-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

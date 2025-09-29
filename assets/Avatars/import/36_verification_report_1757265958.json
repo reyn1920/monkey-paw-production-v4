@@ -1,0 +1,56 @@
+{
+  "timestamp": "2025-09-07T13:25:44.837795",
+  "tests_passed": 1,
+  "tests_failed": 6,
+  "test_details": [
+    {
+      "test_name": "System Health Check",
+      "passed": false,
+      "details": null,
+      "error": "HTTP 404: {\"error\":\"Not found\"}\n",
+      "timestamp": "2025-09-07T13:25:44.846766"
+    },
+    {
+      "test_name": "Agent Communication",
+      "passed": false,
+      "details": null,
+      "error": "HTTP 404",
+      "timestamp": "2025-09-07T13:25:46.859162"
+    },
+    {
+      "test_name": "Dashboard Functionality",
+      "passed": true,
+      "details": "Dashboard accessible with 4 key elements",
+      "error": null,
+      "timestamp": "2025-09-07T13:25:48.887973"
+    },
+    {
+      "test_name": "Monetization Integration",
+      "passed": false,
+      "details": null,
+      "error": "No monetization components found",
+      "timestamp": "2025-09-07T13:25:50.902801"
+    },
+    {
+      "test_name": "Channel Roadmap Execution",
+      "passed": false,
+      "details": null,
+      "error": "HTTP 404: Research endpoint unavailable",
+      "timestamp": "2025-09-07T13:25:52.932945"
+    },
+    {
+      "test_name": "Video Generation",
+      "passed": false,
+      "details": null,
+      "error": "HTTP 404: {\"error\":\"Not found\"}\n",
+      "timestamp": "2025-09-07T13:25:54.946596"
+    },
+    {
+      "test_name": "Digital Product Generation",
+      "passed": false,
+      "details": null,
+      "error": "HTTP 404: {\"error\":\"Not found\"}\n",
+      "timestamp": "2025-09-07T13:25:56.966136"
+    }
+  ]
+}

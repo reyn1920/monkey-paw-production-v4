@@ -1,0 +1,83 @@
+{
+  "cursor.general.enableAI": true,
+  "cursor.general.enableCodeGeneration": true,
+  "cursor.general.enableAutoComplete": true,
+  "cursor.general.enableInlineChat": true,
+  "cursor.general.enableComposer": true,
+  "cursor.platformIntegration": {
+    "enabled": true,
+    "supportedPlatforms": [
+      "bolt",
+      "firebase",
+      "trae"
+    ],
+    "syncWithVSCode": true,
+    "syncWithGitpod": true,
+    "syncWithReplit": true
+  },
+  "cursor.ai": {
+    "model": "gpt-4",
+    "enableContextAwareness": true,
+    "enableProjectAnalysis": true,
+    "enableMultiFileEditing": true,
+    "enableSmartSuggestions": true
+  },
+  "cursor.deployment": {
+    "autoDetectFramework": true,
+    "supportedPlatforms": [
+      "netlify",
+      "firebase",
+      "vercel"
+    ],
+    "enableOneClickDeploy": true,
+    "enablePreviewDeployments": true
+  },
+  "cursor.collaboration": {
+    "enableRealTimeSync": true,
+    "enableSharedCursor": true,
+    "enableVoiceChat": false,
+    "enableScreenShare": false
+  },
+  "cursor.extensions": {
+    "autoInstall": [
+      "ms-python.python",
+      "ms-python.black-formatter",
+      "ms-python.mypy-type-checker",
+      "bradlc.vscode-tailwindcss",
+      "esbenp.prettier-vscode",
+      "ms-vscode.vscode-typescript-next",
+      "firebase.firebase-vscode",
+      "ms-vscode.vscode-json",
+      "redhat.vscode-yaml",
+      "ms-vscode.vscode-eslint"
+    ],
+    "recommended": [
+      "github.copilot",
+      "github.copilot-chat",
+      "continue.continue",
+      "codeium.codeium",
+      "tabnine.tabnine-vscode"
+    ]
+  },
+  "cursor.terminal": {
+    "enableIntegratedTerminal": true,
+    "defaultShell": "zsh",
+    "enableMultipleTerminals": true,
+    "enableTerminalSync": true
+  },
+  "cursor.git": {
+    "enableGitIntegration": true,
+    "enableAutoCommit": false,
+    "enableSmartCommitMessages": true,
+    "enableBranchProtection": true
+  },
+  "cursor.debugging": {
+    "enableAdvancedDebugging": true,
+    "enableRemoteDebugging": true,
+    "enableMultiLanguageDebugging": true
+  },
+  "platformIntegration": {
+    "syncMode": "realtime",
+    "conflictResolution": "ai-assisted"
+  }
+}

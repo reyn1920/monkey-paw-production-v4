@@ -1,0 +1,44 @@
+# {TOPIC} - YouTube Script
+
+## Video Metadata
+- **Title**: {VIDEO_TITLE}
+- **Duration**: {VIDEO_DURATION}
+- **Category**: {VIDEO_CATEGORY}
+- **Tags**: {TAGS}
+
+## Script Structure
+
+### Hook (0-15 seconds)
+{HOOK}
+
+### Introduction (15-30 seconds)
+{INTRODUCTION}
+
+### Main Content (30-90% of video)
+{MAIN_CONTENT}
+
+### Call to Action (Last 10-15 seconds)
+{CALL_TO_ACTION}
+
+## Visual Cues
+- [0:00] Show title card
+- [0:15] Transition to main content
+- [0:30] Show key points on screen
+- [2:00] Display examples or demonstrations
+- [4:30] Show conclusion summary
+- [5:00] Display subscribe button
+
+## Thumbnail Ideas
+- {THUMBNAIL_IDEA_1}
+- {THUMBNAIL_IDEA_2}
+- {THUMBNAIL_IDEA_3}
+
+## SEO Optimization
+- **Primary Keyword**: {PRIMARY_KEYWORD}
+- **Secondary Keywords**: {SECONDARY_KEYWORDS}
+- **Description**: {VIDEO_DESCRIPTION}
+
+---
+*Script generated on {GENERATED_DATE}*
+*Estimated video length: {VIDEO_DURATION}*
+*Target audience: {TARGET_AUDIENCE}*

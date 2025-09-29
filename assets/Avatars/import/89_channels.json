@@ -1,0 +1,119 @@
+{
+  "channels": {
+    "The Right Perspective": {
+      "channel_id": "UC_fz1kiUOIDz5-VtVtKn7OQ",
+      "handle": "@therightperspective7777",
+      "display_name": "The Right Perspective",
+      "description": "Unfiltered conservative political commentary using Fox News as primary source",
+      "category": "politics",
+      "target_audience": "conservative viewers",
+      "content_style": "Gutfeld/Jesse Watters inspired",
+      "posting_schedule": "daily at 6 PM EST",
+      "target_length": "12-15 minutes",
+      "platforms": ["youtube"],
+      "email": "test@example.com",
+      "voice": "Matthew (Speechelo)",
+      "monetization": ["high-value ads", "merchandise", "affiliate marketing"],
+      "is_primary": true
+    },
+    "Next Gen Tech Today": {
+      "channel_id": "UC8pIkBnof0r5Fh6h5nxPh7g",
+      "handle": "@NextGenTechToday",
+      "display_name": "Next Gen Tech Today",
+      "description": "Hot new gadgets and available technology reviews",
+      "category": "technology",
+      "target_audience": "tech enthusiasts",
+      "content_style": "MKBHD/Linus Tech Tips inspired",
+      "posting_schedule": "daily at 8 PM EST",
+      "target_length": "10-12 minutes",
+      "platforms": ["youtube"],
+      "email": "test@example.com",
+      "voice": "David (Speechelo)",
+      "monetization": ["tech affiliate marketing", "sponsored reviews"],
+      "is_primary": false
+    },
+    "EcoWell Living": {
+      "channel_id": "UC_p_3vPbe6gpM8VK2uF2B6Q",
+      "handle": "@EcoWellLiving",
+      "display_name": "EcoWell Living",
+      "description": "Sustainable health and wellness with eco-friendly fashion",
+      "category": "health_wellness",
+      "target_audience": "health and eco-conscious viewers",
+      "content_style": "Thomas DeLauer/Pick Up Limes inspired",
+      "posting_schedule": "daily at 4 PM EST",
+      "target_length": "12-15 minutes",
+      "platforms": ["youtube"],
+      "email": "test@example.com",
+      "voice": "Brian (Speechelo)",
+      "monetization": ["eco-friendly product partnerships", "wellness services"],
+      "is_primary": false
+    },
+    "AI Trend Reports": {
+      "channel_id": "UC4wNMA9Xi0aJ_9kvJy6KBTQ",
+      "handle": "@AITrendReports",
+      "display_name": "AI Trend Reports",
+      "description": "Deep AI trend analysis, education, and career guidance",
+      "category": "ai_education",
+      "target_audience": "AI professionals and students",
+      "content_style": "Two Minute Papers/AI Explained inspired",
+      "posting_schedule": "daily at 7 PM EST",
+      "target_length": "15-18 minutes",
+      "platforms": ["youtube"],
+      "email": "test@example.com",
+      "voice": "Alex (Speechelo)",
+      "monetization": ["AI tool affiliate marketing", "course partnerships"],
+      "is_primary": false
+    }
+  },
+  "voice_profiles": {
+    "Matthew": {
+      "provider": "speechelo",
+      "voice_id": "matthew",
+      "gender": "male",
+      "accent": "US Standard",
+      "tone": "authoritative",
+      "speed": "normal",
+      "pitch": "medium",
+      "channel": "The Right Perspective"
+    },
+    "David": {
+      "provider": "speechelo",
+      "voice_id": "david",
+      "gender": "male",
+      "accent": "US Standard",
+      "tone": "professional",
+      "speed": "normal",
+      "pitch": "medium",
+      "channel": "Next Gen Tech Today"
+    },
+    "Brian": {
+      "provider": "speechelo",
+      "voice_id": "brian",
+      "gender": "male",
+      "accent": "US Standard",
+      "tone": "friendly",
+      "speed": "normal",
+      "pitch": "medium",
+      "channel": "EcoWell Living"
+    },
+    "Alex": {
+      "provider": "speechelo",
+      "voice_id": "alex",
+      "gender": "male",
+      "accent": "US Standard",
+      "tone": "educational",
+      "speed": "normal",
+      "pitch": "medium",
+      "channel": "AI Trend Reports"
+    }
+  },
+  "global_settings": {
+    "default_quality": "1080p",
+    "default_fps": 25,
+    "output_format": "mp4",
+    "enable_face_enhancement": true,
+    "enable_video_stabilization": true,
+    "temp_directory": "./temp",
+    "output_directory": "./output"
+  }
+}
